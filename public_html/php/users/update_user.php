@@ -4,11 +4,10 @@
 	$nombre = addslashes($_REQUEST['nombre']);
 	$apellido = addslashes($_REQUEST['apellido']);
 	$cedula = addslashes($_REQUEST['cedula']);
-	$pass = addslashes($_REQUEST['pass']);
-	$pass = password_hash($pass, PASSWORD_DEFAULT);
-	$retorno = $welcome->insert_user($nombre,$apellido,$cedula,$pass);
+	$id_user = addslashes($_REQUEST['id_user']);
+	$retorno = $welcome->edit_user($nombre,$apellido,$cedula,$id_user);
 	if (count($retorno) > 0 ) {
-		$respuesta = array('mensaje' => "registro correcto", 'status' => 1 );
+		$respuesta = array('mensaje' => "Actualizacion correcto", 'status' => 1 );
 	}else{
 		$respuesta = array('mensaje' => "error", 'status' => 0);
 	}
