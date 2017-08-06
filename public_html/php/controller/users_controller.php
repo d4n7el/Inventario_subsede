@@ -1,0 +1,36 @@
+<?php 
+	class Users{
+		private $bd;
+		private $retorno;
+
+		public function __construct(){
+			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
+			$this->db = Conexion::conect();
+			$this->retorno = Array();
+		}
+		public function insert_user($nombre,$apellido,$cedula,$pass){
+			try {
+				$sql_consult = $this->db->prepare('INSERT INTO user (name_user,last_name_user,cedula,pass) VALUES (?,?,?,?)'  );
+				$sql_consult->execute(array($nombre,$apellido,$cedula,$pass));
+				$result = $this->db->lastInsertId();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
+		public function get_user($id_user){
+			try {
+				$sql_consult = $this->db->prepare("SELECT * FROM user WHERE id_user LIKE ? " );
+				$sql_consult->execute(array($id_user));
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
+	}
+?>
