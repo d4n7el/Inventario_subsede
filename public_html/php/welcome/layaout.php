@@ -33,9 +33,10 @@
 	</div>
 	<div id="modal1" class="modal modal-fixed-footer">
 		<div class="modal-content">
-			<form action="" method="" accept-charset="">
-				<h5 class="titulo col m12 center-align ">Actualizacion</h5 class="titulo center-align ">
-			</form>
+			<h5 class="titulo col m12 center-align ">Actualizacion</h5 class="titulo center-align ">
+			<section>
+				
+			</section>
 		</div>
 		<div class="modal-footer">
 			<button class="modal-action modal-close waves-effect btn-flat btn-cerrar">

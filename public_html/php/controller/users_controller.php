@@ -32,17 +32,17 @@
             	$e->getMessage();
         	}
 		}
-		public function edit_user($nombre,$apellido,$cedula,$id_user){
+		public function edit_user($nombre,$apellido,$cedula,$cellar,$rol,$id_user){
 			try {
-				$sql_consult = $this->db->prepare('UPDATE user SET name_user = ?, last_name_user = ?, cedula = ? WHERE id_user = ? ');
-	            if ($sql_consult->execute(array($nombre,$apellido,$cedula,$id_user))) {
+				$sql_consult = $this->db->prepare('UPDATE user SET name_user = ?, last_name_user = ?, cedula = ?, id_cellar = ?, id_role = ? WHERE id_user = ? ');
+	            if ($sql_consult->execute(array($nombre,$apellido,$cedula,$cellar,$rol,$id_user))) {
 	            	return 1;
 	            }else{
 	            	return 0;
 	            }
 	            $this->db = null;
             } catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
 	}

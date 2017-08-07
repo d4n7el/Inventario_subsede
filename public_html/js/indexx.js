@@ -1,5 +1,6 @@
 $(document).on('ready',function(){
 	recargar_eventos();
+	html_global = "";
 	$('a#create_user').on('click', function(event) {
 		event.preventDefault();
 		$("div#vista_ventana").load("../php/users/create_user.php",function() {
@@ -8,21 +9,18 @@ $(document).on('ready',function(){
 	});
 	$('a#index_user').on('click', function(event) {
 		event.preventDefault();
-		var ruta = $(this).attr('href');
-		get_users(ruta);
+		$("div#vista_ventana").load("../php/users/index.php",function() {
+			recargar_eventos();
+		});
 	});
 });
-function get_users(ruta){
-	formData = {
-		'id_user': '%%', 
-	}
-	ajax_get_data(ruta,formData);
-}
 function eliminar_eventos(){
 	$('form#submit_user').off('submit');
 	$('form#submit_session').off('submit');
-	$('input.editar_info').off('click');
-	$('form#editar_info').off('submit');
+	$('button.editar_info').off('click');
+	$('form.update_info').off('submit');
+	$('button.actualizar_info').off('submit');
+	$('select').material_select('destroy');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
@@ -39,43 +37,23 @@ var recargar_eventos = function(){
 		var ruta =  $(this).attr('action');
 		ajax_set_form_data(ruta,formData);	
 	})
-	$('form#editar_info').on('submit', function(event) {
+	$('button.editar_info').on('click', function(event) {
+		event.preventDefault();
+		$(this).closest('form').find('div').removeClass('hide');
+		$(this).closest('form').find('button').removeClass('hide');
+		$(this).closest('form').find('button.editar_info').addClass('hide');
+		$(this).closest('form').find('input').removeAttr('readonly');
+	});
+	$('form.update_info').on('submit', function(event) {
 		event.preventDefault();
 		var formData = new FormData(this);
-		var ruta =  $(this).attr('action');
-		var id = $(this).attr('id_upate');
+		var ruta = $(this).attr('action');
 		ajax_set_form_data(ruta,formData);
-		var action_next = $(this).attr('action_next');
-		$('#modal1').modal('close');
-		setTimeout($('a#'+action_next).click());
-	})
-	$('input.editar_info').on('click', function(event) {
-		event.preventDefault();
-		var html = '<h5 class="titulo col m12 right-align " >Actualizacion</h5>\
-					<section></section>\
-					<div class="action col m12">\
-			        	<button class="waves-effect waves-light btn btn-primary right">\
-			        		<i class="material-icons left">near_me</i>Seguir\
-			        	</button>\
-		        	</div>'
-		$('div#modal1 div.modal-content form').html(html);
-		$('#modal1').modal('open');
-		var ruta = $(this).attr('ruta');
-		var id_form = $(this).attr('id_form');
-		var id = $(this).attr('id_update');
-		var action_next = $(this).attr('action_next');
-		var html = $(this).closest('section').html();
-		$('div#modal1 div.modal-content section').html(html);
-		$('div#modal1 div.modal-content div input').removeAttr('readonly').removeClass('hide');
-		$('div#modal1 div.modal-content div').removeClass('hide');
-		$('div#modal1 div.modal-content form').attr({
-			action: ruta,
-			id: id_form,
-			id_upate: id,
-			action_next: action_next,
-		});
-		$('div#modal1 div.modal-content input').removeClass(id_form);
-		recargar_eventos();
+	});
+	$('button.actualizar_info').on('click', function(event) {
+		$(this).addClass('hide');
+		$(this).closest('form').find('button.editar_info').removeClass('hide');
+		$(this).closest('form').find('div.oculto').addClass('hide');
 	});
 }
 function ajax_set_form_data(ruta,formData){
@@ -88,16 +66,22 @@ function ajax_set_form_data(ruta,formData){
 	    contentType: false,
 	    processData: false, 
 	    success: function(response){
-	    	console.log(response);
 	    	if (response['status'] > 0) {
 	    		mensaje_alert("success",response['mensaje']);
 	    		if (response['render'] != undefined ) {
-		    		setTimeout(function(){
-						var url = window.location.href;
-						url = url.replace(location.pathname, response['render']);
-						location.href = url;
-					}, 1500);
-				}
+	    			if (response['render'] != "") {
+			    		setTimeout(function(){
+							var url = window.location.href;
+							url = url.replace(location.pathname, response['render']);
+							location.href = url;
+						}, 1500);
+		    		}else{
+			    		setTimeout(function(){
+							var url = window.location.href;
+							location.href = url;
+						}, 1500);
+		    		}
+		   		}
 	    	}else{
 	    		mensaje_alert("error",response['mensaje']);
 	    	}
@@ -114,18 +98,18 @@ function ajax_set_form_json(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	if (response['status'] > 0) {
-	    		mensaje_alert("success",response['mensaje']);
-	    		if (response['render'] != undefined ) {
+	    	if (response['render'] != undefined && response['render'] != "") {
 		    		setTimeout(function(){
 						var url = window.location.href;
 						url = url.replace(location.pathname, response['render']);
 						location.href = url;
 					}, 1500);
+				}else{
+					setTimeout(function(){
+						var url = window.location.href;
+						location.href = url;
+					}, 1500);
 				}
-	    	}else{
-	    		mensaje_alert("error",response['mensaje']);
-	    	}
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);
@@ -139,45 +123,26 @@ function ajax_get_data(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	(response['render'] == "ver_usuarios" ? ver_usuarios(response['mensaje']) : "");
+	    	
+	    	
 	    },
 	    error: function(jqXHR,error,estado){
-	    	console.log(estado);
+	    	
 	    }
 	})
 }
-function ver_usuarios(response){
-	$("div#vista_ventana").html("");
-	var html = "";
-	$.each(response, function(key, value){
-		html += 
-		'<div class="row" id="'+value['id_user']+'">\
-			<section>\
-				<input value="'+value['id_user']+'" name="id_user" type="hidden" readonly>\
-				<div class="input-field col s4">\
-		            <i class="material-icons prefix">account_circle</i>\
-		            <input id="nombre_user" type="text" action_next="index_user" id_form="editar_info" ruta="php/users/update_user.php" id_update="'+value['id_user']+'" class="validate editar_info" name="nombre" autocomplete="off" value="'+value['name_user']+'"  readonly>\
-		            <label for="nombre_user" class="active">Nombre cliente</label>\
-		        </div>	\
-		        <div class="input-field col s4">\
-		            <i class="material-icons prefix">account_circle</i>\
-		            <input id="apellido_user" type="text" action_next="index_user" id_form="editar_info" ruta="php/users/update_user.php" id_update="'+value['id_user']+'" class="validate editar_info" name="apellido" autocomplete="off" value="'+value['last_name_user']+'" readonly >\
-		            <label for="apellido_user" class="active">Apellido cliente</label>\
-		        </div>\
-		        <div class="input-field col s4">\
-		            <i class="material-icons prefix">credit_card</i>\
-		            <input id="cedula_user" type="text" action_next="index_user" id_form="editar_info" ruta="php/users/update_user.php" id_update="'+value['id_user']+'" class="validate editar_info" name="cedula" autocomplete="off" value="'+value['cedula']+'" readonly >\
-		            <label for="cedula_user" class="active">Cedula cliente</label>\
-		        </div>\
-		        <div class="input-field col s4 hide">\
-		            <i class="material-icons prefix">credit_card</i>\
-		            <input id="pass_user" type="text" action_next="index_user" id_form="editar_info" ruta="php/users/update_user.php" id_update="'+value['id_user']+'" class="validate editar_info" name="pass" autocomplete="off" value="" readonly required>\
-		            <label for="pass_user" class="active">Confirma tu contraseña</label>\
-		        </div>\
-		    </section>\
-		</div>' 
-	});
-	$("div#vista_ventana").append(html);
+function vista_select_roles(){
+	response = ajax_get_data("php/roles/_view_roles_select.php",{'remote' : true});
+	html_global += 
+	'<i class="material-icons prefix">pan_tool</i>\
+	<select class="icons" name="rol" id="id rol">\
+	<option value="" disabled selected>Selecciona el rol del usuario</option>';
+		$.each(response, function(key, value){
+			html_global += '<option value="'+value['id_role']+'>'+value['name_rol']+'</option>';	
+		})
+	html_global += '</select>' ;
+	$("div#vista_ventana").append(html_global);
+	$('div#modal1 div.modal-content section').append(html_global);
 	recargar_eventos();
 }
 function mensaje_alert(tipo,mensaje,duracion){

@@ -5,7 +5,6 @@ body{
 	background-color: rgba(40,61,73,.7);
 }
 nav{
-	
 	background-image: url('../image/navs.png');
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -72,12 +71,16 @@ h5.titulo{
 	margin-top: 2em
 }
 .btn-primary,.btn-cerrar{
+	margin-right: .3em;
 	background-color: white;
 	color: rgba(40,61,73,1) ;
 }
 .btn-primary:hover{
 	background-color: white;
 	color: rgba(40,61,73,1) ;
+}
+.btn-success{
+	background-color: rgb(30,136,229);
 }
 .btn i{
 	color: rgba(40,61,73,1);
