@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 07-08-2017 a las 02:46:49
+-- Tiempo de generación: 07-08-2017 a las 23:13:52
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.1
 
@@ -38,6 +38,30 @@ INSERT INTO `cellar` (`id_cellar`, `name_cellar`, `description_cellar`, `date_cr
 (4, 'Insumos', 'Bodega Insumos', '2017-08-06 18:46:36'),
 (5, 'Equipos', 'Bodega equipos', '2017-08-06 18:47:46'),
 (6, 'Herramientas', 'Bodega Herramientas', '2017-08-06 18:47:46');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `products`
+--
+
+CREATE TABLE `products` (
+  `id_product` int(11) NOT NULL,
+  `name_product` varchar(100) NOT NULL,
+  `description_product` varchar(250) NOT NULL,
+  `unit_measure` varchar(20) NOT NULL,
+  `id_user_create` int(11) NOT NULL,
+  `id_cellar` int(11) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `products`
+--
+
+INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `unit_measure`, `id_user_create`, `id_cellar`, `creation_date`) VALUES
+(1, 'Carne de res', 'carne roja Medellin', 'Gr', 7, 3, '2017-08-07 21:09:46'),
+(5, 'Carne de Cerdo', 'carne Blanca djdncdekm iejedjie', 'Gr', 7, 3, '2017-08-07 20:15:24');
 
 -- --------------------------------------------------------
 
@@ -81,11 +105,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `cedula`, `pass`, `id_cellar`, `id_role`) VALUES
-(7, 'Daniel Felipe', 'Zamora Ortiz', '123456789', '$2y$10$MbgK/SGQWmmh1uEpHtC3WeySu5VfCYSbF42hyi/IBaS5TMIgiXFGG', 1, 1),
-(11, 'Yeison', 'Londoño tabares', '111', '$2y$10$5eQfVsC7qsHVTyJYyxAGoOXwXQZ6zgxoftBCf4ZMl7qDfEc20u8fO', 2, 2),
-(12, 'Pedro ', 'Triviño', '8478493', '$2y$10$gkq9s1mU6FlOYVvLSakrKeAXbrB/ZQTW1OxfVVJms6Q7ethVHOvcS', 3, 2),
-(13, 'Stefania ', 'casas', '33333', '$2y$10$RiKOYDslBlAPbyzH3Pw/MePTc3WQ4nkYGWpvpakX2Kv1nruoSxb.y', 4, 2),
-(14, 'alejandro', 'martinez Monaguillo', '88900', '$2y$10$tJIm5YYE2LX7/qAH2aoAfOViOeywdXUgUQql5TITAUmSyIsPTzJQm', 5, 2);
+(7, 'Daniel Felipe', 'Zamora Ortiz.', '123456789', '$2y$10$MbgK/SGQWmmh1uEpHtC3WeySu5VfCYSbF42hyi/IBaS5TMIgiXFGG', 2, 1),
+(15, 'stefania', 'casas', '33333', '$2y$10$fi/ObWvWDHI8qOItzyf1..J.WmBk6YnMOVAeATY8NJPotQYZUQJcq', 3, 2),
+(16, 'Pedro', 'triviño', '5883737282', '$2y$10$eYo1Chuil/FLsTMRsBbHDeL3PBqbPX9Kif7XJUJEnqLg2oub6YvdO', 4, 2),
+(17, 'Yeison', 'Londoño', '848378274', '$2y$10$FFTBYqNzlEJC4pVWqM/6MehsSgVQj1jYeOaLtvZwxkKCboD8qy/0K', 2, 2);
 
 --
 -- Índices para tablas volcadas
@@ -97,6 +120,16 @@ INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `cedula`, `pass`, 
 ALTER TABLE `cellar`
   ADD PRIMARY KEY (`id_cellar`),
   ADD UNIQUE KEY `name_cellar` (`name_cellar`);
+
+--
+-- Indices de la tabla `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id_product`),
+  ADD UNIQUE KEY `name_product` (`name_product`),
+  ADD KEY `id_user_create` (`id_user_create`),
+  ADD KEY `id_cellar` (`id_cellar`);
+ALTER TABLE `products` ADD FULLTEXT KEY `description_product` (`description_product`);
 
 --
 -- Indices de la tabla `roles`
@@ -125,6 +158,11 @@ ALTER TABLE `user`
 ALTER TABLE `cellar`
   MODIFY `id_cellar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
+-- AUTO_INCREMENT de la tabla `products`
+--
+ALTER TABLE `products`
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
@@ -133,10 +171,17 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`id_user_create`) REFERENCES `user` (`id_user`),
+  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`);
 
 --
 -- Filtros para la tabla `user`
