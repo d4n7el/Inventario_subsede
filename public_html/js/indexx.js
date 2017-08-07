@@ -88,6 +88,7 @@ function ajax_set_form_data(ruta,formData){
 	    contentType: false,
 	    processData: false, 
 	    success: function(response){
+	    	console.log(response);
 	    	if (response['status'] > 0) {
 	    		mensaje_alert("success",response['mensaje']);
 	    		if (response['render'] != undefined ) {

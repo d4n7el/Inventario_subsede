@@ -8,10 +8,10 @@
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
 		}
-		public function insert_user($nombre,$apellido,$cedula,$pass){
+		public function insert_user($nombre,$apellido,$cedula,$pass,$cellar,$rol){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO user (name_user,last_name_user,cedula,pass) VALUES (?,?,?,?)'  );
-				$sql_consult->execute(array($nombre,$apellido,$cedula,$pass));
+				$sql_consult = $this->db->prepare('INSERT INTO user (name_user,last_name_user,cedula,pass,id_cellar,id_role) VALUES (?,?,?,?,?,?)'  );
+				$sql_consult->execute(array($nombre,$apellido,$cedula,$pass,$cellar,$rol));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
 				return $result;
