@@ -24,7 +24,15 @@
 			            <i class="material-icons prefix">fingerprint</i>
 			            <input id="pass_user" type="password" class="validate" name="pass" autocomplete="off" required>
 			            <label for="pass_user" class="">Contraseña cliente</label>
-			        </div>		
+			        </div>
+
+			        <div class="input-field col s12 m12">
+			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/roles/_view_roles_select.php'); ?>
+			        </div>
+			        <div class="input-field col s12 m12">
+			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
+			        </div>
+			        		
 			        <div class="action col m12">
 			        	<button class="waves-effect waves-light btn btn-primary">
 			        		<i class="material-icons left">near_me</i>Seguir

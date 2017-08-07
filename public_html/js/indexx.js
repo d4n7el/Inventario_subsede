@@ -26,6 +26,7 @@ function eliminar_eventos(){
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	$('select').material_select();
 	$('form#submit_user').on('submit', function(event) {
 		event.preventDefault();
 		var formData = new FormData(document.getElementById("submit_user"));
@@ -65,7 +66,8 @@ var recargar_eventos = function(){
 		var action_next = $(this).attr('action_next');
 		var html = $(this).closest('section').html();
 		$('div#modal1 div.modal-content section').html(html);
-		$('div#modal1 div.modal-content div input').removeAttr('readonly');
+		$('div#modal1 div.modal-content div input').removeAttr('readonly').removeClass('hide');
+		$('div#modal1 div.modal-content div').removeClass('hide');
 		$('div#modal1 div.modal-content form').attr({
 			action: ruta,
 			id: id_form,
@@ -165,6 +167,11 @@ function ver_usuarios(response){
 		            <i class="material-icons prefix">credit_card</i>\
 		            <input id="cedula_user" type="text" action_next="index_user" id_form="editar_info" ruta="php/users/update_user.php" id_update="'+value['id_user']+'" class="validate editar_info" name="cedula" autocomplete="off" value="'+value['cedula']+'" readonly >\
 		            <label for="cedula_user" class="active">Cedula cliente</label>\
+		        </div>\
+		        <div class="input-field col s4 hide">\
+		            <i class="material-icons prefix">credit_card</i>\
+		            <input id="pass_user" type="text" action_next="index_user" id_form="editar_info" ruta="php/users/update_user.php" id_update="'+value['id_user']+'" class="validate editar_info" name="pass" autocomplete="off" value="" readonly required>\
+		            <label for="pass_user" class="active">Confirma tu contraseña</label>\
 		        </div>\
 		    </section>\
 		</div>' 
