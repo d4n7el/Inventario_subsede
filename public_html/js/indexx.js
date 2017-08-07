@@ -1,21 +1,14 @@
 $(document).on('ready',function(){
 	recargar_eventos();
-	html_global = "";
-	$('a#create_user').on('click', function(event) {
+	$('a.link_page').on('click', function(event) {
 		event.preventDefault();
-		$("div#vista_ventana").load("../php/users/create_user.php",function() {
-			recargar_eventos();
-		});
-	});
-	$('a#index_user').on('click', function(event) {
-		event.preventDefault();
-		$("div#vista_ventana").load("../php/users/index.php",function() {
+		var ruta = $(this).attr('href');
+		$("div#vista_ventana").load(ruta,function() {
 			recargar_eventos();
 		});
 	});
 });
 function eliminar_eventos(){
-	$('form#submit_user').off('submit');
 	$('form#submit_session').off('submit');
 	$('button.editar_info').off('click');
 	$('form.update_info').off('submit');
@@ -25,18 +18,12 @@ function eliminar_eventos(){
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
-	$('form#submit_user').on('submit', function(event) {
-		event.preventDefault();
-		var formData = new FormData(document.getElementById("submit_user"));
-		var ruta =  $(this).attr('action');
-		ajax_set_form_data(ruta,formData);
-	})
-	$('form#submit_session').on('submit', function(event) {
+	$('form.create_info').on('submit', function(event) {
 		event.preventDefault();
 		var formData = new FormData(this);
 		var ruta =  $(this).attr('action');
-		ajax_set_form_data(ruta,formData);	
-	})
+		ajax_set_form_data(ruta,formData);
+	});
 	$('button.editar_info').on('click', function(event) {
 		event.preventDefault();
 		$(this).closest('form').find('div').removeClass('hide');
@@ -54,6 +41,7 @@ var recargar_eventos = function(){
 		$(this).addClass('hide');
 		$(this).closest('form').find('button.editar_info').removeClass('hide');
 		$(this).closest('form').find('div.oculto').addClass('hide');
+		$(this).closest('form').find('input').attr('readonly','true');
 	});
 }
 function ajax_set_form_data(ruta,formData){
@@ -123,27 +111,12 @@ function ajax_get_data(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	
-	    	
+	    
 	    },
 	    error: function(jqXHR,error,estado){
 	    	
 	    }
 	})
-}
-function vista_select_roles(){
-	response = ajax_get_data("php/roles/_view_roles_select.php",{'remote' : true});
-	html_global += 
-	'<i class="material-icons prefix">pan_tool</i>\
-	<select class="icons" name="rol" id="id rol">\
-	<option value="" disabled selected>Selecciona el rol del usuario</option>';
-		$.each(response, function(key, value){
-			html_global += '<option value="'+value['id_role']+'>'+value['name_rol']+'</option>';	
-		})
-	html_global += '</select>' ;
-	$("div#vista_ventana").append(html_global);
-	$('div#modal1 div.modal-content section').append(html_global);
-	recargar_eventos();
 }
 function mensaje_alert(tipo,mensaje,duracion){
 	duracion || (duracion = 1500);

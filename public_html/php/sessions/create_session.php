@@ -1,6 +1,6 @@
 <div class="row">
     <div class="formulario col m6 offset-m3">
-    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/sessions/new_session.php" id="submit_session">
+    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/sessions/new_session.php" class="create_info">
 	        <div class="input-field col s12 m12">
 	            <i class="material-icons prefix">credit_card</i>
 	            <input id="cedula_user" type="text" class="validate align-center " name="cedula" autocomplete="off"  required>

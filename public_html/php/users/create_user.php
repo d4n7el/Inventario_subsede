@@ -4,7 +4,7 @@
 ?>
 		<div class="row">
 		    <div class="formulario col m6 offset-m3">
-		    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/new_user.php" id="submit_user">
+		    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/new_user.php" class="create_info">
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">account_circle</i>
 			            <input id="nombre_user" type="text" class="validate" name="nombre" autocomplete="off" required>
@@ -35,7 +35,7 @@
 			        		
 			        <div class="action col m12">
 			        	<button class="waves-effect waves-light btn btn-primary">
-			        		<i class="material-icons left">near_me</i>Seguir
+			        		<i class="material-icons left">near_me</i>Guardar
 			        	</button>
 			        </div>	
 				</form>
