@@ -50,22 +50,22 @@
 			<div class="card transparent darken-1">
 				<div class="card-content white-text">
 					<div class="title" >
-						<span class="card-title">Usuarios</span>
+						<span class="card-title">Unidades de medida</span>
 					</div>
-					<div class="content blue darken-1 centrar" >
+					<div class="content green darken-1 centrar" >
 						<div class="izquierda col s6 centrar">
-							<i class="material-icons">account_circle</i>
+							<i class="material-icons">hourglass_empty</i>
 						</div>
 						<div class="derecha col s6 centrar">
 							10
 						</div>
 					</div>
 				</div>
-				<div class="card-action blue darken-4" >
-					<a href="#" id="create_user">Crear usuario<i class="material-icons right">add</i></a>
+				<div class="card-action green darken-4" >
+					<a href="#" id="create_user">Crear medida<i class="material-icons right">add</i></a>
 				</div>
-				<div class="card-action blue darken-4" >
-					<a href="#">Ver usuario<i class="material-icons right">visibility</i></a>
+				<div class="card-action green darken-4" >
+					<a href="#">Ver medidas<i class="material-icons right">visibility</i></a>
 				</div>
 			</div>
 	    </div>

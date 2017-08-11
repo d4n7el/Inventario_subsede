@@ -1,9 +1,7 @@
 <?php 
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/cellar_controller.php');
 	$cellar = new Cellars();
-	$id_cellar = $_REQUEST['id_rol'];
-	$id_cellar || $id_cellar = '%%';
-	$value['id_cellar'] || $value['id_cellar'] = 0;
+	(isset($_REQUEST['id_rol']) ? $id_cellar = $_REQUEST['id_rol'] : $id_cellar = "%%");
 	$retorno_cellar = $cellar->get_cellar($id_cellar); 
 	?>
 	

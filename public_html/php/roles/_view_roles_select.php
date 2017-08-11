@@ -1,8 +1,8 @@
 <?php 
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/roles_controller.php');
 	$roles = new Roles();
-	$id_rol = $_REQUEST['id_rol'];
-	$remote = $_REQUEST['remote'];
+	(isset($_REQUEST['id_rol']) ? $id_rol = $_REQUEST['id_rol'] : $id_rol = "");
+	(isset($_REQUEST['remote']) ? $remote = $_REQUEST['remote'] : "");
 	$id_rol || $id_rol = '%%';
 	$retorno = $roles->get_roles($id_rol);
 	if (isset($remote)) {

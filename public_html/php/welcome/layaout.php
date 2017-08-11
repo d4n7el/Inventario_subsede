@@ -27,7 +27,13 @@
 	<div class="principal">
 		<div class="row">
 			<div class="col m12">
-				<?php  require_once($_SERVER['DOCUMENT_ROOT'].'/php/welcome/index.php'); ?>
+				<?php  
+					if (isset($_SESSION["id_user_activo"])) {
+						require_once($_SERVER['DOCUMENT_ROOT'].'/php/welcome/_view_index_session.php'); 
+					}else{
+						require_once($_SERVER['DOCUMENT_ROOT'].'/php/sessions/create_session.php'); 
+					}
+				?>
 			</div>
 		</div>
 	</div>
