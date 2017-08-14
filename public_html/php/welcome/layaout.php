@@ -13,7 +13,12 @@
 	<header>
   		<nav>
 	    <div class="nav-wrapper">
-	      <a href="#" class="brand-logo right"><?php echo $_SESSION["name_user_activo"]; ?></a>
+	      <?php 
+	      	if (isset($_SESSION["name_user_activo"])) { ?>	
+	      		<a href="#" class="brand-logo right"><?php echo $_SESSION["name_user_activo"]; ?></a>
+	      		<?php 
+	      	}
+	      ?>
 	      <ul id="nav-mobile" class="left hide-on-med-and-down">
 	      		<li>
 	      			<a class="btn-floating btn-cerrar btn" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/sessions/remove_session.php?cerrarSesion=true">

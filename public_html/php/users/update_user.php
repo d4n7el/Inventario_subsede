@@ -9,7 +9,7 @@
 	$rol = addslashes($_REQUEST['rol']);
 	$retorno = $welcome->edit_user($nombre,$apellido,$cedula,$cellar,$rol,$id_user);
 	if (count($retorno) > 0 ) {
-		$respuesta = array('mensaje' => "Actualizacion correcto", 'status' => 1 );
+		$respuesta = array('mensaje' => "Actualización correcta", 'status' => 1 );
 	}else{
 		$respuesta = array('mensaje' => "error", 'status' => 0);
 	}

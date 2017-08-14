@@ -3,8 +3,13 @@ body{
 }
 .nav-wrapper{
 	background-color: rgba(40,61,73,.7);
+	position: fixed;
+	top: 0;
 }
 nav{
+	position: fixed;
+	top: 0;
+	z-index: 100;
 	background-image: url('../image/navs.png');
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -14,7 +19,7 @@ i{
 	color: white;
 }
 .row{
-	margin-top: 2em !important;
+	margin-top: 3em !important;
 }
 #modal_mensajes{
 	background-color: transparent;
@@ -24,8 +29,8 @@ i{
 	width: 60%;
 }
 #modal_mensajes .modal-content .card-image{
-	min-height: 18em;
-	max-height: 18em;
+	min-height: 14em;
+	max-height: 14em;
 }
 .centrar{
 	display: flex;
@@ -124,11 +129,15 @@ h5.titulo{
 }
 div.menu{
 	position: fixed;
-	height: 80%;
+	height: 90%;
 	overflow: hidden;
 	overflow: scroll;
 	padding-bottom: 20em;
+	overflow-x: hidden;
 }
 #modal1{
 	background-color: rgba(40,61,73,1);
+}
+div#modal_mensajes div.modal-content .card-action a {
+	color: rgba(40,61,73,1) !important;
 }

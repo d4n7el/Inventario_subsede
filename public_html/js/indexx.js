@@ -54,25 +54,7 @@ function ajax_set_form_data(ruta,formData){
 	    contentType: false,
 	    processData: false, 
 	    success: function(response){
-	    	if (response['status'] > 0) {
-	    		mensaje_alert("success",response['mensaje']);
-	    		if (response['render'] != undefined ) {
-	    			if (response['render'] != "") {
-			    		setTimeout(function(){
-							var url = window.location.href;
-							url = url.replace(location.pathname, response['render']);
-							location.href = url;
-						}, 1500);
-		    		}else{
-			    		setTimeout(function(){
-							var url = window.location.href;
-							location.href = url;
-						}, 1500);
-		    		}
-		   		}
-	    	}else{
-	    		mensaje_alert("error",response['mensaje']);
-	    	}
+	    	success(response);
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);
@@ -86,18 +68,7 @@ function ajax_set_form_json(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	if (response['render'] != undefined && response['render'] != "") {
-		    		setTimeout(function(){
-						var url = window.location.href;
-						url = url.replace(location.pathname, response['render']);
-						location.href = url;
-					}, 1500);
-				}else{
-					setTimeout(function(){
-						var url = window.location.href;
-						location.href = url;
-					}, 1500);
-				}
+	    	success(response);
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);
@@ -118,10 +89,31 @@ function ajax_get_data(ruta,formData){
 	    }
 	})
 }
+function success(response){
+	if (response['status'] > 0) {
+		mensaje_alert("success",response['mensaje']);
+		if (response['render'] != undefined ) {
+			if (response['render'] != "") {
+	    		setTimeout(function(){
+					var url = window.location.href;
+					url = url.replace(location.pathname, response['render']);
+					location.href = url;
+				}, 1500);
+    		}else{
+	    		setTimeout(function(){
+					var url = window.location.href;
+					location.href = url;
+				}, 1500);
+    		}
+   		}
+	}else{
+		mensaje_alert("error",response['mensaje']);
+	}
+}
 function mensaje_alert(tipo,mensaje,duracion){
-	duracion || (duracion = 1500);
+	duracion || (duracion = 2000);
 	if (tipo == "success") {
-		var img = "https://cdn4.iconfinder.com/data/icons/ballicons-2-new-generation-of-flat-icons/100/tick-512.png";
+		var img = "../image/success.gif";
 	}else{
 		var img = "https://cdn2.iconfinder.com/data/icons/perfect-flat-icons-2/512/Error_warning_alert_attention_remove_dialog.png";
 	}

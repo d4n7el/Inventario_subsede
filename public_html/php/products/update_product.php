@@ -9,7 +9,7 @@
 	$bodega 			= $_REQUEST["cellar"];
 	$retorno_product 	= $product->update_product($producto,$descripcion,$bodega,$id_user,$id_producto);
 	if (count($retorno_product) > 0) {
-		$respuesta = array('mensaje' => $id_producto, 'status' => 1 );
+		$respuesta = array('mensaje' => "Actualización correcta", 'status' => 1 );
 	}else{
 		$respuesta = array('mensaje' => "error", 'status' => 0 );
 	}
