@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 07-08-2017 a las 23:13:52
+-- Tiempo de generación: 17-08-2017 a las 04:03:34
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.1
 
@@ -42,6 +42,28 @@ INSERT INTO `cellar` (`id_cellar`, `name_cellar`, `description_cellar`, `date_cr
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `measure`
+--
+
+CREATE TABLE `measure` (
+  `id_measure` int(11) NOT NULL,
+  `name_measure` varchar(20) NOT NULL,
+  `prefix_measure` varchar(6) NOT NULL,
+  `id_user_create` int(11) NOT NULL,
+  `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `measure`
+--
+
+INSERT INTO `measure` (`id_measure`, `name_measure`, `prefix_measure`, `id_user_create`, `date_create`) VALUES
+(1, 'Kilogramo', 'Kg', 7, '2017-08-17 01:55:03'),
+(2, 'Libra', 'Lb', 7, '2017-08-17 01:06:09');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `products`
 --
 
@@ -60,8 +82,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `unit_measure`, `id_user_create`, `id_cellar`, `creation_date`) VALUES
-(1, 'Carne de res', 'carne roja Medellin', 'Gr', 7, 3, '2017-08-07 21:09:46'),
-(5, 'Carne de Cerdo', 'carne Blanca djdncdekm iejedjie', 'Gr', 7, 3, '2017-08-07 20:15:24');
+(1, 'Carne de res', 'carne roja Medellin', '1', 7, 3, '2017-08-17 01:06:43'),
+(5, 'Carne de Cerdo', 'carne Blanca djdncdekm iejedjie', '1', 7, 3, '2017-08-17 01:06:47'),
+(7, 'Leche Liquida', 'Bosas de Leche Liquida', '1', 7, 2, '2017-08-17 01:06:51');
 
 -- --------------------------------------------------------
 
@@ -105,10 +128,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `cedula`, `pass`, `id_cellar`, `id_role`) VALUES
-(7, 'Daniel Felipe', 'Zamora Ortiz.', '123456789', '$2y$10$MbgK/SGQWmmh1uEpHtC3WeySu5VfCYSbF42hyi/IBaS5TMIgiXFGG', 2, 1),
+(7, 'Daniel Felipe', 'Zamora Ortiz', '123456789', '$2y$10$MbgK/SGQWmmh1uEpHtC3WeySu5VfCYSbF42hyi/IBaS5TMIgiXFGG', 2, 1),
 (15, 'stefania', 'casas', '33333', '$2y$10$fi/ObWvWDHI8qOItzyf1..J.WmBk6YnMOVAeATY8NJPotQYZUQJcq', 3, 2),
 (16, 'Pedro', 'triviño', '5883737282', '$2y$10$eYo1Chuil/FLsTMRsBbHDeL3PBqbPX9Kif7XJUJEnqLg2oub6YvdO', 4, 2),
-(17, 'Yeison', 'Londoño', '848378274', '$2y$10$FFTBYqNzlEJC4pVWqM/6MehsSgVQj1jYeOaLtvZwxkKCboD8qy/0K', 2, 2);
+(17, 'Yeison', 'Londoño', '848378274', '$2y$10$FFTBYqNzlEJC4pVWqM/6MehsSgVQj1jYeOaLtvZwxkKCboD8qy/0K', 2, 2),
+(18, 'Julio cesar', 'Guapacha', '6543728954932', '$2y$10$V//tBsKlFLY8pyF83XJgR.fd7NXWbHw3vs6GM3WN7CYnwrAbAS.h2', 5, 2);
 
 --
 -- Índices para tablas volcadas
@@ -120,6 +144,14 @@ INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `cedula`, `pass`, 
 ALTER TABLE `cellar`
   ADD PRIMARY KEY (`id_cellar`),
   ADD UNIQUE KEY `name_cellar` (`name_cellar`);
+
+--
+-- Indices de la tabla `measure`
+--
+ALTER TABLE `measure`
+  ADD PRIMARY KEY (`id_measure`),
+  ADD UNIQUE KEY `prefix_measure` (`prefix_measure`),
+  ADD UNIQUE KEY `name_measure` (`name_measure`);
 
 --
 -- Indices de la tabla `products`
@@ -158,10 +190,15 @@ ALTER TABLE `user`
 ALTER TABLE `cellar`
   MODIFY `id_cellar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
+-- AUTO_INCREMENT de la tabla `measure`
+--
+ALTER TABLE `measure`
+  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
@@ -171,7 +208,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- Restricciones para tablas volcadas
 --
