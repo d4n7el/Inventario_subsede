@@ -65,7 +65,7 @@
 					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/measure/create_measure.php" id="create_user" class="link_page">Crear medida<i class="material-icons right">add</i></a>
 				</div>
 				<div class="card-action green darken-4" >
-					<a href="#">Ver medidas<i class="material-icons right">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/measure/" class="link_page">Ver medidas<i class="material-icons right">visibility</i></a>
 				</div>
 			</div>
 	    </div>

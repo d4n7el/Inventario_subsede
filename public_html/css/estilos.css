@@ -38,6 +38,7 @@ i{
 	align-items: center;
 }
 label{
+	color: white !important;
 	padding-left: 2em !important;
 }
 input[type=text],input[type=number],input[type=password]{
@@ -112,7 +113,9 @@ h5.titulo{
 	padding: 5px !important;
 }
 .targeta_inicio .card .card-content div.title{
-	background-color: rgba(0,0,0,.4) ;
+	background-image: url('../image/navs.png');
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 .targeta_inicio .card .card-content div.content{
 	min-height: 10em; 

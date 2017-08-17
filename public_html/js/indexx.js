@@ -135,6 +135,7 @@ function mensaje_alert(tipo,mensaje,duracion){
 	$("div#modal_mensajes").html(html);
 	$('#modal_mensajes').modal('open');
 	setTimeout(function(){
+		$("div#modal_mensajes").html("");
 		$('#modal_mensajes').modal('close');
 	}, duracion);
 }
