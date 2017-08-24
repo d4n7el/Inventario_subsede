@@ -5,7 +5,8 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Inventario Subsede </title>
+	<title>Inventario Subsede</title>
+	<!-- <h1>hola</h1> -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/css/estilos.css">
 </head>
