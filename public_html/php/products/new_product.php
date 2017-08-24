@@ -8,7 +8,7 @@
 	$unidad_medida 		= $_REQUEST["unidad_medida"];
 	$bodega 			= $_REQUEST["cellar"];
 	$retorno_product 	= $product->insert_product($producto,$descripcion,$unidad_medida,$id_user,$bodega);
-	if (count($retorno_product) > 0) {
+	if ($retorno_product > 0) {
 		$respuesta = array('mensaje' => "registro correcto", 'status' => 1 );
 	}else{
 		$respuesta = array('mensaje' => "error", 'status' => 0 );

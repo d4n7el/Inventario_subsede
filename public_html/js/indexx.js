@@ -7,6 +7,14 @@ $(document).on('ready',function(){
 			recargar_eventos();
 		});
 	});
+	$('a.view_user').on('click', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('href');
+		var id_user = $(this).attr('id_user');
+		$("div#vista_ventana").load(ruta,{id_user: id_user},function() {
+			recargar_eventos();
+		});
+	});
 });
 function eliminar_eventos(){
 	$('form#submit_session').off('submit');

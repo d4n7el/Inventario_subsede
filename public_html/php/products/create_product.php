@@ -15,16 +15,9 @@
 			            <input id="nombre_descripcion" type="text" class="validate" name="descripcion" autocomplete="off" required>
 			            <label for="nombre_descripcion" class="">Descripcion</label>
 			        </div>	
-			        <div class="input-field col s12">
-			        	<i class="material-icons prefix">hourglass_empty</i>
-						<select name="unidad_medida">
-							<option value="" disabled selected>Selecciona la unidad de medida</option>
-							<option value="Kg">Kilogramo</option>
-							<option value="Gr">Gramos</option>
-							<option value="Und">Unidad</option>
-						</select>
-    					<label>Unidad de medida</label>
-  					</div>
+  					<div class="input-field col s12 m12">
+			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/measure/get_measure.php'); ?>
+			        </div>
   					<div class="input-field col s12 m12">
 			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
 			        </div>

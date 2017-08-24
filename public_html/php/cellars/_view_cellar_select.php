@@ -10,7 +10,7 @@
 	<option value="" disabled selected>Selecciona la Bodega</option>
 	<?php 
 		foreach ($retorno_cellar as $cellar) { ?>
-			<option <?php  echo $cellar['id_cellar'] == $value['id_cellar'] ? "selected" : '';?> value="<?php echo $cellar['id_cellar']; ?>"><?php echo $cellar['name_cellar']; ?></option>
+			<option <?php  echo $cellar['id_cellar'] == $cellar['id_cellar'] ? "selected" : '';?> value="<?php echo $cellar['id_cellar']; ?>"><?php echo $cellar['name_cellar']; ?></option>
 			<?php 
 		}
 	?>

@@ -15,7 +15,7 @@
 	    <div class="nav-wrapper">
 	      <?php 
 	      	if (isset($_SESSION["name_user_activo"])) { ?>	
-	      		<a href="#" class="brand-logo right"><?php echo $_SESSION["name_user_activo"]; ?></a>
+	      		<a href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" class="brand-logo right view_user" id_user="<?php echo $_SESSION["id_user_activo"] ?>"><?php echo $_SESSION["name_user_activo"]; ?></a>
 	      		<?php 
 	      	}
 	      ?>

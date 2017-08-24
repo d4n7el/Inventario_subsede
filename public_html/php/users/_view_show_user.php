@@ -1,5 +1,5 @@
 <?php 
-	foreach ($retorno_user as $key => $value) { ?>
+	foreach ($retorno_user as $key => $value) { ?>	
 		<div class="row" id="update_<?php echo $value['id_user'] ?>">
 			<section>
 				<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/update_user.php" class="update_info" accept-charset="utf-8">
@@ -14,15 +14,15 @@
 			            <input id="apellido_user" type="text"  class="validate editar_info" name="apellido" autocomplete="off" value="<?php echo $value['last_name_user'] ?>" readonly="readonly" >
 			            <label for="apellido_user" class="active">Apellido cliente</label>
 			        </div>
-			        <div class="input-field col s4 hide oculto">
+			        <div class="input-field col s4">
 			            <i class="material-icons prefix">credit_card</i>
 			            <input id="cedula_user" type="text" class="validate editar_info" name="cedula" autocomplete="off" value="<?php echo $value['cedula'] ?>" readonly="readonly" >
 			            <label for="cedula_user" class="active">Cedula cliente</label>
 			        </div>
-			        <div class="input-field col s4 hide oculto">
+			        <div class="input-field col s4">
 			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/roles/_view_roles_select.php'); ?>
 			        </div>
-			        <div class="input-field col s4 hide oculto">
+			        <div class="input-field col s4">
 			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
 			        </div>
 			        <div class="action col s4 centrar">
