@@ -93,6 +93,30 @@
 				</div>
 			</div>
 	    </div>
+
+	    <div class="col s12 targeta_inicio">
+			<div class="card transparent darken-1">
+				<div class="card-content white-text">
+					<div class="title" >
+						<span class="card-title">Equipo</span>
+					</div>
+					<div class="content red darken-1 centrar" >
+						<div class="izquierda col s6 centrar">
+							<i class="material-icons">settings</i>
+						</div>
+						<div class="derecha col s6 centrar">
+							10
+						</div>
+					</div>
+				</div>
+				<div class="card-action red darken-4" >
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/create_equipment.php" id="" class="link_page">Crear Equipo<i class="material-icons right">add</i></a>
+				</div>
+				<div class="card-action red darken-4" >
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments" class="link_page">Ver Equipo<i class="material-icons right">visibility</i></a>
+				</div>
+			</div>
+	    </div>
     </div>
     <div class="col s9 offset-s3" id="vista_ventana">
     	
