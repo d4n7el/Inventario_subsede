@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 -- Base de datos: inventarios_subsede
 --
 CREATE DATABASE IF NOT EXISTS inventarios_subsede DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
-USE 'inventarios_subsede';
+CREATE DATABASE IF NOT EXISTS `inventarios_subsede` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
