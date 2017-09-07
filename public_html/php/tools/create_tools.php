@@ -20,7 +20,9 @@
 			            <input id="nombre_cantidad" type="text" class="validate" name="cantidad" autocomplete="off" required>
 			            <label for="nombre_cantidad" class="">Cantidad</label>
 			        </div>
-			        <div class="input-field col s12 m12">
+					
+					<!-- El siguiente div está oculto hasta nuevo aviso -->
+			        <div class="input-field col s12 m12" style="display: none;">
 			            <i class="material-icons prefix">subject</i>
 			            <input id="nombre_cant_dis" type="text" class="validate" name="cantidad_disponible" autocomplete="off" required>
 			            <label for="nombre_cant_dis" class="">Cantidad Disponible</label>
