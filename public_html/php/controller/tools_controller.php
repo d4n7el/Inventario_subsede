@@ -8,10 +8,10 @@
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
 		}
-		public function insert_tools($nombre,$marca,$cantidad,$cantidad_disp,$bodega){
+		public function insert_tools($nombre,$marca,$cantidad,$cantidad_disp,$bodega, $id_user){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO tools (nombre,marca,cantidad,cantidad_disponible,id_bodega) VALUES (?,?,?,?,?)'  );
-				$sql_consult->execute(array($nombre,$marca,$cantidad,$cantidad_disp,$bodega));
+				$sql_consult = $this->db->prepare('INSERT INTO tools (nombre,marca,cantidad,cantidad_disponible,id_bodega,id_user_create) VALUES (?,?,?,?,?,?)'  );
+				$sql_consult->execute(array($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_user));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
 				return $result;
@@ -32,10 +32,10 @@
             	$e->getMessage();
         	}
 		}
-		public function update_tools($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_herramienta){
+		public function update_tools($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_herramienta,$id_user){
 			try {
-				$sql_consult = $this->db->prepare('UPDATE tools SET nombre = ?, marca = ?,  cantidad = ?, cantidad_disponible = ? , id_bodega = ? WHERE id_herrramienta = ? ');
-	            if ($sql_consult->execute(array($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_herramienta))) {
+				$sql_consult = $this->db->prepare('UPDATE tools SET nombre = ?, marca = ?,  cantidad = ?, cantidad_disponible = ? , id_bodega = ?, id_user_create = ?  WHERE id_herrramienta = ? ');
+	            if ($sql_consult->execute(array($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_herramienta, $id_user))) {
 	            	return 1;
 	            }else{
 	            	return 0;
