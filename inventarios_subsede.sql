@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-09-2017 a las 21:53:24
+-- Tiempo de generación: 07-09-2017 a las 23:20:26
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -59,15 +59,18 @@ CREATE TABLE `equipments` (
   `mark` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `total_quantity` int(15) NOT NULL,
   `quantity_available` int(15) NOT NULL,
-  `id_cellar` int(11) NOT NULL
+  `id_cellar` int(11) NOT NULL,
+  `id_user_create` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `equipments`
 --
 
-INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`) VALUES
-(1, 'pegal', 'amarilla y de la buena', 6, 4, 5);
+INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`) VALUES
+(1, 'pala', 'ol', 2, 2, 6, 7),
+(2, 'lazos', 'buenos', 2, 2, 5, 7),
+(3, 'llaves', 'yei', 24, 24, 5, 7);
 
 -- --------------------------------------------------------
 
@@ -203,7 +206,9 @@ ALTER TABLE `cellar`
 -- Indices de la tabla `equipments`
 --
 ALTER TABLE `equipments`
-  ADD PRIMARY KEY (`id_equipment`);
+  ADD PRIMARY KEY (`id_equipment`),
+  ADD KEY `id_cellar` (`id_cellar`),
+  ADD KEY `id_user_create` (`id_user_create`);
 
 --
 -- Indices de la tabla `measure`
@@ -257,11 +262,6 @@ ALTER TABLE `user`
 ALTER TABLE `cellar`
   MODIFY `id_cellar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT de la tabla `equipments`
---
-ALTER TABLE `equipments`
-  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT de la tabla `measure`
 --
 ALTER TABLE `measure`
@@ -289,6 +289,13 @@ ALTER TABLE `user`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `equipments`
+--
+ALTER TABLE `equipments`
+  ADD CONSTRAINT `equipments_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `equipments_ibfk_2` FOREIGN KEY (`id_user_create`) REFERENCES `user` (`id_user`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `products`
