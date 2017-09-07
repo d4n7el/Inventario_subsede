@@ -20,6 +20,7 @@
 					            <input id="nombre_cantidad" type="text" class="validate" name="cantidad" autocomplete="off" value="<?php echo $value['cantidad'] ?>" readonly="readonly">
 					            <label for="nombre_cantidad" class="active">Cantidad</label>
 					        </div>
+					        <!-- El siguiente div está oculto hasta nuevo -->
 					        <div class="input-field col s4 hide oculto" style="display: none;">
 					            <i class="material-icons prefix">subject</i>
 					            <input id="nombre_cant_dis" type="text" class="validate" name="cantidad_disponible" autocomplete="off" value="<?php echo $value['cantidad_disponible'] ?>" readonly="readonly">
