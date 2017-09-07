@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-09-2017 a las 23:27:04
+-- Tiempo de generación: 07-09-2017 a las 23:45:30
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -70,7 +70,8 @@ CREATE TABLE `equipments` (
 INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`) VALUES
 (1, 'pala', 'ol', 2, 2, 6, 7),
 (2, 'lazos', 'buenos', 2, 2, 5, 7),
-(3, 'llaves', 'yei', 24, 24, 5, 7);
+(3, 'llaves', 'yei', 24, 24, 5, 7),
+(6, 'prue', 'prue', 1, 2, 6, 7);
 
 -- --------------------------------------------------------
 
@@ -152,17 +153,19 @@ CREATE TABLE `tools` (
   `marca` varchar(15) NOT NULL,
   `cantidad` int(4) NOT NULL,
   `cantidad_disponible` int(4) NOT NULL,
-  `id_bodega` int(11) NOT NULL
+  `id_bodega` int(11) NOT NULL,
+  `id_user_create` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tools`
 --
 
-INSERT INTO `tools` (`id_herrramienta`, `nombre`, `marca`, `cantidad`, `cantidad_disponible`, `id_bodega`) VALUES
-(16, 'fd', 'dhdhdhdhdhd', 3, 1, 6),
-(17, 'fds', 're', 3, 1, 6),
-(18, 'jhgg', 'dff', 45, 2, 2);
+INSERT INTO `tools` (`id_herrramienta`, `nombre`, `marca`, `cantidad`, `cantidad_disponible`, `id_bodega`, `id_user_create`) VALUES
+(16, 'fd', 'dhdhdhdhdhd', 3, 1, 6, 18),
+(17, 'fds', 're', 3, 1, 6, 18),
+(18, 'jhgg', 'dff', 45, 2, 2, 18),
+(19, 'martillo', 'Acme', 30, 10, 6, 18);
 
 -- --------------------------------------------------------
 
@@ -241,7 +244,8 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `tools`
   ADD PRIMARY KEY (`id_herrramienta`),
-  ADD KEY `id_bodega` (`id_bodega`);
+  ADD KEY `id_bodega` (`id_bodega`),
+  ADD KEY `id_user` (`id_user_create`);
 
 --
 -- Indices de la tabla `user`
@@ -265,7 +269,7 @@ ALTER TABLE `cellar`
 -- AUTO_INCREMENT de la tabla `equipments`
 --
 ALTER TABLE `equipments`
-  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `measure`
 --
@@ -285,7 +289,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `tools`
 --
 ALTER TABLE `tools`
-  MODIFY `id_herrramienta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_herrramienta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
@@ -313,7 +317,8 @@ ALTER TABLE `products`
 -- Filtros para la tabla `tools`
 --
 ALTER TABLE `tools`
-  ADD CONSTRAINT `tools_ibfk_1` FOREIGN KEY (`id_bodega`) REFERENCES `cellar` (`id_cellar`);
+  ADD CONSTRAINT `tools_ibfk_1` FOREIGN KEY (`id_bodega`) REFERENCES `cellar` (`id_cellar`),
+  ADD CONSTRAINT `tools_ibfk_2` FOREIGN KEY (`id_user_create`) REFERENCES `user` (`id_user`);
 
 --
 -- Filtros para la tabla `user`
