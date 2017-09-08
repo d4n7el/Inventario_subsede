@@ -32,6 +32,22 @@
             	$e->getMessage();
         	}
 		}
+		public function show_user($email){
+			try {
+				$sql_consult = $this->db->prepare("SELECT * FROM user WHERE email_user LIKE ? LIMIT 1" );
+				if ($sql_consult->execute(array($email))) {
+					$result = $sql_consult->fetch();
+				}else{
+					$result = 0;
+				}
+				
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function edit_user($nombre,$apellido,$cedula,$cellar,$rol,$id_user){
 			try {
 				$sql_consult = $this->db->prepare('UPDATE user SET name_user = ?, last_name_user = ?, cedula = ?, id_cellar = ?, id_role = ? WHERE id_user = ? ');

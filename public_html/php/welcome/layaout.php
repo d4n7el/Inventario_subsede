@@ -13,30 +13,36 @@
 	<header>
   		<nav>
 	    <div class="nav-wrapper">
-	      <?php 
-	      	if (isset($_SESSION["name_user_activo"])) { ?>	
-	      		<a href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" class="brand-logo right view_user" id_user="<?php echo $_SESSION["id_user_activo"] ?>"><?php echo $_SESSION["name_user_activo"]; ?></a>
-	      		<?php 
-	      	}
-	      ?>
-	      <ul id="nav-mobile" class="left hide-on-med-and-down">
-	      		<li>
-	      			<a class="btn-floating btn-cerrar btn" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/sessions/remove_session.php?cerrarSesion=true">
+	    	<?php 
+	      	if (isset($_SESSION["name_user_activo"])) { ?>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li>
+						<a class="btn-floating btn-nav btn view_user" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" id_user="<?php echo $_SESSION["id_user_activo"] ?>">
+							<i class="material-icons color_letra_secundario">account_circle</i>
+						</a>
+					</li>
+					<li>
+						<a class="btn-floating btn-cerrar btn-nav btn" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/sessions/remove_session.php?cerrarSesion=true">
 						<i class="material-icons">power_settings_new</i>
-					</a>
-	      		</li>
-	      </ul>
+						</a>
+					</li>	
+				</ul>
+				<?php 
+	      	}
+	      	?>
 	    </div>
 	  </nav>
 	</header>
-	<div class="principal">
+	<div class="principal col s12">
 		<div class="row">
 			<div class="col m12">
 				<?php  
 					if (isset($_SESSION["id_user_activo"])) {
-						require_once($_SERVER['DOCUMENT_ROOT'].'/php/welcome/_view_index_session.php'); 
+						require_once($_SERVER['DOCUMENT_ROOT'].'/php/welcome/_view_index_session.php');
+
 					}else{
 						require_once($_SERVER['DOCUMENT_ROOT'].'/php/sessions/create_session.php'); 
+						require_once($_SERVER['DOCUMENT_ROOT'].'/php/password/_view_actions_password.php'); 
 					}
 				?>
 			</div>

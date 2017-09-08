@@ -13,7 +13,7 @@
 			<option value="" disabled selected>Selecciona el rol del usuario</option>
 			<?php 
 				foreach ($retorno as $rol) { ?>
-					<option <?php  echo $rol['id_role'] == $rol['id_role'] ? "selected" : '';?> value="<?php echo $rol['id_role']; ?>"><?php echo $rol['name_rol']; ?>  </option>
+					<option <?php  echo $rol['id_role'] == $value['id_role'] ? "selected" : '';?> value="<?php echo $rol['id_role']; ?>"><?php echo $rol['name_rol']; ?>  </option>
 					<?php 
 				}
 			?>

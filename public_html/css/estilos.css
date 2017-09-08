@@ -1,19 +1,34 @@
-body{
-	background-color: rgba(40,61,73,1);
+.color_letra_primario{
+	color: rgba(0,0,0,.5) !important;
+}
+.color_letra_secundario{
+	color: rgb(30,136,229) !important;
+}
+.sombra{
+	box-shadow: 0 2px 2px 0 rgba(255,255,255,0.14), 0 1px 5px 0 rgba(255,255,255,0.8), 0 2px 1px 2px rgba(40,61,73,.3);
 }
 .nav-wrapper{
-	background-color: rgba(40,61,73,.7);
+	background-color: transparent !important;
 	position: fixed;
 	top: 0;
 }
 nav{
+	background-color: white !important;
 	position: fixed;
 	top: 0;
 	z-index: 100;
-	background-image: url('../image/navs.png');
 	background-size: cover;
 	background-repeat: no-repeat;
 	box-shadow: 0 2px 2px 0 rgba(255,255,255,0.14), 0 1px 5px 0 rgba(255,255,255,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+div#recordatorio{
+	margin-top: 25%;
+}
+div#recordatorio h4 i {
+	margin-right: 1em;
+	box-shadow: 1px 1px 1px rgba(255,255,255,2);
+	padding: 1em;
+	border-radius: 50%;
 }
 i{
 	color: white;
@@ -38,32 +53,39 @@ i{
 	align-items: center;
 }
 label{
-	color: white !important;
+	color: color: rgba(0,0,0,.5) !important;
 	padding-left: 2em !important;
 }
 input[type=text],input[type=number],input[type=password]{
-	color: white !important;
+	color: black !important;
 	border-radius: 20px !important;
 }
 input[type=text]:focus,input[type=number]:focus,input[type=password]:focus{
-	color: white !important;
+	color: black !important;
 	padding-left: 2em !important;
 	box-shadow: 0px 0px 0px transparent !important;
 }
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
-	background-color: rgba(40,61,73,1) !important;
+	background-color: white !important;
 	color: white !important;
 }
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px rgba(40,61,73,1) inset !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
     color: white !important;
 }
 input.valid{
 	border-radius: 0px !important;
 }
+input.invalid{
+	border-bottom: 1px dashed #F44336 !important;
+    box-shadow: 0 1px 0 0 transparent !important;
+}
 input.valid:hover{
 	background-color: transparent !important;
-	color: white !important;
+	color: black !important;
+}
+div.input-field i{
+	color: rgb(30,136,229);
 }
 a{
 	color: white !important;
@@ -73,35 +95,43 @@ h5.titulo{
 	font-size: 1em;
 	margin-bottom: 2em;
 }
+div.contenedor_session{
+	height: 70vh
+}
 .btn{
 	margin-top: 2em
 }
-.btn-primary,.btn-cerrar{
+.btn-primary,.btn-nav{
 	margin-right: .3em;
 	background-color: white;
-	color: rgba(40,61,73,1) ;
+	color: rgb(30,136,229);
 }
 .btn-primary:hover{
 	background-color: white;
-	color: rgba(40,61,73,1) ;
 }
 .btn-success{
 	background-color: rgb(30,136,229);
 }
+.btn-success:hover{
+	background-color: rgb(30,136,229);
+}
 .btn i{
-	color: rgba(40,61,73,1);
+	color: rgb(30,136,229);
 }
-.btn-cerrar{
-	box-shadow: 0 2px 2px 0 rgba(255,255,255,0.14), 0 1px 5px 0 rgba(255,255,255,0.8), 0 3px 1px -2px rgba(0,0,0,0.2);
+.btn-success i {
+	color: white;
 }
-.btn-cerrar:hover{
+.btn-nav{
+	box-shadow: 0 2px 2px 0 rgba(255,255,255,0.14), 0 1px 5px 0 rgba(255,255,255,0.8), 0 3px 1px 2px rgba(0,0,0,0.2);
+}
+.btn-nav:hover{
 	background-color: transparent;
 	box-shadow: 0 2px 2px 0 rgba(255,255,255,0.14), 0 1px 5px 0 rgba(255,255,255,0.8), 0 3px 1px -2px rgba(255,255,255,0.2);
 }
-.btn-cerrar i{
-	color: rgba(40,61,73,1) !important;
+.btn-nav i{
+	color: rgb(30,136,229) !important;
 }
-.btn-cerrar:hover i{
+.btn-nav:hover i{
 	color: white;
 }
 .centrar{
@@ -113,9 +143,17 @@ h5.titulo{
 	padding: 5px !important;
 }
 .targeta_inicio .card .card-content div.title{
-	background-image: url('../image/navs.png');
 	background-size: cover;
 	background-repeat: no-repeat;
+}
+.targeta_inicio:hover .card .card-content div.title i{
+	opacity: 0;
+	transition: .2s;
+}
+.targeta_inicio:hover .card .card-content div.content i{
+	font-size: 4em;
+	opacity: 1;
+	transition: 1s;
 }
 .targeta_inicio .card .card-content div.content{
 	min-height: 10em; 
@@ -123,12 +161,25 @@ h5.titulo{
 }
 .targeta_inicio .card .card-content div.content i{
 	font-size: 4em;
+	opacity: 0;
 }
 .targeta_inicio .card .card-content div{
 	padding: 1em
 }
 .targeta_inicio div.derecha{
 	font-size: 3em;
+}
+.targeta_inicio{
+	margin-top: .3em;
+	height: 5em;
+	overflow: hidden;
+	transition: ease all .5s;
+}
+.targeta_inicio:hover{
+	height: 24em;
+}
+.targeta_inicio:hover .card{
+	box-shadow: 0 2px 2px 0 rgba(255,255,255,0.14), 0 1px 5px 0 rgba(255,255,255,0.8), 0 1px 1px 1px rgba(30,136,229,.4);
 }
 div.menu{
 	position: fixed;

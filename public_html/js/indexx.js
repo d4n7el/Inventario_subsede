@@ -7,6 +7,13 @@ $(document).on('ready',function(){
 			recargar_eventos();
 		});
 	});
+	$('button.link_page_session').on('click', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('ruta');
+		$("div.contenedor_session").load(ruta,function() {
+			recargar_eventos();
+		});
+	});
 	$('a.view_user').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('href');
@@ -22,10 +29,18 @@ function eliminar_eventos(){
 	$('form.update_info').off('submit');
 	$('button.actualizar_info').off('submit');
 	$('select').material_select('destroy');
+	$('form#recover_access').off('submit');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
+	$('form#recover_access').on('submit', function(event) {
+		event.preventDefault();
+		var formData = new FormData(this);
+		formData.append("recover", true);
+		var ruta = $(this).attr('action');
+		ajax_set_form_data(ruta,formData);
+	});
 	$('form.create_info').on('submit', function(event) {
 		event.preventDefault();
 		var formData = new FormData(this);
@@ -38,6 +53,8 @@ var recargar_eventos = function(){
 		$(this).closest('form').find('button').removeClass('hide');
 		$(this).closest('form').find('button.editar_info').addClass('hide');
 		$(this).closest('form').find('input').removeAttr('readonly');
+		$(this).closest('div#vista_ventana').find('i').css('color', 'rgba(0,0,0,.4)');
+		$(this).closest('div').siblings('div').find('i').css('color', 'rgb(30,136,229)');
 	});
 	$('form.update_info').on('submit', function(event) {
 		event.preventDefault();
@@ -54,6 +71,11 @@ var recargar_eventos = function(){
 }
 function ajax_set_form_data(ruta,formData){
 	$.ajax({
+		beforeSend:function() { 
+         	mensaje_cargando('process','Se esta realizando el proceso');
+     	},
+     	complete: function(){
+   		},
 		url: ruta,
 	    type: "POST",
 	    dataType: "json",
@@ -99,7 +121,7 @@ function ajax_get_data(ruta,formData){
 }
 function success(response){
 	if (response['status'] > 0) {
-		mensaje_alert("success",response['mensaje']);
+		mensaje_alert("success",response['mensaje'],response['duracion']);
 		if (response['render'] != undefined ) {
 			if (response['render'] != "") {
 	    		setTimeout(function(){
@@ -146,4 +168,26 @@ function mensaje_alert(tipo,mensaje,duracion){
 		$("div#modal_mensajes").html("");
 		$('#modal_mensajes').modal('close');
 	}, duracion);
+}
+function mensaje_cargando(tipo,mensaje){
+	if(tipo == "process"){
+		var img = "../image/process.webp";
+	}
+	var html = 
+		'<div class="modal-content">\
+			<div class="row">\
+				<div class="col s12 m6 offset-m3">\
+					<div class="card">\
+						<div class="card-image centrar">\
+							<img src="'+img+'">\
+						</div>\
+						<div class="card-action">\
+							<a href="#">'+mensaje+'</a>\
+						</div>\
+					</div>\
+				</div>\
+			</div>\
+		</div>'
+	$("div#modal_mensajes").html(html);
+	$('#modal_mensajes').modal('open');
 }
