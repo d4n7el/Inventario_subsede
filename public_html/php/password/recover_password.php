@@ -21,8 +21,8 @@
 		$mail->Port = 587;
 		$mail->SMTPSecure = "tls";
 		//Nuestra cuenta
-		$mail->Username = 'inventariosubsede@gmail.com';
-		$mail->Password = 'inventario_subsede'; //Su password
+		$mail->Username = 'd4n7elfelipe@gmail.com';
+		$mail->Password = 'daniel1526347890'; //Su password
 		$html = '
 			<div class="contenido" style="color: rgba(40,61,73,1); width: 80%; margin-left: 10%; margin-top: 2em">
 				<h2 >Inventario Subsede (Recupera tu contraseña) </h2>
