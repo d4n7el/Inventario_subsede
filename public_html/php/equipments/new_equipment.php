@@ -2,12 +2,13 @@
 	session_start();
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/equipments_controller.php');
 	$equipment 			= new Equipments(); 
+	$id_user			= $_SESSION["id_user_activo"];
 	$equipo 			= $_REQUEST["equipo"];
 	$marca 				= $_REQUEST["marca"];
 	$cantidad_total		= $_REQUEST["cantidad_total"];
 	$cantidad 			= $_REQUEST["cantidad"];
 	$bodega 			= $_REQUEST["cellar"];
-	$retorno_equipment 	= $equipment->insert_equipment($equipo,$marca,$cantidad_total,$cantidad,$bodega);
+	$retorno_equipment 	= $equipment->insert_equipment($equipo,$marca,$cantidad_total,$cantidad,$bodega,$id_user);
 	if ($retorno_equipment > 0) {
 		$respuesta = array('mensaje' => "registro correcto", 'status' => 1 );
 	}else{

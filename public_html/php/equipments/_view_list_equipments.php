@@ -8,7 +8,7 @@
 	            <label for="nombre_producto" class="active">Nombre equipo</label>
 	        </div>
 	        <div class="input-field col s4">
-	            <i class="material-icons prefix">account_circle</i>
+	            <i class="material-icons prefix">subject</i>
 	            <input id="marca" type="text" class="validate editar_info" name="marca" autocomplete="off" value="<?php echo $value['mark'] ?>"  readonly="readonly">
 	            <label for="marca" class="active">Marca Equipo</label>
 	        </div>
@@ -18,7 +18,7 @@
 	        	<label for="cantidad_total" class="active">Cantidad Total</label>
 	        </div>
 	        <div class="input-field col s4 hide oculto">
-	            <i class="material-icons prefix">account_circle</i>
+	            <i class="material-icons prefix">local_grocery_store</i>
 	            <input id="cantida_disponible" type="text" class="validate editar_info" name="cantidad_disponible" autocomplete="off" value="<?php echo $value['quantity_available'] ?>"  readonly="readonly">
 	            <label for="cantida_disponible" class="active">Cantidad Disponible</label>
 	        </div>		
