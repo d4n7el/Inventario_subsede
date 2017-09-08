@@ -5,6 +5,7 @@
 	include_once($_SERVER['DOCUMENT_ROOT'].'/php/mailer/PHPMailer/class.smtp.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/password_controller.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/users_controller.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/secret.php');
 	$code = new Password();
 	$insert_code = new Password();
 	$user = new Users();
@@ -21,8 +22,8 @@
 		$mail->Port = 587;
 		$mail->SMTPSecure = "tls";
 		//Nuestra cuenta
-		$mail->Username = 'inventariosubsede@gmail.com';
-		$mail->Password = 'inventario_subsede'; //Su password
+		$mail->Username = $secret['email'];
+		$mail->Password = $secret['pass_email']; //Su password
 		$html = '
 			<div class="contenido" style="color: rgba(40,61,73,1); width: 80%; margin-left: 10%; margin-top: 2em">
 				<h2 >Inventario Subsede (Recupera tu contraseña) </h2>
@@ -36,8 +37,8 @@
 			</div>';
 		//Agregar destinatario
 		$count = 0;
-		$mail->setFrom('d4n7elfelipe@gmail.com');
-		$mail->Sender='d4n7elfelipe@gmail.com'; 
+		$mail->setFrom($secret['email']);
+		$mail->Sender= $secret['email']; 
 		$mail->AddBCC($_REQUEST['correo'],$return_user['name_user']);
 		$mail->FromName = "Recuperar contraseña";
 		$mail->Subject = "Recuperar contraseña";
