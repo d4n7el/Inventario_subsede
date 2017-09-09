@@ -1,6 +1,5 @@
 <?php
 	foreach ($retorno_herramientas as $key => $value) {?>
-
 		<div class="row" id="update_<?php echo $value['id_herrramienta'] ?>">
 			<section>
 				<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/update_tools.php" class="update_info" accept-charset="utf-8">
@@ -29,7 +28,7 @@
 			        <div class="input-field col s4 hide oculto">
 			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
 			        </div>
-			        <div class="action col s12 centrar">
+			        <div class="action col s4 centrar">
 			        	<button class="waves-effect waves-light btn btn-success hide actualizar_info">
 			        		<i class="material-icons left">near_me</i>Guardar
 			        	</button>

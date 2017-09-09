@@ -9,7 +9,7 @@
 	$nombre_cantidad 		= $_REQUEST["cantidad"];
 	$nombre_cant_dis 	    = $_REQUEST["cantidad_disponible"];
 	$bodega 			    = $_REQUEST["cellar"];
-	$retorno_tools	= $tools->update_tools($nombre_herramienta,$nombre_marca,$nombre_cantidad,$nombre_cant_dis,$bodega, $id_herramienta);
+	$retorno_tools	= $tools->update_tools($nombre_herramienta,$nombre_marca,$nombre_cantidad,$nombre_cant_dis,$bodega, $id_herramienta,$id_user);
 	if ($retorno_tools > 0) {
 		$respuesta = array('mensaje' => "Actualización correcta", 'status' => 1 );
 	}else{

@@ -35,7 +35,7 @@
 		public function update_tools($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_herramienta,$id_user){
 			try {
 				$sql_consult = $this->db->prepare('UPDATE tools SET nombre = ?, marca = ?,  cantidad = ?, cantidad_disponible = ? , id_bodega = ?, id_user_create = ?  WHERE id_herrramienta = ? ');
-	            if ($sql_consult->execute(array($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_herramienta, $id_user))) {
+	            if ($sql_consult->execute(array($nombre,$marca,$cantidad,$cantidad_disp,$bodega, $id_user,$id_herramienta))) {
 	            	return 1;
 	            }else{
 	            	return 0;

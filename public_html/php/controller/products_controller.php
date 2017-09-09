@@ -32,10 +32,10 @@
             	$e->getMessage();
         	}
 		}
-		public function update_product($producto,$descripcion,$bodega,$id_user,$id_producto){
+		public function update_product($producto,$descripcion,$bodega,$id_user,$unidad_medida,$id_producto){
 			try {
-				$sql_consult = $this->db->prepare('UPDATE products SET name_product = ?, description_product = ?, id_cellar = ?, id_user_create = ? WHERE id_product = ? ');
-	            if ($sql_consult->execute(array($producto,$descripcion,$bodega,$id_user,$id_producto))) {
+				$sql_consult = $this->db->prepare('UPDATE products SET name_product = ?, description_product = ?, id_cellar = ?, id_user_create = ?, unit_measure = ? WHERE id_product = ? ');
+	            if ($sql_consult->execute(array($producto,$descripcion,$bodega,$id_user,$unidad_medida,$id_producto))) {
 	            	return 1;
 	            }else{
 	            	return 0;
