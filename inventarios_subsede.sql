@@ -158,27 +158,25 @@ INSERT INTO `roles` (`id_role`, `name_rol`, `description_role`, `level`) VALUES
 --
 -- Estructura de tabla para la tabla `tools`
 --
-
 CREATE TABLE `tools` (
-  `id_herrramienta` int(11) NOT NULL,
-  `nombre` varchar(20) CHARACTER SET latin1 NOT NULL,
-  `marca` varchar(15) CHARACTER SET latin1 NOT NULL,
-  `cantidad` int(4) NOT NULL,
-  `cantidad_disponible` int(4) NOT NULL,
-  `id_bodega` int(11) NOT NULL,
+  `id_tool` int(11) NOT NULL,
+  `name_tool` varchar(20) NOT NULL,
+  `mark` varchar(15) NOT NULL,
+  `total_quantity` int(4) NOT NULL,
+  `quantity_available` int(4) NOT NULL,
+  `id_cellar` int(11) NOT NULL,
   `id_user_create` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Volcado de datos para la tabla `tools`
 --
 
-INSERT INTO `tools` (`id_herrramienta`, `nombre`, `marca`, `cantidad`, `cantidad_disponible`, `id_bodega`, `id_user_create`) VALUES
+INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`) VALUES
 (16, 'fd', 'dhdhdhdhdhd', 3, 1, 6, 18),
-(17, 'fds', 're', 3, 1, 6, 18),
+(17, 'fds', 're', 3, 1, 6, 7),
 (18, 'jhgg', 'dff', 45, 2, 2, 18),
 (19, 'martillo', 'Acme', 30, 10, 6, 18),
-(20, 'qqq', 'gfds', 20, 10, 6, 7);
+(21, 'cocos de cafe', 'la doce', 4, 4, 6, 7);
 
 -- --------------------------------------------------------
 
@@ -263,8 +261,8 @@ ALTER TABLE `roles`
 -- Indices de la tabla `tools`
 --
 ALTER TABLE `tools`
-  ADD PRIMARY KEY (`id_herrramienta`),
-  ADD KEY `id_bodega` (`id_bodega`),
+  ADD PRIMARY KEY (`id_tool`),
+  ADD KEY `id_bodega` (`id_cellar`),
   ADD KEY `id_user` (`id_user_create`);
 
 --
@@ -314,7 +312,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `tools`
 --
 ALTER TABLE `tools`
-  MODIFY `id_herrramienta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
@@ -342,7 +340,7 @@ ALTER TABLE `products`
 -- Filtros para la tabla `tools`
 --
 ALTER TABLE `tools`
-  ADD CONSTRAINT `tools_ibfk_1` FOREIGN KEY (`id_bodega`) REFERENCES `cellar` (`id_cellar`),
+  ADD CONSTRAINT `tools_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`),
   ADD CONSTRAINT `tools_ibfk_2` FOREIGN KEY (`id_user_create`) REFERENCES `user` (`id_user`);
 
 --

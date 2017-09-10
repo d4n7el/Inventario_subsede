@@ -10,7 +10,7 @@
 		}
 		public function insert_tools($nombre,$marca,$cantidad,$cantidad_disp,$bodega, $id_user){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO tools (nombre,marca,cantidad,cantidad_disponible,id_bodega,id_user_create) VALUES (?,?,?,?,?,?)'  );
+				$sql_consult = $this->db->prepare('INSERT INTO tools (name_tool,mark,total_quantity,quantity_available,id_cellar,id_user_create) VALUES (?,?,?,?,?,?)'  );
 				$sql_consult->execute(array($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_user));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
@@ -34,7 +34,7 @@
 		}
 		public function update_tools($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_herramienta,$id_user){
 			try {
-				$sql_consult = $this->db->prepare('UPDATE tools SET nombre = ?, marca = ?,  cantidad = ?, cantidad_disponible = ? , id_bodega = ?, id_user_create = ?  WHERE id_herrramienta = ? ');
+				$sql_consult = $this->db->prepare('UPDATE tools SET name_tool = ?, mark = ?,  total_quantity = ?, quantity_available = ? , id_cellar = ?, id_user_create = ?  WHERE id_tool = ? ');
 	            if ($sql_consult->execute(array($nombre,$marca,$cantidad,$cantidad_disp,$bodega, $id_user,$id_herramienta))) {
 	            	return 1;
 	            }else{
