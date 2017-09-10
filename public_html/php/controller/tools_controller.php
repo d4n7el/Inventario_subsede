@@ -10,7 +10,7 @@
 		}
 		public function insert_tools($nombre,$marca,$cantidad,$cantidad_disp,$bodega, $id_user){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO tools (name_tool,mark,total_quantity,quantity_available,id_cellar,id_user_create) VALUES (?,?,?,?,?,?)'  );
+				$sql_consult = $this->db->prepare('INSERT INTO tools (name_tool,mark,total_quantity,quantity_available,id_cellar,id_user_create) VALUES (?,?,?,?,?,?)');
 				$sql_consult->execute(array($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_user));
 				$result = $this->db->lastInsertId();
 				$this->db = null;

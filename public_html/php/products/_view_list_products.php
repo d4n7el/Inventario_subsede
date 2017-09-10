@@ -15,7 +15,8 @@
 			            <label for="descripcion_producto" class="active">Descripcion producto</label>
 			        </div>	
 			        <div class="input-field col s4 hide oculto">
-			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
+			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); 
+			        	?>
 			        </div>
 			         <div class="input-field col s4 hide oculto">
 			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/measure/get_measure.php'); ?>

@@ -7,7 +7,7 @@
 	$producto 			= $_REQUEST["producto"];
 	$descripcion 		= $_REQUEST["descripcion"];
 	$bodega 			= $_REQUEST["cellar"];
-	echo $unidad_medida 		= $_REQUEST["unidad_medida"];
+	$unidad_medida 		= $_REQUEST["unidad_medida"];
 	$retorno_product 	= $product->update_product($producto,$descripcion,$bodega,$id_user,$unidad_medida,$id_producto);
 	if (count($retorno_product) > 0) {
 		$respuesta = array('mensaje' => "Actualización correcta", 'status' => 1 );
