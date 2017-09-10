@@ -70,6 +70,29 @@
 				</div>
 			</div>
 	    </div>
+	    <div class="col s12 targeta_inicio">
+			<div class="card transparent ">
+				<div class="card-content color_letra_primario">
+					<div class="title" >
+						<span class="card-title">Salida Productos<i class="material-icons color_letra_secundario right">rv_hookup</i></span>
+					</div>
+					<div class="content centrar" >
+						<div class="izquierda col s6 centrar">
+							<i class="material-icons color_letra_secundario">rv_hookup</i>
+						</div>
+						<div class="derecha col s6 centrar">
+							10
+						</div>
+					</div>
+				</div>
+				<div class="card-action" >
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/outlet_products.php" id="" class="link_page color_letra_primario">Salidas<i class="material-icons right color_letra_secundario">add</i></a>
+				</div>
+				<div class="card-action" >
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products" class="link_page color_letra_primario">Ver productos<i class="material-icons right color_letra_secundario">visibility</i></a>
+				</div>
+			</div>
+	    </div>
 
 	    <div class="col s12 targeta_inicio">
 			<div class="card transparent ">

@@ -30,10 +30,19 @@ function eliminar_eventos(){
 	$('button.actualizar_info').off('submit');
 	$('select').material_select('destroy');
 	$('form#recover_access').off('submit');
+	$('input#receive_user').off('change');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
+	$('input#receive_user').focusout(function(event) {
+		var ruta = $(this).attr('ruta');
+		var cedula = $(this).val();
+		var formData = {
+			'cedula' : cedula
+		};
+		request_user(ruta,formData);
+	});
 	$('form#recover_access').on('submit', function(event) {
 		event.preventDefault();
 		var formData = new FormData(this);
@@ -91,14 +100,18 @@ function ajax_set_form_data(ruta,formData){
 	    }
 	})
 }
-function ajax_set_form_json(ruta,formData){
+function request_user(ruta,formData){
 	$.ajax({
+		beforeSend:function() { 
+         	mensaje_cargando('process','Se esta realizando el proceso');
+     	},
 		url: ruta,
 	    type: "POST",
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	success(response);
+	    	ver_info_user(response);
+	    	$('#modal_mensajes').modal('close');
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);
@@ -112,14 +125,33 @@ function ajax_get_data(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    
+	    	
 	    },
 	    error: function(jqXHR,error,estado){
 	    	
 	    }
 	})
 }
-function success(response){
+function ver_info_user(response){
+	var response = jQuery.parseJSON(response);
+	if(response['id_user'] != undefined ){
+		var html = 
+			'<input type="hidden" name="name_receive_user" value="'+response['id_user']+'">\
+			<i class="material-icons prefix">account_circle</i>\
+            <input id="name_receive_user" value="'+response['name']+'" type="text" class="validate" name="receive_user" autocomplete="off" required>\
+            <label for="name_receive_user" class="active">Nombre de quien recibe</label>'
+	}else{
+		var html = 
+			'<div class="col s12 centrar sombra" id="">\
+				<h5 class="color_letra_primario">\
+					<i class="material-icons color_letra_secundario">warning</i> ¡No hay registros! \
+				</h5>\
+    		</div> '
+	}
+	
+	$('div#name_receive_user').html(html);
+}
+function success(response = "Exito"){
 	if (response['status'] > 0) {
 		mensaje_alert("success",response['mensaje'],response['duracion']);
 		if (response['render'] != undefined ) {
