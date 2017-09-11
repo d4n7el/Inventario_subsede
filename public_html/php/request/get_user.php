@@ -27,5 +27,4 @@
 		}
 	}else{
 	}
-	curl_close($request);
 ?>

@@ -110,11 +110,13 @@ function request_user(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	ver_info_user(response);
 	    	$('#modal_mensajes').modal('close');
+	    	var response = jQuery.parseJSON(response);
+	    	ver_info_user(response);
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);
+	    	console.log(jqXHR);
 	    }
 	})
 }
@@ -133,7 +135,6 @@ function ajax_get_data(ruta,formData){
 	})
 }
 function ver_info_user(response){
-	var response = jQuery.parseJSON(response);
 	if(response['id_user'] != undefined ){
 		var html = 
 			'<input type="hidden" name="name_receive_user" value="'+response['id_user']+'">\
