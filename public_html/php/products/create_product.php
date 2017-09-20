@@ -8,12 +8,12 @@
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">account_circle</i>
 			            <input id="nombre_producto" type="text" class="validate" name="producto" autocomplete="off" required>
-			            <label for="nombre_producto" class="">Nombre producto</label>
+			            <label for="nombre_producto" class="">Nombre del Producto</label>
 			        </div>
 			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">subject</i>
 			            <input id="nombre_descripcion" type="text" class="validate" name="descripcion" autocomplete="off" required>
-			            <label for="nombre_descripcion" class="">Descripcion</label>
+			            <label for="nombre_descripcion" class="">Descripción</label>
 			        </div>	
   					<div class="input-field col s12 m12">
 			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/measure/get_measure.php'); ?>

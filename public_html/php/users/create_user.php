@@ -8,24 +8,28 @@
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">account_circle</i>
 			            <input id="nombre_user" type="text" class="validate" name="nombre" autocomplete="off" required>
-			            <label for="nombre_user" class="">Nombre cliente</label>
+			            <label for="nombre_user" class="">Nombre</label>
 			        </div>	
 			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">account_circle</i>
 			            <input id="apellido_user" type="text" class="validate" name="apellido" autocomplete="off" required>
-			            <label for="apellido_user" class="">Apellido cliente</label>
+			            <label for="apellido_user" class="">Apellidos</label>
 			        </div>
 			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">credit_card</i>
 			            <input id="cedula_user" type="text" class="validate" name="cedula" autocomplete="off" required>
-			            <label for="cedula_user" class="">Cedula cliente</label>
+			            <label for="cedula_user" class="">N° de Documento</label>
 			        </div>	
 			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">fingerprint</i>
 			            <input id="pass_user" type="password" class="validate" name="pass" autocomplete="off" required>
-			            <label for="pass_user" class="">Contraseña cliente</label>
+			            <label for="pass_user" class="">Crear Contraseña</label>
 			        </div>
-
+					<!-- <div class="input-field col s12 m12">
+			            <i class="material-icons prefix">fingerprint</i>
+			            <input id="pass_user" type="password" class="validate" name="pass" autocomplete="off" required>
+			            <label for="pass_user" class="">Confirmar Contraseña</label>
+			        </div> -->
 			        <div class="input-field col s12 m12">
 			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/roles/_view_roles_select.php'); ?>
 			        </div>

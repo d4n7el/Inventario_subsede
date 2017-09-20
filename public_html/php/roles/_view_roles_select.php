@@ -10,11 +10,16 @@
 	} else{ ?>
 		<i class="material-icons prefix">pan_tool</i>
 		<select class="icons" name="rol" id="id rol">
-			<option value="" disabled selected>Selecciona el rol del usuario</option>
+			<option value="" disabled selected>Selecciona el rol del Usuario</option>
 			<?php 
-				foreach ($retorno as $rol) { ?>
-					<option <?php  echo $rol['id_role'] == $value['id_role'] ? "selected" : '';?> value="<?php echo $rol['id_role']; ?>"><?php echo $rol['name_rol']; ?>  </option>
-					<?php 
+				foreach ($retorno as $rol) { 
+					if (isset($value['id_role'])) { ?>
+						<option <?php  echo $rol['id_role'] == $value['id_role'] ? "selected" : '';?> value="<?php echo $rol['id_role']; ?>"><?php echo $rol['name_rol']; ?>  </option>
+						<?php 
+					}else{ ?>
+						<option value="<?php echo $rol['id_role']; ?>"><?php echo $rol['name_rol']; ?></option>
+						<?php
+					} 
 				}
 			?>
 		</select>
