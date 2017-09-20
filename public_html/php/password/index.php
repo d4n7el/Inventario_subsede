@@ -3,11 +3,11 @@
 		<div class="input-field col s12">
             <i class="material-icons prefix">email</i>
             <input id="recuperar_pass" type="text" class="validate" name="correo" autocomplete="off" required>
-            <label for="recuperar_pass" class="">Ingresa el correo de recuperacion</label>
+            <label for="recuperar_pass" class="">Ingresa el correo de recuperación</label>
         </div>
         <div class="action col s6 offset-s3 centrar">
         	<button class="waves-effect waves-light btn btn-primary" id="recover_access">
-        		<i class="material-icons left">near_me</i>Enviar Codigo
+        		<i class="material-icons left">near_me</i>Enviar Código
         	</button>
         </div>
     </form>
