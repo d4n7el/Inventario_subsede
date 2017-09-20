@@ -4,7 +4,18 @@
 		require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/users_controller.php');
 		$welcome = new Users();
 		(isset($_REQUEST['id_user']) ? $id_user = $_REQUEST['id_user'] : $id_user = "%%");
-		$retorno_user = $welcome->get_user($id_user);
+		
+		// NECESARIO PARA LA PAGINACION
+		$count_user = new Users();
+		(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
+		$limit = 2;
+		$offset = $limit * $pagina;
+		$retorno_count_user = $count_user->count_user();
+		$count_rows = $retorno_count_user['count'];
+		$href = '/php/users/index.php';
+		// NECESARIO PARA LA PAGINACION
+		
+		$retorno_user = $welcome->get_user($id_user,$limit,$offset);
 		if (count($retorno_user) > 0) {
 			if ($id_user == "%%") {
 				require($_SERVER['DOCUMENT_ROOT'].'/php/users/_view_list_user.php');

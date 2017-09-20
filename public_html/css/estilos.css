@@ -1,8 +1,11 @@
+body{
+	background-color:  rgba(3,124,136,.1) !important;
+}
 .color_letra_primario{
-	color: rgba(0,0,0,.5) !important;
+	color: rgba(0,35,58,1) !important;
 }
 .color_letra_secundario{
-	color: rgb(30,136,229) !important;
+	color: rgba(0,88,115,1) !important;
 }
 .sombra{
 	box-shadow: 0 2px 2px 0 rgba(255,255,255,0.14), 0 1px 5px 0 rgba(255,255,255,0.8), 0 2px 1px 2px rgba(40,61,73,.3);
@@ -13,13 +16,21 @@
 	top: 0;
 }
 nav{
-	background-color: white !important;
+	background-color: rgba(0,88,115,1) !important;
 	position: fixed;
 	top: 0;
 	z-index: 100;
 	background-size: cover;
 	background-repeat: no-repeat;
 	box-shadow: 0 2px 2px 0 rgba(255,255,255,0.14), 0 1px 5px 0 rgba(255,255,255,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+div.paginacion{
+	background-color: rgba(0,88,115,1) !important;
+	position: fixed;
+	bottom: 0;
+	z-index: 300;
+	min-height: 4em;
+	max-height: 4em;
 }
 div#recordatorio{
 	margin-top: 25%;
@@ -31,7 +42,7 @@ div#recordatorio h4 i {
 	border-radius: 50%;
 }
 i{
-	color: white;
+	color: rgba(0,88,115,1) !important;
 }
 .row{
 	margin-top: 3em !important;
@@ -87,9 +98,6 @@ input.valid:hover{
 div.input-field i{
 	color: rgb(30,136,229);
 }
-a{
-	color: white !important;
-}
 h5.titulo{
 	color: white;
 	font-size: 1em;
@@ -129,10 +137,10 @@ div.contenedor_session{
 	box-shadow: 0 2px 2px 0 rgba(255,255,255,0.14), 0 1px 5px 0 rgba(255,255,255,0.8), 0 3px 1px -2px rgba(255,255,255,0.2);
 }
 .btn-nav i{
-	color: rgb(30,136,229) !important;
+	color: rgba(0,88,115,1) !important;
 }
 .btn-nav:hover i{
-	color: white;
+	color: white !important;
 }
 .centrar{
 	display: flex;
@@ -147,7 +155,6 @@ div.contenedor_session{
 	background-repeat: no-repeat;
 }
 .targeta_inicio:hover .card .card-content div.title i{
-	opacity: 0;
 	transition: .2s;
 }
 .targeta_inicio:hover .card .card-content div.content i{
@@ -161,7 +168,6 @@ div.contenedor_session{
 }
 .targeta_inicio .card .card-content div.content i{
 	font-size: 4em;
-	opacity: 0;
 }
 .targeta_inicio .card .card-content div{
 	padding: 1em
@@ -175,18 +181,15 @@ div.contenedor_session{
 	overflow: hidden;
 	transition: ease all .5s;
 }
-.targeta_inicio:hover{
-	height: 24em;
-}
 .targeta_inicio:hover .card{
-	box-shadow: 0 2px 2px 0 rgba(255,255,255,0.14), 0 1px 5px 0 rgba(255,255,255,0.8), 0 1px 1px 1px rgba(30,136,229,.4);
+	box-shadow: 0 2px 2px 0 rgba(3,124,136,.1), 0 1px 5px 0 rgba(3,124,136,.3), 0 1px 1px 1px rgba(3,124,136,.3);
 }
 div.menu{
 	position: fixed;
 	height: 90%;
 	overflow: hidden;
 	overflow: scroll;
-	padding-bottom: 20em;
+	padding-bottom: 50em;
 	overflow-x: hidden;
 }
 #modal1{

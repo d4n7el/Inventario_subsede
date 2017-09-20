@@ -20,16 +20,28 @@
             	$e->getMessage();
         	}
 		}
-		public function get_user($id_user){
+		public function get_user($id_user,$limit,$offset){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM user WHERE id_user LIKE ? " );
+				$sql_consult = $this->db->prepare("SELECT * FROM user WHERE id_user LIKE ? LIMIT $limit OFFSET $offset " );
 				$sql_consult->execute(array($id_user));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;
 				
 			} catch (PDOException $e) {
-            	$e->getMessage();
+            	echo $e->getMessage();
+        	}
+		}
+		public function count_user(){
+			try {
+				$sql_consult = $this->db->prepare("SELECT COUNT(id_user) AS count FROM user " );
+				$sql_consult->execute();
+				$result = $sql_consult->fetch();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	echo $e->getMessage();
         	}
 		}
 		public function show_user($email){

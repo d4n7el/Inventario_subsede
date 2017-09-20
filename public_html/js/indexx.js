@@ -22,6 +22,16 @@ $(document).on('ready',function(){
 			recargar_eventos();
 		});
 	});
+	$('div.targeta_inicio').on('click', function(event) {
+		event.preventDefault();
+		$('div.targeta_inicio').css('height', '5em');
+		$(this).find('i').first().css('transform', 'rotate(720deg)');
+   		$(this)
+   		.animate({ opacity: "0" }, 100 )
+   		.animate({ height: "24em" }, 100 )
+	    .animate({ opacity: "1" }, 400 )
+	    .animate({ borderLeftWidth: "15px" }, 1000 );
+	});
 });
 function eliminar_eventos(){
 	$('form#submit_session').off('submit');
@@ -31,10 +41,19 @@ function eliminar_eventos(){
 	$('select').material_select('destroy');
 	$('form#recover_access').off('submit');
 	$('input#receive_user').off('change');
+	$('a.pagination').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
+	$('a.pagination').on('click', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('href');
+		var pagina = $(this).attr('pag');
+		$("div#vista_ventana").load(ruta,{pagina: pagina},function() {
+			recargar_eventos();
+		});
+	});
 	$('input#receive_user').focusout(function(event) {
 		var ruta = $(this).attr('ruta');
 		var cedula = $(this).val();
