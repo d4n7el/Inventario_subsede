@@ -7,7 +7,7 @@
 					<div class="input-field col s4">
 			            <i class="material-icons prefix">account_circle</i>
 			            <input id="medida" type="text" class="validate editar_info" name="medida" autocomplete="off" value="<?php echo $value['name_measure'] ?>"  readonly="readonly">
-			            <label for="medida" class="active">Nombre medida</label>
+			            <label for="medida" class="active">Nombre de la Medida</label>
 			        </div>
 			        <div class="input-field col s4">
 			            <i class="material-icons prefix">account_circle</i>

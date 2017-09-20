@@ -13,4 +13,3 @@
 	}
 	?>
 </select>
-<label>Unidad de medida</label>

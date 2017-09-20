@@ -8,7 +8,7 @@
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">hourglass_empty</i>
 			            <input id="nombre_medida" type="text" class="validate" name="medida" autocomplete="off" required>
-			            <label for="nombre_medida" class="">Nombre medida</label>
+			            <label for="nombre_medida" class="">Nombre de la Medida</label>
 			        </div>
 			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">hourglass_full</i>
