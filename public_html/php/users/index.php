@@ -8,7 +8,7 @@
 		// NECESARIO PARA LA PAGINACION
 		$count_user = new Users();
 		(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
-		$limit = 1;
+		$limit = 2;
 		$offset = $limit * $pagina;
 		$retorno_count_user = $count_user->count_user();
 		$count_rows = $retorno_count_user['count'];

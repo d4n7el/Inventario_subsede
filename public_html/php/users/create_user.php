@@ -16,6 +16,11 @@
 			            <label for="apellido_user" class="">Apellidos</label>
 			        </div>
 			        <div class="input-field col s12 m12">
+			            <i class="material-icons prefix">email</i>
+			            <input id="email_user" type="email" class="validate" name="email" autocomplete="off" required>
+			            <label for="email_user" class="">Correo Electrónico</label>
+			        </div>	
+			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">credit_card</i>
 			            <input id="cedula_user" type="text" class="validate" name="cedula" autocomplete="off" required>
 			            <label for="cedula_user" class="">N° de Documento</label>
