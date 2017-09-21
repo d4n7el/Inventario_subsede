@@ -8,10 +8,10 @@
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
 		}
-		public function insert_user($nombre,$apellido,$cedula,$pass,$cellar,$rol){
+		public function insert_user($nombre,$apellido,$email,$cedula,$pass,$cellar,$rol){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO user (name_user,last_name_user,cedula,pass,id_cellar,id_role) VALUES (?,?,?,?,?,?)'  );
-				$sql_consult->execute(array($nombre,$apellido,$cedula,$pass,$cellar,$rol));
+				$sql_consult = $this->db->prepare('INSERT INTO user (name_user,last_name_user,email_user,cedula,pass,id_cellar,id_role) VALUES (?,?,?,?,?,?,?)'  );
+				$sql_consult->execute(array($nombre,$apellido,$email,$cedula,$pass,$cellar,$rol));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
 				return $result;
@@ -22,7 +22,7 @@
 		}
 		public function get_user($id_user,$limit,$offset){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM user WHERE id_user LIKE ? ORDER BY id_user DESC LIMIT $limit OFFSET $offset " );
+				$sql_consult = $this->db->prepare("SELECT * FROM user WHERE id_user LIKE ? LIMIT $limit OFFSET $offset " );
 				$sql_consult->execute(array($id_user));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
