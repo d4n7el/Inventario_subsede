@@ -100,7 +100,7 @@ var recargar_eventos = function(){
 function ajax_set_form_data(ruta,formData){
 	$.ajax({
 		beforeSend:function() { 
-         	mensaje_cargando('process','Se esta realizando el proceso');
+         	mensaje_cargando('process','Se está realizando el proceso');
      	},
      	complete: function(){
    		},
@@ -123,7 +123,7 @@ function ajax_set_form_data(ruta,formData){
 function request_user(ruta,formData){
 	$.ajax({
 		beforeSend:function() { 
-         	mensaje_cargando('process','Se esta realizando el proceso');
+         	mensaje_cargando('process','Se está realizando el proceso');
      	},
 		url: ruta,
 	    type: "POST",
