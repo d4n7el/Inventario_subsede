@@ -40,12 +40,20 @@ function eliminar_eventos(){
 	$('button.actualizar_info').off('submit');
 	$('select').material_select('destroy');
 	$('form#recover_access').off('submit');
-	$('input#receive_user').off('change');
+	$('input#receive_user').off('focusout');
 	$('a.pagination').off('click');
+	$('select#select_equipment').off('change');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
+	$('select#select_equipment').change(function(event) {
+		var disponible = $('option:selected', this).attr('disponible');
+		ruta = $(this).attr('ruta');
+		$("div#cantidad_disponible").load(ruta,{cantidad: disponible},function() {
+			recargar_eventos();
+		});
+	});
 	$('a.pagination').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('href');
@@ -121,6 +129,7 @@ function ajax_set_form_data(ruta,formData){
 	})
 }
 function request_user(ruta,formData){
+	var datos = ""; 	var status = "";
 	$.ajax({
 		beforeSend:function() { 
          	mensaje_cargando('process','Se está realizando el proceso');
@@ -130,9 +139,14 @@ function request_user(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	$('#modal_mensajes').modal('close');
 	    	var response = jQuery.parseJSON(response);
-	    	ver_info_user(response);
+	    	$.each(response,function(index, value) {
+	    		(index === "data") ? datos = jQuery.parseJSON(value) : "";
+	    		(index === "status") ? status = jQuery.parseJSON(value) : "";
+	    		
+	    	});
+	    	$('#modal_mensajes').modal('close');
+	    	ver_info_user(datos,status);
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);
@@ -154,12 +168,12 @@ function ajax_get_data(ruta,formData){
 	    }
 	})
 }
-function ver_info_user(response){
-	if(response['id_user'] != undefined ){
+function ver_info_user(datos,status){
+	if(datos['documento'] != undefined ){
 		var html = 
-			'<input type="hidden" name="name_receive_user" value="'+response['id_user']+'">\
+			'<input type="hidden" name="name_receive_user" value="'+datos['documento']+'">\
 			<i class="material-icons prefix">account_circle</i>\
-            <input id="name_receive_user" value="'+response['name']+'" type="text" class="validate" name="receive_user" autocomplete="off" required>\
+            <input id="name_receive_user" value="'+datos['nombre_completo']+'" type="text" class="validate" name="receive_user" autocomplete="off" required>\
             <label for="name_receive_user" class="active">Nombre de quien recibe</label>'
 	}else{
 		var html = 
