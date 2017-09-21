@@ -111,17 +111,14 @@ var recargar_eventos = function(){
 		var pass_confirm = $('form.create_info #pass_user_confirm').val();
 	
 	if (pass == pass_confirm){
-	// 	alert(pass+' + '+ pass_confirm);
 		$('form.create_info #pass_user, form.create_info #pass_user_confirm').removeClass('invalid');
 		$('form.create_info #pass_user, form.create_info #pass_user_confirm').addClass('valid');
 	}else{
 		if(pass != pass_confirm && pass != '' && pass_confirm != ''){
-			// alert('ESA MIERDA ESTÁ MALA');
 			$('form.create_info #pass_user, form.create_info #pass_user_confirm').removeClass('valid');
 			$('form.create_info #pass_user, form.create_info #pass_user_confirm').addClass('invalid');
 		}
 	}
-	// invalid
 	});
 
 
