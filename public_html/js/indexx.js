@@ -43,6 +43,7 @@ function eliminar_eventos(){
 	$('input#receive_user').off('focusout');
 	$('a.pagination').off('click');
 	$('select#select_equipment').off('change');
+	$('form.create_info #pass_user, form.create_info #pass_user_confirm').off('focusout');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
@@ -104,7 +105,28 @@ var recargar_eventos = function(){
 		$(this).closest('form').find('div.oculto').addClass('hide');
 		$(this).closest('form').find('input').attr('readonly','true');
 	});
+
+	$('form.create_info #pass_user, form.create_info #pass_user_confirm').focusout(function(event) {
+		var pass = $('form.create_info #pass_user').val();
+		var pass_confirm = $('form.create_info #pass_user_confirm').val();
+	
+	if (pass == pass_confirm){
+	// 	alert(pass+' + '+ pass_confirm);
+		$('form.create_info #pass_user, form.create_info #pass_user_confirm').removeClass('invalid');
+		$('form.create_info #pass_user, form.create_info #pass_user_confirm').addClass('valid');
+	}else{
+		if(pass != pass_confirm && pass != '' && pass_confirm != ''){
+			// alert('ESA MIERDA ESTÁ MALA');
+			$('form.create_info #pass_user, form.create_info #pass_user_confirm').removeClass('valid');
+			$('form.create_info #pass_user, form.create_info #pass_user_confirm').addClass('invalid');
+		}
+	}
+	// invalid
+	});
+
+
 }
+
 function ajax_set_form_data(ruta,formData){
 	$.ajax({
 		beforeSend:function() { 
@@ -121,7 +143,9 @@ function ajax_set_form_data(ruta,formData){
 	    processData: false, 
 	    success: function(response){
 	    	success(response);
-	    	clean_input();
+	    	if (response['status']==1) {
+	    		clean_input();
+	    	}
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);
