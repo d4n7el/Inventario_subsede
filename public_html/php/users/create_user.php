@@ -30,11 +30,11 @@
 			            <input id="pass_user" type="password" class="validate" name="pass" autocomplete="off" required>
 			            <label for="pass_user" class="">Crear Contraseña</label>
 			        </div>
-					<!-- <div class="input-field col s12 m12">
+					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">fingerprint</i>
-			            <input id="pass_user" type="password" class="validate" name="pass" autocomplete="off" required>
-			            <label for="pass_user" class="">Confirmar Contraseña</label>
-			        </div> -->
+			            <input id="pass_user_confirm" type="password" class="validate" name="pass_confirm" autocomplete="off" required>
+			            <label for="pass_user_confirm" class="">Confirmar Contraseña</label>
+			        </div>
 			        <div class="input-field col s12 m12">
 			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/roles/_view_roles_select.php'); ?>
 			        </div>
@@ -48,7 +48,7 @@
 			        	</button>
 			        </div>	
 				</form>
-		    </div>
+		    </div> 
 		</div>
 		<?php 
 	}
