@@ -7,17 +7,17 @@
 					<div class="input-field col s4">
 			            <i class="material-icons prefix">account_circle</i>
 			            <input id="nombre_user" type="text" class="validate editar_info" name="nombre" autocomplete="off" value="<?php echo $value['name_user'] ?>"  readonly="readonly">
-			            <label for="nombre_user" class="active">Nombre cliente</label>
+			            <label for="nombre_user" class="active">Nombre del Usuario</label>
 			        </div>	
 			        <div class="input-field col s4">
 			            <i class="material-icons prefix">account_circle</i>
 			            <input id="apellido_user" type="text"  class="validate editar_info" name="apellido" autocomplete="off" value="<?php echo $value['last_name_user'] ?>" readonly="readonly" >
-			            <label for="apellido_user" class="active">Apellido cliente</label>
+			            <label for="apellido_user" class="active">Apellido del Usuario</label>
 			        </div>
 			        <div class="input-field col s4 hide oculto">
 			            <i class="material-icons prefix">credit_card</i>
 			            <input id="cedula_user" type="text" class="validate editar_info" name="cedula" autocomplete="off" value="<?php echo $value['cedula'] ?>" readonly="readonly" >
-			            <label for="cedula_user" class="active">Cedula cliente</label>
+			            <label for="cedula_user" class="active">Cédula del Usuario</label>
 			        </div>
 			        <div class="input-field col s4 hide oculto">
 			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/roles/_view_roles_select.php'); ?>
