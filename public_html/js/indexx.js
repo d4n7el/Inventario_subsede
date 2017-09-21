@@ -113,6 +113,7 @@ function ajax_set_form_data(ruta,formData){
 	    processData: false, 
 	    success: function(response){
 	    	success(response);
+	    	clean_input();
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);
@@ -242,4 +243,10 @@ function mensaje_cargando(tipo,mensaje){
 		</div>'
 	$("div#modal_mensajes").html(html);
 	$('#modal_mensajes').modal('open');
+}
+
+function clean_input(){
+	$('.create_info')[0].reset(); //Sirve para resetear a su estado original el form
+	$('.create_info i, .create_info label').removeClass('active'); 
+	$('.create_info input').removeClass('valid');
 }
