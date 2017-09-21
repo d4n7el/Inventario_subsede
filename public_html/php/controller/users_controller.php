@@ -22,7 +22,7 @@
 		}
 		public function get_user($id_user,$limit,$offset){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM user WHERE id_user LIKE ? LIMIT $limit OFFSET $offset " );
+				$sql_consult = $this->db->prepare("SELECT * FROM user WHERE id_user LIKE ? ORDER BY id_user DESC LIMIT $limit OFFSET $offset " );
 				$sql_consult->execute(array($id_user));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
