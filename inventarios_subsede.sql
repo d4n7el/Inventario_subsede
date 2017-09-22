@@ -190,7 +190,7 @@ CREATE TABLE `user` (
   `name_user` varchar(50) NOT NULL,
   `last_name_user` varchar(50) NOT NULL,
   `email_user` text NOT NULL,
-  `cedula` varchar(50) NOT NULL,
+  `cedula` varchar(20) NOT NULL,
   `pass` text NOT NULL,
   `id_cellar` int(11) NOT NULL,
   `id_role` int(11) NOT NULL
