@@ -1,7 +1,7 @@
 <?php  
 	session_start();
-	if (isset($_SESSION["id_user_activo"])) {
-?>
+	if (isset($_SESSION["id_user_activo"])) { 
+		$user = true;?>
 		<div class="row">
 		    <div class="formulario col m6 offset-m3">
 		    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/new_user.php" class="create_info">
