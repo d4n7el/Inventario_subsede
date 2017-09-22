@@ -170,8 +170,12 @@
 				<h4 class="color_letra_primario">
 					<i class="material-icons color_letra_secundario">warning</i> ¡Recuerda modificar tu contraseña! 
 				</h4>
-    		</div> 
+    		</div>
+			<div class="col s6 offset-s3">
+				<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/password/form_new_pass.php'); ?>
+			</div>
     		<?php
+    		
     	} ?>
     </div> 
 </div>

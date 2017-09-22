@@ -20,6 +20,11 @@
 			            <label for="cedula_user" class="active">Cédula del Usuario</label>
 			        </div>
 			        <div class="input-field col s4 hide oculto">
+			            <i class="material-icons prefix">email</i>
+			            <input id="email_user" type="email" class="validate" name="email" autocomplete="off" required value="<?php echo $value['email_user'] ?>">
+			            <label for="email_user" class="active">Correo Electrónico</label>
+			        </div>
+			        <div class="input-field col s4 hide oculto">
 			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/roles/_view_roles_select.php'); ?>
 			        </div>
 			        <div class="input-field col s4 hide oculto">

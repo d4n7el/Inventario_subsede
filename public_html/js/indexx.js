@@ -142,16 +142,16 @@ var recargar_eventos = function(){
 		$(this).closest('form').find('div.oculto').addClass('hide');
 		$(this).closest('form').find('input').attr('readonly','true');
 	});
-	$('form.create_info #pass_user, form.create_info #pass_user_confirm').focusout(function(event) {
-		var pass = $('form.create_info #pass_user').val();
-		var pass_confirm = $('form.create_info #pass_user_confirm').val();
+	$('form.create_info #pass_user, form.create_info #pass_user_confirm,form.update_info #pass_user, form.update_info #pass_user_confirm').focusout(function(event) {
+		var pass = $('input#pass_user').val();
+		var pass_confirm = $('input#pass_user_confirm').val();
 		if (pass == pass_confirm){
-			$('form.create_info #pass_user, form.create_info #pass_user_confirm').removeClass('invalid');
-			$('form.create_info #pass_user, form.create_info #pass_user_confirm').addClass('valid');
+			$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').removeClass('invalid');
+			$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').addClass('valid');
 		}else{
 			if(pass != pass_confirm && pass != '' && pass_confirm != ''){
-				$('form.create_info #pass_user, form.create_info #pass_user_confirm').removeClass('valid');
-				$('form.create_info #pass_user, form.create_info #pass_user_confirm').addClass('invalid');
+				$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').removeClass('valid');
+				$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').addClass('invalid');
 			}
 		}
 	});

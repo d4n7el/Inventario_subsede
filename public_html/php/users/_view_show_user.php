@@ -36,6 +36,13 @@
 		    	</form>
 		    </section>
 		</div>
+		
+		<div class="col s6">
+			<h5 class="col s12 centrar color_letra_secundario titulo">
+				Actualizar la contraseña
+			</h5>
+			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/password/form_new_pass.php'); ?>
+		</div>
 		<?php 
 	}
 
