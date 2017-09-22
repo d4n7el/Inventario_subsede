@@ -4,11 +4,11 @@
 	$nombre 		= addslashes($_REQUEST['nombre']);
 	$apellido		= addslashes($_REQUEST['apellido']);
 	$cedula			= addslashes($_REQUEST['cedula']);
+	$email 			= addslashes($_REQUEST['email']);
 	$pass 			= addslashes($_REQUEST['pass']);
 	$cellar 		= addslashes($_REQUEST['cellar']);
 	$rol 			= addslashes($_REQUEST['rol']);
-	$pass 			= password_hash($pass, PASSWORD_DEFAULT);
-	$retorno 		= $welcome->insert_user($nombre,$apellido,$cedula,$pass,$cellar,$rol);
+	$pass_confirm 	= addslashes($_REQUEST['pass_confirm']);
 	if ($pass == $pass_confirm) {
  		$pass = password_hash($pass, PASSWORD_DEFAULT);
  		$retorno = $welcome->insert_user($nombre,$apellido,$email,$cedula,$pass,$cellar,$rol);
