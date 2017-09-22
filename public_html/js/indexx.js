@@ -180,7 +180,7 @@ function ajax_set_form_data(ruta,formData){
 	    processData: false, 
 	    success: function(response){
 	    	success(response);
-	    	if (response['status']==1) {
+	    	if (response['status']==1 && response['process']=='create')  {
  	    		clean_input();
  	    	}
 	    },
