@@ -1,5 +1,4 @@
 $(document).on('ready',function(){
-	cantidad = ""; 	nombre = "";	id = "";	disponible = "";
 	recargar_eventos();
 	$('a.link_page').on('click', function(event) {
 		event.preventDefault();
@@ -44,51 +43,15 @@ function eliminar_eventos(){
 	$('input#receive_user').off('focusout');
 	$('a.pagination').off('click');
 	$('select#select_equipment').off('change');
-	$('button#add_exit').off('click');
-	$('select#cantidades').off('change');
 	$('form.create_info #pass_user, form.create_info #pass_user_confirm').off('focusout');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
-	$('button#add_exit').on('click', function(event) {
-		event.preventDefault();
-		if (cantidad != "" &&  nombre != "") {
-			ruta = $('div#view_add_elements').attr('ruta');
-			var html =  '<div class="col s12" style="margin-bottom: 1em">\
-							<div class="col s12 sombra element_salida">\
-								<a class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
-								<h4 class="col s12 color_letra_primario centrar">'+nombre+'</h4>\
-								<div class="input-field col s12 m12" id="'+nombre+'">\
-							    </div>\
-							    <div class="input-field col s12 m12">\
-						            <i class="material-icons prefix">subject</i>\
-						            <input id="anotacion" type="text" class="validate" name="nota" autocomplete="off">\
-						            <label for="anotacion" class="">Nota</label>\
-						        </div>\
-						    </div>\
-				        </div>'; 
-			$("div#view_add_elements").append(html);
-			$("div#"+nombre).load(ruta,{cantidad_disponible: disponible, cantidad: cantidad},function() {
-				$('option#'+nombre+"_"+id).attr('disabled', 'true').attr('selected','true');
-				$('select#select_equipment').val( $('select#select_equipment').prop('defaultSelected') );
-				cantidad = ""; 	nombre = "";	id = "";	disponible = "";
-				recargar_eventos();
-			});
-		}else{
-			mensaje_alert("error","Selecciona todos los campos",2000);
-		}
-	});
-	$('select#cantidades').change(function(event) {
-		cantidad = 	$(this).val();
-	});
 	$('select#select_equipment').change(function(event) {
-		cantidad = "";		nombre = "";		id = "";
-		nombre = $('option:selected', this).text();
-		id = $('option:selected', this).val();
-		disponible = $('option:selected', this).attr('disponible');
+		var disponible = $('option:selected', this).attr('disponible');
 		ruta = $(this).attr('ruta');
-		$("div#cantidad_disponible").load(ruta,{cantidad_disponible: disponible},function() {
+		$("div#cantidad_disponible").load(ruta,{cantidad: disponible},function() {
 			recargar_eventos();
 		});
 	});
@@ -142,20 +105,25 @@ var recargar_eventos = function(){
 		$(this).closest('form').find('div.oculto').addClass('hide');
 		$(this).closest('form').find('input').attr('readonly','true');
 	});
-	$('form.create_info #pass_user, form.create_info #pass_user_confirm,form.update_info #pass_user, form.update_info #pass_user_confirm').focusout(function(event) {
-		var pass = $('input#pass_user').val();
-		var pass_confirm = $('input#pass_user_confirm').val();
-		if (pass == pass_confirm){
-			$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').removeClass('invalid');
-			$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').addClass('valid');
-		}else{
-			if(pass != pass_confirm && pass != '' && pass_confirm != ''){
-				$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').removeClass('valid');
-				$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').addClass('invalid');
-			}
+
+	$('form.create_info #pass_user, form.create_info #pass_user_confirm').focusout(function(event) {
+		var pass = $('form.create_info #pass_user').val();
+		var pass_confirm = $('form.create_info #pass_user_confirm').val();
+	
+	if (pass == pass_confirm){
+		$('form.create_info #pass_user, form.create_info #pass_user_confirm').removeClass('invalid');
+		$('form.create_info #pass_user, form.create_info #pass_user_confirm').addClass('valid');
+	}else{
+		if(pass != pass_confirm && pass != '' && pass_confirm != ''){
+			$('form.create_info #pass_user, form.create_info #pass_user_confirm').removeClass('valid');
+			$('form.create_info #pass_user, form.create_info #pass_user_confirm').addClass('invalid');
 		}
+	}
 	});
+
+
 }
+
 function ajax_set_form_data(ruta,formData){
 	$.ajax({
 		beforeSend:function() { 
@@ -173,8 +141,8 @@ function ajax_set_form_data(ruta,formData){
 	    success: function(response){
 	    	success(response);
 	    	if (response['status']==1) {
- 	    		clean_input();
- 	    	}
+	    		clean_input();
+	    	}
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);
