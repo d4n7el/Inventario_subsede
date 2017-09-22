@@ -9,10 +9,16 @@
 	$rol 			= addslashes($_REQUEST['rol']);
 	$pass 			= password_hash($pass, PASSWORD_DEFAULT);
 	$retorno 		= $welcome->insert_user($nombre,$apellido,$cedula,$pass,$cellar,$rol);
-	if (count($retorno) > 0 ) {
-		$respuesta = array('mensaje' => "registro correcto", 'status' => 1 );
-	}else{
-		$respuesta = array('mensaje' => "error", 'status' => 0 );
-	}
+	if ($pass == $pass_confirm) {
+ 		$pass = password_hash($pass, PASSWORD_DEFAULT);
+ 		$retorno = $welcome->insert_user($nombre,$apellido,$email,$cedula,$pass,$cellar,$rol);
+ 		if ($retorno > 0 ) {
+ 			$respuesta = array('mensaje' => "registro correcto", 'status' => 1 );
+ 		}else{
+ 			$respuesta = array('mensaje' => "error", 'status' => 0 );
+ 		}
+ 	}else {
+ 		$respuesta = array('mensaje' => "La contraseñas no coinciden", 'status' => 0 );
+  	}
 	echo json_encode($respuesta);
 ?>
