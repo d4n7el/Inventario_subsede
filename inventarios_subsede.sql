@@ -85,7 +85,7 @@ CREATE TABLE `measure` (
 --
 
 INSERT INTO `measure` (`id_measure`, `name_measure`, `prefix_measure`, `id_user_create`, `date_create`) VALUES
-(1, 'Kilogramo', 'Kg', 7, '2017-08-17 01:55:03'),
+(1, 'Kilogramo', 'Kg', 7, '2017-09-22 14:31:08'),
 (2, 'Libra', 'Lb', 7, '2017-08-17 01:06:09');
 
 -- --------------------------------------------------------
@@ -111,7 +111,8 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `unit_measure`, `id_user_create`, `id_cellar`, `creation_date`) VALUES
 (1, 'Carne de res', 'carne roja Medellin', '1', 7, 6, '2017-08-31 03:23:54'),
 (5, 'Carne de Cerdo', 'Carne Blanca ', '1', 7, 3, '2017-08-31 03:24:07'),
-(7, 'Leche Liquida', 'Bosas de Leche Liquida', '1', 7, 2, '2017-08-17 01:06:51');
+(7, 'Leche Liquida', 'Bosas de Leche Liquida', '1', 7, 2, '2017-08-17 01:06:51'),
+(8, 'Savila', 'Savila', '2', 7, 1, '2017-09-22 23:44:59');
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,8 @@ CREATE TABLE `recover_password` (
 --
 
 INSERT INTO `recover_password` (`id_recover`, `code_recover`, `email_user`, `fecha_creacion`) VALUES
-(3, 'A20778G', 'd4n7elfelipe@gmail.com', '2017-09-08 02:37:56');
+(3, 'A20778G', 'd4n7elfelipe@gmail.com', '2017-09-08 02:37:56'),
+(4, 'E341564Y', 'd4n7elfelipe@gmail.com', '2017-09-21 19:26:58');
 
 -- --------------------------------------------------------
 
@@ -157,8 +159,34 @@ INSERT INTO `roles` (`id_role`, `name_rol`, `description_role`, `level`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `stock`
+--
+
+CREATE TABLE `stock` (
+  `id_stock` int(100) NOT NULL,
+  `id_cellar` int(100) NOT NULL,
+  `id_product` int(100) NOT NULL,
+  `nom_lot` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `amount` int(100) NOT NULL,
+  `expiration_date` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `expiration_create` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `comercializadora` varchar(100) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `stock`
+--
+
+INSERT INTO `stock` (`id_stock`, `id_cellar`, `id_product`, `nom_lot`, `amount`, `expiration_date`, `expiration_create`, `comercializadora`) VALUES
+(1, 2, 7, '7', 2000, '28 September, 2017', '5 September, 2017', 'atesa'),
+(6, 3, 5, '5', 20, '28 September, 2017', '4 September, 2017', 'casa');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tools`
 --
+
 CREATE TABLE `tools` (
   `id_tool` int(11) NOT NULL,
   `name_tool` varchar(20) NOT NULL,
@@ -168,13 +196,14 @@ CREATE TABLE `tools` (
   `id_cellar` int(11) NOT NULL,
   `id_user_create` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Volcado de datos para la tabla `tools`
 --
 
 INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`) VALUES
-(16, 'fd', 'dhdhdhdhdhd', 3, 1, 6, 18),
-(17, 'fds', 're', 3, 1, 6, 7),
+(16, 'fd', 'dhdhdhdhdhd', 3, 1, 2, 7),
+(17, 'fds', 're', 3, 1, 2, 7),
 (18, 'jhgg', 'dff', 45, 2, 2, 18),
 (19, 'martillo', 'Acme', 30, 10, 6, 18),
 (21, 'cocos de cafe', 'la doce', 4, 4, 6, 7);
@@ -190,7 +219,7 @@ CREATE TABLE `user` (
   `name_user` varchar(50) NOT NULL,
   `last_name_user` varchar(50) NOT NULL,
   `email_user` text NOT NULL,
-  `cedula` varchar(20) NOT NULL,
+  `cedula` varchar(50) NOT NULL,
   `pass` text NOT NULL,
   `id_cellar` int(11) NOT NULL,
   `id_role` int(11) NOT NULL
@@ -201,11 +230,15 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `email_user`, `cedula`, `pass`, `id_cellar`, `id_role`) VALUES
-(7, 'Daniel Felipe', 'Zamora Ortiz', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$MbgK/SGQWmmh1uEpHtC3WeySu5VfCYSbF42hyi/IBaS5TMIgiXFGG', 2, 1),
+(7, 'Daniel Felipe', 'Zamora Ortiz', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$q3LSw80gFBs6j9x/dC.zpO5e20DLj8PhK7cTJZHHYLtd5ifS4fA26', 2, 1),
 (15, 'Stefania', 'Casas', 'Ecasas05@misena.edu.co', '1093227968', '$2y$10$fi/ObWvWDHI8qOItzyf1..J.WmBk6YnMOVAeATY8NJPotQYZUQJcq', 3, 1),
 (16, 'Pedro', 'Triviño', 'pnmontealegre@misena.edu.co', '1225092661', '$2y$10$eYo1Chuil/FLsTMRsBbHDeL3PBqbPX9Kif7XJUJEnqLg2oub6YvdO', 4, 1),
 (17, 'Yeison', 'Londoño Tabarez', 'yeiko1022@hotmail.com', '1088347434', '$2y$10$FFTBYqNzlEJC4pVWqM/6MehsSgVQj1jYeOaLtvZwxkKCboD8qy/0K', 4, 1),
-(18, 'Julio Cesar', 'Guapacha ', 'jcguapacha2@misena.edu.co', '1088299682', '$2y$10$V//tBsKlFLY8pyF83XJgR.fd7NXWbHw3vs6GM3WN7CYnwrAbAS.h2', 5, 1);
+(18, 'Julio Cesar', 'Guapacha ', 'jcguapacha2@misena.edu.co', '1088299682', '$2y$10$V//tBsKlFLY8pyF83XJgR.fd7NXWbHw3vs6GM3WN7CYnwrAbAS.h2', 1, 1),
+(19, 'daniel', 'zamora', '', '56478399302', '$2y$10$MtWXYXK0gLgTAb6JxliE1.v1oxlHfPjqnnEPfa.Am07sDj7N3OdT6', 5, 1),
+(20, 'daniel', 'zamora', '', '48873829', '$2y$10$hsxCkPBn2XSDSXwuUk59DO0pGo2GE1/WGSG471J5r6D5q5k1rWpOu', 5, 2),
+(23, 'daniel', 'ortiz', 'dfzamora8@misena.edu.co', '9876540394', '$2y$10$GAQ/n1YimCG.fqLNdBuubusyev4kEC8Z9LJfXl/X6fIg/jtqXTICG', 5, 1),
+(24, 'juan', 'ortiz', 'juanss@gamil.com', '93847892001', '$2y$10$l5/W58MuIuaMej7vxrJ/beFh2PBkLXMu0e5URZdmpS86ylY2FJd4C', 5, 1);
 
 --
 -- Índices para tablas volcadas
@@ -259,6 +292,12 @@ ALTER TABLE `roles`
   ADD UNIQUE KEY `level` (`level`);
 
 --
+-- Indices de la tabla `stock`
+--
+ALTER TABLE `stock`
+  ADD PRIMARY KEY (`id_stock`);
+
+--
 -- Indices de la tabla `tools`
 --
 ALTER TABLE `tools`
@@ -298,17 +337,22 @@ ALTER TABLE `measure`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
 ALTER TABLE `recover_password`
-  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `stock`
+--
+ALTER TABLE `stock`
+  MODIFY `id_stock` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `tools`
 --
@@ -318,7 +362,7 @@ ALTER TABLE `tools`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- Restricciones para tablas volcadas
 --

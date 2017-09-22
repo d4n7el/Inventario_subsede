@@ -8,8 +8,8 @@
   					<div class="input-field col s12 m12" id="stock">
 			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
 			        </div>
-
-			        <div id="mostrar_productos">
+ 
+			        <div class="input-field col s12 m12" id="mostrar_productos">
 						
 			        </div>
 
