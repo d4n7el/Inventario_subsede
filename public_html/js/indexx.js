@@ -46,6 +46,7 @@ function eliminar_eventos(){
 	$('select#select_equipment').off('change');
 	$('button#add_exit').off('click');
 	$('select#cantidades').off('change');
+	$('select').material_select('destroy');
 	$('form.create_info #pass_user, form.create_info #pass_user_confirm').off('focusout');
 }
 var recargar_eventos = function(){
@@ -78,6 +79,13 @@ var recargar_eventos = function(){
 		}else{
 			mensaje_alert("error","Selecciona todos los campos",2000);
 		}
+	});
+	$('#stock select').change(function(event){
+		var ruta = "../php/products/view_selects_products.php";
+		var id_cellars = $(this).val();
+		$("div#mostrar_productos").load(ruta,{id_cellars: id_cellars},function() {
+			recargar_eventos();
+		});
 	});
 	$('select#cantidades').change(function(event) {
 		cantidad = 	$(this).val();
