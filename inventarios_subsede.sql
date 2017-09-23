@@ -168,8 +168,8 @@ CREATE TABLE `stock` (
   `id_product` int(100) NOT NULL,
   `nom_lot` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `amount` int(100) NOT NULL,
-  `expiration_date` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `expiration_create` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `expiration_date` date NOT NULL,
+  `expiration_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `comercializadora` varchar(100) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -178,8 +178,7 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`id_stock`, `id_cellar`, `id_product`, `nom_lot`, `amount`, `expiration_date`, `expiration_create`, `comercializadora`) VALUES
-(1, 2, 7, '7', 2000, '28 September, 2017', '5 September, 2017', 'atesa'),
-(6, 3, 5, '5', 20, '28 September, 2017', '4 September, 2017', 'casa');
+(16, 1, 8, '1232frs2', 123, '2017-09-30', '2017-09-23 00:23:56', 'casa');
 
 -- --------------------------------------------------------
 
@@ -352,7 +351,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id_stock` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_stock` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `tools`
 --

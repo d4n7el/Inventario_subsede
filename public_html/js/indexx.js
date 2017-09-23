@@ -37,6 +37,7 @@ $(document).on('ready',function(){
 function eliminar_eventos(){
 	$('form#submit_session').off('submit');
 	$('button.editar_info').off('click');
+	$('form.create_info').off('submit');
 	$('form.update_info').off('submit');
 	$('button.actualizar_info').off('submit');
 	$('select').material_select('destroy');
@@ -123,12 +124,12 @@ var recargar_eventos = function(){
 		var ruta = $(this).attr('action');
 		ajax_set_form_data(ruta,formData);
 	});
-	$('form.create_info').on('submit', function(event) {
-		event.preventDefault();
-		var formData = new FormData(this);
-		var ruta =  $(this).attr('action');
-		ajax_set_form_data(ruta,formData);
-	});
+	// $('form.create_info').on('submit', function(event) {
+	// 	event.preventDefault();
+	// 	var formData = new FormData(this);
+	// 	var ruta =  $(this).attr('action');
+	// 	ajax_set_form_data(ruta,formData);
+	// });
 	$('button.editar_info').on('click', function(event) {
 		event.preventDefault();
 		$(this).closest('form').find('div').removeClass('hide');
@@ -163,6 +164,12 @@ var recargar_eventos = function(){
 			}
 		}
 	});
+	$('.datepicker').pickadate({
+	    selectMonths: true, // Creates a dropdown to control month
+	    selectYears: 2, // Creates a dropdown of 15 years to control year,
+	    selectMonths: true, // Creates a dropdown to control month 
+	    format: 'yyyy-mm-dd',
+  	});
 }
 function ajax_set_form_data(ruta,formData){
 	$.ajax({
@@ -319,9 +326,22 @@ function mensaje_cargando(tipo,mensaje){
 	$("div#modal_mensajes").html(html);
 	$('#modal_mensajes').modal('open');
 }
-
 function clean_input(){
 	$('.create_info')[0].reset(); //Sirve para resetear a su estado original el form
 	$('.create_info i, .create_info label').removeClass('active'); 
 	$('.create_info input').removeClass('valid');
+}
+function parse_fecha_numeric(fecha){
+	var fecha = new Date(fecha);
+	var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+	var fecha = fecha.toLocaleDateString("es-ES", options);
+	var fecha = fecha.split("/");
+	fecha = fecha[2]+"-"+fecha[1]+"-"+fecha[0];
+	return fecha;
+}
+function parse_fecha_string(fecha){
+	var fecha = new Date(fecha);
+	var options = { year: 'numeric', month: 'long', day: '2-digit' };
+	var fecha = fecha.toLocaleDateString("es-ES", options);
+	return fecha;
 }

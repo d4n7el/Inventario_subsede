@@ -33,15 +33,6 @@
 			            <label for="fecha_vencimiento" class="">Fecha_vencimiento</label>
 			        </div>			        
 
-
-
-					<div class="input-field col s12 m12">
-			            <i class="material-icons prefix">account_circle</i>
-			            <input id="fecha_creacion" type="text" class="datepicker" name="expiration_create" autocomplete="off" required>
-			            <label for="fecha_creacion" class="">Fecha Creacion</label>
-			        </div>
-
-
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">account_circle</i>
 			            <input id="Comercializadora" type="text" class="validate" name="comercializadora" autocomplete="off" required>

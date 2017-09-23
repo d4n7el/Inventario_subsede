@@ -8,9 +8,8 @@
 	$nom_lot			= $_REQUEST["nombre_lote"];
 	$amount 			= $_REQUEST["amount"];
 	$expiration 		= $_REQUEST["expiration"];
-	$expiration_create 	= $_REQUEST["expiration_create"];
 	$comercializadora 	= $_REQUEST["comercializadora"];
-	$retorno_stock 	= $stock->insert_stock($id_cellar,$id_product,$nom_lot,$amount,$expiration,$expiration_create,$comercializadora);
+	$retorno_stock 	= $stock->insert_stock($id_cellar,$id_product,$nom_lot,$amount,$expiration,$comercializadora);
 	if ($retorno_stock > 0) {
 		$respuesta = array('mensaje' => "registro correcto", 'status' => 1 );
 	}else{
