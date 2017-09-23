@@ -1,8 +1,8 @@
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/cellar_controller.php');
 	$cellar = new Cellars();
-	(isset($_REQUEST['id_cellar']) ? $id_cellar = $_REQUEST['id_cellar'] : $id_cellar = "%%");
-	$retorno_cellar = $cellar->get_cellar($id_cellar);  ?>
+	(isset($_REQUEST['id_cellar']) ? $id_cellar = $_REQUEST['id_cellar'] : $id_cellar = "%%"); 
+	(isset($user) ? $retorno_cellar = $cellar->get_cellar_two($id_cellar) : $retorno_cellar = $cellar->get_cellar($id_cellar)) ?>
 	<i class="material-icons prefix">shopping_basket</i>
 	<select class="icons" name="cellar" id="id_cellar">
 		<option value="" disabled selected>Selecciona la Bodega</option>

@@ -1,7 +1,7 @@
 <?php  
 	session_start();
-	if (isset($_SESSION["id_user_activo"])) {
-?>
+	if (isset($_SESSION["id_user_activo"])) { 
+		$user = true;?>
 		<div class="row">
 		    <div class="formulario col m6 offset-m3">
 		    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/new_user.php" class="create_info">
@@ -16,6 +16,11 @@
 			            <label for="apellido_user" class="">Apellidos</label>
 			        </div>
 			        <div class="input-field col s12 m12">
+			            <i class="material-icons prefix">email</i>
+			            <input id="email_user" type="email" class="validate" name="email" autocomplete="off" required>
+			            <label for="email_user" class="">Correo Electrónico</label>
+			        </div>
+			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">credit_card</i>
 			            <input id="cedula_user" type="text" class="validate" name="cedula" autocomplete="off" required>
 			            <label for="cedula_user" class="">N° de Documento</label>
@@ -25,11 +30,11 @@
 			            <input id="pass_user" type="password" class="validate" name="pass" autocomplete="off" required>
 			            <label for="pass_user" class="">Crear Contraseña</label>
 			        </div>
-					<!-- <div class="input-field col s12 m12">
+					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">fingerprint</i>
-			            <input id="pass_user" type="password" class="validate" name="pass" autocomplete="off" required>
-			            <label for="pass_user" class="">Confirmar Contraseña</label>
-			        </div> -->
+			            <input id="pass_user_confirm" type="password" class="validate" name="pass_confirm" autocomplete="off" required>
+ 			            <label for="pass_user_confirm" class="">Confirmar Contraseña</label>
+			        </div>
 			        <div class="input-field col s12 m12">
 			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/roles/_view_roles_select.php'); ?>
 			        </div>

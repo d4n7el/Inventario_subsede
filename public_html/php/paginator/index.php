@@ -1,4 +1,4 @@
-<?php  
+<?php 
 	$botones = ceil($count_rows / $limit);
 	$x = 1;
 ?>

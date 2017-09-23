@@ -33,7 +33,8 @@ div.paginacion{
 	max-height: 4em;
 }
 div#recordatorio{
-	margin-top: 25%;
+	margin-top: 1em;
+	margin-bottom: 3em;
 }
 div#recordatorio h4 i {
 	margin-right: 1em;
@@ -53,6 +54,18 @@ i{
 }
 #modal_mensajes .modal-content .card-image img{
 	width: 60%;
+}
+div#view_add_elements{
+	padding-top: 3em;
+	height: 70vh;
+	overflow: hidden;
+	overflow: scroll;
+}
+div.element_salida{
+	background-color:  rgba(255,255,255,.3);
+	border-radius: 0px 0px 4em 4em;
+	
+	overflow: hidden;
 }
 #modal_mensajes .modal-content .card-image{
 	min-height: 14em;

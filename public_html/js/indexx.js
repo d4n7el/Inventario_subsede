@@ -1,4 +1,5 @@
 $(document).on('ready',function(){
+	cantidad = ""; 	nombre = "";	id = "";	disponible = "";
 	recargar_eventos();
 	$('a.link_page').on('click', function(event) {
 		event.preventDefault();
@@ -36,6 +37,7 @@ $(document).on('ready',function(){
 function eliminar_eventos(){
 	$('form#submit_session').off('submit');
 	$('button.editar_info').off('click');
+	$('form.create_info').off('submit');
 	$('form.update_info').off('submit');
 	$('button.actualizar_info').off('submit');
 	$('select').material_select('destroy');
@@ -43,14 +45,59 @@ function eliminar_eventos(){
 	$('input#receive_user').off('focusout');
 	$('a.pagination').off('click');
 	$('select#select_equipment').off('change');
+	$('button#add_exit').off('click');
+	$('select#cantidades').off('change');
+	$('select').material_select('destroy');
+	$('form.create_info #pass_user, form.create_info #pass_user_confirm').off('focusout');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
+	$('button#add_exit').on('click', function(event) {
+		event.preventDefault();
+		if (cantidad != "" &&  nombre != "") {
+			ruta = $('div#view_add_elements').attr('ruta');
+			var html =  '<div class="col s12" style="margin-bottom: 1em">\
+							<div class="col s12 sombra element_salida">\
+								<a class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
+								<h4 class="col s12 color_letra_primario centrar">'+nombre+'</h4>\
+								<div class="input-field col s12 m12" id="'+nombre+'">\
+							    </div>\
+							    <div class="input-field col s12 m12">\
+						            <i class="material-icons prefix">subject</i>\
+						            <input id="anotacion" type="text" class="validate" name="nota" autocomplete="off">\
+						            <label for="anotacion" class="">Nota</label>\
+						        </div>\
+						    </div>\
+				        </div>'; 
+			$("div#view_add_elements").append(html);
+			$("div#"+nombre).load(ruta,{cantidad_disponible: disponible, cantidad: cantidad},function() {
+				$('option#'+nombre+"_"+id).attr('disabled', 'true').attr('selected','true');
+				$('select#select_equipment').val( $('select#select_equipment').prop('defaultSelected') );
+				cantidad = ""; 	nombre = "";	id = "";	disponible = "";
+				recargar_eventos();
+			});
+		}else{
+			mensaje_alert("error","Selecciona todos los campos",2000);
+		}
+	});
+	$('#stock select').change(function(event){
+		var ruta = "../php/products/view_selects_products.php";
+		var id_cellars = $(this).val();
+		$("div#mostrar_productos").load(ruta,{id_cellars: id_cellars},function() {
+			recargar_eventos();
+		});
+	});
+	$('select#cantidades').change(function(event) {
+		cantidad = 	$(this).val();
+	});
 	$('select#select_equipment').change(function(event) {
-		var disponible = $('option:selected', this).attr('disponible');
+		cantidad = "";		nombre = "";		id = "";
+		nombre = $('option:selected', this).text();
+		id = $('option:selected', this).val();
+		disponible = $('option:selected', this).attr('disponible');
 		ruta = $(this).attr('ruta');
-		$("div#cantidad_disponible").load(ruta,{cantidad: disponible},function() {
+		$("div#cantidad_disponible").load(ruta,{cantidad_disponible: disponible},function() {
 			recargar_eventos();
 		});
 	});
@@ -77,12 +124,12 @@ var recargar_eventos = function(){
 		var ruta = $(this).attr('action');
 		ajax_set_form_data(ruta,formData);
 	});
-	$('form.create_info').on('submit', function(event) {
-		event.preventDefault();
-		var formData = new FormData(this);
-		var ruta =  $(this).attr('action');
-		ajax_set_form_data(ruta,formData);
-	});
+	// $('form.create_info').on('submit', function(event) {
+	// 	event.preventDefault();
+	// 	var formData = new FormData(this);
+	// 	var ruta =  $(this).attr('action');
+	// 	ajax_set_form_data(ruta,formData);
+	// });
 	$('button.editar_info').on('click', function(event) {
 		event.preventDefault();
 		$(this).closest('form').find('div').removeClass('hide');
@@ -104,6 +151,25 @@ var recargar_eventos = function(){
 		$(this).closest('form').find('div.oculto').addClass('hide');
 		$(this).closest('form').find('input').attr('readonly','true');
 	});
+	$('form.create_info #pass_user, form.create_info #pass_user_confirm,form.update_info #pass_user, form.update_info #pass_user_confirm').focusout(function(event) {
+		var pass = $('input#pass_user').val();
+		var pass_confirm = $('input#pass_user_confirm').val();
+		if (pass == pass_confirm){
+			$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').removeClass('invalid');
+			$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').addClass('valid');
+		}else{
+			if(pass != pass_confirm && pass != '' && pass_confirm != ''){
+				$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').removeClass('valid');
+				$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').addClass('invalid');
+			}
+		}
+	});
+	$('.datepicker').pickadate({
+	    selectMonths: true, // Creates a dropdown to control month
+	    selectYears: 2, // Creates a dropdown of 15 years to control year,
+	    selectMonths: true, // Creates a dropdown to control month 
+	    format: 'yyyy-mm-dd',
+  	});
 }
 function ajax_set_form_data(ruta,formData){
 	$.ajax({
@@ -121,7 +187,9 @@ function ajax_set_form_data(ruta,formData){
 	    processData: false, 
 	    success: function(response){
 	    	success(response);
-	    	clean_input();
+	    	if (response['status']==1 && response['process']=='create')  {
+ 	    		clean_input();
+ 	    	}
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);
@@ -258,9 +326,22 @@ function mensaje_cargando(tipo,mensaje){
 	$("div#modal_mensajes").html(html);
 	$('#modal_mensajes').modal('open');
 }
-
 function clean_input(){
 	$('.create_info')[0].reset(); //Sirve para resetear a su estado original el form
 	$('.create_info i, .create_info label').removeClass('active'); 
 	$('.create_info input').removeClass('valid');
+}
+function parse_fecha_numeric(fecha){
+	var fecha = new Date(fecha);
+	var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+	var fecha = fecha.toLocaleDateString("es-ES", options);
+	var fecha = fecha.split("/");
+	fecha = fecha[2]+"-"+fecha[1]+"-"+fecha[0];
+	return fecha;
+}
+function parse_fecha_string(fecha){
+	var fecha = new Date(fecha);
+	var options = { year: 'numeric', month: 'long', day: '2-digit' };
+	var fecha = fecha.toLocaleDateString("es-ES", options);
+	return fecha;
 }

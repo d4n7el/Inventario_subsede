@@ -34,5 +34,18 @@
             	$e->getMessage();
         	}
 		}
+		public function update_pass($pass,$id_user){
+			try {
+				$sql_consult = $this->db->prepare('UPDATE user SET pass = ? WHERE id_user = ? ');
+	            if ($sql_consult->execute(array($pass,$id_user))) {
+	            	return 1;
+	            }else{
+	            	return 0;
+	            }
+	            $this->db = null;
+            } catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 	}
 ?>

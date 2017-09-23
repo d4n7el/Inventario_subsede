@@ -20,6 +20,18 @@
             	$e->getMessage();
         	}
 		}
+		public function get_products_cellar($id_cellar){
+			try {
+				$sql_consult = $this->db->prepare("SELECT * FROM products WHERE id_cellar = ? " );
+				$sql_consult->execute(array($id_cellar));
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function get_products(){
 			try {
 				$sql_consult = $this->db->prepare("SELECT * FROM products " );
