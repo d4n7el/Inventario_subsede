@@ -49,6 +49,7 @@ function eliminar_eventos(){
 	$('select#cantidades').off('change');
 	$('select').material_select('destroy');
 	$('form.create_info #pass_user, form.create_info #pass_user_confirm').off('focusout');
+	$('#id_cellar_exit').off('change');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
@@ -58,13 +59,13 @@ var recargar_eventos = function(){
 		if (cantidad != "" &&  nombre != "") {
 			ruta = $('div#view_add_elements').attr('ruta');
 			var html =  '<div class="col s12" style="margin-bottom: 1em">\
+							 <input type="hidden" name="" value="'+id+'">\
 							<div class="col s12 sombra element_salida">\
 								<a class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
-								<h4 class="col s12 color_letra_primario centrar">'+nombre+'</h4>\
-								<div class="input-field col s12 m12" id="'+nombre+'">\
+								<h5 class="col s12 titulo color_letra_primario center">'+nombre+'</h5>\
+								<div class="input-field col s12 m6" id="'+nombre+'">\
 							    </div>\
-							    <div class="input-field col s12 m12">\
-						            <i class="material-icons prefix">subject</i>\
+							    <div class="input-field col s12 m6">\
 						            <input id="anotacion" type="text" class="validate" name="nota" autocomplete="off">\
 						            <label for="anotacion" class="">Nota</label>\
 						        </div>\
@@ -81,6 +82,13 @@ var recargar_eventos = function(){
 			mensaje_alert("error","Selecciona todos los campos",2000);
 		}
 	});
+	$('#id_cellar_exit').change(function(event) {
+		var ruta = "../php/stock/_view_select_stock.php";
+		var id_product = $('option:selected', this).val();
+		$("div#mostrar_lotes").load(ruta,{id_product: id_product},function() {
+			recargar_eventos();
+		});
+	});
 	$('#stock select').change(function(event){
 		var ruta = "../php/products/view_selects_products.php";
 		var id_cellars = $(this).val();
@@ -91,7 +99,7 @@ var recargar_eventos = function(){
 	$('select#cantidades').change(function(event) {
 		cantidad = 	$(this).val();
 	});
-	$('select#select_equipment').change(function(event) {
+	$('select#select_equipment,select#id_lote').change(function(event) {
 		cantidad = "";		nombre = "";		id = "";
 		nombre = $('option:selected', this).text();
 		id = $('option:selected', this).val();

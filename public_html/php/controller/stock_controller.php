@@ -8,8 +8,6 @@
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
 		}
-
-
 		public function insert_stock($id_cellar,$id_product,$nom_lot,$amount,$expiration,$comercializadora){
 			try {
 				$sql_consult = $this->db->prepare('INSERT INTO stock (id_cellar,id_product,nom_lot,amount,expiration_date,comercializadora) VALUES (?,?,?,?,?,?)'  );
@@ -26,6 +24,17 @@
 			try {
 				$sql_consult = $this->db->prepare("SELECT * FROM stock LIMIT $limit OFFSET $offset " );
 				$sql_consult->execute();
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
+		public function get_stock($id_product){
+			try {
+				$sql_consult = $this->db->prepare("SELECT * FROM stock WHERE id_product = ? " );
+				$sql_consult->execute(array($id_product));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;

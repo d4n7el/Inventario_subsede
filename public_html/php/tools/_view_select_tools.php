@@ -8,7 +8,7 @@
 		<option value="" disabled selected>Seleccione la herramienta</option>
 		<?php 
 			foreach ($retorno_tools as $tools) { ?>
-				<option value="<?php echo $tools['id_tool']; ?>" disponible="<?php echo $tools['quantity_available'] ?>"><?php echo $tools['name_tool']; ?></option>
+				<option value="<?php echo $tools['id_tool']; ?>" disponible="<?php echo $tools['quantity_available'] ?>" id="<?php echo $tools['name_tool']."_".$tools['id_tool'] ?>"><?php echo $tools['name_tool']; ?></option>
 				<?php  	 
 			}
 		?>	
