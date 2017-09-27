@@ -13,15 +13,13 @@
 					    </div>
 
 						<div class="input-field col s4">
-					           <i class="material-icons prefix">account_circle</i>
-					           <input id="nombre_producto" type="text" class="validate editar_info" name="product" autocomplete="off"value="<?php echo $value['id_product'] ?>"  readonly="readonly">
-					           <label for="nombre_producto" class="active">Id Producto</label>
+					           <?php require($_SERVER['DOCUMENT_ROOT'].'/php/products/view_selects_products.php'); ?>
 					    </div>
 
 						<div class="input-field col s4 hide oculto">
 					           <i class="material-icons prefix">account_circle</i>
 					           <input id="nombre_producto" type="text" class="validate editar_info" name="nombre_lote" autocomplete="off" value="<?php echo $value['id_product'] ?>"  readonly="readonly">
-					           <label for="nombre_producto" class="active">Nombre Lote</label>
+					           <label for="nombre_producto" class="active">Lote</label>
 					    </div>
 
 						<div class="input-field col s4">

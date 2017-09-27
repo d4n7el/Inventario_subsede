@@ -49,11 +49,25 @@ function eliminar_eventos(){
 	$('select#cantidades').off('change');
 	$('select').material_select('destroy');
 	$('form.create_info #pass_user, form.create_info #pass_user_confirm').off('focusout');
-	$('#id_cellar_exit').off('change');
+	$('#id_product_exit').off('change');
+	$('button#add_exit_product').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
+	$('button#add_exit_product').on('click', function(event) {
+		event.preventDefault();
+		var bodega 			= $( "#id_cellar option:selected" ).text();
+		var bodega_id 		= $( "#id_cellar option:selected" ).text();
+		var producto 		= $( "#id_product_exit option:selected" ).text();
+		var producto_id 	= $( "#id_product_exit option:selected" ).val();
+		var lote 			= $( "#id_lote option:selected" ).text();
+		var lote_id 		= $( "#id_lote option:selected" ).val();
+		var cantidad 		= $( "#cantidades option:selected" ).val();
+		var destino 		= $('input:radio[name=destino]:checked').val();
+		var recive_id 		= $('input#receive_user').val();
+		var recive_id		= $('input#name_receive_user').val();
+	});
 	$('button#add_exit').on('click', function(event) {
 		event.preventDefault();
 		if (cantidad != "" &&  nombre != "") {
@@ -82,7 +96,7 @@ var recargar_eventos = function(){
 			mensaje_alert("error","Selecciona todos los campos",2000);
 		}
 	});
-	$('#id_cellar_exit').change(function(event) {
+	$('#id_product_exit').change(function(event) {
 		var ruta = "../php/stock/_view_select_stock.php";
 		var id_product = $('option:selected', this).val();
 		$("div#mostrar_lotes").load(ruta,{id_product: id_product},function() {
@@ -299,7 +313,7 @@ function mensaje_alert(tipo,mensaje,duracion){
 							<img src="'+img+'">\
 						</div>\
 						<div class="card-action">\
-							<a href="#">'+mensaje+'</a>\
+							<a href="#" class="color_letra_primario">'+mensaje+'</a>\
 						</div>\
 					</div>\
 				</div>\
@@ -325,7 +339,7 @@ function mensaje_cargando(tipo,mensaje){
 							<img src="'+img+'">\
 						</div>\
 						<div class="card-action">\
-							<a href="#">'+mensaje+'</a>\
+							<a href="#" class="color_letra_primario">'+mensaje+'</a>\
 						</div>\
 					</div>\
 				</div>\

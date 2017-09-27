@@ -1,14 +1,14 @@
 <div class="row">
     <div class="formulario col s5" id="">
     	<div class="destino col s12 sombra centrar" style="margin-bottom: 2em">
-    		<h6 class="titulo color_letra_primario col s4"> Destino</h6>
+    		<h6 class="titulo color_letra_secundario col s4"> Destino</h6>
 			<p class="col s4">
-				<input name="group1" type="radio" id="test1" />
-				<label for="test1">Interno</label>
+				<input name="destino" type="radio" id="interno" value="Int" />
+				<label for="interno">Interno</label>
 			</p>
 			<p class="col s4">
-				<input name="group1" type="radio" id="test2" />
-				<label for="test2">Externo</label>
+				<input name="destino" type="radio" id="externo" value="Ext" />
+				<label for="externo">Externo</label>
 			</p>
     	</div>
 		<div class="input-field col s12 m12">
@@ -35,7 +35,7 @@
        		
         </div>
         <div class="action col s12 centrar">
-        	<button class="waves-effect waves-light btn btn-primary" id="add_exit">
+        	<button class="waves-effect waves-light btn btn-primary" id="add_exit_product">
         		<i class="material-icons left">near_me</i>Agregar
         	</button>
 	    </div>	
