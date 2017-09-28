@@ -90,7 +90,7 @@ var recargar_eventos = function(){
 							 <input type="hidden" name="" value="'+id+'">\
 							<div class="col s12 sombra element_salida">\
 								<a class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
-								<h5 class="col s12 titulo color_letra_primario center">'+nombre+'</h5>\
+								<h5 class="col s12 titulo color_letra_secundario center">'+nombre+'</h5>\
 								<div class="input-field col s12 m6" id="'+nombre+'">\
 							    </div>\
 							    <div class="input-field col s12 m6">\
