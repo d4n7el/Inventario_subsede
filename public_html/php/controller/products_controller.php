@@ -32,11 +32,23 @@
             	$e->getMessage();
         	}
 		}
-		public function get_products(){
+		public function get_products($limit, $offset){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM products " );
+				$sql_consult = $this->db->prepare("SELECT * FROM products LIMIT $limit OFFSET $offset" );
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
+		public function count_products(){
+			try {
+				$sql_consult = $this->db->prepare("SELECT COUNT(id_product) AS count FROM products " );
+				$sql_consult->execute();
+				$result = $sql_consult->fetch();
 				$this->db = null;
 				return $result;
 				

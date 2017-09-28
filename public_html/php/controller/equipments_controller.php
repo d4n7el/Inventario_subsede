@@ -22,9 +22,33 @@
 		}
 		public function get_equipments(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM equipments " );
+				$sql_consult = $this->db->prepare("SELECT * FROM equipments" );
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
+		public function get_equipments_pag($limit,$offset){
+			try {
+				$sql_consult = $this->db->prepare("SELECT * FROM equipments LIMIT $limit OFFSET $offset" );
+				$sql_consult->execute();
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
+		public function count_equipments(){
+			try {
+				$sql_consult = $this->db->prepare("SELECT COUNT(id_equipment) AS count FROM equipments " );
+				$sql_consult->execute();
+				$result = $sql_consult->fetch();
 				$this->db = null;
 				return $result;
 				

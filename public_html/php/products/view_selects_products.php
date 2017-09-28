@@ -6,7 +6,7 @@ $retorno_product = $products->get_products_cellar($id_cellars);  ?>
 <i class="material-icons prefix">shopping_basket</i>
 <?php 
 if (isset($exit_product)) { ?>
-	<select class="icons" name="product" id="id_cellar">
+	<select class="icons" name="product" id="id_cellar" required>
 		<option value="" disabled selected>Seleccione el producto</option>
 		<?php 
 			foreach ($retorno_product as $product) { ?>
@@ -17,7 +17,7 @@ if (isset($exit_product)) { ?>
 	</select>
 	<?php 
 }else{ ?>
-	<select class="icons" name="product" id="id_product_exit">
+	<select class="icons" name="product" id="id_product_exit" required>
 		<option value="" disabled selected>Seleccione el producto</option>
 		<?php 
 			foreach ($retorno_product as $product) { ?>

@@ -35,3 +35,6 @@
 		<?php  
 	}
 ?>
+<div class="paginacion col m12">
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/paginator/index.php'); ?>
+</div>

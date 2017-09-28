@@ -4,7 +4,7 @@
 	(isset($_REQUEST['id_cellar']) ? $id_cellar = $_REQUEST['id_cellar'] : $id_cellar = "%%"); 
 	(isset($user) ? $retorno_cellar = $cellar->get_cellar_two($id_cellar) : $retorno_cellar = $cellar->get_cellar($id_cellar)) ?>
 	<i class="material-icons prefix">shopping_basket</i>
-	<select class="icons" name="cellar" id="id_cellar">
+	<select class="icons" name="cellar" id="id_cellar" required="">
 		<option value="" disabled selected>Selecciona la Bodega</option>
 		<?php
 			foreach ($retorno_cellar as $cellar) { 
