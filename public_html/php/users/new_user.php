@@ -13,7 +13,7 @@
  		$pass = password_hash($pass, PASSWORD_DEFAULT);
  		$retorno = $welcome->insert_user($nombre,$apellido,$email,$cedula,$pass,$cellar,$rol);
  		if ($retorno > 0 ) {
- 			$respuesta = array('mensaje' => "registro correcto", 'status' => 1 );
+ 			$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create' );
  		}else{
  			$respuesta = array('mensaje' => "error", 'status' => 0 );
  		}

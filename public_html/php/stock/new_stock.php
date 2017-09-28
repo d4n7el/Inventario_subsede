@@ -11,7 +11,7 @@
 	$comercializadora 	= $_REQUEST["comercializadora"];
 	$retorno_stock 	= $stock->insert_stock($id_cellar,$id_product,$nom_lot,$amount,$expiration,$comercializadora);
 	if ($retorno_stock > 0) {
-		$respuesta = array('mensaje' => "registro correcto", 'status' => 1 );
+		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create' );
 	}else{
 		$respuesta = array('mensaje' => "error", 'status' => 0 );
 	}
