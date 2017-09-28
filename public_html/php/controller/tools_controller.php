@@ -22,7 +22,7 @@
 		}
 		public function get_tools($limit,$offset){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM tools LIMIT $limit OFFSET $offset" );
+				$sql_consult = $this->db->prepare("SELECT * FROM tools WHERE id_cellar = 6 LIMIT $limit OFFSET $offset" );
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -34,7 +34,7 @@
 		}
 		public function get_tools_all(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM tools" );
+				$sql_consult = $this->db->prepare("SELECT * FROM tools WHERE id_cellar = 6" );
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -46,7 +46,7 @@
 		}
 		public function count_tools(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT COUNT(id_tool) AS count FROM tools " );
+				$sql_consult = $this->db->prepare("SELECT COUNT(id_tool) AS count FROM tools WHERE id_cellar = 6" );
 				$sql_consult->execute();
 				$result = $sql_consult->fetch();
 				$this->db = null;
