@@ -349,7 +349,7 @@ function mensaje_alert(tipo,mensaje,duracion){
 	if (tipo == "success") {
 		var img = "../image/success.gif";
 	}else{
-		var img = "https://cdn2.iconfinder.com/data/icons/perfect-flat-icons-2/512/Error_warning_alert_attention_remove_dialog.png";
+		var img = "../image/errormessage.png";
 	}
 	var html = 
 		'<div class="modal-content">\
