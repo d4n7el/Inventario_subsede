@@ -64,7 +64,7 @@ var recargar_eventos = function(){
 		var producto_id 	= $( "#id_product_exit option:selected" ).val();
 		var lote 			= $( "#id_lote option:selected" ).text();
 		var lote_id 		= $( "#id_lote option:selected" ).val();
-		var cantidad 		= $( "#cantidades option:selected" ).val();
+		var cantidad 		= $( "input#cantidad" ).val();
 		var destino 		= $('input:radio[name=destino]:checked').val();
 		var recive_id		= $('input#receive_user').val();
 		var recive			= $('input#name_receive_user').val();
@@ -87,14 +87,14 @@ var recargar_eventos = function(){
 		if (cantidad != "" &&  nombre != "") {
 			ruta = $('div#view_add_elements').attr('ruta');
 			var html =  '<div class="col s12" style="margin-bottom: 1em">\
-							 <input type="hidden" name="" value="'+id+'">\
+							<input type="hidden" name="" value="'+id+'">\
 							<div class="col s12 sombra element_salida">\
 								<a class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
 								<h5 class="col s12 titulo color_letra_primario center">'+nombre+'</h5>\
 								<div class="input-field col s12 m6" id="'+nombre+'">\
 							    </div>\
 							    <div class="input-field col s12 m6">\
-						            <input id="anotacion" type="text" class="validate" name="nota" autocomplete="off">\
+						            <input id="anotacion" type="text" class="validate" name="nota[]" autocomplete="off">\
 						            <label for="anotacion" class="">Nota</label>\
 						        </div>\
 						    </div>\
@@ -139,7 +139,7 @@ var recargar_eventos = function(){
 	$('select#cantidades').change(function(event) {
 		cantidad = 	$(this).val();
 	});
-	$('select#select_equipment,select#id_lote').change(function(event) {
+	$('select#select_equipment').change(function(event) {
 		cantidad = "";		nombre = "";		id = "";
 		nombre = $('option:selected', this).text();
 		id = $('option:selected', this).val();
@@ -148,6 +148,11 @@ var recargar_eventos = function(){
 		$("div#cantidad_disponible").load(ruta,{cantidad_disponible: disponible},function() {
 			recargar_eventos();
 		});
+	});
+	$('select#id_lote').change(function(event) {
+		disponible = $('option:selected', this).attr('disponible');
+		alert(disponible);
+		$('input#cantidad').attr('max',disponible).attr('placeholder', 'Cantidad disponible'+ disponible).val(disponible);
 	});
 	$('a.pagination').on('click', function(event) {
 		event.preventDefault();
@@ -402,29 +407,30 @@ function ver_add_exit_product(product_exit){
 			<input type="hidden" name="producto_id[]" value="'+product_exit['producto_id']+'">\
 			<input type="hidden" name="bodega_id[]" value="'+product_exit['bodega_id']+'">\
 			<input type="hidden" name="lote_id[]" value="'+product_exit['lote_id']+'">\
-			<input type="hidden" name="user_id[]" value="'+product_exit['recive_id']+'">\
-			<input type="hidden" name="user_name[]" value="'+product_exit['recive']+'">\
 			<input type="hidden" name="destino[]" value="'+product_exit['destino']+'">\
 			<div class="col s12 sombra element_salida">\
 				<a id="delete_exit" class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
-				<h5 class="col s12 m6 center titulo color_letra_secundario">Bodega: '+product_exit['bodega']+'</h5>\
-				<h5 class="col s12 m6 center titulo color_letra_secundario">producto: '+product_exit['producto']+'</h5>\
-				<h5 class="col s12 m6 center titulo color_letra_secundario">lote: '+product_exit['lote']+'</h5>\
-				<h5 class="col s12 m6 titulo color_letra_secundario">Usuario: '+product_exit['recive']+'</h5>\
-				<div class="input-field col s12 m6" id="'+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']+'">\
-			    </div>\
-			    <div class="input-field col s12 m6">\
-		            <input id="anotacion" type="text" class="validate" name="nota" autocomplete="off">\
-		            <label for="anotacion" class="">Nota</label>\
+				<h6 class="col s12 m6 center titulo color_letra_secundario">Bodega: '+product_exit['bodega']+'</h6>\
+				<h6 class="col s12 m6 center titulo color_letra_secundario">producto: '+product_exit['producto']+'</h6>\
+				<h6 class="col s12 m6 center titulo color_letra_secundario">lote: '+product_exit['lote']+'</h6>\
+				<div class="col s12">\
+					<div class="input-field col s12 m6" id="'+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']+'">\
+						<i class="material-icons prefix">filter_9_plus</i>\
+			            <input id="nombre_descripcion" type="number" class="validate" name="cantidad[]" value="'+product_exit['cantidad']+'" autocomplete="off" required >\
+			            <label for="nombre_descripcion" class="active">Descripción</label>\
+				    </div>\
+				    <div class="input-field col s12 m6">\
+			            <input id="anotacion" type="text" class="validate" name="nota" autocomplete="off">\
+			            <label for="anotacion" class="">Nota</label>\
+			        </div>\
 		        </div>\
 		    </div>\
 	    </div>';
-	    limpiar();
+	    alert("-----"+ disponible);
+	    $('div#'+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']+" input").attr('max', disponible);
 	    ruta = $('div#view_add_elements').attr('ruta');
 	    $("div#view_add_elements").append(html);
-	    $("div#"+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']).load(ruta,{cantidad_disponible: disponible, cantidad : product_exit['cantidad'] },function() {
-			recargar_eventos();
-		}); 
+	    limpiar();
 	}else{
 		mensaje_alert("error","No puedes agregar el producto varias veces",2000);
 	}

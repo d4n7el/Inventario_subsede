@@ -214,8 +214,8 @@
     <div class="col s9 offset-s3" id="vista_ventana">
     	<?php if (isset($_SESSION["cod_user_activo"])) { ?>
     		<div class="col s12 centrar sombra" id="recordatorio">
-				<h4 class="color_letra_primario">
-					<i class="material-icons color_letra_primario">warning</i> ¡Recuerda modificar tu contraseña! 
+				<h4 class="color_letra_secundario">
+					<i class="material-icons color_letra_secundario">warning</i> ¡Recuerda modificar tu contraseña! 
 				</h4>
     		</div>
 			<div class="col s6 offset-s3">

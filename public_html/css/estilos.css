@@ -58,7 +58,9 @@ i{
 	width: 60%;
 }
 div#view_add_elements{
-	padding-top: 3em;
+	padding-top: 0em;
+	height: 60vh;
+	overflow: scroll;
 }
 div.element_salida{
 	background-color:  rgba(255,255,255,.3);
