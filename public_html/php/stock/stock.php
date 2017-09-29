@@ -22,7 +22,7 @@
 
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">account_circle</i>
-			            <input id="cantidad" type="text" class="validate" name="amount" autocomplete="off" required>
+			            <input id="cantidad" type="number" min="0" class="validate" name="amount" autocomplete="off" required>
 			            <label for="cantidad" class="">Cantidad</label>
 			        </div>
 

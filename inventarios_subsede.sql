@@ -93,6 +93,21 @@ CREATE TABLE `exit_equipment_master` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `exit_product_master`
+--
+
+CREATE TABLE `exit_product_master` (
+  `id_exit_product` int(11) NOT NULL,
+  `user_delivery` int(11) NOT NULL,
+  `user_receives` int(11) NOT NULL,
+  `destination` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `delivery` tinyint(1) NOT NULL DEFAULT '1',
+  `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `exit_teams_detall`
 --
 
@@ -148,7 +163,11 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `unit_measure`, `id_user_create`, `id_cellar`, `creation_date`) VALUES
 (1, 'Carne de res', 'carne roja Medellin', '1', 7, 6, '2017-08-31 03:23:54'),
 (5, 'Carne de Cerdo', 'Carne Blanca ', '1', 7, 3, '2017-08-31 03:24:07'),
-(7, 'Leche Liquida', 'Bosas de Leche Liquida', '1', 7, 2, '2017-08-17 01:06:51');
+(7, 'Leche Liquida', 'Bosas de Leche Liquida', '1', 7, 2, '2017-08-17 01:06:51'),
+(8, 'Sandia', 'ñleche', '2', 7, 1, '2017-09-29 02:11:50'),
+(9, 'Savila', 'Savila', '2', 7, 1, '2017-09-29 03:29:05'),
+(10, 'Mango', 'mango', '1', 7, 1, '2017-09-29 03:28:51'),
+(11, 'Fresas', 'Fresas', '1', 7, 1, '2017-09-29 03:30:47');
 
 -- --------------------------------------------------------
 
@@ -168,7 +187,8 @@ CREATE TABLE `recover_password` (
 --
 
 INSERT INTO `recover_password` (`id_recover`, `code_recover`, `email_user`, `fecha_creacion`) VALUES
-(3, 'A20778G', 'd4n7elfelipe@gmail.com', '2017-09-08 02:37:56');
+(3, 'A20778G', 'd4n7elfelipe@gmail.com', '2017-09-08 02:37:56'),
+(4, 'H785905E', 'd4n7elfelipe@gmail.com', '2017-09-28 20:26:51');
 
 -- --------------------------------------------------------
 
@@ -198,13 +218,13 @@ INSERT INTO `roles` (`id_role`, `name_rol`, `description_role`, `level`) VALUES
 --
 
 CREATE TABLE `stock` (
-  `id_stock` int(100) NOT NULL,
-  `id_cellar` int(100) NOT NULL,
-  `id_product` int(100) NOT NULL,
+  `id_stock` int(11) NOT NULL,
+  `id_cellar` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
   `nom_lot` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `amount` int(100) NOT NULL,
-  `expiration_date` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `expiration_create` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `amount` int(11) NOT NULL,
+  `expiration_date` date NOT NULL,
+  `expiration_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `comercializadora` varchar(100) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -213,8 +233,10 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`id_stock`, `id_cellar`, `id_product`, `nom_lot`, `amount`, `expiration_date`, `expiration_create`, `comercializadora`) VALUES
-(1, 2, 7, '7', 2000, '28 September, 2017', '5 September, 2017', 'atesa'),
-(6, 3, 5, 'lote1', 20, '28 September, 2017', '4 September, 2017', 'casa');
+(9, 1, 8, '4638rew', 100, '2017-09-30', '2017-09-29 03:35:55', 'fresh'),
+(10, 1, 10, '547839ire', 45, '2017-10-13', '2017-09-29 03:36:52', 'Mng'),
+(11, 1, 9, '3443892ojd', 30, '2017-11-18', '2017-09-29 03:37:27', 'frsh'),
+(12, 1, 11, '3948743im', 300, '2017-10-31', '2017-09-29 03:39:53', 'fresh');
 
 -- --------------------------------------------------------
 
@@ -300,6 +322,12 @@ ALTER TABLE `exit_equipment_master` ADD FULLTEXT KEY `delivery_note` (`delivery_
 ALTER TABLE `exit_equipment_master` ADD FULLTEXT KEY `note_received` (`note_received`);
 
 --
+-- Indices de la tabla `exit_product_master`
+--
+ALTER TABLE `exit_product_master`
+  ADD PRIMARY KEY (`id_exit_product`);
+
+--
 -- Indices de la tabla `exit_teams_detall`
 --
 ALTER TABLE `exit_teams_detall`
@@ -382,6 +410,11 @@ ALTER TABLE `equipments`
 ALTER TABLE `exit_equipment_master`
   MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `exit_product_master`
+--
+ALTER TABLE `exit_product_master`
+  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
 ALTER TABLE `exit_teams_detall`
@@ -395,12 +428,12 @@ ALTER TABLE `measure`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
 ALTER TABLE `recover_password`
-  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
@@ -410,7 +443,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id_stock` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `tools`
 --
@@ -465,9 +498,3 @@ ALTER TABLE `tools`
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`),
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id_role`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-

@@ -4,7 +4,7 @@
 	$product 			= new Products();
 	$id_user 			= $_SESSION["id_user_activo"]; 
 	$id_producto 		= $_REQUEST["id_producto"];
-	$producto 			= $_REQUEST["product"];
+	$producto 			= $_REQUEST["producto"];
 	$descripcion 		= $_REQUEST["descripcion"];
 	$bodega 			= $_REQUEST["cellar"];
 	$unidad_medida 		= $_REQUEST["unidad_medida"];

@@ -1,18 +1,6 @@
 <div class="row">
     <form action="#" accept-charset="utf-8" id="add_exit_product">
-        <div class="formulario col s5" id="">
-        	<div class="destino col s12 sombra centrar" style="margin-bottom: 2em">
-        		<h6 class="titulo color_letra_secundario col s4"> Destino</h6>
-    			<p class="col s4">
-    				<input name="destino" type="radio" id="interno" required value="Int" />
-    				<label for="interno">Interno</label>
-    			</p>
-    			<p class="col s4">
-    				<input name="destino" type="radio" id="externo" required value="Ext" />
-    				<label for="externo">Externo</label>
-    			</p>
-        	</div>
-    		
+        <div class="formulario col s5" id="">	
            	<div class="input-field col s12 m12" id="stock">
             	<?php 
             	$exit_product = true;
@@ -40,9 +28,18 @@
 	<div class="col s7">	
 		<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/new_exit_stock.php" class="create_info"  accept-charset="utf-8">
             <div class="input-field col s12 m12" id="view_add_elements" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/_partials/_select_quantity.php">
-                <h5 class="titulo color_letra_primario center col s12">
-                    Listado
-                </h5>   
+                <p></p>
+            </div>
+            <h6 class="titulo color_letra_secundario col s12"> Destino</h6>
+            <div class="destino col s12 sombra" style="margin-top: 1em">
+                <p class="col s4">
+                    <input name="destino" type="radio" id="interno" required value="Int" />
+                    <label for="interno">Interno</label>
+                </p>
+                <p class="col s4">
+                    <input name="destino" type="radio" id="Externo" required value="Ext" />
+                    <label for="externo">Externo</label>
+                </p>
             </div>
             <div class="input-field col s12 m12">
                 <i class="material-icons prefix">account_circle</i>

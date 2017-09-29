@@ -50,6 +50,9 @@ i{
 .row{
 	margin-top: 3em !important;
 }
+div.destino{
+	margin-bottom: 2em;
+}
 #modal_mensajes{
 	background-color: transparent;
 	box-shadow: 0px 0px 0px transparent;
@@ -58,9 +61,13 @@ i{
 	width: 60%;
 }
 div#view_add_elements{
-	padding-top: 0em;
-	height: 60vh;
+	padding-top: 2em;
+	height: 50vh;
 	overflow: scroll;
+	-moz-box-shadow:inset -1px -1px 39px rgba(0,133,122,.1);
+	-webkit-box-shadow:inset -1px -1px 39px rgba(0,133,122,.1);
+	box-shadow:inset -1px -1px 39px rgba(0,133,122,.1);
+	border-radius: 1em;
 }
 div.element_salida{
 	background-color:  rgba(255,255,255,.3);
@@ -116,8 +123,7 @@ h5.titulo{
 }
 h6.titulo{
 	color: rgb(0,133,122);
-	font-size: 1.5em;
-	margin-bottom: 0.1em;
+	font-size: 1em;
 }
 div.contenedor_session{
 	height: 70vh
