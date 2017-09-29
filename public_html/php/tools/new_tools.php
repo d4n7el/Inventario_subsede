@@ -7,11 +7,11 @@
 	$nombre_marca 		    = $_REQUEST["marca"];
 	$nombre_cantidad 		= $_REQUEST["cantidad"];
 	$nombre_cant_dis 	    = $_REQUEST["cantidad_disponible"];
-	$bodega 			    = $_REQUEST["cellar"];
+	$bodega 			    = 6;
 
 	$retorno_tools 	= $tools->insert_tools($nombre_herramienta,$nombre_marca,$nombre_cantidad,$nombre_cant_dis,$bodega, $id_user);
 	if ($retorno_tools > 0) {
-		$respuesta = array('mensaje' => "registro correcto", 'status' => 1 );
+		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create' );
 	}else{
 		$respuesta = array('mensaje' => "error", 'status' => 0 );
 	}

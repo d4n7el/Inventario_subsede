@@ -1,4 +1,5 @@
 $(document).on('ready',function(){
+	cantidad = ""; 	nombre = "";	id = "";	disponible = "";
 	recargar_eventos();
 	$('a.link_page').on('click', function(event) {
 		event.preventDefault();
@@ -36,6 +37,7 @@ $(document).on('ready',function(){
 function eliminar_eventos(){
 	$('form#submit_session').off('submit');
 	$('button.editar_info').off('click');
+	$('form.create_info').off('submit');
 	$('form.update_info').off('submit');
 	$('button.actualizar_info').off('submit');
 	$('select').material_select('destroy');
@@ -43,17 +45,109 @@ function eliminar_eventos(){
 	$('input#receive_user').off('focusout');
 	$('a.pagination').off('click');
 	$('select#select_equipment').off('change');
+	$('button#add_exit').off('click');
+	$('select#cantidades').off('change');
+	$('select').material_select('destroy');
 	$('form.create_info #pass_user, form.create_info #pass_user_confirm').off('focusout');
+	$('#id_product_exit').off('change');
+	$('form#add_exit_product').off('submit');
+	$('a#delete_exit').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
-	$('select#select_equipment').change(function(event) {
-		var disponible = $('option:selected', this).attr('disponible');
-		ruta = $(this).attr('ruta');
-		$("div#cantidad_disponible").load(ruta,{cantidad: disponible},function() {
+	$('form#add_exit_product').on('submit', function(event) {
+		event.preventDefault();
+		var bodega 			= $( "#id_cellar option:selected" ).text();
+		var bodega_id 		= $( "#id_cellar option:selected" ).val();
+		var producto 		= $( "#id_product_exit option:selected" ).text();
+		var producto_id 	= $( "#id_product_exit option:selected" ).val();
+		var lote 			= $( "#id_lote option:selected" ).text();
+		var lote_id 		= $( "#id_lote option:selected" ).val();
+		var cantidad 		= $( "input#cantidad" ).val();
+		var product_exit = {
+			'bodega' : bodega,
+			'bodega_id': bodega_id,
+			'producto' : producto,
+			'producto_id' : producto_id,
+			'lote' : lote,
+			'lote_id' : lote_id,
+			'cantidad' : cantidad,
+		}
+		ver_add_exit_product(product_exit);
+		limpiar();
+	});
+	$('button#add_exit').on('click', function(event) {
+		event.preventDefault();
+		if (cantidad != "" &&  nombre != "") {
+			ruta = $('div#view_add_elements').attr('ruta');
+			var html =  '<div class="col s12" style="margin-bottom: 1em">\
+							<input type="hidden" name="" value="'+id+'">\
+							<div class="col s12 sombra element_salida">\
+								<a class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
+								<h6 class="col s12 titulo color_letra_secundario center">'+nombre+'</h6>\
+								<div class="input-field col s12 m6" id="'+nombre+'">\
+							    </div>\
+							    <div class="input-field col s12 m6">\
+						            <input id="anotacion" type="text" class="validate" name="nota[]" autocomplete="off">\
+						            <label for="anotacion" class="">Nota</label>\
+						        </div>\
+						    </div>\
+				        </div>'; 
+			$("div#view_add_elements").append(html);
+			$("div#"+nombre).load(ruta,{cantidad_disponible: disponible, cantidad: cantidad},function() {
+				$('option#'+nombre+"_"+id).attr('disabled', 'true').attr('selected','true');
+				$('select#select_equipment').val( $('select#select_equipment').prop('defaultSelected') );
+				cantidad = ""; 	nombre = "";	id = "";	disponible = "";
+				recargar_eventos();
+			});
+		}else{
+			mensaje_alert("error","Selecciona todos los campos",2000);
+		}
+	});
+	$('#id_product_exit').change(function(event) {
+		var ruta = "../php/stock/_view_select_stock.php";
+		var id_product = $('option:selected', this).val();
+		$("div#mostrar_lotes").load(ruta,{id_product: id_product},function() {
 			recargar_eventos();
 		});
+	});
+	$('#stock select').change(function(event){
+		var ruta = "../php/products/view_selects_products.php";
+		var id_cellars = $(this).val();
+		$("div#mostrar_productos").load(ruta,{id_cellars: id_cellars},function() {
+			recargar_eventos();
+		});
+	});
+	$('a#delete_exit').on('click', function(event) {
+		event.preventDefault();
+		$(this).closest('div').animate({
+			opacity: "0",
+			overflow: "hidden",
+			height: "0px",
+			width: "0px",
+		},1000, function() {
+			$(this).closest('div').remove();
+		});
+		
+	});
+	$('select#cantidades').change(function(event) {
+		cantidad = 	$(this).val();
+	});
+	$('select#select_equipment').change(function(event) {
+		cantidad = "";		nombre = "";		id = "";
+		nombre = $('option:selected', this).text();
+		id = $('option:selected', this).val();
+		disponible = $('option:selected', this).attr('disponible');
+		ruta = $(this).attr('ruta');
+		$("div#cantidad_disponible").load(ruta,{cantidad_disponible: disponible},function() {
+			recargar_eventos();
+		});
+	});
+	$('select#id_lote').change(function(event) {
+		disponible = $('option:selected', this).attr('disponible');
+		$('input#cantidad').attr('max',disponible).val(disponible);
+		$('input#cantidad').siblings('label').text('Cantidad disponible ( '+ disponible + " )");
 	});
 	$('a.pagination').on('click', function(event) {
 		event.preventDefault();
@@ -105,25 +199,26 @@ var recargar_eventos = function(){
 		$(this).closest('form').find('div.oculto').addClass('hide');
 		$(this).closest('form').find('input').attr('readonly','true');
 	});
-
-	$('form.create_info #pass_user, form.create_info #pass_user_confirm').focusout(function(event) {
-		var pass = $('form.create_info #pass_user').val();
-		var pass_confirm = $('form.create_info #pass_user_confirm').val();
-	
-	if (pass == pass_confirm){
-		$('form.create_info #pass_user, form.create_info #pass_user_confirm').removeClass('invalid');
-		$('form.create_info #pass_user, form.create_info #pass_user_confirm').addClass('valid');
-	}else{
-		if(pass != pass_confirm && pass != '' && pass_confirm != ''){
-			$('form.create_info #pass_user, form.create_info #pass_user_confirm').removeClass('valid');
-			$('form.create_info #pass_user, form.create_info #pass_user_confirm').addClass('invalid');
+	$('form.create_info #pass_user, form.create_info #pass_user_confirm,form.update_info #pass_user, form.update_info #pass_user_confirm').focusout(function(event) {
+		var pass = $('input#pass_user').val();
+		var pass_confirm = $('input#pass_user_confirm').val();
+		if (pass == pass_confirm){
+			$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').removeClass('invalid');
+			$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').addClass('valid');
+		}else{
+			if(pass != pass_confirm && pass != '' && pass_confirm != ''){
+				$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').removeClass('valid');
+				$('form.create_info #pass_user, form.create_info #pass_user_confirm, form.update_info #pass_user, form.update_info #pass_user_confirm').addClass('invalid');
+			}
 		}
-	}
 	});
-
-
+	$('.datepicker').pickadate({
+	    selectMonths: true, // Creates a dropdown to control month
+	    selectYears: 2, // Creates a dropdown of 15 years to control year,
+	    selectMonths: true, // Creates a dropdown to control month 
+	    format: 'yyyy-mm-dd',
+  	});
 }
-
 function ajax_set_form_data(ruta,formData){
 	$.ajax({
 		beforeSend:function() { 
@@ -140,9 +235,9 @@ function ajax_set_form_data(ruta,formData){
 	    processData: false, 
 	    success: function(response){
 	    	success(response);
-	    	if (response['status']==1) {
-	    		clean_input();
-	    	}
+	    	if (response['status']==1 && response['process']=='create')  {
+ 	    		clean_input();
+ 	    	}
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);
@@ -189,24 +284,6 @@ function ajax_get_data(ruta,formData){
 	    }
 	})
 }
-function ver_info_user(datos,status){
-	if(datos['documento'] != undefined ){
-		var html = 
-			'<input type="hidden" name="name_receive_user" value="'+datos['documento']+'">\
-			<i class="material-icons prefix">account_circle</i>\
-            <input id="name_receive_user" value="'+datos['nombre_completo']+'" type="text" class="validate" name="receive_user" autocomplete="off" required>\
-            <label for="name_receive_user" class="active">Nombre de quien recibe</label>'
-	}else{
-		var html = 
-			'<div class="col s12 centrar sombra" id="">\
-				<h5 class="color_letra_primario">\
-					<i class="material-icons color_letra_secundario">warning</i> ¡No hay registros! \
-				</h5>\
-    		</div> '
-	}
-	
-	$('div#name_receive_user').html(html);
-}
 function success(response = "Exito"){
 	if (response['status'] > 0) {
 		mensaje_alert("success",response['mensaje'],response['duracion']);
@@ -228,12 +305,48 @@ function success(response = "Exito"){
 		mensaje_alert("error",response['mensaje']);
 	}
 }
+function clean_input(){
+	$('.create_info')[0].reset(); //Sirve para resetear a su estado original el form
+	$('.create_info i, .create_info label').removeClass('active'); 
+	$('.create_info input').removeClass('valid');
+}
+function parse_fecha_numeric(fecha){
+	var fecha = new Date(fecha);
+	var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+	var fecha = fecha.toLocaleDateString("es-ES", options);
+	var fecha = fecha.split("/");
+	fecha = fecha[2]+"-"+fecha[1]+"-"+fecha[0];
+	return fecha;
+}
+function parse_fecha_string(fecha){
+	var fecha = new Date(fecha);
+	var options = { year: 'numeric', month: 'long', day: '2-digit' };
+	var fecha = fecha.toLocaleDateString("es-ES", options);
+	return fecha;
+}
+function ver_info_user(datos,status){
+	if(datos['documento'] != undefined ){
+		var html = 
+			'<input type="hidden" name="name_receive_user" value="'+datos['documento']+'">\
+			<i class="material-icons prefix">account_circle</i>\
+            <input id="name_receive_user" value="'+datos['nombre_completo']+'" type="text" class="validate" name="receive_user" autocomplete="off" required>\
+            <label for="name_receive_user" class="active">Nombre de quien recibe</label>'
+	}else{
+		var html = 
+			'<div class="col s12 centrar sombra" id="">\
+				<h5 class="color_letra_primario">\
+					<i class="material-icons color_letra_secundario">warning</i> ¡No hay registros! \
+				</h5>\
+    		</div> '
+	}
+	$('div#name_receive_user').html(html);
+}
 function mensaje_alert(tipo,mensaje,duracion){
 	duracion || (duracion = 2000);
 	if (tipo == "success") {
 		var img = "../image/success.gif";
 	}else{
-		var img = "https://cdn2.iconfinder.com/data/icons/perfect-flat-icons-2/512/Error_warning_alert_attention_remove_dialog.png";
+		var img = "../image/errormessage.png";
 	}
 	var html = 
 		'<div class="modal-content">\
@@ -244,7 +357,7 @@ function mensaje_alert(tipo,mensaje,duracion){
 							<img src="'+img+'">\
 						</div>\
 						<div class="card-action">\
-							<a href="#">'+mensaje+'</a>\
+							<a href="#" class="color_letra_primario">'+mensaje+'</a>\
 						</div>\
 					</div>\
 				</div>\
@@ -270,7 +383,7 @@ function mensaje_cargando(tipo,mensaje){
 							<img src="'+img+'">\
 						</div>\
 						<div class="card-action">\
-							<a href="#">'+mensaje+'</a>\
+							<a href="#" class="color_letra_primario">'+mensaje+'</a>\
 						</div>\
 					</div>\
 				</div>\
@@ -279,9 +392,46 @@ function mensaje_cargando(tipo,mensaje){
 	$("div#modal_mensajes").html(html);
 	$('#modal_mensajes').modal('open');
 }
-
-function clean_input(){
-	$('.create_info')[0].reset(); //Sirve para resetear a su estado original el form
-	$('.create_info i, .create_info label').removeClass('active'); 
-	$('.create_info input').removeClass('valid');
+function ver_add_exit_product(product_exit){
+	if (disponible != "") {
+		if ($("div#"+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']).length == 0) {
+			var html =  
+			'<div class="col s12" style="margin-bottom: 1em">\
+				<input type="hidden" name="producto_id[]" value="'+product_exit['producto_id']+'">\
+				<input type="hidden" name="bodega_id[]" value="'+product_exit['bodega_id']+'">\
+				<input type="hidden" name="lote_id[]" value="'+product_exit['lote_id']+'">\
+				<input type="hidden" name="destino[]" value="'+product_exit['destino']+'">\
+				<div class="col s12 sombra element_salida">\
+					<a id="delete_exit" class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
+					<h6 class="col s12 m6 center titulo color_letra_secundario">Bodega: '+product_exit['bodega']+'</h6>\
+					<h6 class="col s12 m6 center titulo color_letra_secundario">producto: '+product_exit['producto']+'</h6>\
+					<h6 class="col s12 m12 center titulo color_letra_secundario">lote: '+product_exit['lote']+'</h6>\
+					<div class="col s12" style="margin-top: 2em">\
+						<div class="input-field col s12 m6" id="'+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']+'">\
+							<i class="material-icons prefix">filter_9_plus</i>\
+				            <input id="nombre_descripcion"  type="number" max="'+disponible+'" class="validate" name="cantidad[]" value="'+product_exit['cantidad']+'" autocomplete="off" required >\
+				            <label for="nombre_descripcion" class="active">Disponible ( '+disponible+' )</label>\
+					    </div>\
+					    <div class="input-field col s12 m6">\
+				            <input id="anotacion" type="text" class="validate" name="nota" autocomplete="off">\
+				            <label for="anotacion" class="">Nota</label>\
+				        </div>\
+			        </div>\
+			    </div>\
+		    </div>';
+		    $("div#view_add_elements p").after(html); 
+		    recargar_eventos();
+		}else{
+			mensaje_alert("error","No puedes agregar el producto varias veces",2000);
+		}
+	}else{
+		mensaje_alert("error","Selecciona todos los campos",2000);
+	}
+}
+function limpiar(){
+	cantidad = ""; 	nombre = "";	id = "";	disponible = "";
+	$('select#id_cellar').val( $('select#id_cellar').prop('defaultSelected') );
+	$('div#mostrar_lotes,div#mostrar_productos').html("");
+	$("input#cantidad").val("");
+	$("input#cantidad").siblings('label').text("");
 }

@@ -1,6 +1,7 @@
 <?php
 	session_start();
-	if (isset($_SESSION["id_user_activo"])) {	 
+	if (isset($_SESSION["id_user_activo"])) {
+		$user = true; 
 		require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/users_controller.php');
 		$welcome = new Users();
 		(isset($_REQUEST['id_user']) ? $id_user = $_REQUEST['id_user'] : $id_user = "%%");
@@ -8,7 +9,7 @@
 		// NECESARIO PARA LA PAGINACION
 		$count_user = new Users();
 		(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
-		$limit = 2;
+		$limit = 4;
 		$offset = $limit * $pagina;
 		$retorno_count_user = $count_user->count_user();
 		$count_rows = $retorno_count_user['count'];

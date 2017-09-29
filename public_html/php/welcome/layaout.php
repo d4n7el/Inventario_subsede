@@ -12,7 +12,7 @@
 <body>
 	<header>
   		<nav>
-	    <div class="nav-wrapper">
+	    <div class="nav-wrapper fondo_negro">
 	    	<?php 
 	      	if (isset($_SESSION["name_user_activo"])) { ?>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">

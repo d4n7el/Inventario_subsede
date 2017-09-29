@@ -9,7 +9,7 @@
 	 	echo json_encode($respuesta);
 	} else{ ?>
 		<i class="material-icons prefix">pan_tool</i>
-		<select class="icons" name="rol" id="id rol">
+		<select class="icons" name="rol" id="">
 			<option value="" disabled selected>Selecciona el rol del Usuario</option>
 			<?php 
 				foreach ($retorno as $rol) { 

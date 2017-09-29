@@ -12,7 +12,7 @@
 			        <div class="input-field col s4">
 			            <i class="material-icons prefix">account_circle</i>
 			            <input id="apellido_user" type="text"  class="validate editar_info" name="apellido" autocomplete="off" value="<?php echo $value['last_name_user'] ?>" readonly="readonly" >
-			            <label for="apellido_user" class="active">Apellido del Usuario</label>
+			            <label for="apellido_user" class="active">Apellidos del Usuario</label>
 			        </div>
 			        <div class="input-field col s4 hide oculto">
 			            <i class="material-icons prefix">credit_card</i>
@@ -20,10 +20,17 @@
 			            <label for="cedula_user" class="active">Cédula del Usuario</label>
 			        </div>
 			        <div class="input-field col s4 hide oculto">
+			            <i class="material-icons prefix">email</i>
+			            <input id="email_user" type="email" class="validate" name="email" autocomplete="off" required value="<?php echo $value['email_user'] ?>">
+			            <label for="email_user" class="active">Correo Electrónico</label>
+			        </div>
+			        <div class="input-field col s4 hide oculto">
 			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/roles/_view_roles_select.php'); ?>
 			        </div>
 			        <div class="input-field col s4 hide oculto">
-			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
+			        	<?php 
+			        		require($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); 
+			        	?>
 			        </div>
 			        <div class="action col s4 centrar">
 			        	<button class="waves-effect waves-light btn btn-success hide actualizar_info">
