@@ -93,7 +93,6 @@
 				</div>
 			</div>
 	    </div>
-
 	    <div class="col s12 targeta_inicio">
 			<div class="card transparent ">
 				<div class="card-content color_letra_primario">
