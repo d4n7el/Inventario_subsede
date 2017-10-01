@@ -55,8 +55,6 @@
             	$e->getMessage();
         	}
 		}
-
-
 		public function count_stock(){
 			try {
 				$sql_consult = $this->db->prepare("SELECT COUNT(id_stock) AS count FROM stock " );

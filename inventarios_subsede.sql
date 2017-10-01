@@ -1,27 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 28-09-2017 a las 21:02:37
--- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 5.6.30
+-- Servidor: localhost:8889
+-- Tiempo de generación: 01-10-2017 a las 01:09:35
+-- Versión del servidor: 5.6.35
+-- Versión de PHP: 7.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Base de datos: `inventarios_subsede`
 --
-CREATE DATABASE IF NOT EXISTS `inventarios_subsede` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+CREATE DATABASE IF NOT EXISTS `inventarios_subsede` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `inventarios_subsede`;
-
 -- --------------------------------------------------------
 
 --
@@ -55,23 +48,13 @@ INSERT INTO `cellar` (`id_cellar`, `name_cellar`, `description_cellar`, `date_cr
 
 CREATE TABLE `equipments` (
   `id_equipment` int(11) NOT NULL,
-  `name_equipment` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `mark` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `name_equipment` varchar(100) NOT NULL,
+  `mark` varchar(50) NOT NULL,
   `total_quantity` int(15) NOT NULL,
   `quantity_available` int(15) NOT NULL,
   `id_cellar` int(11) NOT NULL,
   `id_user_create` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `equipments`
---
-
-INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`) VALUES
-(1, 'pala', 'ola', 2, 2, 6, 7),
-(2, 'lazos', 'buenos', 2, 2, 5, 7),
-(3, 'llaves', 'yei', 24, 24, 5, 7),
-(6, 'prue', 'prue', 1, 2, 6, 7);
 
 -- --------------------------------------------------------
 
@@ -85,10 +68,42 @@ CREATE TABLE `exit_equipment_master` (
   `id_user_delivery` int(11) NOT NULL,
   `delivery` tinyint(1) NOT NULL DEFAULT '1',
   `received` tinyint(1) NOT NULL DEFAULT '0',
-  `delivery_note` text COLLATE utf8_spanish_ci NOT NULL,
-  `note_received` text COLLATE utf8_spanish_ci NOT NULL,
+  `delivery_note` text NOT NULL,
+  `note_received` text NOT NULL,
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `exit_product_detalle`
+--
+
+CREATE TABLE `exit_product_detalle` (
+  `id_exit_product_detalle` int(11) NOT NULL,
+  `id_exit_product_master` int(11) NOT NULL,
+  `id_stock` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `id_cellar` int(11) NOT NULL,
+  `note` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Disparadores `exit_product_detalle`
+--
+DELIMITER $$
+CREATE TRIGGER `update_stock_cant_products_order` BEFORE INSERT ON `exit_product_detalle` FOR EACH ROW BEGIN
+  DECLARE cant_stock integer;
+  SET @cant_stock := (SELECT amount FROM stock WHERE id_stock = NEW.id_stock);
+  IF (@cant_stock >= NEW.quantity ) THEN
+    UPDATE stock SET amount = amount - NEW.quantity
+    WHERE id_stock = NEW.id_stock;
+        UPDATE products set num_orders = num_orders + 1 WHERE id_product = NEW.id_product;
+  END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -100,10 +115,11 @@ CREATE TABLE `exit_product_master` (
   `id_exit_product` int(11) NOT NULL,
   `user_delivery` int(11) NOT NULL,
   `user_receives` int(11) NOT NULL,
-  `destination` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `name_receive` varchar(30) NOT NULL,
+  `destination` varchar(50) NOT NULL,
   `delivery` tinyint(1) NOT NULL DEFAULT '1',
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -116,7 +132,7 @@ CREATE TABLE `exit_teams_detall` (
   `id_exit` int(11) NOT NULL,
   `id_equipment` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -132,14 +148,6 @@ CREATE TABLE `measure` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `measure`
---
-
-INSERT INTO `measure` (`id_measure`, `name_measure`, `prefix_measure`, `id_user_create`, `date_create`) VALUES
-(1, 'Kilogramo', 'Kg', 7, '2017-08-17 01:55:03'),
-(2, 'Libra', 'Lb', 7, '2017-08-17 01:06:09');
-
 -- --------------------------------------------------------
 
 --
@@ -153,21 +161,9 @@ CREATE TABLE `products` (
   `unit_measure` varchar(20) NOT NULL,
   `id_user_create` int(11) NOT NULL,
   `id_cellar` int(11) NOT NULL,
+  `num_orders` int(11) NOT NULL DEFAULT '0',
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `products`
---
-
-INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `unit_measure`, `id_user_create`, `id_cellar`, `creation_date`) VALUES
-(1, 'Carne de res', 'carne roja Medellin', '1', 7, 6, '2017-08-31 03:23:54'),
-(5, 'Carne de Cerdo', 'Carne Blanca ', '1', 7, 3, '2017-08-31 03:24:07'),
-(7, 'Leche Liquida', 'Bosas de Leche Liquida', '1', 7, 2, '2017-08-17 01:06:51'),
-(8, 'Sandia', 'ñleche', '2', 7, 1, '2017-09-29 02:11:50'),
-(9, 'Savila', 'Savila', '2', 7, 1, '2017-09-29 03:29:05'),
-(10, 'Mango', 'mango', '1', 7, 1, '2017-09-29 03:28:51'),
-(11, 'Fresas', 'Fresas', '1', 7, 1, '2017-09-29 03:30:47');
 
 -- --------------------------------------------------------
 
@@ -177,18 +173,10 @@ INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `un
 
 CREATE TABLE `recover_password` (
   `id_recover` int(11) NOT NULL,
-  `code_recover` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `email_user` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `code_recover` text NOT NULL,
+  `email_user` text NOT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `recover_password`
---
-
-INSERT INTO `recover_password` (`id_recover`, `code_recover`, `email_user`, `fecha_creacion`) VALUES
-(3, 'A20778G', 'd4n7elfelipe@gmail.com', '2017-09-08 02:37:56'),
-(4, 'H785905E', 'd4n7elfelipe@gmail.com', '2017-09-28 20:26:51');
 
 -- --------------------------------------------------------
 
@@ -221,22 +209,28 @@ CREATE TABLE `stock` (
   `id_stock` int(11) NOT NULL,
   `id_cellar` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
-  `nom_lot` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `nom_lot` varchar(100) NOT NULL,
   `amount` int(11) NOT NULL,
   `expiration_date` date NOT NULL,
   `expiration_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `comercializadora` varchar(100) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `comercializadora` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `stock`
+-- Estructura de tabla para la tabla `stock_plant`
 --
 
-INSERT INTO `stock` (`id_stock`, `id_cellar`, `id_product`, `nom_lot`, `amount`, `expiration_date`, `expiration_create`, `comercializadora`) VALUES
-(9, 1, 8, '4638rew', 100, '2017-09-30', '2017-09-29 03:35:55', 'fresh'),
-(10, 1, 10, '547839ire', 45, '2017-10-13', '2017-09-29 03:36:52', 'Mng'),
-(11, 1, 9, '3443892ojd', 30, '2017-11-18', '2017-09-29 03:37:27', 'frsh'),
-(12, 1, 11, '3948743im', 300, '2017-10-31', '2017-09-29 03:39:53', 'fresh');
+CREATE TABLE `stock_plant` (
+  `id_stock_plant` int(11) NOT NULL,
+  `id_stock` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `id_cellar` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `id_exit_product` int(11) NOT NULL,
+  `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -253,17 +247,6 @@ CREATE TABLE `tools` (
   `id_cellar` int(11) NOT NULL,
   `id_user_create` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tools`
---
-
-INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`) VALUES
-(16, 'fd', 'dhdhdhdhdhd', 3, 1, 6, 18),
-(17, 'fds', 're', 3, 1, 6, 7),
-(18, 'jhgg', 'dff', 45, 2, 2, 18),
-(19, 'martillo', 'Acme', 30, 10, 6, 18),
-(21, 'cocos de cafe', 'la doce', 4, 4, 6, 7);
 
 -- --------------------------------------------------------
 
@@ -322,6 +305,14 @@ ALTER TABLE `exit_equipment_master` ADD FULLTEXT KEY `delivery_note` (`delivery_
 ALTER TABLE `exit_equipment_master` ADD FULLTEXT KEY `note_received` (`note_received`);
 
 --
+-- Indices de la tabla `exit_product_detalle`
+--
+ALTER TABLE `exit_product_detalle`
+  ADD PRIMARY KEY (`id_exit_product_detalle`),
+  ADD KEY `id_exit_product_master` (`id_exit_product_master`);
+ALTER TABLE `exit_product_detalle` ADD FULLTEXT KEY `note` (`note`);
+
+--
 -- Indices de la tabla `exit_product_master`
 --
 ALTER TABLE `exit_product_master`
@@ -371,7 +362,15 @@ ALTER TABLE `roles`
 -- Indices de la tabla `stock`
 --
 ALTER TABLE `stock`
-  ADD PRIMARY KEY (`id_stock`);
+  ADD PRIMARY KEY (`id_stock`),
+  ADD KEY `id_cellar` (`id_cellar`);
+
+--
+-- Indices de la tabla `stock_plant`
+--
+ALTER TABLE `stock_plant`
+  ADD PRIMARY KEY (`id_stock_plant`),
+  ADD KEY `id_exit_product` (`id_exit_product`);
 
 --
 -- Indices de la tabla `tools`
@@ -410,10 +409,15 @@ ALTER TABLE `equipments`
 ALTER TABLE `exit_equipment_master`
   MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `exit_product_detalle`
+--
+ALTER TABLE `exit_product_detalle`
+  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+--
 -- AUTO_INCREMENT de la tabla `exit_product_master`
 --
 ALTER TABLE `exit_product_master`
-  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 --
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
@@ -423,12 +427,12 @@ ALTER TABLE `exit_teams_detall`
 -- AUTO_INCREMENT de la tabla `measure`
 --
 ALTER TABLE `measure`
-  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
@@ -444,6 +448,11 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `stock`
   MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT de la tabla `stock_plant`
+--
+ALTER TABLE `stock_plant`
+  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tools`
 --
@@ -472,6 +481,13 @@ ALTER TABLE `exit_equipment_master`
   ADD CONSTRAINT `exit_equipment_master_ibfk_1` FOREIGN KEY (`id_user_receives`) REFERENCES `user` (`id_user`);
 
 --
+-- Filtros para la tabla `exit_product_detalle`
+--
+ALTER TABLE `exit_product_detalle`
+  ADD CONSTRAINT `exit_product_detalle_ibfk_1` FOREIGN KEY (`id_exit_product_master`) REFERENCES `exit_product_master` (`id_exit_product`),
+  ADD CONSTRAINT `exit_product_detalle_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `products` (`id_product`);
+
+--
 -- Filtros para la tabla `exit_teams_detall`
 --
 ALTER TABLE `exit_teams_detall`
@@ -484,6 +500,19 @@ ALTER TABLE `exit_teams_detall`
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`id_user_create`) REFERENCES `user` (`id_user`),
   ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`);
+
+--
+-- Filtros para la tabla `stock`
+--
+ALTER TABLE `stock`
+  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`),
+  ADD CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `products` (`id_product`);
+
+--
+-- Filtros para la tabla `stock_plant`
+--
+ALTER TABLE `stock_plant`
+  ADD CONSTRAINT `stock_plant_ibfk_1` FOREIGN KEY (`id_exit_product`) REFERENCES `exit_product_master` (`id_exit_product`);
 
 --
 -- Filtros para la tabla `tools`

@@ -75,7 +75,7 @@ var recargar_eventos = function(){
 			'cantidad' : cantidad,
 		}
 		ver_add_exit_product(product_exit);
-		limpiar();
+		limpiar_add_exit();
 	});
 	$('button#add_exit').on('click', function(event) {
 		event.preventDefault();
@@ -238,6 +238,9 @@ function ajax_set_form_data(ruta,formData){
 	    	if (response['status']==1 && response['process']=='create')  {
  	    		clean_input();
  	    	}
+ 	    	if (response['status']==1 && response['process']=='exit_product')  {
+ 	    		limpiar_exit();
+ 	    	}
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);
@@ -259,7 +262,6 @@ function request_user(ruta,formData){
 	    	$.each(response,function(index, value) {
 	    		(index === "data") ? datos = jQuery.parseJSON(value) : "";
 	    		(index === "status") ? status = jQuery.parseJSON(value) : "";
-	    		
 	    	});
 	    	$('#modal_mensajes').modal('close');
 	    	ver_info_user(datos,status);
@@ -329,7 +331,7 @@ function ver_info_user(datos,status){
 		var html = 
 			'<input type="hidden" name="name_receive_user" value="'+datos['documento']+'">\
 			<i class="material-icons prefix">account_circle</i>\
-            <input id="name_receive_user" value="'+datos['nombre_completo']+'" type="text" class="validate" name="receive_user" autocomplete="off" required>\
+            <input id="name_receive_user" value="'+datos['nombre_completo']+'" type="text" class="validate" name="name_receive_user" autocomplete="off" required>\
             <label for="name_receive_user" class="active">Nombre de quien recibe</label>'
 	}else{
 		var html = 
@@ -400,7 +402,6 @@ function ver_add_exit_product(product_exit){
 				<input type="hidden" name="producto_id[]" value="'+product_exit['producto_id']+'">\
 				<input type="hidden" name="bodega_id[]" value="'+product_exit['bodega_id']+'">\
 				<input type="hidden" name="lote_id[]" value="'+product_exit['lote_id']+'">\
-				<input type="hidden" name="destino[]" value="'+product_exit['destino']+'">\
 				<div class="col s12 sombra element_salida">\
 					<a id="delete_exit" class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
 					<h6 class="col s12 m6 center titulo color_letra_secundario">Bodega: '+product_exit['bodega']+'</h6>\
@@ -413,7 +414,7 @@ function ver_add_exit_product(product_exit){
 				            <label for="nombre_descripcion" class="active">Disponible ( '+disponible+' )</label>\
 					    </div>\
 					    <div class="input-field col s12 m6">\
-				            <input id="anotacion" type="text" class="validate" name="nota" autocomplete="off">\
+				            <input id="anotacion" type="text" class="validate" name="nota[]" autocomplete="off">\
 				            <label for="anotacion" class="">Nota</label>\
 				        </div>\
 			        </div>\
@@ -428,10 +429,15 @@ function ver_add_exit_product(product_exit){
 		mensaje_alert("error","Selecciona todos los campos",2000);
 	}
 }
-function limpiar(){
+function limpiar_add_exit(){
 	cantidad = ""; 	nombre = "";	id = "";	disponible = "";
 	$('select#id_cellar').val( $('select#id_cellar').prop('defaultSelected') );
 	$('div#mostrar_lotes,div#mostrar_productos').html("");
 	$("input#cantidad").val("");
 	$("input#cantidad").siblings('label').text("");
+}
+function limpiar_exit(){
+	$('div#view_add_elements').html("<p></p>");
+	$('div#name_receive_user').html("");
+	$('input#receive_user').val("");
 }

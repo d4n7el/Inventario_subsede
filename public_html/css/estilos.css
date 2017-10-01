@@ -219,7 +219,7 @@ div.menu{
 	overflow-x: hidden;
 }
 #modal1{
-	background-color: rgba(40,61,73,1);
+	background-color: rgba(40,61,73,1)!important;
 }
 .card-action, .fondo_negro{
 	background-color: rgb(47,47,47) !important;

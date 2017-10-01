@@ -1,6 +1,7 @@
 <div class="row">
     <form action="#" accept-charset="utf-8" id="add_exit_product">
-        <div class="formulario col s5" id="">	
+        <div class="formulario col s5" id="">
+            <h5 class="titulo"> Selecciona los campos</h5>	
            	<div class="input-field col s12 m12" id="stock">
             	<?php 
             	$exit_product = true;
@@ -38,7 +39,7 @@
                 </p>
                 <p class="col s4">
                     <input name="destino" type="radio" id="Externo" required value="Ext" />
-                    <label for="externo">Externo</label>
+                    <label for="Externo">Externo</label>
                 </p>
             </div>
             <div class="input-field col s12 m12">
@@ -50,7 +51,7 @@
                
             </div>
 			<div class="action col s12 centrar">
-	        	<button class="waves-effect waves-light btn btn-primary" id="add_exit">
+	        	<button class="waves-effect waves-light btn btn-primary" id="add_exit_product">
 	        		<i class="material-icons left">near_me</i>Registrar salidas
 	        	</button>
 		    </div>
