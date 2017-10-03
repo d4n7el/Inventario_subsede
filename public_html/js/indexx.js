@@ -23,6 +23,7 @@ $(document).on('ready',function(){
 			recargar_eventos();
 		});
 	});
+	$('.modal').modal();
 	$('div.targeta_inicio').on('click', function(event) {
 		event.preventDefault();
 		$('div.targeta_inicio').css('height', '5em');
@@ -52,10 +53,18 @@ function eliminar_eventos(){
 	$('#id_product_exit').off('change');
 	$('form#add_exit_product').off('submit');
 	$('a#delete_exit').off('click');
+	$('button.view_exit_stock').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
+	$('button.view_exit_stock').on('click', function(event) {
+		event.preventDefault();
+		var id_exit_product = $(this).attr('id_exit_product');
+		$("div#modal_right div.modal-content").load("/php/stock/exit_stock_complete.php",{id_exit_product: id_exit_product},function() {
+			recargar_eventos();
+		});
+	});
 	$('form#add_exit_product').on('submit', function(event) {
 		event.preventDefault();
 		var bodega 			= $( "#id_cellar option:selected" ).text();
@@ -258,6 +267,7 @@ function request_user(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
+	    	console.log(response);
 	    	var response = jQuery.parseJSON(response);
 	    	$.each(response,function(index, value) {
 	    		(index === "data") ? datos = jQuery.parseJSON(value) : "";

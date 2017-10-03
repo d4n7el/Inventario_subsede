@@ -64,6 +64,15 @@
 	<div id="modal_mensajes" class="modal">
 		
 	</div>
+	<div id="modal_right" class="modal bottom-sheet col s7">
+	    <div class="modal-content">
+	      	<h4>Modal Header</h4>
+	      	<p>A bunch of text</p>
+	    </div>
+	    <div class="modal-footer">
+	      	<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+	    </div>
+  	</div>
     <script src="<?php $_SERVER['DOCUMENT_ROOT'] ?>/js/jQuery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
     <script src="<?php $_SERVER['DOCUMENT_ROOT'] ?> /js/indexx.js"</script>

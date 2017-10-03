@@ -110,10 +110,10 @@
 					</div>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/outlet_products.php" id="" class="link_page color_letra_primario">Salidas<i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/outlet_products.php" id="" class="link_page color_letra_primario">Salida<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products" class="link_page color_letra_primario">Ver productos<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index_exit.php" class="link_page color_letra_primario">Ver salidas<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
