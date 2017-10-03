@@ -20,6 +20,9 @@ USE `inventarios_subsede`;
 --
 -- Estructura de tabla para la tabla `cellar`
 --
+--
+-- Estructura de tabla para la tabla `cellar`
+--
 
 CREATE TABLE `cellar` (
   `id_cellar` int(11) NOT NULL,
@@ -90,6 +93,17 @@ CREATE TABLE `exit_product_detalle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Volcado de datos para la tabla `exit_product_detalle`
+--
+
+INSERT INTO `exit_product_detalle` (`id_exit_product_detalle`, `id_exit_product_master`, `id_stock`, `quantity`, `id_product`, `id_cellar`, `note`) VALUES
+(50, 110, 13, 10, 1, 1, ''),
+(51, 111, 13, 12, 1, 1, 'Bien'),
+(52, 112, 13, 20, 1, 1, ''),
+(53, 115, 14, 30, 2, 3, ''),
+(54, 115, 13, 20, 1, 1, '');
+
+--
 -- Disparadores `exit_product_detalle`
 --
 DELIMITER $$
@@ -121,6 +135,18 @@ CREATE TABLE `exit_product_master` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `exit_product_master`
+--
+
+INSERT INTO `exit_product_master` (`id_exit_product`, `user_delivery`, `user_receives`, `name_receive`, `destination`, `delivery`, `date_create`) VALUES
+(110, 7, 12345, 'Santiago Muñoz', 'Ext', 1, '2017-09-30 23:21:24'),
+(111, 7, 1234, 'Santiago', 'Ext', 1, '2017-10-03 01:35:27'),
+(112, 7, 1234, 'Santiago', 'Ext', 1, '2017-10-03 18:09:38'),
+(113, 7, 1234, 'Santiago', 'Int', 1, '2017-10-03 18:51:24'),
+(114, 7, 1234, 'Santiago', 'Int', 1, '2017-10-03 18:51:28'),
+(115, 7, 1234, 'Santiago', 'Int', 1, '2017-10-03 19:29:00');
+
 -- --------------------------------------------------------
 
 --
@@ -148,6 +174,14 @@ CREATE TABLE `measure` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `measure`
+--
+
+INSERT INTO `measure` (`id_measure`, `name_measure`, `prefix_measure`, `id_user_create`, `date_create`) VALUES
+(1, 'Kilogramo', 'Kl', 7, '2017-09-30 23:20:06'),
+(2, 'Libra', 'Lb', 7, '2017-09-30 23:20:13');
+
 -- --------------------------------------------------------
 
 --
@@ -164,6 +198,14 @@ CREATE TABLE `products` (
   `num_orders` int(11) NOT NULL DEFAULT '0',
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `products`
+--
+
+INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `unit_measure`, `id_user_create`, `id_cellar`, `num_orders`, `creation_date`) VALUES
+(1, 'Savila', 'Savila', '1', 7, 1, 4, '2017-10-03 19:29:00'),
+(2, 'Carne roja', 'Carne roja', '1', 7, 3, 1, '2017-10-03 19:29:00');
 
 -- --------------------------------------------------------
 
@@ -216,6 +258,14 @@ CREATE TABLE `stock` (
   `comercializadora` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `stock`
+--
+
+INSERT INTO `stock` (`id_stock`, `id_cellar`, `id_product`, `nom_lot`, `amount`, `expiration_date`, `expiration_create`, `comercializadora`) VALUES
+(13, 1, 1, '46378uewiq', 140, '2017-10-31', '2017-09-30 23:21:04', 'sabla'),
+(14, 3, 2, '43829jdw', 70, '2017-11-30', '2017-10-03 19:28:24', 'rojas');
+
 -- --------------------------------------------------------
 
 --
@@ -231,6 +281,14 @@ CREATE TABLE `stock_plant` (
   `id_exit_product` int(11) NOT NULL,
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `stock_plant`
+--
+
+INSERT INTO `stock_plant` (`id_stock_plant`, `id_stock`, `id_product`, `id_cellar`, `quantity`, `id_exit_product`, `date_create`) VALUES
+(1, 14, 2, 3, 30, 115, '2017-10-03 19:29:00'),
+(2, 13, 1, 1, 20, 115, '2017-10-03 19:29:00');
 
 -- --------------------------------------------------------
 
@@ -309,7 +367,8 @@ ALTER TABLE `exit_equipment_master` ADD FULLTEXT KEY `note_received` (`note_rece
 --
 ALTER TABLE `exit_product_detalle`
   ADD PRIMARY KEY (`id_exit_product_detalle`),
-  ADD KEY `id_exit_product_master` (`id_exit_product_master`);
+  ADD KEY `id_exit_product_master` (`id_exit_product_master`),
+  ADD KEY `exit_product_detalle_ibfk_2` (`id_product`);
 ALTER TABLE `exit_product_detalle` ADD FULLTEXT KEY `note` (`note`);
 
 --
@@ -363,7 +422,8 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `stock`
   ADD PRIMARY KEY (`id_stock`),
-  ADD KEY `id_cellar` (`id_cellar`);
+  ADD KEY `id_cellar` (`id_cellar`),
+  ADD KEY `stock_ibfk_2` (`id_product`);
 
 --
 -- Indices de la tabla `stock_plant`
@@ -402,7 +462,7 @@ ALTER TABLE `cellar`
 -- AUTO_INCREMENT de la tabla `equipments`
 --
 ALTER TABLE `equipments`
-  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `exit_equipment_master`
 --
@@ -412,12 +472,12 @@ ALTER TABLE `exit_equipment_master`
 -- AUTO_INCREMENT de la tabla `exit_product_detalle`
 --
 ALTER TABLE `exit_product_detalle`
-  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_master`
 --
 ALTER TABLE `exit_product_master`
-  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 --
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
@@ -427,17 +487,17 @@ ALTER TABLE `exit_teams_detall`
 -- AUTO_INCREMENT de la tabla `measure`
 --
 ALTER TABLE `measure`
-  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
 ALTER TABLE `recover_password`
-  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
@@ -447,17 +507,17 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT de la tabla `stock_plant`
 --
 ALTER TABLE `stock_plant`
-  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tools`
 --
 ALTER TABLE `tools`
-  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
