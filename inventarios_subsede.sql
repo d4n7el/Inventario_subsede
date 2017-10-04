@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 01-10-2017 a las 01:09:35
+-- Tiempo de generación: 04-10-2017 a las 03:33:09
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -17,9 +17,6 @@ CREATE DATABASE IF NOT EXISTS `inventarios_subsede` DEFAULT CHARACTER SET utf8 C
 USE `inventarios_subsede`;
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `cellar`
---
 --
 -- Estructura de tabla para la tabla `cellar`
 --
@@ -100,8 +97,8 @@ INSERT INTO `exit_product_detalle` (`id_exit_product_detalle`, `id_exit_product_
 (50, 110, 13, 10, 1, 1, ''),
 (51, 111, 13, 12, 1, 1, 'Bien'),
 (52, 112, 13, 20, 1, 1, ''),
-(53, 115, 14, 30, 2, 3, ''),
-(54, 115, 13, 20, 1, 1, '');
+(53, 115, 14, 30, 2, 3, 'Fresco'),
+(54, 115, 13, 20, 1, 1, 'Roja');
 
 --
 -- Disparadores `exit_product_detalle`

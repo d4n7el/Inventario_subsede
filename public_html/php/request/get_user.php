@@ -7,7 +7,7 @@
 			'access_key' => $secret['user_request_users'],
 		);
 		//url contra la que atacamos
-		$request = curl_init("http://app.pruebas.datisoft.com/php/trabajador/consultar_por_documento");
+		$request = curl_init($secret['url_get_visitante']);
 		#visitante
 		//a true, obtendremos una respuesta de la url, en otro caso, 
 		//true si es correcto, false si no lo es
