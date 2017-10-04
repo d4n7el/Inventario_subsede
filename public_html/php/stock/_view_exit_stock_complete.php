@@ -6,11 +6,11 @@
 				<h5 class="titulo col s12 centrar color_letra_secundario"><?php echo $retorno_view_exit_stock[0]['date_create']; ?></h5>
 			</div>
 			<div class="col s4">
-				<h5 class=" col s12 centrar color_letra_secundario">Entrego</h5>
+				<h5 class=" col s12 centrar color_letra_secundario">Entregó</h5>
 				<h5 class="titulo col s12 centrar color_letra_secundario"><?php echo $retorno_view_exit_stock[0]['name_user']." ". $retorno_view_exit_stock[0]['last_name_user']; ?></h5>
 			</div>
 			<div class="col s4">
-				<h5 class=" col s12 centrar color_letra_secundario">Recivio</h5>
+				<h5 class=" col s12 centrar color_letra_secundario">Recibió</h5>
 				<h5 class="titulo col s12 centrar color_letra_secundario"><?php echo $retorno_view_exit_stock[0]['name_receive']; ?></h5>
 			</div>
 			

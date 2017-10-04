@@ -267,10 +267,14 @@ function request_user(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	console.log(response);
 	    	var response = jQuery.parseJSON(response);
 	    	$.each(response,function(index, value) {
-	    		(index === "data") ? datos = jQuery.parseJSON(value) : "";
+	    		if (index === "data") {
+	    			var data = jQuery.parseJSON(value);
+	    			$.each(data,function(pos, data) {
+						(pos === "modelo") ? datos = data : "";
+	    			});	
+	    		}
 	    		(index === "status") ? status = jQuery.parseJSON(value) : "";
 	    	});
 	    	$('#modal_mensajes').modal('close');

@@ -81,7 +81,6 @@
         	}
 		}
 		public function insert_stock_planta($value){
-			echo $value;
 			try {
 				$sql_consult = $this->db->prepare("INSERT INTO stock_plant (id_product,id_cellar,id_stock,id_exit_product,quantity) VALUES $value" );
 				$sql_consult->execute();
