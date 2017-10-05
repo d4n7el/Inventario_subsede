@@ -16,7 +16,8 @@ if (isset($exit_product)) { ?>
 		?>	
 	</select>
 	<?php 
-}else{ ?>
+}else{ 
+	(isset($value['id_product'] ) ? $value['id_product']  = $value['id_product'] :  $value['id_product'] = False )?>
 	<select class="icons" name="product" id="id_product_exit" required>
 		<option value="" disabled selected>Seleccione el producto</option>
 		<?php 

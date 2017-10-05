@@ -87,14 +87,14 @@ var recargar_eventos = function(){
 		if (cantidad != "" &&  nombre != "") {
 			ruta = $('div#view_add_elements').attr('ruta');
 			var html =  '<div class="col s12" style="margin-bottom: 1em">\
-							 <input type="hidden" name="" value="'+id+'">\
+							 <input type="hidden" name="id_element[]" value="'+id+'">\
 							<div class="col s12 sombra element_salida">\
 								<a class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
 								<h5 class="col s12 titulo color_letra_primario center">'+nombre+'</h5>\
 								<div class="input-field col s12 m6" id="'+nombre+'">\
 							    </div>\
 							    <div class="input-field col s12 m6">\
-						            <input id="anotacion" type="text" class="validate" name="nota" autocomplete="off">\
+						            <input id="anotacion" type="text" class="validate" name="nota[]" autocomplete="off">\
 						            <label for="anotacion" class="">Nota</label>\
 						        </div>\
 						    </div>\
@@ -172,12 +172,12 @@ var recargar_eventos = function(){
 		var ruta = $(this).attr('action');
 		ajax_set_form_data(ruta,formData);
 	});
-	$('form.create_info').on('submit', function(event) {
-		event.preventDefault();
-		var formData = new FormData(this);
-		var ruta =  $(this).attr('action');
-		ajax_set_form_data(ruta,formData);
-	});
+	// $('form.create_info').on('submit', function(event) {
+	// 	event.preventDefault();
+	// 	var formData = new FormData(this);
+	// 	var ruta =  $(this).attr('action');
+	// 	ajax_set_form_data(ruta,formData);
+	// });
 	$('button.editar_info').on('click', function(event) {
 		event.preventDefault();
 		$(this).closest('form').find('div').removeClass('hide');
