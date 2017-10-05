@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 04-10-2017 a las 03:33:09
+-- Tiempo de generación: 06-10-2017 a las 01:31:59
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -15,6 +15,26 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `inventarios_subsede` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `inventarios_subsede`;
+DELIMITER $$
+
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_exit_stock` (IN `cantidad` INT(11), IN `idMaster` INT(11), IN `IdDetalle` INT(11), IN `IdUser` INT(11), OUT `retorno` BOOLEAN)  BEGIN
+  DECLARE id_stocks INT(11);
+    DECLARE cant_stock INT(11);
+  SELECT id_stock INTO id_stocks FROM exit_product_detalle WHERE id_exit_product_detalle = IdDetalle;
+  SELECT amount INTO cant_stock FROM stock WHERE id_stock = id_stocks;
+    IF cant_stock >= cantidad THEN
+      UPDATE exit_product_detalle SET quantity = cantidad WHERE     id_exit_product_detalle = IdDetalle;
+        SET retorno = 1;
+  ELSE
+      SET retorno = 0;
+    END IF;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -56,6 +76,13 @@ CREATE TABLE `equipments` (
   `id_user_create` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `equipments`
+--
+
+INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`) VALUES
+(1, 'teve', 'acme', 100, 100, 3, 7);
+
 -- --------------------------------------------------------
 
 --
@@ -68,8 +95,6 @@ CREATE TABLE `exit_equipment_master` (
   `id_user_delivery` int(11) NOT NULL,
   `delivery` tinyint(1) NOT NULL DEFAULT '1',
   `received` tinyint(1) NOT NULL DEFAULT '0',
-  `delivery_note` text NOT NULL,
-  `note_received` text NOT NULL,
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -77,17 +102,9 @@ CREATE TABLE `exit_equipment_master` (
 -- Volcado de datos para la tabla `exit_equipment_master`
 --
 
-INSERT INTO `exit_equipment_master` (`id_exit`, `id_user_receives`, `id_user_delivery`, `delivery`, `received`, `delivery_note`, `note_received`, `date_create`) VALUES
-(5, 12234, 7, 1, 0, '', '', '2017-10-05 21:34:54'),
-(6, 12234, 7, 1, 0, '', '', '2017-10-05 21:36:55'),
-(7, 12234, 7, 1, 0, '', '', '2017-10-05 21:37:30'),
-(8, 12234, 7, 1, 0, '', '', '2017-10-05 21:41:03'),
-(9, 12234, 7, 1, 0, '', '', '2017-10-05 21:42:17'),
-(10, 12234, 7, 1, 0, '', '', '2017-10-05 21:48:38'),
-(11, 12234, 7, 1, 0, '', '', '2017-10-05 21:49:15'),
-(12, 12234, 7, 1, 0, '', '', '2017-10-05 21:50:08'),
-(13, 12234, 7, 1, 0, '', '', '2017-10-05 21:54:03'),
-(14, 12234, 7, 1, 0, '', '', '2017-10-05 21:54:49');
+INSERT INTO `exit_equipment_master` (`id_exit`, `id_user_receives`, `id_user_delivery`, `delivery`, `received`, `date_create`) VALUES
+(1, 12234, 7, 1, 0, '2017-10-05 23:26:19'),
+(2, 12234, 7, 1, 0, '2017-10-05 23:28:59');
 
 -- --------------------------------------------------------
 
@@ -114,7 +131,13 @@ INSERT INTO `exit_product_detalle` (`id_exit_product_detalle`, `id_exit_product_
 (51, 111, 13, 12, 1, 1, 'Bien'),
 (52, 112, 13, 20, 1, 1, ''),
 (53, 115, 14, 30, 2, 3, 'Fresco'),
-(54, 115, 13, 20, 1, 1, 'Roja');
+(54, 115, 13, 20, 1, 1, 'Roja'),
+(55, 116, 14, 20, 2, 3, ''),
+(56, 116, 13, 5, 1, 1, ''),
+(57, 117, 14, 6, 2, 3, ''),
+(58, 117, 13, 20, 1, 1, ''),
+(59, 117, 15, 23, 3, 2, ''),
+(60, 118, 13, 113, 1, 1, '');
 
 --
 -- Disparadores `exit_product_detalle`
@@ -158,7 +181,10 @@ INSERT INTO `exit_product_master` (`id_exit_product`, `user_delivery`, `user_rec
 (112, 7, 1234, 'Santiago', 'Ext', 1, '2017-10-03 18:09:38'),
 (113, 7, 1234, 'Santiago', 'Int', 1, '2017-10-03 18:51:24'),
 (114, 7, 1234, 'Santiago', 'Int', 1, '2017-10-03 18:51:28'),
-(115, 7, 1234, 'Santiago', 'Int', 1, '2017-10-03 19:29:00');
+(115, 7, 1234, 'Santiago', 'Int', 1, '2017-10-03 19:29:00'),
+(116, 7, 1234, 'Santiago', 'Int', 1, '2017-10-04 02:02:36'),
+(117, 7, 634343434, 'Jhon  Jairo Cuaervo', 'Int', 1, '2017-10-04 02:12:01'),
+(118, 7, 1234, 'Santiago', 'Ext', 1, '2017-10-04 20:16:20');
 
 -- --------------------------------------------------------
 
@@ -170,8 +196,17 @@ CREATE TABLE `exit_teams_detall` (
   `id_exit_detall` int(11) NOT NULL,
   `id_exit` int(11) NOT NULL,
   `id_equipment` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `note` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `exit_teams_detall`
+--
+
+INSERT INTO `exit_teams_detall` (`id_exit_detall`, `id_exit`, `id_equipment`, `quantity`, `note`) VALUES
+(1, 1, 1, 3, 'bien'),
+(2, 2, 1, 1, 'Biennnnnn');
 
 -- --------------------------------------------------------
 
@@ -192,7 +227,7 @@ CREATE TABLE `measure` (
 --
 
 INSERT INTO `measure` (`id_measure`, `name_measure`, `prefix_measure`, `id_user_create`, `date_create`) VALUES
-(1, 'Kilogramo', 'Kl', 7, '2017-09-30 23:20:06'),
+(1, 'Kilogramo', 'Kg', 7, '2017-10-04 02:03:50'),
 (2, 'Libra', 'Lb', 7, '2017-09-30 23:20:13');
 
 -- --------------------------------------------------------
@@ -217,8 +252,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `unit_measure`, `id_user_create`, `id_cellar`, `num_orders`, `creation_date`) VALUES
-(1, 'Savila', 'Savila', '1', 7, 1, 4, '2017-10-03 19:29:00'),
-(2, 'Carne roja', 'Carne roja', '1', 7, 3, 1, '2017-10-03 19:29:00');
+(1, 'Savila', 'Savila', '1', 7, 1, 7, '2017-10-04 20:16:20'),
+(2, 'Carne roja', 'Carne roja', '1', 7, 3, 3, '2017-10-04 02:12:01'),
+(3, 'Leche', 'En polvo', '2', 7, 2, 1, '2017-10-04 02:12:01');
 
 -- --------------------------------------------------------
 
@@ -276,8 +312,10 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`id_stock`, `id_cellar`, `id_product`, `nom_lot`, `amount`, `expiration_date`, `expiration_create`, `comercializadora`) VALUES
-(13, 1, 1, '46378uewiq', 140, '2017-10-31', '2017-09-30 23:21:04', 'sabla'),
-(14, 3, 2, '43829jdw', 70, '2017-11-30', '2017-10-03 19:28:24', 'rojas');
+(13, 1, 1, 'uewjd', 132, '2017-10-31', '2017-09-30 23:21:04', 'sabla'),
+(14, 3, 2, '4r230e90ew', 44, '2017-11-30', '2017-10-03 19:28:24', 'rojas'),
+(15, 2, 3, '6748309dj', 177, '2017-12-30', '2017-10-04 02:10:19', 'lacts'),
+(16, 3, 2, '5430ofj', 200, '2017-10-31', '2017-10-05 23:23:10', 'roja');
 
 -- --------------------------------------------------------
 
@@ -301,7 +339,12 @@ CREATE TABLE `stock_plant` (
 
 INSERT INTO `stock_plant` (`id_stock_plant`, `id_stock`, `id_product`, `id_cellar`, `quantity`, `id_exit_product`, `date_create`) VALUES
 (1, 14, 2, 3, 30, 115, '2017-10-03 19:29:00'),
-(2, 13, 1, 1, 20, 115, '2017-10-03 19:29:00');
+(2, 13, 1, 1, 20, 115, '2017-10-03 19:29:00'),
+(3, 14, 2, 3, 20, 116, '2017-10-04 02:02:36'),
+(4, 13, 1, 1, 5, 116, '2017-10-04 02:02:36'),
+(5, 14, 2, 3, 6, 117, '2017-10-04 02:12:01'),
+(6, 13, 1, 1, 2, 117, '2017-10-04 02:12:01'),
+(7, 15, 3, 2, 23, 117, '2017-10-04 02:12:01');
 
 -- --------------------------------------------------------
 
@@ -318,6 +361,14 @@ CREATE TABLE `tools` (
   `id_cellar` int(11) NOT NULL,
   `id_user_create` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tools`
+--
+
+INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`) VALUES
+(1, 'pala', 'acme', 234, 234, 6, 7),
+(2, 'martillo ', '3456yw', 20, 20, 6, 7);
 
 -- --------------------------------------------------------
 
@@ -371,9 +422,8 @@ ALTER TABLE `equipments`
 --
 ALTER TABLE `exit_equipment_master`
   ADD PRIMARY KEY (`id_exit`),
-  ADD KEY `id_user_receives` (`id_user_receives`);
-ALTER TABLE `exit_equipment_master` ADD FULLTEXT KEY `delivery_note` (`delivery_note`);
-ALTER TABLE `exit_equipment_master` ADD FULLTEXT KEY `note_received` (`note_received`);
+  ADD KEY `id_user_receives` (`id_user_receives`),
+  ADD KEY `exit_equipment_master_ibfk_1` (`id_user_delivery`);
 
 --
 -- Indices de la tabla `exit_product_detalle`
@@ -397,6 +447,7 @@ ALTER TABLE `exit_teams_detall`
   ADD PRIMARY KEY (`id_exit_detall`),
   ADD KEY `id_exit` (`id_exit`),
   ADD KEY `id_equipment` (`id_equipment`);
+ALTER TABLE `exit_teams_detall` ADD FULLTEXT KEY `note` (`note`);
 
 --
 -- Indices de la tabla `measure`
@@ -461,8 +512,142 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `cedula` (`cedula`),
   ADD KEY `id_cellar` (`id_cellar`),
   ADD KEY `id_role` (`id_role`);
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `cellar`
+--
+ALTER TABLE `cellar`
+  MODIFY `id_cellar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `equipments`
+--
+ALTER TABLE `equipments`
+  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `exit_equipment_master`
+--
+ALTER TABLE `exit_equipment_master`
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `exit_product_detalle`
+--
+ALTER TABLE `exit_product_detalle`
+  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+--
+-- AUTO_INCREMENT de la tabla `exit_product_master`
+--
+ALTER TABLE `exit_product_master`
+  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+--
+-- AUTO_INCREMENT de la tabla `exit_teams_detall`
+--
+ALTER TABLE `exit_teams_detall`
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `measure`
+--
+ALTER TABLE `measure`
+  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `products`
+--
+ALTER TABLE `products`
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `recover_password`
+--
+ALTER TABLE `recover_password`
+  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `stock`
+--
+ALTER TABLE `stock`
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT de la tabla `stock_plant`
+--
+ALTER TABLE `stock_plant`
+  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT de la tabla `tools`
+--
+ALTER TABLE `tools`
+  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `user`
+--
+ALTER TABLE `user`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `equipments`
+--
+ALTER TABLE `equipments`
+  ADD CONSTRAINT `equipments_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `equipments_ibfk_2` FOREIGN KEY (`id_user_create`) REFERENCES `user` (`id_user`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `exit_equipment_master`
+--
+ALTER TABLE `exit_equipment_master`
+  ADD CONSTRAINT `exit_equipment_master_ibfk_1` FOREIGN KEY (`id_user_delivery`) REFERENCES `user` (`id_user`);
+
+--
+-- Filtros para la tabla `exit_product_detalle`
+--
+ALTER TABLE `exit_product_detalle`
+  ADD CONSTRAINT `exit_product_detalle_ibfk_1` FOREIGN KEY (`id_exit_product_master`) REFERENCES `exit_product_master` (`id_exit_product`),
+  ADD CONSTRAINT `exit_product_detalle_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `products` (`id_product`);
+
+--
+-- Filtros para la tabla `exit_teams_detall`
+--
+ALTER TABLE `exit_teams_detall`
+  ADD CONSTRAINT `exit_teams_detall_ibfk_1` FOREIGN KEY (`id_exit`) REFERENCES `exit_equipment_master` (`id_exit`),
+  ADD CONSTRAINT `exit_teams_detall_ibfk_2` FOREIGN KEY (`id_equipment`) REFERENCES `equipments` (`id_equipment`);
+
+--
+-- Filtros para la tabla `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`id_user_create`) REFERENCES `user` (`id_user`),
+  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`);
+
+--
+-- Filtros para la tabla `stock`
+--
+ALTER TABLE `stock`
+  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`),
+  ADD CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `products` (`id_product`);
+
+--
+-- Filtros para la tabla `stock_plant`
+--
+ALTER TABLE `stock_plant`
+  ADD CONSTRAINT `stock_plant_ibfk_1` FOREIGN KEY (`id_exit_product`) REFERENCES `exit_product_master` (`id_exit_product`);
+
+--
+-- Filtros para la tabla `tools`
+--
+ALTER TABLE `tools`
+  ADD CONSTRAINT `tools_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`),
+  ADD CONSTRAINT `tools_ibfk_2` FOREIGN KEY (`id_user_create`) REFERENCES `user` (`id_user`);
+
+--
+-- Filtros para la tabla `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`),
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id_role`);

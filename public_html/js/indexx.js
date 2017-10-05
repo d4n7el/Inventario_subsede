@@ -217,12 +217,12 @@ var recargar_eventos = function(){
 		var ruta = $(this).attr('action');
 		ajax_set_form_data(ruta,formData);
 	});
-	$('form.create_info').on('submit', function(event) {
-		event.preventDefault();
-		var formData = new FormData(this);
-		var ruta =  $(this).attr('action');
-		ajax_set_form_data(ruta,formData);
-	});
+	// $('form.create_info').on('submit', function(event) {
+	// 	event.preventDefault();
+	// 	var formData = new FormData(this);
+	// 	var ruta =  $(this).attr('action');
+	// 	ajax_set_form_data(ruta,formData);
+	// });
 	$('button.editar_info').on('click', function(event) {
 		event.preventDefault();
 		$(this).closest('form').find('div').removeClass('hide');
@@ -232,12 +232,12 @@ var recargar_eventos = function(){
 		$(this).closest('div#vista_ventana').find('i').css('color', 'rgba(0,0,0,.4)');
 		$(this).closest('div').siblings('div').find('i').css('color', 'rgb(30,136,229)');
 	});
-	// $('form.update_info').on('submit', function(event) {
-	// 	event.preventDefault();
-	// 	var formData = new FormData(this);
-	// 	var ruta = $(this).attr('action');
-	// 	ajax_set_form_data(ruta,formData);
-	// });
+	$('form.update_info').on('submit', function(event) {
+		event.preventDefault();
+		var formData = new FormData(this);
+		var ruta = $(this).attr('action');
+		ajax_set_form_data(ruta,formData);
+	});
 	$('button.actualizar_info').on('click', function(event) {
 		$(this).addClass('hide');
 		$(this).closest('form').find('button.editar_info').removeClass('hide');
