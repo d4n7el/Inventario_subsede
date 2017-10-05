@@ -73,6 +73,22 @@ CREATE TABLE `exit_equipment_master` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `exit_equipment_master`
+--
+
+INSERT INTO `exit_equipment_master` (`id_exit`, `id_user_receives`, `id_user_delivery`, `delivery`, `received`, `delivery_note`, `note_received`, `date_create`) VALUES
+(5, 12234, 7, 1, 0, '', '', '2017-10-05 21:34:54'),
+(6, 12234, 7, 1, 0, '', '', '2017-10-05 21:36:55'),
+(7, 12234, 7, 1, 0, '', '', '2017-10-05 21:37:30'),
+(8, 12234, 7, 1, 0, '', '', '2017-10-05 21:41:03'),
+(9, 12234, 7, 1, 0, '', '', '2017-10-05 21:42:17'),
+(10, 12234, 7, 1, 0, '', '', '2017-10-05 21:48:38'),
+(11, 12234, 7, 1, 0, '', '', '2017-10-05 21:49:15'),
+(12, 12234, 7, 1, 0, '', '', '2017-10-05 21:50:08'),
+(13, 12234, 7, 1, 0, '', '', '2017-10-05 21:54:03'),
+(14, 12234, 7, 1, 0, '', '', '2017-10-05 21:54:49');
+
 -- --------------------------------------------------------
 
 --
@@ -445,142 +461,8 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `cedula` (`cedula`),
   ADD KEY `id_cellar` (`id_cellar`),
   ADD KEY `id_role` (`id_role`);
+COMMIT;
 
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `cellar`
---
-ALTER TABLE `cellar`
-  MODIFY `id_cellar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT de la tabla `equipments`
---
-ALTER TABLE `equipments`
-  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `exit_equipment_master`
---
-ALTER TABLE `exit_equipment_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `exit_product_detalle`
---
-ALTER TABLE `exit_product_detalle`
-  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
---
--- AUTO_INCREMENT de la tabla `exit_product_master`
---
-ALTER TABLE `exit_product_master`
-  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
---
--- AUTO_INCREMENT de la tabla `exit_teams_detall`
---
-ALTER TABLE `exit_teams_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `measure`
---
-ALTER TABLE `measure`
-  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT de la tabla `products`
---
-ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT de la tabla `recover_password`
---
-ALTER TABLE `recover_password`
-  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `roles`
---
-ALTER TABLE `roles`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT de la tabla `stock`
---
-ALTER TABLE `stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
---
--- AUTO_INCREMENT de la tabla `stock_plant`
---
-ALTER TABLE `stock_plant`
-  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT de la tabla `tools`
---
-ALTER TABLE `tools`
-  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `user`
---
-ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `equipments`
---
-ALTER TABLE `equipments`
-  ADD CONSTRAINT `equipments_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `equipments_ibfk_2` FOREIGN KEY (`id_user_create`) REFERENCES `user` (`id_user`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `exit_equipment_master`
---
-ALTER TABLE `exit_equipment_master`
-  ADD CONSTRAINT `exit_equipment_master_ibfk_1` FOREIGN KEY (`id_user_receives`) REFERENCES `user` (`id_user`);
-
---
--- Filtros para la tabla `exit_product_detalle`
---
-ALTER TABLE `exit_product_detalle`
-  ADD CONSTRAINT `exit_product_detalle_ibfk_1` FOREIGN KEY (`id_exit_product_master`) REFERENCES `exit_product_master` (`id_exit_product`),
-  ADD CONSTRAINT `exit_product_detalle_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `products` (`id_product`);
-
---
--- Filtros para la tabla `exit_teams_detall`
---
-ALTER TABLE `exit_teams_detall`
-  ADD CONSTRAINT `exit_teams_detall_ibfk_1` FOREIGN KEY (`id_exit`) REFERENCES `exit_equipment_master` (`id_exit`),
-  ADD CONSTRAINT `exit_teams_detall_ibfk_2` FOREIGN KEY (`id_equipment`) REFERENCES `equipments` (`id_equipment`);
-
---
--- Filtros para la tabla `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`id_user_create`) REFERENCES `user` (`id_user`),
-  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`);
-
---
--- Filtros para la tabla `stock`
---
-ALTER TABLE `stock`
-  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`),
-  ADD CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `products` (`id_product`);
-
---
--- Filtros para la tabla `stock_plant`
---
-ALTER TABLE `stock_plant`
-  ADD CONSTRAINT `stock_plant_ibfk_1` FOREIGN KEY (`id_exit_product`) REFERENCES `exit_product_master` (`id_exit_product`);
-
---
--- Filtros para la tabla `tools`
---
-ALTER TABLE `tools`
-  ADD CONSTRAINT `tools_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`),
-  ADD CONSTRAINT `tools_ibfk_2` FOREIGN KEY (`id_user_create`) REFERENCES `user` (`id_user`);
-
---
--- Filtros para la tabla `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`),
-  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id_role`);
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
