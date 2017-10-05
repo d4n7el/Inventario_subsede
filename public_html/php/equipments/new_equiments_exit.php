@@ -11,12 +11,16 @@
 	$cantidad = $_REQUEST['cantidaddes'];
 	$retorno = $equipment_exit->exit_equipment_master($id_user_receives,$id_user_delivery);
 	$valores_insert = "";
-	if($retorno>0){
-		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create');
-	}
+
 	foreach ($element as $key => $value) {
 		$valores_insert.=" (".$retorno.",".$value.",".$cantidad[$key].",'".$texto[$key]."'),";
 	}
 	$valores_insert = substr($valores_insert,0,-1);
 	$retorno_detall = $equipment_exit_detall->exit_equipment_detall($valores_insert);
+	if ($retorno_detall > 0 && $retorno > 0) {
+		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create');
+	}else{
+		$respuesta = array('mensaje' => "Error correcto", 'status' => 0);
+	}
+	echo json_encode($respuesta);
  ?>
