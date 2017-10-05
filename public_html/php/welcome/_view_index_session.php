@@ -110,14 +110,13 @@
 					</div>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/outlet_products.php" id="" class="link_page color_letra_primario">Salidas<i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/outlet_products.php" id="" class="link_page color_letra_primario">Salida<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products" class="link_page color_letra_primario">Ver productos<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index_exit.php" class="link_page color_letra_primario">Ver salidas<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
-
 	    <div class="col s12 targeta_inicio">
 			<div class="card transparent ">
 				<div class="card-content color_letra_primario">
@@ -214,8 +213,8 @@
     <div class="col s9 offset-s3" id="vista_ventana">
     	<?php if (isset($_SESSION["cod_user_activo"])) { ?>
     		<div class="col s12 centrar sombra" id="recordatorio">
-				<h4 class="color_letra_primario">
-					<i class="material-icons color_letra_primario">warning</i> ¡Recuerda modificar tu contraseña! 
+				<h4 class="color_letra_secundario">
+					<i class="material-icons color_letra_secundario">warning</i> ¡Recuerda modificar tu contraseña! 
 				</h4>
     		</div>
 			<div class="col s6 offset-s3">

@@ -50,6 +50,9 @@ i{
 .row{
 	margin-top: 3em !important;
 }
+div.destino{
+	margin-bottom: 2em;
+}
 #modal_mensajes{
 	background-color: transparent;
 	box-shadow: 0px 0px 0px transparent;
@@ -57,8 +60,18 @@ i{
 #modal_mensajes .modal-content .card-image img{
 	width: 60%;
 }
+a.close_modal{
+	position: fixed;
+	top: 10em;
+}
 div#view_add_elements{
-	padding-top: 3em;
+	padding-top: 2em;
+	height: 50vh;
+	overflow: scroll;
+	-moz-box-shadow:inset -1px -1px 39px rgba(0,133,122,.1);
+	-webkit-box-shadow:inset -1px -1px 39px rgba(0,133,122,.1);
+	box-shadow:inset -1px -1px 39px rgba(0,133,122,.1);
+	border-radius: 1em;
 }
 div.element_salida{
 	background-color:  rgba(255,255,255,.3);
@@ -111,6 +124,10 @@ h5.titulo{
 	color: rgb(0,133,122);
 	font-size: 1em;
 	margin-bottom: 2em;
+}
+h6.titulo{
+	color: rgb(0,133,122);
+	font-size: 1em;
 }
 div.contenedor_session{
 	height: 70vh
@@ -206,8 +223,39 @@ div.menu{
 	overflow-x: hidden;
 }
 #modal1{
-	background-color: rgba(40,61,73,1);
+	background-color: rgba(40,61,73,1)!important;
 }
 .card-action, .fondo_negro{
 	background-color: rgb(47,47,47) !important;
 }
+#tabla .btn{
+	margin-top: 0em !important;
+}
+.primary_cell{
+	border-left: 1px solid rgba(3,124,136,.2);
+	border-bottom: 1px solid rgba(3,124,136,.2);
+}
+.second_cell{
+	border-right: 1px solid rgba(3,124,136,.2);
+}
+.head_cell{
+	background-color: rgb(0,133,122);
+	border-right: 1px solid rgba(255,255,255,.2);
+}
+.prymary_head_cell{
+	background-color: rgb(0,133,122);
+	border-right: 1px solid rgba(255,255,255,.2);
+}
+#head_table div a{
+	padding: 1em;
+}
+.modal.bottom-sheet{
+	top: 0;
+    margin-left: 30%;
+    width: 70%;
+    max-height: 100%;
+    border-radius: 0;
+    will-change: bottom, opacity;
+}
+
+
