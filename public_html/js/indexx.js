@@ -54,10 +54,45 @@ function eliminar_eventos(){
 	$('form#add_exit_product').off('submit');
 	$('a#delete_exit').off('click');
 	$('button.view_exit_stock').off('click');
+	$('button.edit_view_exit_stock').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
+	$('button.edit_view_exit_stock').on('click', function(event) {
+		event.preventDefault();
+		var ruta = "../php/_partials/_select_quantity.php";
+		var cantidad = $(this).attr('cantidad');
+		var cantidad_disponible = $(this).attr('cantidad_disponible');
+	});
+	$('button.edit_view_exit_stock').on('click', function(event) {
+		event.preventDefault();
+		var cantidad = $(this).attr('cantidad');
+		var cantidad_disponible = $(this).attr('cantidad_disponible');
+		var div_id = $(this).attr('id_exit_product') + $(this).attr('id_exit_product_detalle');
+		var producto = $(this).closest('div').siblings('div.producto').find('h6').text();
+		var lote = $(this).closest('div').siblings('div.lote').find('h6').text();
+		var bodega = $(this).closest('div').siblings('div.bodega').find('h6').text();
+		var html = '<div class="row">\
+						<input type="hidden" name="master" value="'+$(this).attr('id_exit_product')+'">\
+						<input type="hidden" name="detalle" value="'+$(this).attr('id_exit_product_detalle')+'">\
+				        <div class="col s4 color_letra_secundario"><h6 class="col s12 center">Producto: '+producto+'</h6></div>\
+						<div class="col s4 color_letra_secundario"><h6 class="col s12 center">Bodega: '+bodega+'</h6></div>\
+						<div class="col s4 color_letra_secundario"><h6 class="col s12 center">Lote: '+lote+'</h6></div>\
+						<div class="input-field col s8 offset-s2" style="margin-top: 4em">\
+				            <i class="material-icons prefix">filter_9_plus</i>\
+				            <input id="cantidad" type="number" min="0" max="'+cantidad_disponible+'" class="validate" name="amount" autocomplete="off" value="'+cantidad+'" required>\
+				            <label for="cantidad" class="active">Cantidad disponible '+cantidad_disponible+'</label>\
+				        </div>\
+						<div class="action col m12 centrar">\
+				        	<button class="waves-effect waves-light btn btn-primary">\
+				        		<i class="material-icons left">near_me</i>Guardar\
+				        	</button>\
+			        	</div>\
+				    </div>' 
+		$('div#modal_center div.modal-content form').html(html);
+		$('div#modal_center div.modal-content form').attr('action', '/php/stock/update_exit_stock.php');;
+	});
 	$('button.view_exit_stock').on('click', function(event) {
 		event.preventDefault();
 		var id_exit_product = $(this).attr('id_exit_product');
@@ -196,12 +231,12 @@ var recargar_eventos = function(){
 		$(this).closest('div#vista_ventana').find('i').css('color', 'rgba(0,0,0,.4)');
 		$(this).closest('div').siblings('div').find('i').css('color', 'rgb(30,136,229)');
 	});
-	$('form.update_info').on('submit', function(event) {
-		event.preventDefault();
-		var formData = new FormData(this);
-		var ruta = $(this).attr('action');
-		ajax_set_form_data(ruta,formData);
-	});
+	// $('form.update_info').on('submit', function(event) {
+	// 	event.preventDefault();
+	// 	var formData = new FormData(this);
+	// 	var ruta = $(this).attr('action');
+	// 	ajax_set_form_data(ruta,formData);
+	// });
 	$('button.actualizar_info').on('click', function(event) {
 		$(this).addClass('hide');
 		$(this).closest('form').find('button.editar_info').removeClass('hide');

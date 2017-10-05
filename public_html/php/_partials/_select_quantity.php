@@ -1,4 +1,5 @@
 <?php 
+
 	(isset($_REQUEST['cantidad_disponible']) ? $cantidad_disponible = $_REQUEST['cantidad_disponible'] : $cantidad_disponible = 0);
 	(isset($_REQUEST['cantidad']) ? $cantidad = $_REQUEST['cantidad'] : $cantidad = 0);
 	$count_number = 1; ?>

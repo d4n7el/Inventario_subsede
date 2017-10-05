@@ -228,7 +228,7 @@ div.menu{
 .card-action, .fondo_negro{
 	background-color: rgb(47,47,47) !important;
 }
-#tabla .btn{
+.tabla .btn{
 	margin-top: 0em !important;
 }
 .primary_cell{
