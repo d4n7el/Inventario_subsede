@@ -126,6 +126,7 @@ var recargar_eventos = function(){
 		if (cantidad != "" &&  nombre != "") {
 			ruta = $('div#view_add_elements').attr('ruta');
 			var html =  '<div class="col s12" style="margin-bottom: 1em">\
+							 <input type="hidden" name="id_element[]" value="'+id+'">\
 							<input type="hidden" name="" value="'+id+'">\
 							<div class="col s12 sombra element_salida">\
 								<a class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\

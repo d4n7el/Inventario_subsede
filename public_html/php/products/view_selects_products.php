@@ -16,10 +16,12 @@ if (isset($exit_product)) { ?>
 		?>	
 	</select>
 	<?php 
-}else{ ?>
+}else{ 
+	(isset($value['id_product'] ) ? $value['id_product']  = $value['id_product'] :  $value['id_product'] = False )?>
 	<select class="icons" name="product" id="id_product_exit" required>
 		<option value="" disabled selected>Seleccione el producto</option>
-		<?php 
+		<?php
+			(isset($value) ? $value = $value : $value = false); 
 			foreach ($retorno_product as $product) { ?>
 				<option <?php  echo $product['id_product'] == $value['id_product'] ? "selected" : '';?> value="<?php echo $product['id_product']; ?>"><?php echo $product['name_product']; ?></option>
 				<?php  	 
