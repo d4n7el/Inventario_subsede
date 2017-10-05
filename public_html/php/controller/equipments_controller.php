@@ -69,5 +69,41 @@
             	$e->getMessage();
         	}
 		}
+
+
+		public function exit_equipment_master($id_user_receives,$id_user_delivery){
+
+			try {
+				$sql_consult = $this->db->prepare('INSERT INTO exit_equipment_master (id_user_receives,id_user_delivery) VALUES (?,?)'  );
+				$sql_consult->execute(array($id_user_receives,$id_user_delivery));
+				$result = $this->db->lastInsertId();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	 $e->getMessage();
+        	}
+		}
+
+
+
+
+		public function exit_equipment_detall($valores_insert){
+
+			try {
+				$sql_consult = $this->db->prepare("INSERT INTO exit_teams_detall (id_exit,id_equipment,quantity,note) VALUES $valores_insert");
+				$sql_consult->execute();
+				$result = $this->db->lastInsertId();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	 echo $e->getMessage();
+        	}
+		}
+
+
+
+
 	}
 ?>

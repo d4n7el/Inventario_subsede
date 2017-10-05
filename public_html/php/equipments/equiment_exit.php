@@ -13,9 +13,9 @@
 	    </div>	
 	</div>
 	<div class="col s7">	
-		<form action="$_SERVER['DOCUMENT_ROOT'].'/php/equipments/new_equiments_exit.php'" method="post" accept-charset="utf-8" class="create_info">
+		<form action=" <?php  $_SERVER['DOCUMENT_ROOT']?>/php/equipments/new_equiments_exit.php" class="create_info">
 			<div class="action col s12 centrar" style="padding-bottom: 2em">
-	        	<button class="waves-effect waves-light btn btn-primary" id="add_exit">
+	        	<button class="waves-effect waves-light btn btn-primary" id="">
 	        		<i class="material-icons left">near_me</i>Registrar salidas
 	        	</button>
 		    </div>	
