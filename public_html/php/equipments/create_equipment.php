@@ -25,9 +25,6 @@
 			            <input id="cantidad_disponible" type="text" class="validate" name="cantidad" autocomplete="off" required>
 			            <label for="cantidad_disponible" class="">Cantidad</label>
 			        </div>
-  					<div class="input-field col s12 m12">
-			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
-			        </div>
 			        <div class="action col m12">
 			        	<button class="waves-effect waves-light btn btn-primary">
 			        		<i class="material-icons left">near_me</i>Guardar
