@@ -42,7 +42,7 @@
 					<?php echo $value['nom_lot']; ?></h6>
 				</div>
 				<div class="col s2 second_cell cantidad_disponible">
-					<h6 class="col s12 centrar color_letra_secundario">
+					<h6 class="col s12 centrar color_letra_secundario" id="cantidad_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>">
 						<?php echo $value['quantity']; ?>
 					</h6>
 				</div>

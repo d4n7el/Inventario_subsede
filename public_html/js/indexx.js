@@ -1,5 +1,6 @@
 $(document).on('ready',function(){
 	cantidad = ""; 	nombre = "";	id = "";	disponible = "";
+	div_id	 = "";
 	recargar_eventos();
 	$('a.link_page').on('click', function(event) {
 		event.preventDefault();
@@ -61,15 +62,9 @@ var recargar_eventos = function(){
 	$('select').material_select();
 	$('button.edit_view_exit_stock').on('click', function(event) {
 		event.preventDefault();
-		var ruta = "../php/_partials/_select_quantity.php";
 		var cantidad = $(this).attr('cantidad');
 		var cantidad_disponible = $(this).attr('cantidad_disponible');
-	});
-	$('button.edit_view_exit_stock').on('click', function(event) {
-		event.preventDefault();
-		var cantidad = $(this).attr('cantidad');
-		var cantidad_disponible = $(this).attr('cantidad_disponible');
-		var div_id = $(this).attr('id_exit_product') + $(this).attr('id_exit_product_detalle');
+		div_id = $(this).attr('id_exit_product') + $(this).attr('id_exit_product_detalle');
 		var producto = $(this).closest('div').siblings('div.producto').find('h6').text();
 		var lote = $(this).closest('div').siblings('div.lote').find('h6').text();
 		var bodega = $(this).closest('div').siblings('div.bodega').find('h6').text();
@@ -285,6 +280,9 @@ function ajax_set_form_data(ruta,formData){
  	    	}
  	    	if (response['status']==1 && response['process']=='exit_product')  {
  	    		limpiar_exit();
+ 	    	}
+ 	    	if (response['status']==1 && response['process']=='update_cant_product' && response['cantidad'] != undefined ) {
+ 	    		$('h6#cantidad_'+div_id).text(response['cantidad']);
  	    	}
 	    },
 	    error: function(jqXHR,error,estado){

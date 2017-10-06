@@ -46,11 +46,11 @@
 		}
 		public function update_exit_stock($cantidad,$id_master,$id_detalle,$id_user){
 			try {
-				$sql_consult = $this->db->prepare("CALL update_exit_stock( ?,?,?,?)" );
+				$sql_consult = $this->db->prepare("CALL update_exit_stock(?,?,?,?,@retorno)" );
 				$sql_consult->execute(array($cantidad,$id_master,$id_detalle,$id_user));
 				$this->db = null;
 			} catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
 		public function show_exit_stock($id_exit_product){
