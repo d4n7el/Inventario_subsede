@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 06-10-2017 a las 05:46:49
+-- Tiempo de generación: 07-10-2017 a las 03:35:41
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -23,12 +23,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_exit_stock` (IN `cantidad` I
   DECLARE id_stocks INT(11);
   DECLARE cant_stock INT(11);
   DECLARE tipo varchar(50);
-  SELECT destination INTO tipo FROM exit_product_master WHERE         id_exit_product = idMaster;
-  SELECT id_stock INTO id_stocks FROM exit_product_detalle WHERE      id_exit_product_detalle = IdDetalle;
+  SELECT destination INTO tipo FROM exit_product_master WHERE id_exit_product = idMaster;
+  SELECT id_stock INTO id_stocks FROM exit_product_detalle WHERE id_exit_product_detalle = IdDetalle;
   SELECT amount INTO cant_stock FROM stock WHERE id_stock = id_stocks;
     IF cant_stock >= cantidad THEN
-      UPDATE exit_product_detalle SET quantity = cantidad WHERE           id_exit_product_detalle = IdDetalle;
-      UPDATE stock_plant SET quantity = cantidad WHERE id_exit_product =      idMaster AND id_stock = id_stocks ;
+      UPDATE exit_product_detalle SET quantity = cantidad WHERE id_exit_product_detalle = IdDetalle;
+      UPDATE stock_plant SET quantity = cantidad WHERE id_exit_product = idMaster AND id_stock = id_stocks ;
         SET retorno = 1;
   ELSE
       SET retorno = 0;
@@ -123,8 +123,6 @@ CREATE TABLE `exit_product_detalle` (
   `id_exit_product_master` int(11) NOT NULL,
   `id_stock` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `id_product` int(11) NOT NULL,
-  `id_cellar` int(11) NOT NULL,
   `note` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -132,31 +130,57 @@ CREATE TABLE `exit_product_detalle` (
 -- Volcado de datos para la tabla `exit_product_detalle`
 --
 
-INSERT INTO `exit_product_detalle` (`id_exit_product_detalle`, `id_exit_product_master`, `id_stock`, `quantity`, `id_product`, `id_cellar`, `note`) VALUES
-(50, 110, 13, 10, 1, 1, ''),
-(51, 111, 13, 12, 1, 1, 'Bien'),
-(52, 112, 13, 20, 1, 1, ''),
-(53, 115, 14, 30, 2, 3, 'Fresco'),
-(54, 115, 13, 20, 1, 1, 'Roja'),
-(55, 116, 14, 20, 2, 3, ''),
-(56, 116, 13, 5, 1, 1, ''),
-(57, 117, 14, 6, 2, 3, ''),
-(58, 117, 13, 32, 1, 1, ''),
-(59, 117, 15, 23, 3, 2, ''),
-(60, 118, 13, 120, 1, 1, '');
+INSERT INTO `exit_product_detalle` (`id_exit_product_detalle`, `id_exit_product_master`, `id_stock`, `quantity`, `note`) VALUES
+(50, 110, 13, 10, ''),
+(51, 111, 13, 12, 'Bien'),
+(52, 112, 13, 20, ''),
+(53, 115, 14, 30, 'Fresco'),
+(54, 115, 13, 20, 'Roja'),
+(55, 116, 14, 20, ''),
+(56, 116, 13, 5, ''),
+(57, 117, 14, 12, ''),
+(58, 117, 13, 20, ''),
+(59, 117, 15, 23, ''),
+(60, 118, 13, 120, ''),
+(61, 119, 15, 2, ''),
+(62, 119, 17, 20, 'Tierra'),
+(63, 120, 13, 20, 'fresas frescas'),
+(64, 129, 13, 44, 'bien'),
+(65, 131, 13, 20, 'bien'),
+(66, 132, 13, 20, 'bien'),
+(67, 133, 13, 46, 'bien'),
+(68, 134, 13, 10, 'Fresquisimas'),
+(69, 135, 13, 1, 'freqitas');
 
 --
 -- Disparadores `exit_product_detalle`
 --
 DELIMITER $$
-CREATE TRIGGER `update_stock_cant_products_order` BEFORE INSERT ON `exit_product_detalle` FOR EACH ROW BEGIN
-  DECLARE cant_stock integer;
-  SET @cant_stock := (SELECT amount FROM stock WHERE id_stock = NEW.id_stock);
-  IF (@cant_stock >= NEW.quantity ) THEN
-    UPDATE stock SET amount = amount - NEW.quantity
-    WHERE id_stock = NEW.id_stock;
-        UPDATE products set num_orders = num_orders + 1 WHERE id_product = NEW.id_product;
-  END IF;
+CREATE TRIGGER `update_cant_exit_product_detalle` BEFORE UPDATE ON `exit_product_detalle` FOR EACH ROW BEGIN
+  DECLARE cantidad INT;
+    DECLARE tipo varchar(50);
+    SELECT amount iNTO cantidad FROM stock WHERE id_stock = NEW.id_stock;
+    SELECT destination INTO tipo FROM exit_product_master WHERE id_exit_product = NEW.id_exit_product_master;
+    IF cantidad >= NEW.quantity THEN
+      IF OLD.quantity < new.quantity THEN
+          UPDATE stock SET amount = amount - (new.quantity - OLD.quantity) WHERE id_stock = NEW.id_stock;
+        ELSE
+          UPDATE stock SET amount = amount + (OLD.quantity - NEW.quantity) WHERE id_stock = NEW.id_stock;
+        END IF;
+        IF tipo LIKE "Int" THEN
+          UPDATE stock_plant SET quantity = NEW.quantity WHERE id_stock = NEW.id_stock AND id_exit_product = NEW.id_exit_product_master;
+        END IF;
+   END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_stock_cant` BEFORE INSERT ON `exit_product_detalle` FOR EACH ROW BEGIN
+  DECLARE cantidad INT;
+    SELECT amount INTO cantidad FROM stock WHERE id_stock = NEW.id_stock;
+    if NEW.quantity <= cantidad AND cantidad > 0 THEN
+      UPDATE stock SET amount = amount - NEW.quantity WHERE id_stock = NEW.id_stock;
+    END IF;
 END
 $$
 DELIMITER ;
@@ -190,7 +214,24 @@ INSERT INTO `exit_product_master` (`id_exit_product`, `user_delivery`, `user_rec
 (115, 7, 1234, 'Santiago', 'Int', 1, '2017-10-03 19:29:00'),
 (116, 7, 1234, 'Santiago', 'Int', 1, '2017-10-04 02:02:36'),
 (117, 7, 634343434, 'Jhon  Jairo Cuaervo', 'Int', 1, '2017-10-04 02:12:01'),
-(118, 7, 1234, 'Santiago', 'Ext', 1, '2017-10-04 20:16:20');
+(118, 7, 1234, 'Santiago', 'Ext', 1, '2017-10-04 20:16:20'),
+(119, 7, 1087556331, 'Johanna Marcela Velez Garcia', 'Ext', 1, '2017-10-06 04:57:49'),
+(120, 7, 1087556331, 'Johanna Marcela Velez Garcia', 'Int', 1, '2017-10-06 05:06:39'),
+(121, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Int', 1, '2017-10-06 23:32:58'),
+(122, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Ext', 1, '2017-10-06 23:33:25'),
+(123, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Ext', 1, '2017-10-06 23:37:14'),
+(124, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Ext', 1, '2017-10-06 23:37:42'),
+(125, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Ext', 1, '2017-10-06 23:38:46'),
+(126, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Int', 1, '2017-10-06 23:42:08'),
+(127, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Int', 1, '2017-10-06 23:42:40'),
+(128, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Int', 1, '2017-10-06 23:45:10'),
+(129, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Int', 1, '2017-10-06 23:52:59'),
+(130, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Int', 1, '2017-10-07 00:01:13'),
+(131, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Int', 1, '2017-10-07 00:02:00'),
+(132, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Int', 1, '2017-10-07 00:02:53'),
+(133, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Int', 1, '2017-10-07 00:04:03'),
+(134, 7, 1234, 'Santiago', 'Int', 1, '2017-10-07 01:28:16'),
+(135, 7, 1234, 'Santiago', 'Int', 1, '2017-10-07 01:30:22');
 
 -- --------------------------------------------------------
 
@@ -264,7 +305,9 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `unit_measure`, `id_user_create`, `id_cellar`, `num_orders`, `creation_date`) VALUES
 (1, 'Savila', 'Savila', '1', 7, 1, 7, '2017-10-04 20:16:20'),
 (2, 'Carne roja', 'Carne roja', '1', 7, 3, 3, '2017-10-04 02:12:01'),
-(3, 'Leche', 'En polvo', '2', 7, 2, 1, '2017-10-04 02:12:01');
+(3, 'Leche', 'En polvo', '2', 7, 2, 2, '2017-10-06 04:57:49'),
+(4, 'Fresas', 'fresas', '2', 7, 1, 1, '2017-10-06 05:06:39'),
+(5, 'Tierra negra', '4738djid20', '1', 7, 4, 1, '2017-10-06 04:57:49');
 
 -- --------------------------------------------------------
 
@@ -303,12 +346,35 @@ INSERT INTO `roles` (`id_role`, `name_rol`, `description_role`, `level`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `showexitstock`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `showexitstock` (
+`name_product` varchar(100)
+,`name_cellar` varchar(50)
+,`nom_lot` varchar(100)
+,`id_stock` int(11)
+,`id_exit_product_master` int(11)
+,`quantity` int(11)
+,`note` text
+,`user_receives` int(11)
+,`destination` varchar(50)
+,`delivery` tinyint(1)
+,`name_user` varchar(50)
+,`last_name_user` varchar(50)
+,`name_receive` varchar(30)
+,`date_create` timestamp
+,`prefix_measure` varchar(6)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `stock`
 --
 
 CREATE TABLE `stock` (
   `id_stock` int(11) NOT NULL,
-  `id_cellar` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
   `nom_lot` varchar(100) NOT NULL,
   `amount` int(11) NOT NULL,
@@ -321,11 +387,12 @@ CREATE TABLE `stock` (
 -- Volcado de datos para la tabla `stock`
 --
 
-INSERT INTO `stock` (`id_stock`, `id_cellar`, `id_product`, `nom_lot`, `amount`, `expiration_date`, `expiration_create`, `comercializadora`) VALUES
-(13, 1, 1, '1', 132, '2017-10-31', '2017-09-30 23:21:04', 'sabla'),
-(14, 3, 2, '4r230e90ew', 44, '2017-11-30', '2017-10-03 19:28:24', 'rojas'),
-(15, 2, 3, '6748309dj', 177, '2017-12-30', '2017-10-04 02:10:19', 'lacts'),
-(16, 3, 2, '5430ofj', 200, '2017-10-31', '2017-10-05 23:23:10', 'roja');
+INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `expiration_date`, `expiration_create`, `comercializadora`) VALUES
+(13, 4, '38eo2o1l', 17, '2017-10-31', '2017-09-30 23:21:04', 'sabla'),
+(14, 2, '4r230e90ew', 18, '2017-11-30', '2017-10-03 19:28:24', 'rojas'),
+(15, 3, '6748309dj', 155, '2017-12-30', '2017-10-04 02:10:19', 'lacts'),
+(16, 2, '5430ofj', 180, '2017-10-31', '2017-10-05 23:23:10', 'roja'),
+(17, 5, '54893oej', 20, '2018-02-03', '2017-10-06 04:56:09', 'negra');
 
 -- --------------------------------------------------------
 
@@ -337,7 +404,6 @@ CREATE TABLE `stock_plant` (
   `id_stock_plant` int(11) NOT NULL,
   `id_stock` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
-  `id_cellar` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `id_exit_product` int(11) NOT NULL,
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -347,14 +413,16 @@ CREATE TABLE `stock_plant` (
 -- Volcado de datos para la tabla `stock_plant`
 --
 
-INSERT INTO `stock_plant` (`id_stock_plant`, `id_stock`, `id_product`, `id_cellar`, `quantity`, `id_exit_product`, `date_create`) VALUES
-(1, 14, 2, 3, 30, 115, '2017-10-03 19:29:00'),
-(2, 13, 1, 1, 20, 115, '2017-10-03 19:29:00'),
-(3, 14, 2, 3, 20, 116, '2017-10-04 02:02:36'),
-(4, 13, 1, 1, 5, 116, '2017-10-04 02:02:36'),
-(5, 14, 2, 3, 6, 117, '2017-10-04 02:12:01'),
-(6, 13, 1, 1, 32, 117, '2017-10-04 02:12:01'),
-(7, 15, 3, 2, 23, 117, '2017-10-04 02:12:01');
+INSERT INTO `stock_plant` (`id_stock_plant`, `id_stock`, `id_product`, `quantity`, `id_exit_product`, `date_create`) VALUES
+(1, 14, 2, 30, 115, '2017-10-03 19:29:00'),
+(2, 13, 1, 20, 115, '2017-10-03 19:29:00'),
+(3, 14, 2, 20, 116, '2017-10-04 02:02:36'),
+(4, 13, 1, 5, 116, '2017-10-04 02:02:36'),
+(5, 14, 2, 12, 117, '2017-10-04 02:12:01'),
+(6, 13, 1, 20, 117, '2017-10-04 02:12:01'),
+(7, 15, 3, 23, 117, '2017-10-04 02:12:01'),
+(8, 13, 4, 20, 120, '2017-10-06 05:06:39'),
+(9, 13, 4, 1, 135, '2017-10-07 01:30:22');
 
 -- --------------------------------------------------------
 
@@ -408,6 +476,44 @@ INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `email_user`, `ced
 (17, 'Yeison', 'Londoño Tabarez', 'yeiko1022@hotmail.com', '1088347434', '$2y$10$FFTBYqNzlEJC4pVWqM/6MehsSgVQj1jYeOaLtvZwxkKCboD8qy/0K', 4, 1),
 (18, 'Julio Cesar', 'Guapacha ', 'jcguapacha2@misena.edu.co', '1088299682', '$2y$10$V//tBsKlFLY8pyF83XJgR.fd7NXWbHw3vs6GM3WN7CYnwrAbAS.h2', 5, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `viewstockplanta`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `viewstockplanta` (
+`id_stock_plant` int(11)
+,`quantity` int(11)
+,`id_stock` int(11)
+,`name_user` varchar(50)
+,`last_name_user` varchar(50)
+,`name_receive` varchar(30)
+,`id_exit_product` int(11)
+,`date_create` timestamp
+,`name_product` varchar(100)
+,`name_cellar` varchar(50)
+,`prefix_measure` varchar(6)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `showexitstock`
+--
+DROP TABLE IF EXISTS `showexitstock`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `showexitstock`  AS  select `products`.`name_product` AS `name_product`,`cellar`.`name_cellar` AS `name_cellar`,`stock`.`nom_lot` AS `nom_lot`,`exit_product_detalle`.`id_stock` AS `id_stock`,`exit_product_detalle`.`id_exit_product_master` AS `id_exit_product_master`,`exit_product_detalle`.`quantity` AS `quantity`,`exit_product_detalle`.`note` AS `note`,`exit_product_master`.`user_receives` AS `user_receives`,`exit_product_master`.`destination` AS `destination`,`exit_product_master`.`delivery` AS `delivery`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user`,`exit_product_master`.`name_receive` AS `name_receive`,`exit_product_master`.`date_create` AS `date_create`,`measure`.`prefix_measure` AS `prefix_measure` from ((((((`exit_product_master` join `exit_product_detalle` on((`exit_product_master`.`id_exit_product` = `exit_product_detalle`.`id_exit_product_master`))) join `stock` on((`exit_product_detalle`.`id_stock` = `stock`.`id_stock`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `user` on((`exit_product_master`.`user_delivery` = `user`.`id_user`))) join `measure` on((`products`.`unit_measure` = `measure`.`id_measure`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) order by `exit_product_master`.`id_exit_product` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `viewstockplanta`
+--
+DROP TABLE IF EXISTS `viewstockplanta`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `viewstockplanta`  AS  select `stock_plant`.`id_stock_plant` AS `id_stock_plant`,`stock_plant`.`quantity` AS `quantity`,`stock_plant`.`id_stock` AS `id_stock`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user`,`exit_product_master`.`name_receive` AS `name_receive`,`stock_plant`.`id_exit_product` AS `id_exit_product`,`stock_plant`.`date_create` AS `date_create`,`products`.`name_product` AS `name_product`,`cellar`.`name_cellar` AS `name_cellar`,`measure`.`prefix_measure` AS `prefix_measure` from (((((`stock_plant` join `exit_product_master` on((`stock_plant`.`id_exit_product` = `exit_product_master`.`id_exit_product`))) join `products` on((`stock_plant`.`id_product` = `products`.`id_product`))) join `user` on((`exit_product_master`.`user_delivery` = `user`.`id_user`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`products`.`unit_measure` = `measure`.`id_measure`))) ;
+
 --
 -- Índices para tablas volcadas
 --
@@ -440,8 +546,7 @@ ALTER TABLE `exit_equipment_master`
 --
 ALTER TABLE `exit_product_detalle`
   ADD PRIMARY KEY (`id_exit_product_detalle`),
-  ADD KEY `id_exit_product_master` (`id_exit_product_master`),
-  ADD KEY `exit_product_detalle_ibfk_2` (`id_product`);
+  ADD KEY `id_exit_product_master` (`id_exit_product_master`);
 ALTER TABLE `exit_product_detalle` ADD FULLTEXT KEY `note` (`note`);
 
 --
@@ -496,7 +601,6 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `stock`
   ADD PRIMARY KEY (`id_stock`),
-  ADD KEY `id_cellar` (`id_cellar`),
   ADD KEY `stock_ibfk_2` (`id_product`);
 
 --
@@ -546,12 +650,12 @@ ALTER TABLE `exit_equipment_master`
 -- AUTO_INCREMENT de la tabla `exit_product_detalle`
 --
 ALTER TABLE `exit_product_detalle`
-  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_master`
 --
 ALTER TABLE `exit_product_master`
-  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 --
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
@@ -566,7 +670,7 @@ ALTER TABLE `measure`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
@@ -581,12 +685,12 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT de la tabla `stock_plant`
 --
 ALTER TABLE `stock_plant`
-  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `tools`
 --
@@ -618,8 +722,7 @@ ALTER TABLE `exit_equipment_master`
 -- Filtros para la tabla `exit_product_detalle`
 --
 ALTER TABLE `exit_product_detalle`
-  ADD CONSTRAINT `exit_product_detalle_ibfk_1` FOREIGN KEY (`id_exit_product_master`) REFERENCES `exit_product_master` (`id_exit_product`),
-  ADD CONSTRAINT `exit_product_detalle_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `products` (`id_product`);
+  ADD CONSTRAINT `exit_product_detalle_ibfk_1` FOREIGN KEY (`id_exit_product_master`) REFERENCES `exit_product_master` (`id_exit_product`);
 
 --
 -- Filtros para la tabla `exit_teams_detall`
@@ -639,7 +742,6 @@ ALTER TABLE `products`
 -- Filtros para la tabla `stock`
 --
 ALTER TABLE `stock`
-  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`),
   ADD CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `products` (`id_product`);
 
 --

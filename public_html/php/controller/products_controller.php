@@ -34,7 +34,7 @@
 		}
 		public function get_products($limit, $offset){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM products LIMIT $limit OFFSET $offset" );
+				$sql_consult = $this->db->prepare("SELECT * FROM products ORDER BY id_product DESC LIMIT $limit OFFSET $offset" );
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;

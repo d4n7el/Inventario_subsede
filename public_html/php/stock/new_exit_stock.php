@@ -5,7 +5,6 @@
 	$cant_stock 	= new ExitProduct();
 	$id_user 		= $_SESSION["id_user_activo"];
 	$products 		= $_REQUEST['producto_id'];
-	$cellars 		= $_REQUEST['bodega_id'];
 	$stock 			= $_REQUEST['lote_id'];
 	$cantidad 		= $_REQUEST['cantidad'];
 	$nota 			= $_REQUEST['nota'];
@@ -35,7 +34,7 @@
 		if ($permiso == true) {
 			$retorno = $maestro->insert_exit_product($destino,$recive,$id_user,$name_recive);
 			foreach ($products as $key => $value) {
-				$valores_insert.= "(".$value.",".$cellars[$key].",".$stock[$key].",".$retorno.",".$cantidad[$key].",'".$nota[$key]."'),";
+				$valores_insert.= "(".$stock[$key].",".$retorno.",".$cantidad[$key].",'".$nota[$key]."'),";
 			}
 			$valores_insert = substr($valores_insert,0,-1);
 			$detalle = new ExitProduct();
@@ -45,7 +44,7 @@
 					$valores_insert_planta = "";
 					$planta = new ExitProduct();
 					foreach ($products as $key => $value) {
-						$valores_insert_planta.= "(".$value.",".$cellars[$key].",".$stock[$key].",".$retorno.",".$cantidad[$key]."),";
+						$valores_insert_planta.= "(".$value.",".$stock[$key].",".$retorno.",".$cantidad[$key]."),";
 					}
 					$valores_insert_planta = substr($valores_insert_planta,0,-1);
 					$retorno_planta = $planta->insert_stock_planta($valores_insert_planta);
