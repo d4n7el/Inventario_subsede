@@ -56,10 +56,23 @@ function eliminar_eventos(){
 	$('a#delete_exit').off('click');
 	$('button.view_exit_stock').off('click');
 	$('button.edit_view_exit_stock').off('click');
+	$('form.search').off('submit');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
+	$('form.search').on('submit', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('action');
+		var formData = {};
+		$('input.search').each(function() {
+  			formData[$(this).attr('id')] =  $(this).val();
+		});
+		console.log(formData);
+		$("div#vista_ventana").load(ruta,formData,function() {
+			recargar_eventos();
+		});
+	});
 	$('button.edit_view_exit_stock').on('click', function(event) {
 		event.preventDefault();
 		var cantidad = $(this).attr('cantidad');
@@ -193,7 +206,18 @@ var recargar_eventos = function(){
 		event.preventDefault();
 		var ruta = $(this).attr('href');
 		var pagina = $(this).attr('pag');
-		$("div#vista_ventana").load(ruta,{pagina: pagina},function() {
+		formData = {};
+		$('input.search').each(function() {
+			if ($(this).val() == "") {
+				var value = "%%";
+			}else{
+				var value = $(this).val();
+			}
+  			formData[$(this).attr('id')] =  value;
+		});
+		formData['pagina'] = pagina;
+		console.log(formData);
+		$("div#vista_ventana").load(ruta,formData,function() {
 			recargar_eventos();
 		});
 	});

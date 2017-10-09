@@ -1,0 +1,23 @@
+<?php  
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/planta_controller.php');
+	$planta = new Planta();
+	$count_planta = new Planta();
+	(isset($_REQUEST['product']) && $_REQUEST['product'] != "") ? $product = $_REQUEST['product'] : $product = "%%" ;
+	(isset($_REQUEST['group'])? $group = $_REQUEST['group'] : $group = "%%" );
+	(isset($_REQUEST['cellar']) && $_REQUEST['cellar'] != "")  ? $cellar = $_REQUEST['cellar'] : $cellar = "%%" ;
+	(isset($_REQUEST['nameReceive']) && $_REQUEST['nameReceive'] != "")  ? $nameReceive = $_REQUEST['nameReceive'] : $nameReceive = "%%" ;
+	(isset($_REQUEST['prefix']) && $_REQUEST['prefix'] != "")  ? $prefix = $_REQUEST['prefix'] : $prefix = "%%" ;
+	(isset($_REQUEST['limit'])? $limit = $_REQUEST['limit'] : $limit = "%%" );
+	(isset($_REQUEST['offset'])? $offset = $_REQUEST['offset'] : $offset = "%%" );
+
+	// NECESARIO PARA LA PAGINACION
+	(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
+	$limit = 1;
+	$offset = $limit * $pagina;
+	$retorno_count = $count_planta->index_stock_planta_count($group,$product,$cellar,$nameReceive,$prefix,$limit,$offset);
+	$count_rows = $retorno_count['count'];
+	$href = '/php/plant/index.php';
+	// NECESARIO PARA LA PAGINACION
+	$retorno_planta = $planta->index_stock_planta($group,$product,$cellar,$nameReceive,$prefix,$limit,$offset);
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/plant/_view_stock_planta.php');
+?>

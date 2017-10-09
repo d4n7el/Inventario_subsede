@@ -85,15 +85,28 @@ div.element_salida{
 	justify-content: center;
 	align-items: center;
 }
+form.search{
+	position: fixed;
+	top: 0;
+	z-index: 999999;
+	left: 0;
+}
 label{
 	color: color: rgba(0,0,0,.5) !important;
 	padding-left: 2em !important;
 }
-input[type=text],input[type=number],input[type=password]{
+label.search{
+	color: color: rgba(0,0,0,.5) !important;
+	padding-left: 0em !important;
+}
+input[type=text]:not(.search),input[type=number]:not(.search),input[type=password]:not(.search){
 	color: black !important;
 	border-radius: 20px !important;
 }
-input[type=text]:focus,input[type=number]:focus,input[type=password]:focus{
+input.search{
+	color: rgb(0,133,122) !important;
+}
+input[type=text]:not(.search):focus,input[type=number]:not(.search):focus,input[type=password]:not(.search):focus{
 	color: black !important;
 	padding-left: 2em !important;
 	box-shadow: 0px 0px 0px transparent !important;
@@ -113,9 +126,13 @@ input.invalid{
 	border-bottom: 1px dashed #F44336 !important;
     box-shadow: 0 1px 0 0 transparent !important;
 }
-input.valid:hover{
+input.valid:not(.search):hover{
 	background-color: transparent !important;
 	color: black !important;
+}
+input.valid .search{
+	background-color: transparent !important;
+	color: white !important;
 }
 div.input-field i{
 	color: rgb(30,136,229);
