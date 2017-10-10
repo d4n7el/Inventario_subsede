@@ -15,7 +15,7 @@
 	    <div class="nav-wrapper fondo_negro">
 	    	<?php 
 	      	if (isset($_SESSION["name_user_activo"])) { ?>
-				<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<ul id="nav-mobile" class="left hide-on-med-and-down">
 					<li>
 						<a class="btn-floating btn-nav btn view_user" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" id_user="<?php echo $_SESSION["id_user_activo"] ?>">
 							<i class="material-icons color_letra_secundario">account_circle</i>

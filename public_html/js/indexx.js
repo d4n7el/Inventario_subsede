@@ -57,6 +57,8 @@ function eliminar_eventos(){
 	$('button.view_exit_stock').off('click');
 	$('button.edit_view_exit_stock').off('click');
 	$('form.search').off('submit');
+	$('button.view_plant_stock').off('click');
+	$('button.edit_stock_plant').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
@@ -68,43 +70,55 @@ var recargar_eventos = function(){
 		$('input.search').each(function() {
   			formData[$(this).attr('id')] =  $(this).val();
 		});
-		console.log(formData);
 		$("div#vista_ventana").load(ruta,formData,function() {
 			recargar_eventos();
 		});
 	});
 	$('button.edit_view_exit_stock').on('click', function(event) {
 		event.preventDefault();
-		var cantidad = $(this).attr('cantidad');
-		var cantidad_disponible = $(this).attr('cantidad_disponible');
-		div_id = $(this).attr('id_exit_product') + $(this).attr('id_exit_product_detalle');
-		var producto = $(this).closest('div').siblings('div.producto').find('h6').text();
-		var lote = $(this).closest('div').siblings('div.lote').find('h6').text();
-		var bodega = $(this).closest('div').siblings('div.bodega').find('h6').text();
-		var html = '<div class="row">\
-						<input type="hidden" name="master" value="'+$(this).attr('id_exit_product')+'">\
-						<input type="hidden" name="detalle" value="'+$(this).attr('id_exit_product_detalle')+'">\
-				        <div class="col s4 color_letra_secundario"><h6 class="col s12 center">Producto: '+producto+'</h6></div>\
-						<div class="col s4 color_letra_secundario"><h6 class="col s12 center">Bodega: '+bodega+'</h6></div>\
-						<div class="col s4 color_letra_secundario"><h6 class="col s12 center">Lote: '+lote+'</h6></div>\
-						<div class="input-field col s8 offset-s2" style="margin-top: 4em">\
-				            <i class="material-icons prefix">filter_9_plus</i>\
-				            <input id="cantidad" type="number" min="0" max="'+cantidad_disponible+'" class="validate" name="amount" autocomplete="off" value="'+cantidad+'" required>\
-				            <label for="cantidad" class="active">Cantidad disponible '+cantidad_disponible+'</label>\
-				        </div>\
-						<div class="action col m12 centrar">\
-				        	<button class="waves-effect waves-light btn btn-primary">\
-				        		<i class="material-icons left">near_me</i>Guardar\
-				        	</button>\
-			        	</div>\
-				    </div>' 
-		$('div#modal_center div.modal-content form').html(html);
+		var ruta = "/php/stock/edit_exit_stock.php";
+		var id_exit_product = $(this).attr('id_exit_product');
+		var id_exit_product_detalle = $(this).attr('id_exit_product_detalle');
+		var id_stock = $(this).attr('stock');
+		div_id = id_exit_product + id_exit_product_detalle + id_stock;
+		var formData = {
+			'id_exit_product' : id_exit_product,
+			'id_exit_product_detalle': id_exit_product_detalle,
+			'id_stock': id_stock,
+		}
+		$('div#modal_center div.modal-content form').load(ruta,formData,function() {
+			recargar_eventos();
+		});
 		$('div#modal_center div.modal-content form').attr('action', '/php/stock/update_exit_stock.php');;
 	});
 	$('button.view_exit_stock').on('click', function(event) {
 		event.preventDefault();
 		var id_exit_product = $(this).attr('id_exit_product');
 		$("div#modal_right div.modal-content").load("/php/stock/exit_stock_complete.php",{id_exit_product: id_exit_product},function() {
+			recargar_eventos();
+		});
+	});
+	$('button.view_plant_stock').on('click', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('ruta');
+		var id_exit_product = $(this).attr('id_exit_product');
+		$("div#modal_right div.modal-content").load(ruta,{id_exit_product: id_exit_product},function() {
+			recargar_eventos();
+		});
+	});
+	$('button.edit_stock_plant').on('click', function(event) {
+		var ruta = $(this).attr('ruta');
+		var exit_product = $(this).attr('id_exit_product');
+		var stock = $(this).attr('stock');
+		var id_planta = $(this).attr('id_plant');
+		var formData = {
+			'id_exit_product': exit_product,
+			'stock': stock,
+			'id_planta': id_planta
+		}
+		div_id = exit_product+stock+id_planta;
+		$('div#modal_center div.modal-content form').load(ruta,formData,function() {
+			$('div#modal_center div.modal-content form').attr('action','../php/plant/update_stock_stock_plant.php');
 			recargar_eventos();
 		});
 	});

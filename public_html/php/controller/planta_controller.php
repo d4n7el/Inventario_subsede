@@ -42,5 +42,31 @@
             	$e->getMessage();
         	}
 		}
+		public function show_stock_planta($id_exit_product,$id_stock_plant ="%%"){
+			try {
+				$sql =  "SELECT * FROM planta_stock WHERE id_exit_product = ? AND id_stock_plant LIKE ?";
+				$sql_consult = $this->db->prepare($sql);
+				$sql_consult->execute(array($id_exit_product,$id_stock_plant));
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
+		public function edit_stock_plant($id_exit_product,$id_stock_plant,$stock,$cantidad){
+			try {
+				$sql_consult = $this->db->prepare('UPDATE stock_plant SET quantity = ? WHERE id_exit_product = ? AND id_stock_plant = ? AND  id_stock = ? ');
+	            if ($sql_consult->execute(array($cantidad,$id_exit_product,$id_stock_plant,$stock))) {
+	            	return 1;
+	            }else{
+	            	return 0;
+	            }
+	            $this->db = null;
+            } catch (PDOException $e) {
+            	echo $e->getMessage();
+        	}
+		}
 	}
 ?>

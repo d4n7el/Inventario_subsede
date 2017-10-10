@@ -10,6 +10,9 @@ body{
 .sombra{
 	box-shadow: 0 2px 2px 0 rgba(0,133,122,.2), 0 1px 5px 0 rgba(0,133,122,.2), 0 2px 1px 2px rgba(0,133,122,.2);
 }
+.sombra_blanca{
+	box-shadow: 0 2px 2px 0 rgba(255,255,255,.2), 0 1px 5px 0 rgba(255,255,255,.2), 0 2px 1px 2px rgba(255,255,255,.2);
+}
 .nav-wrapper{
 	background-color: transparent !important;
 	position: fixed;
@@ -48,7 +51,7 @@ i{
 	color: rgb(0,133,122) !important;
 }
 .row{
-	margin-top: 3em !important;
+	
 }
 div.destino{
 	margin-bottom: 2em;
@@ -85,11 +88,11 @@ div.element_salida{
 	justify-content: center;
 	align-items: center;
 }
-form.search{
+div.flitro{
 	position: fixed;
 	top: 0;
-	z-index: 999999;
-	left: 0;
+	z-index: 100;
+	background: rgb(47,47,47);
 }
 label{
 	color: color: rgba(0,0,0,.5) !important;
@@ -233,14 +236,18 @@ div.contenedor_session{
 }
 div.menu{
 	position: fixed;
-	height: 90%;
+	height: 80%;
 	overflow: hidden;
 	overflow: scroll;
 	padding-bottom: 50em;
 	overflow-x: hidden;
+	margin-top: 6em !important;
 }
 #modal1{
 	background-color: rgba(40,61,73,1)!important;
+}
+div#vista_ventana{
+	margin-top: 5em !important;
 }
 .card-action, .fondo_negro{
 	background-color: rgb(47,47,47) !important;

@@ -53,33 +53,34 @@
             	$e->getMessage();
         	}
 		}
-		public function show_exit_stock($id_exit_product){
+		public function show_exit_stock($id_exit_product,$id_exit_product_detalle = "%%"){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM showexitstock WHERE id_exit_product_master = ?" );
-				$sql_consult->execute(array($id_exit_product));
+				$sql_consult = $this->db->prepare("SELECT * FROM show_exit_stock WHERE id_exit_product_master = ? AND id_exit_product_detalle LIKE ?" );
+				$sql_consult->execute(array($id_exit_product,$id_exit_product_detalle));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
-		public function get_exit_stock($id_exit_product,$limit = 100,$offset = 0){
+		public function get_exit_stock($id_exit_product = "%%",$destino = "%%",$product = "%%",$cellar = "%%",$lote = "%%",$fecha_inicial,$fecha_final,$limit = "%%",$offset = "%%"){
 			try {
-				$sql_consult = $this->db->prepare("SELECT products.name_product, cellar.name_cellar, stock.nom_lot, exit_product_detalle.id_stock,exit_product_detalle.id_exit_product_master,exit_product_detalle.quantity,exit_product_detalle.note, exit_product_master.user_delivery, exit_product_master.user_receives,exit_product_master.destination,exit_product_master.delivery,exit_product_detalle.id_exit_product_detalle,stock.amount FROM exit_product_master INNER JOIN exit_product_detalle ON exit_product_master.id_exit_product = exit_product_detalle.id_exit_product_master INNER JOIN stock ON exit_product_detalle.id_stock = stock.id_stock INNER JOIN products ON stock.id_product = products.id_product INNER JOIN cellar ON products.id_cellar = cellar.id_cellar WHERE products.name_product LIKE '%%' AND cellar.name_cellar LIKE '%%' AND stock.nom_lot LIKE '%%' AND exit_product_master.destination LIKE '%%' AND exit_product_master.id_exit_product LIKE '$id_exit_product' AND exit_product_master.date_create BETWEEN '2017-09-30' AND '2017-10-10' ORDER BY exit_product_master.id_exit_product DESC LIMIT $limit OFFSET $offset" );
+				$sql = "SELECT * FROM show_exit_stock WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND nom_lot LIKE '$lote' AND destination LIKE '$destino' AND id_exit_product_master LIKE '$id_exit_product' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_exit_product_master DESC LIMIT $limit OFFSET $offset";
+				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
-		public function get_exit_stock_count($id_exit_product){
+		public function get_exit_stock_count($id_exit_product = "%%",$destino = "%%",$product = "%%",$cellar = "%%",$lote = "%%",$fecha_inicial,$fecha_final){
 			try {
-				$sql_consult = $this->db->prepare("SELECT COUNT(exit_product_detalle.id_exit_product_detalle) AS count FROM exit_product_master INNER JOIN exit_product_detalle ON exit_product_master.id_exit_product = exit_product_detalle.id_exit_product_master INNER JOIN stock ON exit_product_detalle.id_stock = stock.id_stock INNER JOIN products ON stock.id_product = products.id_product INNER JOIN cellar ON products.id_cellar = cellar.id_cellar WHERE products.name_product LIKE '%%' AND cellar.name_cellar LIKE '%%' AND stock.nom_lot LIKE '%%' AND exit_product_master.destination LIKE '%%' AND exit_product_master.id_exit_product LIKE '$id_exit_product' AND exit_product_master.date_create BETWEEN '2017-09-30' AND '2017-10-05' ORDER BY exit_product_master.id_exit_product ASC" );
+				$sql_consult = $this->db->prepare("SELECT COUNT(id_stock) as count FROM show_exit_stock WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND nom_lot LIKE '$lote' AND destination LIKE '$destino' AND id_exit_product_master LIKE '$id_exit_product' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final'" );
 				$sql_consult->execute();
 				$result = $sql_consult->fetch();
 				$this->db = null;
