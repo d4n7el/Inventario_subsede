@@ -67,6 +67,7 @@ var recargar_eventos = function(){
 		event.preventDefault();
 		var ruta = $(this).attr('action');
 		var formData = {};
+		console.log(formData);
 		$('input.search').each(function() {
   			formData[$(this).attr('id')] =  $(this).val();
 		});

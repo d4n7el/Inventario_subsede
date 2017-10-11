@@ -50,9 +50,7 @@ div#recordatorio h4 i {
 i{
 	color: rgb(0,133,122) !important;
 }
-.row{
-	
-}
+
 div.destino{
 	margin-bottom: 2em;
 }
@@ -90,7 +88,7 @@ div.element_salida{
 }
 div.flitro{
 	position: fixed;
-	top: 0;
+	top: 6em;
 	z-index: 100;
 	background: rgb(47,47,47);
 }
@@ -239,7 +237,6 @@ div.menu{
 	height: 80%;
 	overflow: hidden;
 	overflow: scroll;
-	padding-bottom: 50em;
 	overflow-x: hidden;
 	margin-top: 6em !important;
 }
@@ -247,7 +244,7 @@ div.menu{
 	background-color: rgba(40,61,73,1)!important;
 }
 div#vista_ventana{
-	margin-top: 5em !important;
+	margin-top: 11em !important;
 }
 .card-action, .fondo_negro{
 	background-color: rgb(47,47,47) !important;

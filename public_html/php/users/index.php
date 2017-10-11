@@ -5,6 +5,10 @@
 		require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/users_controller.php');
 		$welcome = new Users();
 		(isset($_REQUEST['id_user']) ? $id_user = $_REQUEST['id_user'] : $id_user = "%%");
+		$name = isset($_REQUEST['name']) && $_REQUEST['name'] != "" ? $_REQUEST['name'] : "%%";
+		$apellido = isset($_REQUEST['apellido']) && $_REQUEST['apellido'] != "" ? $_REQUEST['apellido'] : "%%";
+		$correo = isset($_REQUEST['correo']) && $_REQUEST['correo'] != "" ? $_REQUEST['correo'] : "%%";
+		$cedula = isset($_REQUEST['cedula']) && $_REQUEST['cedula'] != "" ? $_REQUEST['cedula'] : "%%";
 		
 		// NECESARIO PARA LA PAGINACION
 		$count_user = new Users();
@@ -16,15 +20,13 @@
 		$href = '/php/users/index.php';
 		// NECESARIO PARA LA PAGINACION
 		
-		$retorno_user = $welcome->get_user($id_user,$limit,$offset);
-		if (count($retorno_user) > 0) {
-			if ($id_user == "%%") {
-				require($_SERVER['DOCUMENT_ROOT'].'/php/users/_view_list_user.php');
-			}else{
-				require($_SERVER['DOCUMENT_ROOT'].'/php/users/_view_show_user.php');
-			}	
+		$retorno_user = $welcome->get_user($name,$cedula,$correo,$apellido,$id_user,$limit,$offset);
+		
+		if ($id_user == "%%") {
+			require($_SERVER['DOCUMENT_ROOT'].'/php/users/_view_list_user.php');
 		}else{
-			$respuesta = array('mensaje' => "No se encontraron registros", 'status' => 200 );
-		}
+			require($_SERVER['DOCUMENT_ROOT'].'/php/users/_view_show_user.php');
+		}	
+		
 	} 
 ?>

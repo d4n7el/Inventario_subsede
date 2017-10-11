@@ -15,7 +15,7 @@
 	    <div class="nav-wrapper fondo_negro">
 	    	<?php 
 	      	if (isset($_SESSION["name_user_activo"])) { ?>
-				<ul id="nav-mobile" class="left hide-on-med-and-down">
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
 					<li>
 						<a class="btn-floating btn-nav btn view_user" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" id_user="<?php echo $_SESSION["id_user_activo"] ?>">
 							<i class="material-icons color_letra_secundario">account_circle</i>
@@ -84,7 +84,7 @@
 	</div>
     <script src="<?php $_SERVER['DOCUMENT_ROOT'] ?>/js/jQuery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
-    <script src="<?php $_SERVER['DOCUMENT_ROOT'] ?> /js/indexx.js"</script>
+    <script src="<?php $_SERVER['DOCUMENT_ROOT'] ?> /js/indexx.js"></script>
     <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
 </body>
 </html>

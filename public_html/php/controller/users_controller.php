@@ -20,10 +20,11 @@
             	$e->getMessage();
         	}
 		}
-		public function get_user($id_user,$limit,$offset){
+		public function get_user($name,$cedula,$correo,$apellido,$id_user,$limit,$offset){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM user WHERE id_user LIKE ? ORDER BY id_user DESC LIMIT $limit OFFSET $offset " );
-				$sql_consult->execute(array($id_user));
+				$sql = "SELECT * FROM user WHERE id_user LIKE '$id_user' AND name_user LIKE '$name' AND cedula LIKE '$cedula' AND email_user LIKE '$correo' AND last_name_user LIKE '$apellido' ORDER BY id_user DESC LIMIT $limit OFFSET $offset ";
+				$sql_consult = $this->db->prepare($sql);
+				$sql_consult->execute(array($id_user,$name,$cedula));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;
