@@ -7,7 +7,7 @@
 	$marca 				= $_REQUEST["marca"];
 	$cantidad_total		= $_REQUEST["cantidad_total"];
 	$cantidad 			= $_REQUEST["cantidad"];
-	$bodega 			= $_REQUEST["cellar"];
+	$bodega 			=  5;
 	$retorno_equipment 	= $equipment->insert_equipment($equipo,$marca,$cantidad_total,$cantidad,$bodega,$id_user);
 	if ($retorno_equipment > 0) {
 		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create');

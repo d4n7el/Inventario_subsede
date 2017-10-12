@@ -8,7 +8,7 @@
 	$marca 		        = $_REQUEST["marca"];
 	$cantidad_total		= $_REQUEST["cantidad_total"];
 	$cantidad 			= $_REQUEST["cantidad_disponible"];
-	$bodega 			= $_REQUEST["cellar"];
+	$bodega 			= 5;
 	$retorno_equipment 	= $equipment->update_equipment($equipo,$marca,$cantidad_total,$cantidad,$bodega,$id_user,$id_equipo);
 	if (count($retorno_equipment) > 0) {
 		$respuesta = array('mensaje' => "Actualización correcta", 'status' => 1 );
