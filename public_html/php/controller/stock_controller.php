@@ -20,15 +20,29 @@
             	 $e->getMessage();
         	}
 		}
-		public function get_search_stock($limit,$offset){
+		public function get_search_stock($lote,$cellar,$product,$casa,$fecha_inicial,$fecha_final,$vencimiento,$limit,$offset){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM stock INNER JOIN products ON stock.id_product = products.id_product INNER JOIN cellar ON products.id_cellar = cellar.id_cellar ORDER BY stock.expiration_create LIMIT $limit OFFSET $offset" );
+				$sql = "SELECT * FROM get_stock WHERE nom_lot LIKE '$lote' AND name_cellar LIKE'$cellar' AND  name_product LIKE '$product' AND comercializadora LIKE '$casa' AND expiration_date LIKE '$vencimiento' AND creation_date BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_stock DESC LIMIT $limit OFFSET $offset";
+				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;
 			} catch (PDOException $e) {
             	$e->getMessage();
+        	}
+		}
+		public function count_stock($lote,$cellar,$product,$casa,$vencimiento,$fecha_inicial,$fecha_final){
+			try {
+				$sql = "SELECT COUNT(id_stock) as count FROM get_stock WHERE nom_lot LIKE '$lote' AND name_cellar LIKE'$cellar' AND  name_product LIKE '$product' AND comercializadora LIKE '$casa' AND expiration_date LIKE '$vencimiento' AND creation_date BETWEEN '$fecha_inicial' AND '$fecha_final'";
+				$sql_consult = $this->db->prepare($sql);
+				$sql_consult->execute();
+				$result = $sql_consult->fetch();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	echo $e->getMessage();
         	}
 		}
 		public function get_stock($id_product){
@@ -55,18 +69,7 @@
             	$e->getMessage();
         	}
 		}
-		public function count_stock(){
-			try {
-				$sql_consult = $this->db->prepare("SELECT COUNT(id_stock) AS count FROM stock " );
-				$sql_consult->execute();
-				$result = $sql_consult->fetch();
-				$this->db = null;
-				return $result;
-				
-			} catch (PDOException $e) {
-            	echo $e->getMessage();
-        	}
-		}
+		
 
 
 	}

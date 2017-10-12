@@ -24,7 +24,7 @@
 			try {
 				$sql = "SELECT * FROM user WHERE id_user LIKE '$id_user' AND name_user LIKE '$name' AND cedula LIKE '$cedula' AND email_user LIKE '$correo' AND last_name_user LIKE '$apellido' ORDER BY id_user DESC LIMIT $limit OFFSET $offset ";
 				$sql_consult = $this->db->prepare($sql);
-				$sql_consult->execute(array($id_user,$name,$cedula));
+				$sql_consult->execute(array($id_user,$name,$cedula,$correo,$apellido));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;
@@ -33,9 +33,10 @@
             	$e->getMessage();
         	}
 		}
-		public function count_user(){
+		public function count_user($name,$cedula,$correo,$apellido,$id_user){
 			try {
-				$sql_consult = $this->db->prepare("SELECT COUNT(id_user) AS count FROM user " );
+				$sql = "SELECT COUNT(id_user) AS count FROM user  WHERE id_user LIKE '$id_user' AND name_user LIKE '$name' AND cedula LIKE '$cedula' AND email_user LIKE '$correo' AND last_name_user LIKE '$apellido' ";
+				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetch();
 				$this->db = null;

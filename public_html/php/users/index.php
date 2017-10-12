@@ -15,7 +15,7 @@
 		(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
 		$limit = 4;
 		$offset = $limit * $pagina;
-		$retorno_count_user = $count_user->count_user();
+		$retorno_count_user = $count_user->count_user($name,$cedula,$correo,$apellido,$id_user);
 		$count_rows = $retorno_count_user['count'];
 		$href = '/php/users/index.php';
 		// NECESARIO PARA LA PAGINACION

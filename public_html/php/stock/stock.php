@@ -15,26 +15,26 @@
 
 			        <div id="formulario">
 					<div class="input-field col s12 m12">
-			            <i class="material-icons prefix">account_circle</i>
+			            <i class="material-icons prefix">dashboard</i>
 			            <input id="nombre_lote" type="text" class="validate" name="nombre_lote" autocomplete="off" required>
 			            <label for="nombre_lote" class="">Lote</label>
 			        </div>
 
 					<div class="input-field col s12 m12">
-			            <i class="material-icons prefix">account_circle</i>
+			            <i class="material-icons prefix">filter_9_plus</i>
 			            <input id="cantidad" type="number" min="0" class="validate" name="amount" autocomplete="off" required>
 			            <label for="cantidad" class="">Cantidad</label>
 			        </div>
 
 
 					<div class="input-field col s12 m12">
-			            <i class="material-icons prefix">account_circle</i>
+			            <i class="material-icons prefix">date_range</i>
 			            <input id="fecha_vencimiento" type="text" class="datepicker" name="expiration" autocomplete="off" required>
 			            <label for="fecha_vencimiento" class="">Fecha_vencimiento</label>
 			        </div>			        
 
 					<div class="input-field col s12 m12">
-			            <i class="material-icons prefix">account_circle</i>
+			            <i class="material-icons prefix">home</i>
 			            <input id="Comercializadora" type="text" class="validate" name="comercializadora" autocomplete="off" required>
 			            <label for="Comercializadora" class="">Casa Comercializadora</label>
 			        </div>			        			        

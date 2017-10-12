@@ -2,7 +2,6 @@
 	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/" accept-charset="utf-8" class="search">
 		<div class="flitro col s9 centrar sombra_blanca">
 			<div class="input-field col s12 m3">
-	            <i class="material-icons prefix">search</i>
 	            <input id="product" type="text" value="<?php echo ($product == "%%") ? "" : $product ?>" class="validate search" name="product" autocomplete="off">
 	            <label for="product" class="<?php echo ($product == "%%") ? "" : "active" ?> search">Producto</label>
 	        </div>
@@ -19,9 +18,17 @@
 	            <input id="prefix" type="text" class="validate search" value="<?php echo ($prefix == "%%") ? "" : $prefix ?>" name="prefix" autocomplete="off">
 	            <label for="prefix" class="<?php echo ($prefix == "%%") ? "" : "active" ?> search">Prefijo Medida</label>
 	        </div>
+	        <div class="input-field col s12 m2">
+	            <input id="fecha_inicial" type="text" class="validate search datepicker" value="<?php echo ($fecha_inicial == "%%") ? "" : $fecha_inicial ?>" name="fecha_inicial" autocomplete="off">
+	            <label for="fecha_inicial" class="<?php echo ($fecha_inicial == "%%") ? "" : "active" ?> search">Fecha inicial</label>
+	        </div>
+	        <div class="input-field col s12 m2">
+	            <input id="fecha_final" type="text" class="validate search datepicker" value="<?php echo ($fecha_final == "%%") ? "" : $fecha_final ?>" name="fecha_final" autocomplete="off">
+	            <label for="fecha_final" class="<?php echo ($fecha_final == "%%") ? "" : "active" ?> search">Fecha final</label>
+	        </div>
 	        <div class=" input-field action col m1 centrar">
 	        	<button class="waves-effect waves-light btn-floating btn-primary">
-	        		<i class="material-icons left">near_me</i>
+	        		<i class="material-icons left">search</i>
 	        	</button>
 	        </div>	
 		</div>
