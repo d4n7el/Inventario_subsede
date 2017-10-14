@@ -34,7 +34,7 @@
 		}
 		public function get_products($producto,$bodega,$measure,$fecha_inicial,$fecha_final,$limit, $offset){
 			try {
-				$sql = "SELECT * FROM get_products WHERE name_product LIKE '$producto' AND name_cellar LIKE '$bodega' AND prefix_measure LIKE '$measure' AND DATE(creation_date) BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_product DESC LIMIT $limit OFFSET $offset";
+				$sql = "SELECT * FROM get_products WHERE name_product LIKE '%$producto%' AND name_cellar LIKE '$bodega' AND prefix_measure LIKE '$measure' AND DATE(creation_date) BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_product DESC LIMIT $limit OFFSET $offset";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
@@ -47,7 +47,7 @@
 		}
 		public function count_products($producto,$bodega,$measure,$fecha_inicial,$fecha_final){
 			try {
-				$sql = "SELECT COUNT(id_product) as count FROM get_products WHERE name_product LIKE '$producto' AND name_cellar LIKE '$bodega' AND prefix_measure LIKE '$measure' AND DATE(creation_date) BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_product DESC";
+				$sql = "SELECT COUNT(id_product) as count FROM get_products WHERE name_product LIKE '%$producto%' AND name_cellar LIKE '$bodega' AND prefix_measure LIKE '$measure' AND DATE(creation_date) BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_product DESC";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetch();

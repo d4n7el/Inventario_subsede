@@ -5,6 +5,8 @@ $(document).on('ready',function(){
 	$('a.link_page').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('href');
+		var titulo = $(this).attr('titulo');;
+		$('a.brand-logo').text(titulo);
 		$("div#vista_ventana").load(ruta,function() {
 			recargar_eventos();
 		});
@@ -63,11 +65,14 @@ function eliminar_eventos(){
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
+	$('button#impresion').on('click', function(event) {
+		event.preventDefault();
+		generate_pdf();
+	});
 	$('form.search').on('submit', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('action');
 		var formData = {};
-		console.log(formData);
 		$('input.search').each(function() {
   			formData[$(this).attr('id')] =  $(this).val();
 		});
@@ -231,7 +236,6 @@ var recargar_eventos = function(){
   			formData[$(this).attr('id')] =  value;
 		});
 		formData['pagina'] = pagina;
-		console.log(formData);
 		$("div#vista_ventana").load(ruta,formData,function() {
 			recargar_eventos();
 		});
@@ -527,4 +531,23 @@ function limpiar_exit(){
 	$('div#view_add_elements').html("<p></p>");
 	$('div#name_receive_user').html("");
 	$('input#receive_user').val("");
+}
+function generate_pdf(){
+	specialElementHandlers = {
+            '#bypassme': function (element, renderer) {
+                return true
+            }
+        };
+	html2canvas(document.getElementById('area_impresion'),{
+		onrendered: function(canvas){
+			var img = canvas.toDataURL('imagen.png');
+			var doc = new jsPDF();
+			doc.addImage(img, 'JPEG',25,15,0,0,{
+            'width': 400,
+            
+         });
+			doc.save("test.pdf");
+		}
+	})
+	
 }

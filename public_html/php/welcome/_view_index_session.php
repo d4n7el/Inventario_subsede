@@ -17,10 +17,10 @@
 					</div>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/create_user.php" id="" class="link_page color_letra_primario">Crear usuario<i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/create_user.php" id="" class="link_page color_letra_primario" titulo="Crear usuario">Crear usuario<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/index.php" id="" class="link_page color_letra_primario">Ver usuarios<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/index.php" id="" class="link_page color_letra_primario" titulo="Ver usuarios">Ver usuarios<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
@@ -40,10 +40,10 @@
 					</div>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/measure/create_measure.php" id="create_user" class="link_page color_letra_primario">Crear medida<i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/measure/create_measure.php" id="create_user" class="link_page color_letra_primario" titulo="Crear medida">Crear medida<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/measure/" class="link_page color_letra_primario">Ver medidas<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/measure/" class="link_page color_letra_primario" titulo="Ver medidas">Ver medidas<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
@@ -63,10 +63,10 @@
 					</div>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/create_product.php" id="" class="link_page color_letra_primario">Crear productos<i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/create_product.php" id="" class="link_page color_letra_primario" titulo="Crear productos">Crear productos<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products" class="link_page color_letra_primario">Ver productos<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products" class="link_page color_letra_primario" titulo="Ver productos">Ver productos<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
@@ -86,11 +86,11 @@
 					</div>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/stock.php" class="link_page color_letra_primario">Insertar Stock<i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/stock.php" class="link_page color_letra_primario" titulo="Insertar Stock" >Insertar Stock<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index.php" class="link_page color_letra_primario">Ver Stock<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index.php" class="link_page color_letra_primario" titulo="Ver Stock">Ver Stock<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>				
 			</div>
 	    </div>
@@ -113,7 +113,7 @@
 					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/outlet_products.php" id="" class="link_page color_letra_primario">Salida<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index_exit.php" class="link_page color_letra_primario">Ver salidas<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index_exit.php" class="link_page color_letra_primario" titulo="Ver salidas">Ver salidas<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
@@ -133,10 +133,10 @@
 					</div>
 				</div>
 				<div class="card-action " >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/create_equipment.php" id="" class="link_page color_letra_primario">Crear Equipo<i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/create_equipment.php" id="" class="link_page color_letra_primario" titulo="Crear Equipo">Crear Equipo<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments" class="link_page color_letra_primario">Ver Equipo<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments" class="link_page color_letra_primario" titulo="Ver Equipo">Ver Equipo<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
@@ -156,10 +156,10 @@
 					</div>
 				</div>
 				<div class="card-action " >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/equiment_exit.php" id="" class="link_page color_letra_primario">Salida Equipo<i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/equiment_exit.php" id="" class="link_page color_letra_primario" titulo="Salida Equipo">Salida Equipo<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments" class="link_page color_letra_primario">Ver Equipo<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments" class="link_page color_letra_primario" titulo="Ver Equipo">Ver Equipo<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
@@ -179,10 +179,10 @@
 					</div>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/create_tools.php" id="" class="link_page color_letra_primario">Ingresar Herramienta <i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/create_tools.php" id="" class="link_page color_letra_primario" titulo="Ingresar Herramienta">Ingresar Herramienta <i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools" class="link_page color_letra_primario">Ver Herramientas<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools" class="link_page color_letra_primario" titulo="Ver Herramientas">Ver Herramientas<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
@@ -202,10 +202,10 @@
 					</div>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/outlet_tools.php" id="" class="link_page color_letra_primario">Salidas<i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/outlet_tools.php" id="" class="link_page color_letra_primario" titulo="Salida Herramientas">Salidas<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools" class="link_page color_letra_primario">Ver heramienta<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools" class="link_page color_letra_primario" titulo="Ver herramienta">Ver herramienta<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
@@ -225,10 +225,10 @@
 					</div>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/" id="" class="link_page color_letra_primario">Stock planta<i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/" id="" class="link_page color_letra_primario" titulo="Stock planta">Stock planta<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools" class="link_page color_letra_primario">Salidas Planta<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools" class="link_page color_letra_primario" titulo="Salidas Planta">Salidas Planta<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
