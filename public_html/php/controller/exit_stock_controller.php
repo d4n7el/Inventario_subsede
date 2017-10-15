@@ -48,7 +48,11 @@
 			try {
 				$sql_consult = $this->db->prepare("CALL update_exit_stock(?,?,?,?,@retorno)" );
 				$sql_consult->execute(array($cantidad,$id_master,$id_detalle,$id_user));
+				$sql_consult = $this->db->prepare("SELECT @retorno as retorno" );
+				$sql_consult->execute();
+				$result = $sql_consult->fetch();
 				$this->db = null;
+				return $result;
 			} catch (PDOException $e) {
             	$e->getMessage();
         	}
@@ -92,7 +96,7 @@
 		}
 		public function insert_stock_planta($value){
 			try {
-				$sql_consult = $this->db->prepare("INSERT INTO stock_plant (id_product,id_stock,id_exit_product,quantity) VALUES $value" );
+				$sql_consult = $this->db->prepare("INSERT INTO stock_plant (id_stock,id_exit_product,quantity) VALUES $value" );
 				$sql_consult->execute();
 				$result = $this->db->lastInsertId();
 				$this->db = null;

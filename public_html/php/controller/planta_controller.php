@@ -53,15 +53,16 @@
             	$e->getMessage();
         	}
 		}
-		public function edit_stock_plant($id_exit_product,$id_stock_plant,$stock,$cantidad){
+		public function update_stock_plant($id_exit_product,$id_stock_plant,$stock,$cantidad,$id_user,$note){
 			try {
-				$sql_consult = $this->db->prepare('UPDATE stock_plant SET quantity = ? WHERE id_exit_product = ? AND id_stock_plant = ? AND  id_stock = ? ');
-	            if ($sql_consult->execute(array($cantidad,$id_exit_product,$id_stock_plant,$stock))) {
-	            	return 1;
-	            }else{
-	            	return 0;
+				$sql_consult = $this->db->prepare('CALL update_stock_plant (?,?,?,?,?,?,@retorno) ');
+	            if ($sql_consult->execute(array($id_exit_product,$id_stock_plant,$stock,$cantidad,$id_user,$note))) {
+	            	$sql_consult = $this->db->prepare("SELECT @retorno as retorno" );
+					$sql_consult->execute();
+					$result = $sql_consult->fetch();
+					$this->db = null;
+	            	return $result;
 	            }
-	            $this->db = null;
             } catch (PDOException $e) {
             	echo $e->getMessage();
         	}

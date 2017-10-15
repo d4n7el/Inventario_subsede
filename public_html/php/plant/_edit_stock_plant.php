@@ -16,6 +16,11 @@
         <input id="cantidad" type="number" min="0" max="" class="validate" name="cantidad" autocomplete="off" value="" required>
         <label for="cantidad" class="active">Cantidad disponible: <?php echo $retorno_planta[0]['quantity']." ".$retorno_planta[0]['prefix_measure'] ?> </label>
     </div>
+    <div class="input-field col s8 offset-s2">
+        <i class="material-icons prefix">assignment</i>
+        <input id="nota_update" type="text" class="validate align-center " name="nota_update" autocomplete="off"  required>
+        <label for="nota_update" class="active">Nota de actualización</label>
+    </div>	
 	<div class="action col m12 centrar">
     	<button class="waves-effect waves-light btn btn-primary">
     		<i class="material-icons left">near_me</i>Guardar
