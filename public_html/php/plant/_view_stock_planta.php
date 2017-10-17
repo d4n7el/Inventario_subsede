@@ -50,13 +50,13 @@
 			<strong>Recibio  </strong>
 		</a>
 	</div>
-	<div class="col s2 centrar head_cell">
+	<div class="col s1 centrar head_cell">
 		<a href="#" class="tabla color_letra_primario">
 			<strong>Cantidad  </strong>
 		</a>
 	</div>
 
-	<div class="col s2 centrar head_cell">
+	<div class="col s3 centrar head_cell">
 		<a href="#" class="tabla color_letra_primario">
 			<strong>Opciones  </strong>
 		</a>
@@ -77,7 +77,7 @@
 				<h6 class="col s12 center color_letra_secundario">
 				<?php echo $value['name_receive']; ?></h6>
 			</div>
-			<div class="col s2 second_cell cantidad_disponible">
+			<div class="col s1 second_cell cantidad_disponible">
 				<h6 class="col s12 centrar color_letra_secundario" id="cantidad_<?php echo $value['id_exit_product'].$value['id_stock'].$value['id_stock_plant'] ?>">
 					<?php echo $value['quantity']." ".$value['prefix_measure']; ?>
 				</h6>
@@ -86,8 +86,11 @@
 				<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/show_stock_plant.php" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_plant_stock" data-target="modal_right" id_exit_product="<?php echo $value['id_exit_product'] ?>">visibility</button>
 			</div>
 			<div class="col s1 second_cell">
-					<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/edit_stock_plant.php" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_stock_plant" id_exit_product="<?php echo $value['id_exit_product'] ?>" data-target="modal_center" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" id_plant="<?php echo $value['id_stock_plant']?>">create</button>
-				</div>
+				<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/edit_stock_plant.php" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_stock_plant" id_exit_product="<?php echo $value['id_exit_product'] ?>" data-target="modal_center" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" id_plant="<?php echo $value['id_stock_plant']?>">create</button>
+			</div>
+			<div class="col s1 second_cell">
+				<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/edit_stock_plant.php" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_stock" id_exit_product="<?php echo $value['id_exit_product'] ?>" data-target="modal_center" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" id_plant="<?php echo $value['id_stock_plant']?>">receipt</button>
+			</div>
 		</div>
 		<?php
 	}

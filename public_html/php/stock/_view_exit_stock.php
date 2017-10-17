@@ -2,7 +2,6 @@
 	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index_exit.php/" accept-charset="utf-8" class="search">
 		<div class="flitro col s9 centrar sombra_blanca">
 			<div class="input-field col s12 m2">
-	            <i class="material-icons prefix">search</i>
 	            <input id="product" type="text" value="<?php echo ($product == "%%") ? "" : $product ?>" class="validate search" name="product" autocomplete="off">
 	            <label for="product" class="<?php echo ($product == "%%") ? "" : "active" ?> search">Producto</label>
 	        </div>
@@ -26,9 +25,18 @@
 	            <input id="fecha_final" type="text" class="validate search datepicker" value="<?php echo ($fecha_final == "%%") ? "" : $fecha_final ?>" name="fecha_final" autocomplete="off">
 	            <label for="fecha_final" class="<?php echo ($fecha_final == "%%") ? "" : "active" ?> search">Final</label>
 	        </div>
+	        <input id="estado" type="hidden" class="validate search" value="<?php echo ($estado == "%%") ? "" : $estado ?>" name="estado" autocomplete="off">
+	        <p>
+      			<input name="group1" value="1" type="radio" id="test1"  <?php echo ($estado == "1") ? "checked"  : "" ?> />
+      			<label for="test1">Activo</label>
+    		</p>
+		    <p>
+		      	<input name="group1" value="0" type="radio" id="test2" <?php echo ($estado == "0") ? "checked"  : "" ?> />
+		      	<label for="test2">Inactivo</label>
+		    </p>
 	        <div class=" input-field action col m1 centrar">
 	        	<button class="waves-effect waves-light btn-floating btn-primary">
-	        		<i class="material-icons left">near_me</i>
+	        		<i class="material-icons left">search</i>
 	        	</button>
 	        </div>	
 		</div>
@@ -45,7 +53,7 @@
 			<strong>Bodega  </strong>
 		</a>
 	</div>
-	<div class="col s3 centrar head_cell">
+	<div class="col s2 centrar head_cell">
 		<a href="#" class="tabla color_letra_primario">
 			<strong>Lote  </strong>
 		</a>
@@ -55,7 +63,7 @@
 			<strong>Cantidad  </strong>
 		</a>
 	</div>
-	<div class="col s2 centrar head_cell">
+	<div class="col s3 centrar head_cell">
 		<a href="#" class="tabla color_letra_primario">
 			<strong>Opciones  </strong>
 		</a>
@@ -73,21 +81,29 @@
 					<h6 class="col s12 centrar color_letra_secundario">
 					 <?php echo $value['name_cellar']; ?></h6>
 				</div>
-				<div class="col s3 second_cell lote">
+				<div class="col s2 second_cell lote">
 					<h6 class="col s12 centrar color_letra_secundario">
 					<?php echo $value['nom_lot']; ?></h6>
 				</div>
 				<div class="col s2 second_cell cantidad_disponible">
 					<h6 class="col s12 centrar color_letra_secundario" id="cantidad_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'].$value['id_stock'] ?>">
-						<?php echo $value['quantity']; ?>
+						<?php echo $value['quantity']." ".$value['prefix_measure']; ?>
 					</h6>
 				</div>
 				<div class="col s1 second_cell">
 					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_exit_stock" data-target="modal_right" id_exit_product="<?php echo $value['id_exit_product_master'] ?>">visibility</button>
 				</div>
 				<div class="col s1 second_cell">
-					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_view_exit_stock" id_exit_product="<?php echo $value['id_exit_product_master'] ?>" data-target="modal_center" id_exit_product_detalle="<?php echo $value['id_exit_product_detalle'] ?>" stock="<?php echo $value['id_stock'] ?>">create</button>
-				</div>
+						<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_view_exit_stock" id_exit_product="<?php echo $value['id_exit_product_master'] ?>" data-target="modal_center" id_exit_product_detalle="<?php echo $value['id_exit_product_detalle'] ?>" stock="<?php echo $value['id_stock'] ?>">create</button>
+					</div>
+				<?php  
+				if ($value['state'] == 1) { ?>
+					<div class="col s1 second_cell">
+						<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger delete_view_exit_stock" id_exit_product="<?php echo $value['id_exit_product_master'] ?>" data-target="modal_center" id_exit_product_detalle="<?php echo $value['id_exit_product_detalle'] ?>" stock="<?php echo $value['id_stock'] ?>">clear</button>
+					</div>
+					<?php 
+				}
+				?>
 			</div>
 			<?php 
 		}

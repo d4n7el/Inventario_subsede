@@ -12,6 +12,7 @@
 		$product = (isset($_REQUEST['product']) && $_REQUEST['product'] != "" ? $_REQUEST['product'] : "%%" );
 		$cellar = (isset($_REQUEST['cellar']) && $_REQUEST['cellar'] != "" ? $_REQUEST['cellar'] : "%%" );
 		$lote = (isset($_REQUEST['lote']) && $_REQUEST['lote'] != "" ? $_REQUEST['lote'] : "%%" );
+		$estado = (isset($_REQUEST['estado']) && $_REQUEST['estado'] != "" ? $_REQUEST['estado'] : "1" );
 		$fecha_final = (isset($_REQUEST['fecha_final']) && $_REQUEST['fecha_final'] != "" ? $_REQUEST['fecha_final'] : $tomorrow );
 		$fecha_inicial = (isset($_REQUEST['fecha_inicial']) && $_REQUEST['fecha_inicial'] != "" ? $_REQUEST['fecha_inicial'] : $yesterday );
 		
@@ -20,11 +21,11 @@
 		(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
 		$limit = 1;
 		$offset = $limit * $pagina;
-		$retorno_count_exit = $count_exits->get_exit_stock_count($id_exit_product,$destino,$product,$cellar,$lote,$fecha_inicial,$fecha_final);
+		$retorno_count_exit = $count_exits->get_exit_stock_count($id_exit_product,$destino,$product,$cellar,$lote,$fecha_inicial,$fecha_final,$estado);
 		$count_rows = $retorno_count_exit['count'];
 		$href = '/php/stock/index_exit.php';
 		// NECESARIO PARA LA PAGINACION
-		$retorno_exit = $exits->get_exit_stock($id_exit_product,$destino,$product,$cellar,$lote,$fecha_inicial,$fecha_final,$limit,$offset);
+		$retorno_exit = $exits->get_exit_stock($id_exit_product,$destino,$product,$cellar,$lote,$fecha_inicial,$fecha_final,$estado,$limit,$offset);
 		require_once($_SERVER['DOCUMENT_ROOT'].'/php/stock/_view_exit_stock.php');
 	}
 ?>

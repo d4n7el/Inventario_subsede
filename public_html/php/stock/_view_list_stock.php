@@ -29,6 +29,15 @@
 	            <input id="fecha_final" type="text" class="validate search datepicker" value="<?php echo ($fecha_final == "%%") ? "" : $fecha_final ?>" name="fecha_final" autocomplete="off">
 	            <label for="fecha_final" class="<?php echo ($fecha_final == "%%") ? "" : "active" ?> search">Fecha final</label>
 	        </div>
+	        <input id="estado" type="hidden" class="validate search" value="<?php echo ($estado == "%%") ? "" : $estado ?>" name="estado" autocomplete="off">
+	        <p>
+      			<input name="group1" value="1" type="radio" id="test1"  <?php echo ($estado == "1") ? "checked"  : "" ?> />
+      			<label for="test1">Activo</label>
+    		</p>
+		    <p>
+		      	<input name="group1" value="0" type="radio" id="test2" <?php echo ($estado == "0") ? "checked"  : "" ?> />
+		      	<label for="test2">Inactivo</label>
+		    </p>
 	        <div class=" input-field action col m1 centrar">
 	        	<button class="waves-effect waves-light btn-floating btn-primary">
 	        		<i class="material-icons left">search</i>
@@ -67,14 +76,17 @@ if (count($retorno_stock) > 0) {
 
 					<div class="input-field col s4 m3 ">
 				        <i class="material-icons prefix">date_range</i>
-				        <input id="nombre_producto" type="text" class="validate editar_info" name="expiration" autocomplete="off" value="<?php echo $value['expiration_date'] ?>"  readonly="readonly">
+				        <input id="nombre_producto" type="text" class="validate datepicker editar_info" name="expiration" autocomplete="off" value="<?php echo $value['expiration_date'] ?>"  readonly="readonly">
 				        <label for="nombre_producto" class="active">Fecha Vencimiento</label>
 				    </div>
-					<div class="input-field col s4 m4 hide oculto">
-				        <i class="material-icons prefix">date_range</i>
-				        <input id="nombre_producto" type="text" class="validate editar_info" name="expiration_create" autocomplete="off" value="<?php echo $value['expiration_create'] ?>"  readonly="readonly">
-				        <label for="nombre_producto" class="active">Fecha Creacion</label>
-				    </div>
+				    <div class="input-field col s3 hide oculto">
+					    <select name="estado">
+						      <option value="" disabled selected>Estado</option>
+						      <option value="0" <?php echo ($estado == "0") ? "selected"  : "" ?>>Inactivo</option>
+						      <option value="1" <?php echo ($estado == "1") ? "selected"  : "" ?>>Activo</option>
+					    </select>
+					    <label>Estado</label>
+					</div>
 					<div class="input-field col s4 hide oculto">
 				        <i class="material-icons prefix">home</i>
 				        <input id="nombre_producto" type="text" class="validate editar_info" name="comercializadora" autocomplete="off" value="<?php echo $value['comercializadora'] ?>"  readonly="readonly">
