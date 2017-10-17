@@ -9,18 +9,19 @@
 		$apellido = isset($_REQUEST['apellido']) && $_REQUEST['apellido'] != "" ? $_REQUEST['apellido'] : "%%";
 		$correo = isset($_REQUEST['correo']) && $_REQUEST['correo'] != "" ? $_REQUEST['correo'] : "%%";
 		$cedula = isset($_REQUEST['cedula']) && $_REQUEST['cedula'] != "" ? $_REQUEST['cedula'] : "%%";
+		$estado = isset($_REQUEST['estado']) && $_REQUEST['estado'] != "" ? $_REQUEST['estado'] : 1;
 		
 		// NECESARIO PARA LA PAGINACION
 		$count_user = new Users();
 		(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
 		$limit = 4;
 		$offset = $limit * $pagina;
-		$retorno_count_user = $count_user->count_user($name,$cedula,$correo,$apellido,$id_user);
+		$retorno_count_user = $count_user->count_user($name,$cedula,$correo,$apellido,$id_user,$estado);
 		$count_rows = $retorno_count_user['count'];
 		$href = '/php/users/index.php';
 		// NECESARIO PARA LA PAGINACION
 		
-		$retorno_user = $welcome->get_user($name,$cedula,$correo,$apellido,$id_user,$limit,$offset);
+		$retorno_user = $welcome->get_user($name,$cedula,$correo,$apellido,$id_user,$estado,$limit,$offset);
 		
 		if ($id_user == "%%") {
 			require($_SERVER['DOCUMENT_ROOT'].'/php/users/_view_list_user.php');

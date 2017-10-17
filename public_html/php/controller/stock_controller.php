@@ -47,7 +47,7 @@
 		}
 		public function get_stock($id_product){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM stock WHERE id_product = ? " );
+				$sql_consult = $this->db->prepare("SELECT * FROM stock WHERE id_product = ? AND state = 1 " );
 				$sql_consult->execute(array($id_product));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
