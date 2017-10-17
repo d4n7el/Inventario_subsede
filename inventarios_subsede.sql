@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 17-10-2017 a las 05:35:45
+-- Tiempo de generación: 18-10-2017 a las 00:23:46
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -268,6 +268,50 @@ INSERT INTO `exit_teams_detall` (`id_exit_detall`, `id_exit`, `id_equipment`, `q
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `exit_tools_detall`
+--
+
+CREATE TABLE `exit_tools_detall` (
+  `id_exit_detall` int(11) NOT NULL,
+  `id_exit` int(11) NOT NULL,
+  `id_tool` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `note_received` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `exit_tools_detall`
+--
+
+INSERT INTO `exit_tools_detall` (`id_exit_detall`, `id_exit`, `id_tool`, `quantity`, `note_received`) VALUES
+(4, 24, 1, 2, 'cual quier nota');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `exit_tools_master`
+--
+
+CREATE TABLE `exit_tools_master` (
+  `id_exit` int(11) NOT NULL,
+  `id_user_receives` int(11) NOT NULL,
+  `name_user_receive` varchar(50) NOT NULL,
+  `id_user_delivery` int(11) NOT NULL,
+  `delivery` tinyint(1) NOT NULL DEFAULT '1',
+  `received` tinyint(1) NOT NULL DEFAULT '0',
+  `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `exit_tools_master`
+--
+
+INSERT INTO `exit_tools_master` (`id_exit`, `id_user_receives`, `name_user_receive`, `id_user_delivery`, `delivery`, `received`, `date_create`) VALUES
+(24, 1234, 'Santiago', 18, 1, 0, '2017-10-17 22:04:29');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura Stand-in para la vista `get_products`
 -- (Véase abajo para la vista actual)
 --
@@ -348,7 +392,9 @@ CREATE TABLE `intergridad_exit_product_detalle` (
 INSERT INTO `intergridad_exit_product_detalle` (`id_integridad`, `exit_product_detalle`, `quantity`, `old_quantity`, `id_user`, `note`, `state`, `process`, `date_create`) VALUES
 (10, 83, 0, 4, 7, 'prueba de old', 0, 'delete', '2017-10-16 15:31:50'),
 (13, 83, 1, 1, 7, 'bien', 1, 'Update', '2017-10-16 16:04:41'),
-(14, 83, 2, 1, 7, 'bien', 1, 'Update', '2017-10-16 16:05:21');
+(14, 83, 2, 1, 7, 'bien', 1, 'Update', '2017-10-16 16:05:21'),
+(15, 84, 0, 10, 7, 'prueba', 0, 'delete', '2017-10-17 03:39:24'),
+(16, 84, 10, 0, 7, 'bien', 1, 'Update', '2017-10-17 03:39:40');
 
 -- --------------------------------------------------------
 
@@ -598,19 +644,20 @@ CREATE TABLE `user` (
   `cedula` varchar(50) NOT NULL,
   `pass` text NOT NULL,
   `id_cellar` int(11) NOT NULL,
-  `id_role` int(11) NOT NULL
+  `id_role` int(11) NOT NULL,
+  `state` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `email_user`, `cedula`, `pass`, `id_cellar`, `id_role`) VALUES
-(7, 'Daniel Felipe', 'Zamora Ortiz', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$MbgK/SGQWmmh1uEpHtC3WeySu5VfCYSbF42hyi/IBaS5TMIgiXFGG', 2, 1),
-(15, 'Stefania', 'Casas', 'Ecasas05@misena.edu.co', '1093227968', '$2y$10$fi/ObWvWDHI8qOItzyf1..J.WmBk6YnMOVAeATY8NJPotQYZUQJcq', 3, 1),
-(16, 'Pedro', 'Triviño', 'pnmontealegre@misena.edu.co', '1225092661', '$2y$10$eYo1Chuil/FLsTMRsBbHDeL3PBqbPX9Kif7XJUJEnqLg2oub6YvdO', 4, 1),
-(17, 'Yeison', 'Londoño Tabarez', 'yeiko1022@hotmail.com', '1088347434', '$2y$10$FFTBYqNzlEJC4pVWqM/6MehsSgVQj1jYeOaLtvZwxkKCboD8qy/0K', 4, 1),
-(18, 'Julio Cesar', 'Guapacha ', 'jcguapacha2@misena.edu.co', '1088299682', '$2y$10$V//tBsKlFLY8pyF83XJgR.fd7NXWbHw3vs6GM3WN7CYnwrAbAS.h2', 5, 1);
+INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `email_user`, `cedula`, `pass`, `id_cellar`, `id_role`, `state`) VALUES
+(7, 'Daniel Felipe', 'Zamora Ortiz', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$MbgK/SGQWmmh1uEpHtC3WeySu5VfCYSbF42hyi/IBaS5TMIgiXFGG', 2, 1, 1),
+(15, 'Stefania', 'Casas', 'Ecasas05@misena.edu.co', '1093227968', '$2y$10$fi/ObWvWDHI8qOItzyf1..J.WmBk6YnMOVAeATY8NJPotQYZUQJcq', 3, 1, 1),
+(16, 'Pedro', 'Triviño', 'pnmontealegre@misena.edu.co', '1225092661', '$2y$10$eYo1Chuil/FLsTMRsBbHDeL3PBqbPX9Kif7XJUJEnqLg2oub6YvdO', 4, 1, 1),
+(17, 'Yeison', 'Londoño Tabarez', 'yeiko1022@hotmail.com', '1088347434', '$2y$10$FFTBYqNzlEJC4pVWqM/6MehsSgVQj1jYeOaLtvZwxkKCboD8qy/0K', 4, 1, 1),
+(18, 'Julio Cesar', 'Guapacha ', 'jcguapacha2@misena.edu.co', '1088299682', '$2y$10$V//tBsKlFLY8pyF83XJgR.fd7NXWbHw3vs6GM3WN7CYnwrAbAS.h2', 5, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -697,6 +744,19 @@ ALTER TABLE `exit_teams_detall`
   ADD KEY `id_exit` (`id_exit`),
   ADD KEY `id_equipment` (`id_equipment`);
 ALTER TABLE `exit_teams_detall` ADD FULLTEXT KEY `note` (`note`);
+
+--
+-- Indices de la tabla `exit_tools_detall`
+--
+ALTER TABLE `exit_tools_detall`
+  ADD PRIMARY KEY (`id_exit_detall`);
+
+--
+-- Indices de la tabla `exit_tools_master`
+--
+ALTER TABLE `exit_tools_master`
+  ADD PRIMARY KEY (`id_exit`),
+  ADD KEY `id_user_receives` (`id_user_receives`);
 
 --
 -- Indices de la tabla `integridad_stock_plant`
@@ -810,6 +870,16 @@ ALTER TABLE `exit_product_master`
 ALTER TABLE `exit_teams_detall`
   MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
+-- AUTO_INCREMENT de la tabla `exit_tools_detall`
+--
+ALTER TABLE `exit_tools_detall`
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `exit_tools_master`
+--
+ALTER TABLE `exit_tools_master`
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+--
 -- AUTO_INCREMENT de la tabla `integridad_stock_plant`
 --
 ALTER TABLE `integridad_stock_plant`
@@ -818,7 +888,7 @@ ALTER TABLE `integridad_stock_plant`
 -- AUTO_INCREMENT de la tabla `intergridad_exit_product_detalle`
 --
 ALTER TABLE `intergridad_exit_product_detalle`
-  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `measure`
 --
