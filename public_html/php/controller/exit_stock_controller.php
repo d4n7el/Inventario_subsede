@@ -48,14 +48,18 @@
 			try {
 				$sql_consult = $this->db->prepare("CALL update_exit_stock(?,?,?,?,@retorno)" );
 				$sql_consult->execute(array($cantidad,$id_master,$id_detalle,$id_user));
+				$sql_consult = $this->db->prepare("SELECT @retorno as retorno" );
+				$sql_consult->execute();
+				$result = $sql_consult->fetch();
 				$this->db = null;
+				return $result;
 			} catch (PDOException $e) {
-            	$e->getMessage();
+            	echo $e->getMessage();
         	}
 		}
 		public function show_exit_stock($id_exit_product,$id_exit_product_detalle = "%%"){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM show_exit_stock WHERE id_exit_product_master = ? AND id_exit_product_detalle LIKE ?" );
+				$sql_consult = $this->db->prepare("SELECT * FROM show_exit_stock WHERE id_exit_product_master = ? AND id_exit_product_detalle LIKE ? " );
 				$sql_consult->execute(array($id_exit_product,$id_exit_product_detalle));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -65,9 +69,9 @@
             	$e->getMessage();
         	}
 		}
-		public function get_exit_stock($id_exit_product = "%%",$destino = "%%",$product = "%%",$cellar = "%%",$lote = "%%",$fecha_inicial,$fecha_final,$limit = "%%",$offset = "%%"){
+		public function get_exit_stock($id_exit_product = "%%",$destino = "%%",$product = "%%",$cellar = "%%",$lote = "%%",$fecha_inicial,$fecha_final,$estado,$limit = "%%",$offset = "%%"){
 			try {
-				$sql = "SELECT * FROM show_exit_stock WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND nom_lot LIKE '$lote' AND destination LIKE '$destino' AND id_exit_product_master LIKE '$id_exit_product' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_exit_product_master DESC LIMIT $limit OFFSET $offset";
+				$sql = "SELECT * FROM show_exit_stock WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND nom_lot LIKE '$lote' AND destination LIKE '$destino' AND id_exit_product_master LIKE '$id_exit_product' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND state = $estado ORDER BY id_exit_product_master DESC LIMIT $limit OFFSET $offset";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
@@ -78,9 +82,9 @@
             	$e->getMessage();
         	}
 		}
-		public function get_exit_stock_count($id_exit_product = "%%",$destino = "%%",$product = "%%",$cellar = "%%",$lote = "%%",$fecha_inicial,$fecha_final){
+		public function get_exit_stock_count($id_exit_product = "%%",$destino = "%%",$product = "%%",$cellar = "%%",$lote = "%%",$fecha_inicial,$fecha_final,$estado){
 			try {
-				$sql_consult = $this->db->prepare("SELECT COUNT(id_stock) as count FROM show_exit_stock WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND nom_lot LIKE '$lote' AND destination LIKE '$destino' AND id_exit_product_master LIKE '$id_exit_product' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final'" );
+				$sql_consult = $this->db->prepare("SELECT COUNT(id_stock) as count FROM show_exit_stock WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND nom_lot LIKE '$lote' AND destination LIKE '$destino' AND id_exit_product_master LIKE '$id_exit_product' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND state = $estado" );
 				$sql_consult->execute();
 				$result = $sql_consult->fetch();
 				$this->db = null;
@@ -92,7 +96,7 @@
 		}
 		public function insert_stock_planta($value){
 			try {
-				$sql_consult = $this->db->prepare("INSERT INTO stock_plant (id_product,id_stock,id_exit_product,quantity) VALUES $value" );
+				$sql_consult = $this->db->prepare("INSERT INTO stock_plant (id_stock,id_exit_product,quantity) VALUES $value" );
 				$sql_consult->execute();
 				$result = $this->db->lastInsertId();
 				$this->db = null;
@@ -100,6 +104,20 @@
 				
 			} catch (PDOException $e) {
             	$e->getMessage();
+        	}
+		}
+		public function delete_product_exit_stock($id_user,$id_exit_product,$id_exit_product_detalle,$stock,$nota,$process){
+			try {
+				$sql_consult = $this->db->prepare("CALL delete_product_exit_stock (?,?,?,?,?,?,@retorno)");
+				$sql_consult->execute(array($id_user,$id_exit_product,$id_exit_product_detalle,$stock,$nota,$process));
+				$sql_consult = $this->db->prepare("SELECT @retorno as retorno" );
+				$sql_consult->execute();
+				$result = $sql_consult->fetch();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	echo $e->getMessage();
         	}
 		}
 	}

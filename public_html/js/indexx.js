@@ -5,6 +5,8 @@ $(document).on('ready',function(){
 	$('a.link_page').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('href');
+		var titulo = $(this).attr('titulo');;
+		$('a.brand-logo').text(titulo);
 		$("div#vista_ventana").load(ruta,function() {
 			recargar_eventos();
 		});
@@ -59,15 +61,28 @@ function eliminar_eventos(){
 	$('form.search').off('submit');
 	$('button.view_plant_stock').off('click');
 	$('button.edit_stock_plant').off('click');
+	$('button.delete_view_exit_stock').off('click');
+	$('input#test1,input#test2').off('change');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('select').material_select();
+		$('button.view_info_stock').on('click', function(event) {
+		event.preventDefault();
+		var ruta = "../php/stock/index.php";
+		var id_stock = $(this).attr('stock');
+		$("div#modal_center div.modal-content form").load(ruta,{id_stock: id_stock},function() {
+			recargar_eventos();
+		});
+	});
+	$('button#impresion').on('click', function(event) {
+		event.preventDefault();
+		generate_pdf();
+	});
 	$('form.search').on('submit', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('action');
 		var formData = {};
-		console.log(formData);
 		$('input.search').each(function() {
   			formData[$(this).attr('id')] =  $(this).val();
 		});
@@ -96,6 +111,25 @@ var recargar_eventos = function(){
 		event.preventDefault();
 		var id_exit_product = $(this).attr('id_exit_product');
 		$("div#modal_right div.modal-content").load("/php/stock/exit_stock_complete.php",{id_exit_product: id_exit_product},function() {
+			recargar_eventos();
+		});
+	});
+	$('button.delete_view_exit_stock').on('click', function(event) {
+		event.preventDefault();
+		var id_exit_product = $(this).attr('id_exit_product');
+		var id_exit_product_detalle = $(this).attr('id_exit_product_detalle');
+		var stock = $(this).attr('stock');
+		var datos = {};
+		datos['id_exit_product'] = id_exit_product;
+		datos['id_exit_product_detalle'] = id_exit_product_detalle;
+		datos['stock'] = stock;
+		var x = 0;
+		$(this).closest('div').siblings('div').find('h6').each(function() {
+			datos["a_"+x] =  $.trim($(this).text());
+			x++;	
+		});
+		console.log(datos);
+		$("div#modal_center div.modal-content").load("/php/stock/_cancel_exit_stock.php",datos,function() {
 			recargar_eventos();
 		});
 	});
@@ -231,7 +265,6 @@ var recargar_eventos = function(){
   			formData[$(this).attr('id')] =  value;
 		});
 		formData['pagina'] = pagina;
-		console.log(formData);
 		$("div#vista_ventana").load(ruta,formData,function() {
 			recargar_eventos();
 		});
@@ -250,6 +283,9 @@ var recargar_eventos = function(){
 		formData.append("recover", true);
 		var ruta = $(this).attr('action');
 		ajax_set_form_data(ruta,formData);
+	});
+	$('input#test1,input#test2').on('change',function(event) {
+		$('input#estado').val($(this).val());
 	});
 	$('form.create_info').on('submit', function(event) {
 		event.preventDefault();
@@ -527,4 +563,23 @@ function limpiar_exit(){
 	$('div#view_add_elements').html("<p></p>");
 	$('div#name_receive_user').html("");
 	$('input#receive_user').val("");
+}
+function generate_pdf(){
+	specialElementHandlers = {
+            '#bypassme': function (element, renderer) {
+                return true
+            }
+        };
+	html2canvas(document.getElementById('area_impresion'),{
+		onrendered: function(canvas){
+			var img = canvas.toDataURL('imagen.png');
+			var doc = new jsPDF();
+			doc.addImage(img, 'JPEG',25,15,0,0,{
+            'width': 400,
+            
+         });
+			doc.save("test.pdf");
+		}
+	})
+	
 }

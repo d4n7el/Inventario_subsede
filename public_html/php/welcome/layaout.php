@@ -13,6 +13,7 @@
 	<header>
   		<nav>
 	    <div class="nav-wrapper fondo_negro">
+	    	<a href="#" class="brand-logo" style="margin-left: 1em">Inicio</a>
 	    	<?php 
 	      	if (isset($_SESSION["name_user_activo"])) { ?>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -64,7 +65,7 @@
 	<div id="modal_mensajes" class="modal">
 		
 	</div>
-	<div id="modal_right" class="modal bottom-sheet col s7">
+	<div id="modal_right" class="modal bottom-sheet col s12">
 	    <div class="modal-content">
 	      	
 	    </div>
@@ -83,6 +84,7 @@
 	    </div>
 	</div>
     <script src="<?php $_SERVER['DOCUMENT_ROOT'] ?>/js/jQuery.js"></script>
+    <script src="<?php $_SERVER['DOCUMENT_ROOT'] ?>/js/jspdf.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
     <script src="<?php $_SERVER['DOCUMENT_ROOT'] ?> /js/indexx.js"></script>
     <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>

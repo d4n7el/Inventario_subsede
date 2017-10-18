@@ -69,8 +69,6 @@
             	$e->getMessage();
         	}
 		}
-
-
 		public function exit_equipment_master($id_user_receives,$id_user_delivery){
 
 			try {

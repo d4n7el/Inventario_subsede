@@ -8,9 +8,9 @@
 	$nom_lot			= $_REQUEST["nombre_lote"];
 	$amount 			= $_REQUEST["amount"];
 	$expiration 		= $_REQUEST["expiration"];
-	$expiration_create 	= $_REQUEST["expiration_create"];
+	$state 				= $_REQUEST["estado"];
 	$comercializadora 	= $_REQUEST["comercializadora"];
-	$retorno_stock 	= $stock->update_stock($id_stock,$id_product,$nom_lot,$amount,$expiration,$expiration_create,$comercializadora);
+	$retorno_stock 	= $stock->update_stock($id_stock,$id_product,$nom_lot,$amount,$expiration,$state,$comercializadora);
 
 
 	if ($retorno_stock > 0) {

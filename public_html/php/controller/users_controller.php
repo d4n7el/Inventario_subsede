@@ -20,9 +20,9 @@
             	$e->getMessage();
         	}
 		}
-		public function get_user($name,$cedula,$correo,$apellido,$id_user,$limit,$offset){
+		public function get_user($name,$cedula,$correo,$apellido,$id_user,$estado,$limit,$offset){
 			try {
-				$sql = "SELECT * FROM user WHERE id_user LIKE '$id_user' AND name_user LIKE '$name' AND cedula LIKE '$cedula' AND email_user LIKE '$correo' AND last_name_user LIKE '$apellido' ORDER BY id_user DESC LIMIT $limit OFFSET $offset ";
+				$sql = "SELECT * FROM user WHERE id_user LIKE '$id_user' AND name_user LIKE '$name' AND cedula LIKE '$cedula' AND email_user LIKE '$correo' AND last_name_user LIKE '$apellido' AND state LIKE '$estado' ORDER BY id_user DESC LIMIT $limit OFFSET $offset ";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($id_user,$name,$cedula,$correo,$apellido));
 				$result = $sql_consult->fetchAll();
@@ -33,9 +33,9 @@
             	$e->getMessage();
         	}
 		}
-		public function count_user($name,$cedula,$correo,$apellido,$id_user){
+		public function count_user($name,$cedula,$correo,$apellido,$id_user,$estado){
 			try {
-				$sql = "SELECT COUNT(id_user) AS count FROM user  WHERE id_user LIKE '$id_user' AND name_user LIKE '$name' AND cedula LIKE '$cedula' AND email_user LIKE '$correo' AND last_name_user LIKE '$apellido' ";
+				$sql = "SELECT COUNT(id_user) AS count FROM user  WHERE id_user LIKE '$id_user' AND name_user LIKE '$name' AND cedula LIKE '$cedula' AND email_user LIKE '$correo' AND last_name_user LIKE '$apellido' AND state LIKE '$estado' ";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetch();
@@ -62,10 +62,10 @@
             	$e->getMessage();
         	}
 		}
-		public function edit_user($nombre,$apellido,$cedula,$cellar,$rol,$email,$id_user){
+		public function edit_user($nombre,$apellido,$cedula,$cellar,$rol,$email,$estado,$id_user){
 			try {
-				$sql_consult = $this->db->prepare('UPDATE user SET name_user = ?, last_name_user = ?, cedula = ?, id_cellar = ?, id_role = ?, email_user = ? WHERE id_user = ? ');
-	            if ($sql_consult->execute(array($nombre,$apellido,$cedula,$cellar,$rol,$email,$id_user))) {
+				$sql_consult = $this->db->prepare('UPDATE user SET name_user = ?, last_name_user = ?, cedula = ?, id_cellar = ?, id_role = ?, email_user = ?, state = ? WHERE id_user = ? ');
+	            if ($sql_consult->execute(array($nombre,$apellido,$cedula,$cellar,$rol,$email,$estado,$id_user))) {
 	            	return 1;
 	            }else{
 	            	return 0;
