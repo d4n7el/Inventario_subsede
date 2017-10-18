@@ -121,5 +121,17 @@
             	echo $e->getMessage();	 
         	}
 		}
+		public function show_exit_tools($id_exit,$id_exit_detall = "%%"){
+			try {
+				$sql_consult = $this->db->prepare("SELECT * FROM show_exit_tools WHERE id_exit_product_master = ? AND id_exit_detall LIKE ? " );
+				$sql_consult->execute(array($id_exit,$id_exit_detall));
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 	}
 ?>
