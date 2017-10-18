@@ -3,10 +3,10 @@
 	if (isset($_SESSION["id_user_activo"])) { 
 		$user = true;?>
 		<div class="row">
-		    <div class="formulario col m6 offset-m3">
+		    <div class="formulario col s6">
 		    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/new_user.php" class="create_info">
 					<div class="input-field col s12 m12">
-			            <i class="material-icons prefix">account_circle</i>
+			             <i class="material-icons prefix">account_circle</i>
 			            <input id="nombre_user" type="text" class="validate" name="nombre" autocomplete="off" required>
 			            <label for="nombre_user" class="">Nombre</label>
 			        </div>	
@@ -49,6 +49,10 @@
 			        </div>	
 				</form>
 		    </div>
+		    <div class="col s6">
+	    		<canvas id="pie-chart" width="600" height="400"></canvas>
+	    		<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/users/graphics_pie.php") ?>
+	    	</div>
 		</div>
 		<?php 
 	}

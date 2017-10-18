@@ -1,19 +1,18 @@
 <?php  
 	session_start();
-	if (isset($_SESSION["id_user_activo"])) {
-?>
-		<div class="row">
-		    <div class="formulario col m6 offset-m3">
-		    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/new_stock.php" class="create_info">
-  					<div class="input-field col s12 m12" id="stock">
-			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
-			        </div>
- 
-			        <div class="input-field col s12 m12" id="mostrar_productos">
-						
-			        </div>
+if (isset($_SESSION["id_user_activo"])) { ?>
+	<div class="row">
+	    <div class="formulario col m6">
+	    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/new_stock.php" class="create_info">
+					<div class="input-field col s12 m12" id="stock">
+		        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
+		        </div>
 
-			        <div id="formulario">
+		        <div class="input-field col s12 m12" id="mostrar_productos">
+					
+		        </div>
+
+		        <div id="formulario">
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">dashboard</i>
 			            <input id="nombre_lote" type="text" class="validate" name="nombre_lote" autocomplete="off" required>
@@ -38,18 +37,20 @@
 			            <input id="Comercializadora" type="text" class="validate" name="comercializadora" autocomplete="off" required>
 			            <label for="Comercializadora" class="">Casa Comercializadora</label>
 			        </div>			        			        
-
-			        
+			     
 			        <div class="action col m12">
 			        	<button class="waves-effect waves-light btn btn-primary">
 			        		<i class="material-icons left">near_me</i>Guardar
 			        	</button>
 			        </div>	
-				</form>	
-			        </div>
-				</form>
-		    </div>
-		</div>
-		<?php 
-	}
-	?>
+			
+		        </div>
+		    </form>	
+	    </div>
+	    <div class="col s6">
+    		<canvas id="pie-chart" width="600" height="400"></canvas>
+    		<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/stock/graphics_pie.php") ?>
+    	</div>
+	</div>
+	<?php 
+}	?>

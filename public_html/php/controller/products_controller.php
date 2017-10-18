@@ -32,6 +32,18 @@
             	$e->getMessage();
         	}
 		}
+		public function graphics_pie(){
+			try {
+				$sql_consult = $this->db->prepare("SELECT cellar.name_cellar, COUNT(id_product) as count FROM products INNER JOIN cellar ON products.id_cellar = cellar.id_cellar GROUP BY products.id_cellar");
+				$sql_consult->execute();
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function get_products($producto,$bodega,$measure,$fecha_inicial,$fecha_final,$limit, $offset){
 			try {
 				$sql = "SELECT * FROM get_products WHERE name_product LIKE '%$producto%' AND name_cellar LIKE '$bodega' AND prefix_measure LIKE '$measure' AND DATE(creation_date) BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_product DESC LIMIT $limit OFFSET $offset";

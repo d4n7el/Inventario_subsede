@@ -33,6 +33,18 @@
             	$e->getMessage();
         	}
 		}
+		public function graphics_pie(){
+			try {
+				$sql_consult = $this->db->prepare("SELECT cellar.name_cellar, COUNT(id_user) as count FROM user INNER JOIN cellar ON user.id_cellar = cellar.id_cellar GROUP BY user.id_cellar");
+				$sql_consult->execute();
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function count_user($name,$cedula,$correo,$apellido,$id_user,$estado){
 			try {
 				$sql = "SELECT COUNT(id_user) AS count FROM user  WHERE id_user LIKE '$id_user' AND name_user LIKE '$name' AND cedula LIKE '$cedula' AND email_user LIKE '$correo' AND last_name_user LIKE '$apellido' AND state LIKE '$estado' ";

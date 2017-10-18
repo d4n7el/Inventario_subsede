@@ -32,6 +32,18 @@
             	$e->getMessage();
         	}
 		}
+		public function graphics_pie(){
+			try {
+				$sql_consult = $this->db->prepare("SELECT products.name_product, COUNT(id_stock) as count FROM products INNER JOIN stock ON products.id_product = stock.id_product GROUP BY products.id_product");
+				$sql_consult->execute();
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function count_stock($id_stock,$lote,$cellar,$product,$casa,$vencimiento,$fecha_inicial,$fecha_final,$estado){
 			try {
 				$sql = "SELECT COUNT(id_stock) as count FROM get_stock WHERE id_stock LIKE '$id_stock' AND nom_lot LIKE '$lote' AND name_cellar LIKE'$cellar' AND  name_product LIKE '$product' AND comercializadora LIKE '$casa' AND expiration_date LIKE '$vencimiento' AND creation_date BETWEEN '$fecha_inicial' AND '$fecha_final' AND state LIKE $estado";

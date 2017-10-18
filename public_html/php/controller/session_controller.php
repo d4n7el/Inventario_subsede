@@ -10,7 +10,7 @@
 		}
 		public function init_session_user($cedula){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM user WHERE cedula = ? LIMIT 1");
+				$sql_consult = $this->db->prepare("SELECT * FROM user WHERE cedula = ? AND state = 1 LIMIT 1");
 				$sql_consult->execute(array($cedula));
 				$result = $sql_consult->fetch();
 				$this->db = null;
