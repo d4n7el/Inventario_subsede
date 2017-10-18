@@ -17,7 +17,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
 		public function get_equipments(){
@@ -81,7 +81,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	$e->getMessage();
+            	 $e->getMessage();
         	}
 		}
 		public function exit_equipment_detall($valores_insert){
@@ -94,7 +94,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	$e->getMessage();
+            	 $e->getMessage();
         	}
 		}
 
