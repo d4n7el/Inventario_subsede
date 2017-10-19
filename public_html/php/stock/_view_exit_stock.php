@@ -91,7 +91,7 @@
 					</h6>
 				</div>
 				<div class="col s1 second_cell">
-					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_exit_stock" data-target="modal_right" id_exit_product="<?php echo $value['id_exit_product_master'] ?>">visibility</button>
+					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_exit_inform" data-target="modal_right" ruta="/php/stock/exit_stock_complete.php" id_exit_master="<?php echo $value['id_exit_product_master'] ?>">visibility</button>
 				</div>
 				<div class="col s1 second_cell">
 						<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_view_exit_stock" id_exit_product="<?php echo $value['id_exit_product_master'] ?>" data-target="modal_center" id_exit_product_detalle="<?php echo $value['id_exit_product_detalle'] ?>" stock="<?php echo $value['id_stock'] ?>">create</button>

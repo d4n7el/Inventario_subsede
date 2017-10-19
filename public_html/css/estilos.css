@@ -10,17 +10,35 @@ body{
 .color_letra_danger{
 	color: rgb(231,53,58) !important;
 }
-#area_impresion .row{
-	margin-bottom: 0px !important;
-}
-.content_impresion h5{
-	margin-bottom: 0px !important;
-}
 .sombra{
 	box-shadow: 0 2px 2px 0 rgba(0,133,122,.2), 0 1px 5px 0 rgba(0,133,122,.2), 0 2px 1px 2px rgba(0,133,122,.2);
 }
 .sombra_blanca{
 	box-shadow: 0 2px 2px 0 rgba(255,255,255,.2), 0 1px 5px 0 rgba(255,255,255,.2), 0 2px 1px 2px rgba(255,255,255,.2);
+}
+.form_fix_right{
+	position: absolute;
+	top: 12em;
+	right: 0  !important;
+}
+div.formulario{
+	border-right: 1px dashed rgba(3,124,136,.2);
+}
+p.guia_abajo i{
+	color: white !important;
+	text-shadow: 0 2px 10px 10px rgba(0,133,122,1), 0 1px 5px 10px rgba(0,133,122,1), 0 2px 1px 2px rgba(0,133,122,1);
+	font-size: 4em;
+	animation-name: guia_abajo;
+    animation-duration: 1s;
+    animation-iteration-count: 20;
+}
+p.guia_abajo i.second{
+	margin-top: -1.5em;
+}
+@keyframes guia_abajo {
+    from {font-size: 5em;
+    	text-shadow: 2px 2px rgba(0,133,122,.7);}
+    to {font-size: 4em}
 }
 .nav-wrapper{
 	background-color: transparent !important;
@@ -78,9 +96,6 @@ div#view_add_elements{
 	padding-top: 2em;
 	height: 50vh;
 	overflow: scroll;
-	-moz-box-shadow:inset -1px -1px 39px rgba(0,133,122,.1);
-	-webkit-box-shadow:inset -1px -1px 39px rgba(0,133,122,.1);
-	box-shadow:inset -1px -1px 39px rgba(0,133,122,.1);
 	border-radius: 1em;
 }
 div.element_salida{

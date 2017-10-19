@@ -56,16 +56,35 @@ function eliminar_eventos(){
 	$('#id_product_exit').off('change');
 	$('form#add_exit_product').off('submit');
 	$('a#delete_exit').off('click');
-	$('button.view_exit_stock').off('click');
+	$('button.view_exit_inform').off('click');
 	$('button.edit_view_exit_stock').off('click');
 	$('form.search').off('submit');
 	$('button.view_plant_stock').off('click');
 	$('button.edit_stock_plant').off('click');
 	$('button.delete_view_exit_stock').off('click');
 	$('input#test1,input#test2').off('change');
+	$('button#generar_pdf').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	$('input#Externo,input#interno').on('change', function(event) {
+		event.preventDefault();
+		if ($(this).val() == "Ext") {
+			$('div#desc_destino').removeClass('hide');
+			$('div#desc_destino input').removeAttr('disabled');
+		}else{
+			$('div#desc_destino').addClass('hide');
+			$('div#desc_destino input').add('disabled');
+		}
+	});
+	$('button#generar_pdf').on('click', function(event) {
+		event.preventDefault();
+		var ruta = "../php/expor_pdf.php";
+		formData = {
+			'html': $('div#area_impresion').html(),
+		}
+		ajax_get_data(ruta,formData);
+	});
 	$('select').material_select();
 		$('button.view_info_stock').on('click', function(event) {
 		event.preventDefault();
@@ -77,7 +96,11 @@ var recargar_eventos = function(){
 	});
 	$('button#impresion').on('click', function(event) {
 		event.preventDefault();
-		generate_pdf();
+		var html = $('div#area_impresion').html();
+		var ruta = "../php/expor_pdf.php";
+		$("div#area_impresion").load(ruta,{html: html},function() {
+			recargar_eventos();
+		});
 	});
 	$('form.search').on('submit', function(event) {
 		event.preventDefault();
@@ -107,10 +130,11 @@ var recargar_eventos = function(){
 		});
 		$('div#modal_center div.modal-content form').attr('action', '/php/stock/update_exit_stock.php');;
 	});
-	$('button.view_exit_stock').on('click', function(event) {
+	$('button.view_exit_inform').on('click', function(event) {
 		event.preventDefault();
-		var id_exit_product = $(this).attr('id_exit_product');
-		$("div#modal_right div.modal-content").load("/php/stock/exit_stock_complete.php",{id_exit_product: id_exit_product},function() {
+		var ruta = $(this).attr('ruta')
+		var id_exit_master = $(this).attr('id_exit_master');
+		$("div#modal_right div.modal-content").load(ruta,{id_exit_master: id_exit_master},function() {
 			recargar_eventos();
 		});
 	});
@@ -295,11 +319,13 @@ var recargar_eventos = function(){
 	});
 	$('button.editar_info').on('click', function(event) {
 		event.preventDefault();
+		$(this).closest('div').removeClass('s4').addClass('s12');
+		$(this).closest('form').find('div.oculto').addClass('hide');
 		$(this).closest('form').find('div').removeClass('hide');
 		$(this).closest('form').find('button').removeClass('hide');
 		$(this).closest('form').find('button.editar_info').addClass('hide');
 		$(this).closest('form').find('input').removeAttr('readonly');
-		$(this).closest('div#vista_ventana').find('i').css('color', 'rgba(0,0,0,.4)');
+		$(this).closest('div#vista_ventana').find('i').css('color', 'rgba(0,0,0,.4) !important');
 		$(this).closest('div').siblings('div').find('i').css('color', 'rgb(30,136,229)');
 	});
 	$('form.update_info').on('submit', function(event) {
@@ -309,6 +335,7 @@ var recargar_eventos = function(){
 		ajax_set_form_data(ruta,formData);
 	});
 	$('button.actualizar_info').on('click', function(event) {
+		$(this).closest('div').removeClass('s12').addClass('s4');
 		$(this).addClass('hide');
 		$(this).closest('form').find('button.editar_info').removeClass('hide');
 		$(this).closest('form').find('div.oculto').addClass('hide');
@@ -352,6 +379,11 @@ function ajax_set_form_data(ruta,formData){
 	    	success(response);
 	    	if (response['status']==1 && response['process']=='create')  {
  	    		clean_input();
+ 	    		if (response['graphics'] != undefined) {
+					$('div#view_graphics').load(response['graphics'],function() {
+						console.log(response['graphics']);
+					});
+		    	}
  	    	}
  	    	if (response['status']==1 && response['process']=='exit_product')  {
  	    		limpiar_exit();
@@ -402,10 +434,12 @@ function ajax_get_data(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	
+	    	if (response['process'] != undefined) {
+	    		view_btn_imprimir(response);
+	    	}
 	    },
 	    error: function(jqXHR,error,estado){
-	    	
+	    	console.log(jqXHR);
 	    }
 	})
 }
@@ -521,7 +555,7 @@ function ver_add_exit_product(product_exit){
 	if (disponible != "") {
 		if ($("div#"+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']).length == 0) {
 			var html =  
-			'<div class="col s12" style="margin-bottom: 1em">\
+			'<div class="col s6" style="margin-bottom: 1em">\
 				<input type="hidden" name="producto_id[]" value="'+product_exit['producto_id']+'">\
 				<input type="hidden" name="bodega_id[]" value="'+product_exit['bodega_id']+'">\
 				<input type="hidden" name="lote_id[]" value="'+product_exit['lote_id']+'">\
@@ -560,26 +594,18 @@ function limpiar_add_exit(){
 	$("input#cantidad").siblings('label').text("");
 }
 function limpiar_exit(){
-	$('div#view_add_elements').html("<p></p>");
+	var html = '<p class="col s12 center guia_abajo"><i class="material-icons col s12">expand_more</i><i class="material-icons col s12 second">expand_more</i></p>';
+	$('div#view_add_elements').html(html);
 	$('div#name_receive_user').html("");
 	$('input#receive_user').val("");
 }
-function generate_pdf(){
-	specialElementHandlers = {
-            '#bypassme': function (element, renderer) {
-                return true
-            }
-        };
-	html2canvas(document.getElementById('area_impresion'),{
-		onrendered: function(canvas){
-			var img = canvas.toDataURL('imagen.png');
-			var doc = new jsPDF();
-			doc.addImage(img, 'JPEG',25,15,0,0,{
-            'width': 400,
-            
-         });
-			doc.save("test.pdf");
-		}
-	})
-	
+function view_btn_imprimir(response){
+	console.log(response);
+	if (response['process'] == "imprimir" && response['status'] == 1) {
+		$('a#new_impresion').removeClass('hide');
+		$('button#generar_pdf').addClass('hide');	
+	}else{
+		$('a#new_impresion').addClass('hide');
+		$('button#generar_pdf').removeClass('hide');	
+	}
 }

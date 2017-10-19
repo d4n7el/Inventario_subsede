@@ -159,7 +159,7 @@
 					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/equiment_exit.php" id="" class="link_page color_letra_primario" titulo="Salida Equipo">Salida Equipo<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action">
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments" class="link_page color_letra_primario" titulo="Ver Equipo">Ver Equipo<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/index_exit.php" class="link_page color_letra_primario" titulo="Ver Equipo">Ver Salidas<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>

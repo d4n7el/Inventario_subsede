@@ -1,3 +1,4 @@
+<canvas id="pie-chart" width="600" height="400"></canvas>
 <script>
 var datos = <?= json_encode($data,
     JSON_NUMERIC_CHECK | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS
@@ -8,8 +9,6 @@ var mensajes = <?= json_encode($label,
 var texto = <?= json_encode($text,
     JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS
 ) ?>;
-console.log(datos);
-console.log(mensajes);
 var popCanvas = document.getElementById("pie-chart");
 var barChart = new Chart(popCanvas, {
   type: 'pie',

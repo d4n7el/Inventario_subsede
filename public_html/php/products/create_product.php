@@ -28,8 +28,7 @@
 			        </div>	
 				</form>
 		    </div>
-		    <div class="col s6">
-	    		<canvas id="pie-chart" width="600" height="400"></canvas>
+		    <div class="col s6" id="view_graphics">
 	    		<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/products/graphics_pie.php") ?>
 	    	</div>
 		</div>

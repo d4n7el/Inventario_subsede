@@ -57,29 +57,30 @@ if (count($retorno_stock) > 0) {
 						<?php echo $value['name_product']." - ". $value['name_cellar']; ?>
 				    </h6>
 
-					<div class="input-field col s4 hide oculto">
+					<div class="input-field col s4 m4 hide oculto">
 				           <?php require($_SERVER['DOCUMENT_ROOT'].'/php/products/view_selects_products.php'); ?>
 				    </div>
 
-					<div class="input-field col s4">
+					<div class="input-field col s4 m4">
 				           <i class="material-icons prefix">dashboard</i>
 				           <input id="lote" type="text" class="validate editar_info" name="nombre_lote" autocomplete="off" value="<?php echo $value['nom_lot'] ?>"  readonly="readonly">
 				           <label for="lote" class="active">Lote</label>
 				    </div>
 
-					<div class="input-field col s4 m2">
+					<div class="input-field col s4  m4">
 				        <i class="material-icons prefix">filter_9_plus</i>
 				        <input id="nombre_producto" type="text" class="validate editar_info" name="amount" autocomplete="off" value="<?php echo $value['amount'] ?>"  readonly="readonly">
 				         <label for="nombre_producto" class="active">Cantidad</label>
 				    </div>
 
 
-					<div class="input-field col s4 m3 ">
+					<div class="input-field col s4  m4 oculto hide ">
 				        <i class="material-icons prefix">date_range</i>
 				        <input id="nombre_producto" type="text" class="validate datepicker editar_info" name="expiration" autocomplete="off" value="<?php echo $value['expiration_date'] ?>"  readonly="readonly">
 				        <label for="nombre_producto" class="active">Fecha Vencimiento</label>
 				    </div>
-				    <div class="input-field col s3 hide oculto">
+				    <div class="input-field col s3 m4 hide oculto">
+				    	<i class="material-icons prefix">thumbs_up_down</i>
 					    <select name="estado">
 						      <option value="" disabled selected>Estado</option>
 						      <option value="0" <?php echo ($estado == "0") ? "selected"  : "" ?>>Inactivo</option>
@@ -92,7 +93,7 @@ if (count($retorno_stock) > 0) {
 				        <input id="nombre_producto" type="text" class="validate editar_info" name="comercializadora" autocomplete="off" value="<?php echo $value['comercializadora'] ?>"  readonly="readonly">
 				        <label for="nombre_producto" class="active">Comercializadora</label>
 				    </div>
-				    <div class="action col s12 m3 centrar">
+				    <div class="action col s4 centrar">
 				       <button class="waves-effect waves-light btn btn-success hide actualizar_info">
 				        <i class="material-icons left">near_me</i>Guardar
 				       </button>
