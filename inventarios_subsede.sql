@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 20-10-2017 a las 01:50:02
+-- Tiempo de generación: 20-10-2017 a las 01:53:13
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -298,18 +298,19 @@ CREATE TABLE `exit_tools_detall` (
   `id_exit` int(11) NOT NULL,
   `id_tool` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `note_received` text NOT NULL
+  `note_received` text NOT NULL,
+  `state` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `exit_tools_detall`
 --
 
-INSERT INTO `exit_tools_detall` (`id_exit_detall`, `id_exit`, `id_tool`, `quantity`, `note_received`) VALUES
-(4, 24, 1, 2, 'cual quier nota'),
-(5, 25, 7, 4, 'sddfd'),
-(6, 26, 8, 3, 'picas'),
-(7, 27, 9, 2, 'cualquier cosa');
+INSERT INTO `exit_tools_detall` (`id_exit_detall`, `id_exit`, `id_tool`, `quantity`, `note_received`, `state`) VALUES
+(4, 24, 1, 2, 'cual quier nota', 1),
+(5, 25, 7, 4, 'sddfd', 1),
+(6, 26, 8, 3, 'picas', 1),
+(7, 27, 9, 2, 'cualquier cosa', 1);
 
 -- --------------------------------------------------------
 
