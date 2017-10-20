@@ -287,12 +287,12 @@ var recargar_eventos = function(){
 	$('input#test1,input#test2').on('change',function(event) {
 		$('input#estado').val($(this).val());
 	});
-	// $('form.create_info').on('submit', function(event) {
-	// 	event.preventDefault();
-	// 	var formData = new FormData(this);
-	// 	var ruta =  $(this).attr('action');
-	// 	ajax_set_form_data(ruta,formData);
-	// });
+	$('form.create_info').on('submit', function(event) {
+		event.preventDefault();
+		var formData = new FormData(this);
+		var ruta =  $(this).attr('action');
+		ajax_set_form_data(ruta,formData);
+	});
 	$('button.editar_info').on('click', function(event) {
 		event.preventDefault();
 		$(this).closest('div').removeClass('s4').addClass('s12');
