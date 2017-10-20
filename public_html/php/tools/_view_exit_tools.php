@@ -76,6 +76,16 @@
 						<?php echo $value['quantity']; ?>
 					</h6>
 				</div>
+				<div class="col s2 second_cell cantidad_disponible">
+					<h6 class="col s12 centrar color_letra_secundario" id="cantidad_<?php echo $value['id_exit'].$value['id_exit_detall'].$value['id_stock'] ?>">
+						<?php echo $value['name_user_receive']; ?>
+					</h6>
+				</div>
+				<div class="col s2 second_cell cantidad_disponible">
+					<h6 class="col s12 centrar color_letra_secundario" id="cantidad_<?php echo $value['id_exit'].$value['id_exit_detall'].$value['id_stock'] ?>">
+						<?php echo $value['date_create']; ?>
+					</h6>
+				</div>
 				<div class="col s1 second_cell">
 					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_exit_stock" data-target="modal_right" id_exit_tools="<?php echo $value['id_exit'] ?>">visibility</button>
 				</div>

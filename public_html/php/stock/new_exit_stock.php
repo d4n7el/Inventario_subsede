@@ -15,7 +15,7 @@
 	$valores_insert = "";
 	$ids_cant_stock = "";
 	$consulta_cantidades = [];
-	if ($destino == "Int" || $destino == "Ext" && $recive != "" && count($cantidad) > 0 && count($stock) > 0) {	
+	if ($destino == "Int" || $destino != "" && $recive != "" && count($cantidad) > 0 && count($stock) > 0) {	
 		foreach ($stock as $index => $id_stock) {
 			$ids_cant_stock.= "id_stock = ".$id_stock." OR ";
 		}

@@ -13,17 +13,13 @@
 	$retorno_master = $tools_exit->exit_tools_master($id_user,$id_user_receive,$name_user_receive);
 	if ($retorno_master > 0){
 		foreach ($quantity as $key => $value) {
-			echo $value;
-			echo $note_received[$key];
-			echo $elements[$key];
-			echo "<br>";
+			$value;
+			$note_received[$key];
+			$elements[$key];
+			"<br>";
 			$insert_values .="(".$retorno_master.",".$value.",'".$note_received[$key]."',".$elements[$key]."),";
 		}
 		$insert_values = substr($insert_values, 0, -1);
-		echo $insert_values;
 		$retorno_detalle = $tools_exit_detall->exit_tools_detall($insert_values);
 	}
-
-
-
  ?>

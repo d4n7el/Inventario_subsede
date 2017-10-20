@@ -9,7 +9,7 @@
 	$bodega 			= $_REQUEST["cellar"];
 	$retorno_product 	= $product->insert_product($producto,$descripcion,$unidad_medida,$id_user,$bodega);
 	if ($retorno_product > 0) {
-		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create' );
+		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create','graphics' => 'php/products/graphics_pie.php' );
 	}else{
 		$respuesta = array('mensaje' => "error", 'status' => 0 );
 	}

@@ -53,7 +53,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
 		public function update_tools($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_herramienta,$id_user){
@@ -90,7 +90,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
 		public function get_exit_tools($tool,$cedula,$fecha_inicial,$fecha_final,$estado,$limit,$offset){
@@ -118,7 +118,19 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();	 
+            	$e->getMessage();	 
+        	}
+		}
+		public function show_exit_tools($id_exit,$id_exit_detall = "%%"){
+			try {
+				$sql_consult = $this->db->prepare("SELECT * FROM show_exit_tools WHERE id_exit_product_master = ? AND id_exit_detall LIKE ? " );
+				$sql_consult->execute(array($id_exit,$id_exit_detall));
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
         	}
 		}
 	}

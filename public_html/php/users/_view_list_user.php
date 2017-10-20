@@ -1,20 +1,20 @@
 <div class="row">
 	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/index.php/" accept-charset="utf-8" class="search">
 		<div class="flitro col s9 centrar sombra_blanca">
-			<div class="input-field col s12 m4">
+			<div class="input-field col s4">
 	            <i class="material-icons prefix">search</i>
 	            <input id="name" type="text" value="<?php echo ($name == "%%") ? "" : $name ?>" class="validate search" name="name" autocomplete="off">
 	            <label for="name" class="<?php echo ($name == "%%") ? "" : "active" ?> search">Nombre</label>
 	        </div>
-	        <div class="input-field col s12 m4">
+	        <div class="input-field col s4">
 	            <input id="apellido" type="text" class="validate search" value="<?php echo ($apellido == "%%") ? "" : $apellido ?>" name="apellido" autocomplete="off">
 	            <label for="apellido" class="<?php echo ($apellido == "%%") ? "" : "active" ?> search">Apellido</label>
 	        </div>
-	        <div class="input-field col s12 m4">
+	        <div class="input-field col s4">
 	            <input id="cedula" type="text" class="validate search" value="<?php echo ($cedula == "%%") ? "" : $cedula  ?>" name="cedula" autocomplete="off">
 	            <label for="cedula" class="<?php echo ($cedula == "%%") ? "" : "active" ?> search">Cedula</label>
 	        </div>
-	        <div class="input-field col s12 m4">
+	        <div class="input-field col s4">
 	            <input id="correo" type="text" class="validate search" value="<?php echo ($correo == "%%") ? "" : $correo ?>" name="correo" autocomplete="off">
 	            <label for="correo" class="<?php echo ($correo == "%%") ? "" : "active" ?> search">Correo</label>
 	        </div>
@@ -62,7 +62,8 @@
 				            <input id="email_user" type="email" class="validate" name="email" autocomplete="off" required value="<?php echo $value['email_user'] ?>">
 				            <label for="email_user" class="active">Correo Electrónico</label>
 				        </div>
-				        <div class="input-field col s3 hide oculto">
+				        <div class="input-field col s4 hide oculto">
+				        	<i class="material-icons prefix">thumbs_up_down</i>
 						    <select name="estado">
 							      <option value="" disabled selected>Estado</option>
 							      <option value="0" <?php echo ($estado == "0") ? "selected"  : "" ?>>Inactivo</option>
