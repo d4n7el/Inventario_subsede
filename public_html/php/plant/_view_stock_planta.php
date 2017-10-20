@@ -83,19 +83,19 @@
 				</h6>
 			</div>
 			<div class="col s1 second_cell">
-				<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/show_stock_plant.php" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_plant_stock" data-target="modal_right" id_exit_product="<?php echo $value['id_exit_product'] ?>">visibility</button>
+				<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/show_stock_plant.php" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_exit_inform" data-target="modal_right" id_exit_master="<?php echo $value['id_exit_product'] ?>">visibility</button>
 			</div>
 			<?php  
 				if ($value['state'] == 1) { ?>
 					<div class="col s1 second_cell">
-						<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/edit_stock_plant.php" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_stock_plant" id_exit_product="<?php echo $value['id_exit_product'] ?>" data-target="modal_center" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" id_plant="<?php echo $value['id_stock_plant']?>">create</button>
+						<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/edit_stock_plant.php" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_cant_inform" id_exit_master="<?php echo $value['id_exit_product'] ?>" id_exit_detalle="<?php echo $value['id_exit_detalle'] ?>" data-target="modal_center" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" id_plant="<?php echo $value['id_stock_plant']?>">create</button>
 					</div>
 					<?php
 				}
 			?>
 			
 			<div class="col s1 second_cell">
-				<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/edit_stock_plant.php" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_stock" id_exit_product="<?php echo $value['id_exit_product'] ?>" data-target="modal_center" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" id_plant="<?php echo $value['id_stock_plant']?>">receipt</button>
+				<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_stock" id_exit_product="<?php echo $value['id_exit_product'] ?>" data-target="modal_center" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" id_plant="<?php echo $value['id_stock_plant']?>">receipt</button>
 			</div>
 		</div>
 		<?php

@@ -31,12 +31,10 @@
 
 	}
 	if ($paso==true) {
-	 
 		foreach ($element as $key => $value) {
 			$valores_insert.=" (".$retorno.",".$value.",".$cantidad[$key].",'".$texto[$key]."'),";
 		}
 		$valores_insert = substr($valores_insert,0,-1);
-		echo $valores_insert;
 		$retorno_detall = $equipment_exit_detall->exit_equipment_detall($valores_insert);
 		if ($retorno_detall > 0 && $retorno > 0) {
 			$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create');

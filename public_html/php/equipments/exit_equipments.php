@@ -27,5 +27,4 @@
 		$retorno_exit = $exits->get_exit_stock($id_exit_product,$destino,$product,$cellar,$lote,$fecha_inicial,$fecha_final,$limit,$offset);
 		require_once($_SERVER['DOCUMENT_ROOT'].'/php/stock/_view_exit_stock.php');
 	}
-
  ?>
