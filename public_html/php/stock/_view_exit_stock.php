@@ -94,12 +94,12 @@
 					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_exit_inform" data-target="modal_right" ruta="/php/stock/exit_stock_complete.php" id_exit_master="<?php echo $value['id_exit_product_master'] ?>">visibility</button>
 				</div>
 				<div class="col s1 second_cell">
-						<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_view_exit_stock" id_exit_product="<?php echo $value['id_exit_product_master'] ?>" data-target="modal_center" id_exit_product_detalle="<?php echo $value['id_exit_product_detalle'] ?>" stock="<?php echo $value['id_stock'] ?>">create</button>
+						<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_cant_inform" id_exit_master="<?php echo $value['id_exit_product_master'] ?>" data-target="modal_center" id_exit_detalle="<?php echo $value['id_exit_product_detalle'] ?>" id_element="<?php echo $value['id_stock'] ?>" ruta="../php/stock/edit_exit_stock.php" ruta_update="../php/stock/update_exit_stock.php">create</button>
 					</div>
 				<?php  
 				if ($value['state'] == 1) { ?>
 					<div class="col s1 second_cell">
-						<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger delete_view_exit_stock" id_exit_product="<?php echo $value['id_exit_product_master'] ?>" data-target="modal_center" id_exit_product_detalle="<?php echo $value['id_exit_product_detalle'] ?>" stock="<?php echo $value['id_stock'] ?>">clear</button>
+						<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger delete_exit_inform" id_exit_master="<?php echo $value['id_exit_product_master'] ?>" data-target="modal_center" id_exit_detalle="<?php echo $value['id_exit_product_detalle'] ?>" id_element="<?php echo $value['id_stock'] ?>" ruta="/php/stock/_cancel_exit_stock.php">clear</button>
 					</div>
 					<?php 
 				}

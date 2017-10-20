@@ -57,11 +57,9 @@ function eliminar_eventos(){
 	$('form#add_exit_product').off('submit');
 	$('a#delete_exit').off('click');
 	$('button.view_exit_inform').off('click');
-	$('button.edit_view_exit_stock').off('click');
 	$('form.search').off('submit');
-	$('button.view_plant_stock').off('click');
-	$('button.edit_stock_plant').off('click');
-	$('button.delete_view_exit_stock').off('click');
+	$('button.edit_cant_inform').off('click');
+	$('button.delete_exit_inform').off('click');
 	$('input#test1,input#test2').off('change');
 	$('button#generar_pdf').off('click');
 }
@@ -113,23 +111,6 @@ var recargar_eventos = function(){
 			recargar_eventos();
 		});
 	});
-	$('button.edit_view_exit_stock').on('click', function(event) {
-		event.preventDefault();
-		var ruta = "/php/stock/edit_exit_stock.php";
-		var id_exit_product = $(this).attr('id_exit_product');
-		var id_exit_product_detalle = $(this).attr('id_exit_product_detalle');
-		var id_stock = $(this).attr('stock');
-		div_id = id_exit_product + id_exit_product_detalle + id_stock;
-		var formData = {
-			'id_exit_product' : id_exit_product,
-			'id_exit_product_detalle': id_exit_product_detalle,
-			'id_stock': id_stock,
-		}
-		$('div#modal_center div.modal-content form').load(ruta,formData,function() {
-			recargar_eventos();
-		});
-		$('div#modal_center div.modal-content form').attr('action', '/php/stock/update_exit_stock.php');;
-	});
 	$('button.view_exit_inform').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('ruta')
@@ -138,46 +119,41 @@ var recargar_eventos = function(){
 			recargar_eventos();
 		});
 	});
-	$('button.delete_view_exit_stock').on('click', function(event) {
+	$('button.delete_exit_inform').on('click', function(event) {
 		event.preventDefault();
-		var id_exit_product = $(this).attr('id_exit_product');
-		var id_exit_product_detalle = $(this).attr('id_exit_product_detalle');
-		var stock = $(this).attr('stock');
+		var id_exit_master = $(this).attr('id_exit_master');
+		var id_exit_detalle = $(this).attr('id_exit_detalle');
+		var id_element = $(this).attr('id_element');
+		var ruta = $(this).attr('ruta');
 		var datos = {};
-		datos['id_exit_product'] = id_exit_product;
-		datos['id_exit_product_detalle'] = id_exit_product_detalle;
-		datos['stock'] = stock;
+		datos['id_exit_master'] = id_exit_master;
+		datos['id_exit_detalle'] = id_exit_detalle;
+		datos['id_element'] = id_element;
 		var x = 0;
+		console.log(datos);
 		$(this).closest('div').siblings('div').find('h6').each(function() {
 			datos["a_"+x] =  $.trim($(this).text());
 			x++;	
 		});
-		console.log(datos);
-		$("div#modal_center div.modal-content").load("/php/stock/_cancel_exit_stock.php",datos,function() {
+		$("div#modal_center div.modal-content").load(ruta,datos,function() {
 			recargar_eventos();
 		});
 	});
-	$('button.view_plant_stock').on('click', function(event) {
-		event.preventDefault();
+	$('button.edit_cant_inform').on('click', function(event) {
 		var ruta = $(this).attr('ruta');
-		var id_exit_product = $(this).attr('id_exit_product');
-		$("div#modal_right div.modal-content").load(ruta,{id_exit_product: id_exit_product},function() {
-			recargar_eventos();
-		});
-	});
-	$('button.edit_stock_plant').on('click', function(event) {
-		var ruta = $(this).attr('ruta');
-		var exit_product = $(this).attr('id_exit_product');
-		var stock = $(this).attr('stock');
-		var id_planta = $(this).attr('id_plant');
+		var ruta_update = $(this).attr('ruta_update');
+		var id_exit_master = $(this).attr('id_exit_master');
+		var id_exit_detalle = $(this).attr('id_exit_detalle');
+		var id_element = $(this).attr('id_element');
 		var formData = {
-			'id_exit_product': exit_product,
-			'stock': stock,
-			'id_planta': id_planta
+			'id_exit_master': id_exit_master,
+			'id_exit_detalle': id_exit_detalle,
+			'id_element': id_element
 		}
-		div_id = exit_product+stock+id_planta;
+		div_id = id_exit_master+id_exit_detalle+id_element;
+		console.log(div_id);
 		$('div#modal_center div.modal-content form').load(ruta,formData,function() {
-			$('div#modal_center div.modal-content form').attr('action','../php/plant/update_stock_stock_plant.php');
+			$('div#modal_center div.modal-content form').attr('action',ruta_update);
 			recargar_eventos();
 		});
 	});
@@ -311,12 +287,12 @@ var recargar_eventos = function(){
 	$('input#test1,input#test2').on('change',function(event) {
 		$('input#estado').val($(this).val());
 	});
-	$('form.create_info').on('submit', function(event) {
-		event.preventDefault();
-		var formData = new FormData(this);
-		var ruta =  $(this).attr('action');
-		ajax_set_form_data(ruta,formData);
-	});
+	// $('form.create_info').on('submit', function(event) {
+	// 	event.preventDefault();
+	// 	var formData = new FormData(this);
+	// 	var ruta =  $(this).attr('action');
+	// 	ajax_set_form_data(ruta,formData);
+	// });
 	$('button.editar_info').on('click', function(event) {
 		event.preventDefault();
 		$(this).closest('div').removeClass('s4').addClass('s12');

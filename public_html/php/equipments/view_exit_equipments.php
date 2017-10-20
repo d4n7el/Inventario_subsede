@@ -27,7 +27,7 @@
 	</form>
 </div>
 <div class="row" id="head_table">
-	<div class="col s2 centrar prymary_head_cell">
+	<div class="col s3 centrar prymary_head_cell">
 		<a href="#" class="color_letra_primario">
 			<strong>Nombre Equipo </strong>
 		</a>
