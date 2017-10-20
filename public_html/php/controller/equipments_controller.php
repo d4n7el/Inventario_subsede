@@ -44,6 +44,17 @@
             	$e->getMessage();
         	}
 		}
+
+				$sql_consult = $this->db->prepare("SELECT quantity_available, id_equipment FROM equipments WHERE $ids" );
+				$sql_consult->execute();
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function count_equipments(){
 			try {
 				$sql_consult = $this->db->prepare("SELECT COUNT(id_equipment) AS count FROM equipments " );
