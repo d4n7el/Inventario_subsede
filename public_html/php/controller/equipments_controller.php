@@ -45,6 +45,8 @@
         	}
 		}
 
+		public function get_cant_equipment($ids){
+			try {
 				$sql_consult = $this->db->prepare("SELECT quantity_available, id_equipment FROM equipments WHERE $ids" );
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
