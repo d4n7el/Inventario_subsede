@@ -7,7 +7,7 @@
 	$prefijo 			= $_REQUEST["prefijo"];
 	$retorno_measure 	= $medida->insert_measure($unidad_medida, $prefijo, $id_user);
 	if (count($retorno_measure) > 0) {
-		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create');
+		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create', 'graphics' => 'php/measure/graphics_pie.php');
 	}else{
 		$respuesta = array('mensaje' => "error", 'status' => 0 );
 	}

@@ -10,7 +10,7 @@
 	$comercializadora 	= $_REQUEST["comercializadora"];
 	$retorno_stock 	= $stock->insert_stock($id_product,$nom_lot,$amount,$expiration,$comercializadora);
 	if ($retorno_stock > 0) {
-		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create' );
+		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create', 'graphics' => 'php/stock/graphics_pie.php' );
 	}else{
 		$respuesta = array('mensaje' => "error", 'status' => 0 );
 	}

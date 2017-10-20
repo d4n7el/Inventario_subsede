@@ -20,6 +20,18 @@
             	$e->getMessage();
         	}
 		}
+		public function graphics_pie(){
+			try {
+				$sql_consult = $this->db->prepare("SELECT measure.name_measure, COUNT(products.id_product) as count FROM measure INNER JOIN products ON measure.id_measure = products.unit_measure GROUP BY measure.name_measure");
+				$sql_consult->execute();
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function get_measure(){
 			try {
 				$sql_consult = $this->db->prepare("SELECT id_measure, name_measure, prefix_measure FROM measure " );

@@ -53,7 +53,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
 		public function update_tools($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_herramienta,$id_user){
@@ -90,7 +90,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
 		public function get_exit_tools($tool,$cedula,$fecha_inicial,$fecha_final,$estado,$limit,$offset){
@@ -118,7 +118,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();	 
+            	$e->getMessage();	 
         	}
 		}
 		public function show_exit_tools($id_exit,$id_exit_detall = "%%"){

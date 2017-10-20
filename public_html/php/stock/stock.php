@@ -47,8 +47,7 @@ if (isset($_SESSION["id_user_activo"])) { ?>
 		        </div>
 		    </form>	
 	    </div>
-	    <div class="col s6">
-    		<canvas id="pie-chart" width="600" height="400"></canvas>
+	    <div class="col s6" id="view_graphics">
     		<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/stock/graphics_pie.php") ?>
     	</div>
 	</div>

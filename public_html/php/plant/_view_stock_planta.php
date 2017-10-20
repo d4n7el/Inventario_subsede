@@ -86,7 +86,7 @@
 				<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/show_stock_plant.php" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_plant_stock" data-target="modal_right" id_exit_product="<?php echo $value['id_exit_product'] ?>">visibility</button>
 			</div>
 			<?php  
-				if ($value['state_detalle'] == 1) { ?>
+				if ($value['state'] == 1) { ?>
 					<div class="col s1 second_cell">
 						<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/edit_stock_plant.php" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_stock_plant" id_exit_product="<?php echo $value['id_exit_product'] ?>" data-target="modal_center" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" id_plant="<?php echo $value['id_stock_plant']?>">create</button>
 					</div>
