@@ -62,9 +62,15 @@ function eliminar_eventos(){
 	$('button.delete_exit_inform').off('click');
 	$('input#test1,input#test2').off('change');
 	$('button#generar_pdf').off('click');
+	$('a.tabla').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	$('a.tabla').on('click', function(event) {
+		event.preventDefault();
+		$('input#order').val($(this).attr('order'));
+		$('form.search').submit();
+	});
 	$('input#Externo,input#interno').on('change', function(event) {
 		event.preventDefault();
 		if ($(this).val() == "Ext") {

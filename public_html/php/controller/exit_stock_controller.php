@@ -69,9 +69,10 @@
             	$e->getMessage();
         	}
 		}
-		public function get_exit_stock($id_exit_product = "%%",$destino = "%%",$product = "%%",$cellar = "%%",$lote = "%%",$fecha_inicial,$fecha_final,$estado,$limit = "%%",$offset = "%%"){
+		public function get_exit_stock($id_exit_product,$destino,$product,$cellar,$lote,$fecha_inicial,$fecha_final,$estado,$order,$limit,$offset){
 			try {
-				$sql = "SELECT * FROM show_exit_stock WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND nom_lot LIKE '$lote' AND destination LIKE '$destino' AND id_exit_product_master LIKE '$id_exit_product' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND state = $estado ORDER BY id_exit_product_master DESC LIMIT $limit OFFSET $offset";
+				$orderBy = ($order == "%%") ?  'ORDER BY id_exit_product_master DESC' : 'ORDER BY '.$order;
+				$sql = "SELECT * FROM show_exit_stock WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND nom_lot LIKE '$lote' AND destination LIKE '$destino' AND id_exit_product_master LIKE '$id_exit_product' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND state = $estado $orderBy LIMIT $limit OFFSET $offset ";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
