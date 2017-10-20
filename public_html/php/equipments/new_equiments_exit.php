@@ -9,7 +9,8 @@
 	$texto = $_REQUEST['nota'];
 	$id_recibe = $_REQUEST['receive_user'];
 	$cantidad = $_REQUEST['cantidaddes'];
-	$retorno = $equipment_exit->exit_equipment_master($id_user_receives,$id_user_delivery);
+	$nom_receive = $_REQUEST['name_receive_user']
+	$retorno = $equipment_exit->exit_equipment_master($id_user_receives,$id_user_delivery,$nom_receive);
 	$valores_insert = "";
 
 	foreach ($element as $key => $value) {
