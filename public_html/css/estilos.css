@@ -5,13 +5,13 @@ body{
 	color: white !important;
 }
 .color_letra_secundario{
-	color: rgb(0,133,122) !important;
+	color: rgb(33,49,62) !important;
 }
 .color_letra_danger{
-	color: rgb(231,53,58) !important;
+	color: rgb(242,83,85) !important;
 }
 .sombra{
-	box-shadow: 0 2px 2px 0 rgba(0,133,122,.2), 0 1px 5px 0 rgba(0,133,122,.2), 0 2px 1px 2px rgba(0,133,122,.2);
+	box-shadow: 0 2px 2px 0 rgba(33,49,62,.2), 0 1px 5px 0 rgba(33,49,62,.2), 0 2px 1px 2px rgba(33,49,62,.2);
 }
 .sombra_blanca{
 	box-shadow: 0 2px 2px 0 rgba(255,255,255,.2), 0 1px 5px 0 rgba(255,255,255,.2), 0 2px 1px 2px rgba(255,255,255,.2);
@@ -37,7 +37,7 @@ p.guia_abajo i.second{
 }
 @keyframes guia_abajo {
     from {font-size: 5em;
-    	text-shadow: 2px 2px rgba(0,133,122,.7);}
+    	text-shadow: 2px 2px rgb(33,49,62);}
     to {font-size: 4em}
 }
 .nav-wrapper{
@@ -46,7 +46,7 @@ p.guia_abajo i.second{
 	top: 0;
 }
 nav{
-	background-color: transparent !important;
+	background-color: rgb(33,49,62) !important;
 	position: fixed;
 	top: 0;
 	z-index: 100;
@@ -54,7 +54,7 @@ nav{
 	background-repeat: no-repeat;
 }
 div.paginacion{
-	background-color: rgb(47,47,47) !important;
+	background-color: rgb(33,49,62) !important;
 	position: fixed;
 	bottom: 0;
 	z-index: 300;
@@ -62,7 +62,7 @@ div.paginacion{
 	max-height: 4em;
 }
 ul.pagination li.active{
-	background-color: rgb(0,133,122);
+	background-color: rgb(242,83,85);
 }
 div#recordatorio{
 	margin-top: 1em;
@@ -75,7 +75,7 @@ div#recordatorio h4 i {
 	border-radius: 50%;
 }
 i{
-	color: rgb(0,133,122) !important;
+	color: rgb(33,49,62) !important;
 }
 
 div.destino{
@@ -114,7 +114,7 @@ div.flitro{
 	position: fixed;
 	top: 6em;
 	z-index: 100;
-	background: rgb(47,47,47);
+	background: rgb(33,49,62);
 }
 label{
 	color: color: rgba(0,0,0,.5) !important;
@@ -129,7 +129,7 @@ input[type=text]:not(.search),input[type=number]:not(.search),input[type=passwor
 	border-radius: 20px !important;
 }
 input.search{
-	color: rgb(0,133,122) !important;
+	color: white !important;
 }
 input[type=text]:not(.search):focus,input[type=number]:not(.search):focus,input[type=password]:not(.search):focus{
 	color: black !important;
@@ -163,19 +163,19 @@ div.input-field i{
 	color: rgb(30,136,229);
 }
 h5.titulo{
-	color: rgb(0,133,122);
+	color: rgb(33,49,62);
 	font-size: 1em;
 	margin-bottom: 2em;
 }
 h6.titulo{
-	color: rgb(0,133,122);
+	color: rgb(33,49,62);
 	font-size: 1em;
 }
 div.contenedor_session{
 	height: 70vh
 }
 .btn{
-	margin-top: 2em
+	margin-top: 2em;
 }
 .btn:focus{
 	color: white !important;
@@ -183,19 +183,25 @@ div.contenedor_session{
 .btn-primary,.btn-nav{
 	margin-right: .3em;
 	background-color: white;
-	color: rgb(0,133,122);;
+	color: rgb(33,49,62);
+}
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after{
+	background-color: rgb(242,83,85);
+}
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after{
+	border: 2px solid rgb(242,83,85);
 }
 .btn-primary:hover{
 	background-color: white;
 }
 .btn-success{
-	background-color: rgb(47,47,47)
+	background-color: rgb(242,83,85);
 }
 .btn-success:hover{
-	background-color: rgb(47,47,47)
+	background-color: rgb(242,83,85);
 }
 .btn i{
-	color: rgb(30,136,229);
+	color: rgb(33,49,62);
 }
 .btn-success i {
 	color: white;
@@ -234,10 +240,6 @@ div.contenedor_session{
 	opacity: 1;
 	transition: 1s;
 }
-.targeta_inicio .card .card-content div.content{
-	min-height: 10em; 
-	max-height: 10em;
-}
 .targeta_inicio .card .card-content div.content i{
 	font-size: 4em;
 }
@@ -248,8 +250,7 @@ div.contenedor_session{
 	font-size: 3em;
 }
 .targeta_inicio{
-	margin-top: .3em;
-	height: 5em;
+	margin-top: 0em;
 	overflow: hidden;
 	transition: ease all .5s;
 }
@@ -271,7 +272,7 @@ div#vista_ventana{
 	margin-top: 11em !important;
 }
 .card-action, .fondo_negro{
-	background-color: rgb(47,47,47) !important;
+	background-color: rgb(33,49,62) !important;
 }
 .tabla .btn{
 	margin-top: 0em !important;
@@ -284,11 +285,11 @@ div#vista_ventana{
 	border-right: 1px solid rgba(3,124,136,.2);
 }
 .head_cell{
-	background-color: rgb(0,133,122);
+	background-color: rgb(242,83,85);
 	border-right: 1px solid rgba(255,255,255,.2);
 }
 .prymary_head_cell{
-	background-color: rgb(0,133,122);
+	background-color: rgb(242,83,85);
 	border-right: 1px solid rgba(255,255,255,.2);
 }
 #head_table div a{
@@ -304,6 +305,42 @@ div#vista_ventana{
 }
 div.logo_sena img{
 	width: 30%;
+}
+div.calendar div.dia{
+	color: white;
+	background-image: url('../image/header-calendar.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding-top: 2em;
+	font-size: 2em; 
+}
+div.calendar div.hora{ 
+	color: black;
+	padding: 1em;
+	background-image: url('../image/footer-calendar.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-size: 3em;
+}
+div.taregta_notificacion{
+	background-color: rgba(230,71,64,1);
+	color: white;
+	padding-top: 5em;
+	border-radius: 10px;
+}
+div.targeta_notificacion h6{
+	font-size: 1.5em;
+}
+div.targeta_notificacion i{
+	color: rgba(230,71,64,1) !important;
+}
+div.targeta_notificacion a{
+	color: rgba(230,71,64,1) !important;
+	margin-top: 1em;
+	background-color: white !important;
+}
+div.grafica img{
+	width: 100%;
 }
 
 

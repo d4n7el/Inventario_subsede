@@ -27,16 +27,6 @@ $(document).on('ready',function(){
 		});
 	});
 	$('.modal').modal();
-	$('div.targeta_inicio').on('click', function(event) {
-		event.preventDefault();
-		$('div.targeta_inicio').css('height', '5em');
-		$(this).find('i').first().css('transform', 'rotate(720deg)');
-   		$(this)
-   		.animate({ opacity: "0" }, 100 )
-   		.animate({ height: "24em" }, 100 )
-	    .animate({ opacity: "1" }, 400 )
-	    .animate({ borderLeftWidth: "15px" }, 1000 );
-	});
 });
 function eliminar_eventos(){
 	$('form#submit_session').off('submit');
@@ -535,26 +525,29 @@ function mensaje_cargando(tipo,mensaje){
 }
 function ver_add_exit_product(product_exit){
 	if (disponible != "") {
+		var vencido = product_exit['lote'].indexOf("Vencido");
+		var status = ( vencido > 1 ) ? 'color_letra_danger' : 'color_letra_secundario';
+		var mensaje = ( vencido > 1 ) ? 'Sale producto vencido' : '';
 		if ($("div#"+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']).length == 0) {
 			var html =  
-			'<div class="col s6" style="margin-bottom: 1em">\
+			'<div class="col s6 '+status+'" style="margin-bottom: 1em">\
 				<input type="hidden" name="producto_id[]" value="'+product_exit['producto_id']+'">\
 				<input type="hidden" name="bodega_id[]" value="'+product_exit['bodega_id']+'">\
 				<input type="hidden" name="lote_id[]" value="'+product_exit['lote_id']+'">\
 				<div class="col s12 sombra element_salida">\
-					<a id="delete_exit" class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
-					<h6 class="col s12 m6 center titulo color_letra_secundario">Bodega: '+product_exit['bodega']+'</h6>\
-					<h6 class="col s12 m6 center titulo color_letra_secundario">producto: '+product_exit['producto']+'</h6>\
-					<h6 class="col s12 m12 center titulo color_letra_secundario">lote: '+product_exit['lote']+'</h6>\
+					<a id="delete_exit" class="btn-floating waves-effect waves-light white '+status+' right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
+					<h6 class="col s12 m6 center titulo '+status+' ">Bodega: '+product_exit['bodega']+'</h6>\
+					<h6 class="col s12 m6 center titulo '+status+' ">producto: '+product_exit['producto']+'</h6>\
+					<h6 class="col s12 m12 center titulo '+status+' ">lote: '+product_exit['lote']+'</h6>\
 					<div class="col s12" style="margin-top: 2em">\
 						<div class="input-field col s12 m6" id="'+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']+'">\
-							<i class="material-icons prefix">filter_9_plus</i>\
+							<i class="material-icons '+status+' prefix">filter_9_plus</i>\
 				            <input id="nombre_descripcion"  type="number" max="'+disponible+'" class="validate" name="cantidad[]" value="'+product_exit['cantidad']+'" autocomplete="off" required >\
 				            <label for="nombre_descripcion" class="active">Disponible ( '+disponible+' )</label>\
 					    </div>\
 					    <div class="input-field col s12 m6">\
-				            <input id="anotacion" type="text" class="validate" name="nota[]" autocomplete="off">\
-				            <label for="anotacion" class="">Nota</label>\
+				            <input id="anotacion" type="text" value="'+mensaje+'" class="validate" name="nota[]" autocomplete="off">\
+				            <label for="anotacion" class="active">Nota</label>\
 				        </div>\
 			        </div>\
 			    </div>\
