@@ -2,8 +2,8 @@
 	session_start();
 	date_default_timezone_set('America/Bogota');
 	$fecha = date('Y-m-d');
-	$tomorrow = date( "Y-m-d", strtotime( "+1 day", strtotime($fecha)));  
-	$yesterday = date( "Y-m-d", strtotime( "-2 day", strtotime($fecha))); 
+	$tomorrow = date( "Y-m-d", strtotime( "+3 day", strtotime($fecha)));  
+	$yesterday = date( "Y-m-d", strtotime( "-3 day", strtotime($fecha))); 
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/equipments_controller.php');
 	$exits = new Equipments();
 	$count_exits = new Equipments();
