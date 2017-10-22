@@ -57,7 +57,7 @@
 	if (count($retorno_exit) > 0) {
 		foreach ($retorno_exit as $key => $value) { ?>
 			<div class="row tabla" id="celda_<?php echo $value['id_exit_equipment_master'].$value['exit_teams_detall'] ?>" >
-				<div class="col s2 primary_cell producto">
+				<div class="col s3 primary_cell producto">
 					<h6 class="col s12 centrar color_letra_secundario" >
 					 <?php echo $value['name_equipment']; ?></h6>
 				</div>

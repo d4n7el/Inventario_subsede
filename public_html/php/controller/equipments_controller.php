@@ -109,10 +109,10 @@
         	}
 		}
 
-		public function get_exit_equipments_count($team = "%%",$cedula = "%%",$fecha_inicial = "%%",$fecha_final = "%%"){
+		public function get_exit_equipments_count($team,$cedula ,$fecha_inicial,$fecha_final){
 			try {
-				$sql_consult = $this->db->prepare("SELECT COUNT(id_exit_detall) as count FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit_detall INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment" );
-				$sql_consult->execute();
+				$sql_consult = $this->db->prepare("SELECT COUNT(id_exit_detall) as count FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit_detall INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment WHERE name_equipment LIKE ?  AND id_user_receives LIKE ?" );
+				$sql_consult->execute(array($team,$cedula));
 				$result = $sql_consult->fetch();
 				$this->db = null;
 				return $result;
@@ -125,9 +125,10 @@
 
 		public function get_exit_equipments($team,$cedula,$fecha_inicial,$fecha_final,$limit,$offset){
 			try {
-				$sql = "SELECT exit_equipment_master.date_create, exit_teams_detall.id_exit, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment, exit_equipment_master.name_user_receive FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit_detall INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment LIMIT $limit OFFSET $offset ";
+
+				echo $sql = "SELECT exit_equipment_master.date_create, exit_teams_detall.id_exit, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment, exit_equipment_master.name_user_receive FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit_detall INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment WHERE name_equipment LIKE ?  AND id_user_receives LIKE ? AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' LIMIT $limit OFFSET $offset ";
 				$sql_consult = $this->db->prepare($sql);
-				$sql_consult->execute();
+				$sql_consult->execute(array($team,$cedula));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;
