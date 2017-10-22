@@ -53,9 +53,47 @@ function eliminar_eventos(){
 	$('input#test1,input#test2').off('change');
 	$('button#generar_pdf').off('click');
 	$('a.tabla').off('click');
+	$('a.add_exit_plant').off('click');
+	$('a.delete_exit_plant').off('click');
+	$('form.search_exit_plant').off('submit');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	$('a.add_exit_plant').on('click', function(event) {
+		event.preventDefault();
+		var divs = $(this).attr('divs');
+		if ($('div#'+divs+"add").length > 0) {
+			mensaje_alert("error","No puedes agregar el producto varias veces",2000);
+		}else{
+			var html = $('div#'+divs).html();
+			$('div.list_add_exit_plant div.listado').after(html);
+			$('div.list_add_exit_plant div.card').first()
+				.animate({ opacity: 0 },0)
+				.animate({ opacity: 1 },1000);
+			$('div.list_add_exit_plant div.card').first().attr('id',divs+"add");
+			$('div.list_add_exit_plant div.card div.cantidad').removeClass('hide');
+			$('div.list_add_exit_plant div.card').addClass('fondo_negro');
+			$('div.list_add_exit_plant div.card p').removeClass('color_letra_secundario').addClass('color_letra_primario');
+			$('div.list_add_exit_plant div.card').removeClass('s12').addClass('col s6');
+			$('div.list_add_exit_plant a.add_exit_plant').addClass('hide');
+			$('div.list_add_exit_plant a.delete_exit_plant').removeClass('hide');
+			recargar_eventos();
+		}
+	});
+	$('form.search_exit_plant').on('submit', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('action');
+		var search = $('input#search').val();
+		$("div.formulario").load(ruta,{search: search},function() {
+			recargar_eventos();
+		});
+	});
+	$('a.delete_exit_plant').on('click', function(event) {
+		event.preventDefault();
+		$(this).closest('div.card')
+			.animate({ opacity: 0 },300);
+		$(this).closest('div.card').remove();
+	});
 	$('a.tabla').on('click', function(event) {
 		event.preventDefault();
 		$('input#order').val($(this).attr('order'));

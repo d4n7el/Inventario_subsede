@@ -54,6 +54,20 @@
             	$e->getMessage();
         	}
 		}
+		public function search_stock_planta($search){
+			try {
+				$search = ($search != "%%") ? "%".$search."%" : $search;
+				$sql =  "SELECT * FROM planta_stock WHERE state = 1  AND quantity > 0 AND name_cellar LIKE ? OR state = 1  AND quantity > 0 AND name_product LIKE ? OR state = 1  AND quantity > 0 AND nom_lot LIKE ?";
+				$sql_consult = $this->db->prepare($sql);
+				$sql_consult->execute(array($search,$search,$search));
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function update_stock_plant($id_exit_product,$id_stock_plant,$stock,$cantidad,$id_user,$note){
 			try {
 				$sql_consult = $this->db->prepare('CALL update_stock_plant (?,?,?,?,?,?,@retorno) ');

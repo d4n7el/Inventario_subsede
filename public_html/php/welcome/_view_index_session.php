@@ -37,10 +37,13 @@
 					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index.php" class="link_page color_letra_primario" titulo="Ver Stock">Ver Stock<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/outlet_products.php" id="" class="link_page color_letra_primario">Salida<i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/outlet_products.php" id="" titulo="Nueva salida de Productos" class="link_page color_letra_primario">Salida Productos<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
 					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index_exit.php" class="link_page color_letra_primario" titulo="Ver salidas">Ver salidas<i class="material-icons right color_letra_primario">visibility</i></a>
+				</div>
+				<div class="card-action" >
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index_exit.php" class="link_page color_letra_primario" titulo="Productos vencidos">Productos vencidos<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
@@ -83,7 +86,7 @@
 					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/" id="" class="link_page color_letra_primario" titulo="Stock planta">Stock planta<i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools" class="link_page color_letra_primario" titulo="Salidas Planta">Salidas Planta<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/_view_exit.php" class="link_page color_letra_primario" titulo="Salidas Planta">Salidas Planta<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>

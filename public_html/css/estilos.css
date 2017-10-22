@@ -21,6 +21,10 @@ body{
 	top: 12em;
 	right: 0  !important;
 }
+div.list_stock_exit{
+	height: 60vh;
+	overflow: scroll;
+}
 div.formulario{
 	border-right: 1px dashed rgba(3,124,136,.2);
 }
@@ -255,7 +259,7 @@ div.contenedor_session{
 	transition: ease all .5s;
 }
 .targeta_inicio:hover .card{
-	box-shadow: 0 2px 2px 0 rgba(3,124,136,.1), 0 1px 5px 0 rgba(3,124,136,.3), 0 1px 1px 1px rgba(3,124,136,.3);
+	box-shadow: 0 2px 2px 0 rgba(242,83,85,.1), 0 1px 5px 0 rgba(242,83,85,.3), 0 1px 1px 1px rgba(242,83,85,.3);
 }
 div.menu{
 	position: fixed;

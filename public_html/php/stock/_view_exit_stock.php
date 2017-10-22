@@ -26,7 +26,7 @@
 	            <label for="fecha_final" class="<?php echo ($fecha_final == "%%") ? "" : "active" ?> search">Final</label>
 	        </div>
 	        <input id="order" type="hidden" class="validate search" value="<?php echo ($order == "%%") ? "" : $order ?>" name="order" autocomplete="off">
-	        <input id="order" type="hidden" class="validate search" value="<?php echo ($order == "%%") ? "" : $order ?>" name="order" autocomplete="off">
+	        <input id="estado" type="hidden" class="validate search" value="<?php echo ($estado == "%%") ? "" : $estado ?>" name="estado" autocomplete="off">
 	        <p>
       			<input name="group1" value="1" type="radio" id="test1"  <?php echo ($estado == "1") ? "checked"  : "" ?> />
       			<label for="test1">Activo</label>
