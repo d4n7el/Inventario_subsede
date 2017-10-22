@@ -97,8 +97,8 @@
 			try {
 				$sql_consult = $this->db->prepare("SELECT exit_tools_master.id_exit,exit_tools_master.id_user_receives,exit_tools_master.name_user_receive,exit_tools_master.id_user_delivery,exit_tools_master.date_create,exit_tools_detall.id_exit_detall,exit_tools_detall.id_tool,exit_tools_detall.quantity,exit_tools_detall.note_received,user.name_user,user.last_name_user,tools.name_tool,tools.mark,tools.total_quantity,tools.quantity_available FROM exit_tools_master 
 					INNER JOIN exit_tools_detall ON exit_tools_master.id_exit = exit_tools_detall.id_exit 
-					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user LIMIT $limit OFFSET $offset ");
-				$sql_consult->execute();
+					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user WHERE  id_user_receives LIKE ? AND name_tool LIKE ? AND exit_tools_master.date_create BETWEEN ? AND ? LIMIT $limit OFFSET $offset "); 
+				$sql_consult->execute(array($cedula,$tool,$fecha_inicial,$fecha_final));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;
@@ -123,7 +123,9 @@
 		}
 		public function show_exit_tools($id_exit,$id_exit_detall = "%%"){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM show_exit_tools WHERE id_exit_product_master = ? AND id_exit_detall LIKE ? " );
+				$sql_consult = $this->db->prepare("SELECT exit_tools_master.delivery, exit_tools_master.received, exit_tools_detall.state, exit_tools_master.id_exit,exit_tools_master.id_user_receives,exit_tools_master.name_user_receive,exit_tools_master.id_user_delivery,exit_tools_master.date_create,exit_tools_detall.id_exit_detall,exit_tools_detall.id_tool,exit_tools_detall.quantity,exit_tools_detall.note_received,user.name_user,user.last_name_user,tools.name_tool,tools.mark,tools.total_quantity,tools.quantity_available FROM exit_tools_master 
+					INNER JOIN exit_tools_detall ON exit_tools_master.id_exit = exit_tools_detall.id_exit 
+					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user  WHERE exit_tools_master.id_exit = exit_tools_detall.id_exit " );
 				$sql_consult->execute(array($id_exit,$id_exit_detall));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -133,5 +135,6 @@
             	$e->getMessage();
         	}
 		}
+		
 	}
 ?>
