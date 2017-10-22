@@ -57,7 +57,7 @@
 			<strong>Fecha</strong>
 		</a>
 	</div>
-	<div class="col s2 centrar head_cell">
+	<div class="col s3 centrar head_cell">
 		<a href="#" class="tabla color_letra_primario">
 			<strong>Opciones  </strong>
 		</a>
@@ -67,7 +67,7 @@
 	if (count($retorno_exit) > 0) {
 		foreach ($retorno_exit as $key => $value) { ?>
 			<div class="row tabla" id="celda_<?php echo $value['id_exit'].$value['id_exit_detall'] ?>" >
-				<div class="col s3 primary_cell producto">
+				<div class="col s3 primary_cell herramienta">
 					<h6 class="col s12 centrar color_letra_secundario" >
 					 <?php echo $value['name_tool']; ?></h6>
 				</div>
@@ -87,10 +87,13 @@
 					</h6>
 				</div>
 				<div class="col s1 second_cell">
-					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_exit_stock" data-target="modal_right" id_exit_tools="<?php echo $value['id_exit'] ?>">visibility</button>
+					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_exit_tools" data-target="modal_right" id_exit_master="<?php echo $value['id_exit'] ?>" ruta="../php/tools/exit_tools_complete.php">visibility</button>
 				</div>
 				<div class="col s1 second_cell">
-					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_view_exit_stock" id_exit_tools="<?php echo $value['id_exit_product_master'] ?>" data-target="modal_center" id_exit_product_detalle="<?php echo $value['id_exit_product_detalle'] ?>" stock="<?php echo $value['id_stock'] ?>">create</button>
+					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_view_exit_tools" id_exit_master="<?php echo $value['id_exit'] ?>" data-target="modal_center" id_exit_detall="<?php echo $value['id_exit_detall'] ?>" stock="<?php echo $value['id_tool'] ?>">create</button>
+				</div>
+				<div class="col s1 second_cell">
+					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_view_exit_tools" id_exit_master="<?php echo $value['id_exit'] ?>" data-target="modal_center" id_exit_detall="<?php echo $value['id_exit_detall'] ?>" stock="<?php echo $value['id_tool'] ?>">clear</button>
 				</div>
 			</div>
 			<?php 
