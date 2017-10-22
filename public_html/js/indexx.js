@@ -338,12 +338,12 @@ var recargar_eventos = function(){
 		$(this).closest('div#vista_ventana').find('i').css('color', 'rgba(0,0,0,.4) !important');
 		$(this).closest('div').siblings('div').find('i').css('color', 'rgb(30,136,229)');
 	});
-	$('form.update_info').on('submit', function(event) {
+	/*$('form.update_info').on('submit', function(event) {
 		event.preventDefault();
 		var formData = new FormData(this);
 		var ruta = $(this).attr('action');
 		ajax_set_form_data(ruta,formData);
-	});
+	});*/
 	$('button.actualizar_info').on('click', function(event) {
 		$(this).closest('div').removeClass('s12').addClass('s4');
 		$(this).addClass('hide');
