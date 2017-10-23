@@ -1,22 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 23-10-2017 a las 00:45:28
--- Versión del servidor: 10.1.26-MariaDB
--- Versión de PHP: 7.1.9
+-- Servidor: localhost:8889
+-- Tiempo de generación: 23-10-2017 a las 04:58:21
+-- Versión del servidor: 5.6.35
+-- Versión de PHP: 7.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `inventarios_subsede`
@@ -36,7 +28,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_product_exit_stock` (IN `idU
    SET retorno = 1;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_cant_tools_detalle` (IN `p_id_user` INT, IN `p_cantidad` INT, IN `id_exit_master` INT, IN `p_id_exit_detalle` INT, OUT `retorno` INT)  BEGIN 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_cant_tools_detalle` (IN `p_cantidad` INT, IN `id_exit_master` INT, IN `p_id_exit_detalle` INT, IN `p_id_user` INT, OUT `retorno` INT)  BEGIN 
   DECLARE v_oldcantidad INT;
     DECLARE v_cantidad_disponible INT;
     DECLARE v_tool INT;
@@ -45,15 +37,19 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_cant_tools_detalle` (IN `p_i
     SELECT quantity_available INTO v_cantidad_disponible FROM tools WHERE id_tool = v_tool;
     SELECT quantity INTO v_oldcantidad FROM exit_tools_detall WHERE id_exit_detall = p_id_exit_detalle; 
     IF v_cantidad_disponible > 0 AND v_cantidad_disponible > p_cantidad THEN
-      IF v_oldcantidad > cantidad THEN
-          UPDATE tools SET quantity_available = ( v_oldcantidad - cantidad) + quantity_available WHERE id_tool = v_tool;
+        IF v_oldcantidad > p_cantidad THEN
+          UPDATE tools SET quantity_available = ( v_oldcantidad - p_cantidad) + quantity_available WHERE id_tool = v_tool;
+          SET retorno = 1;
         ELSE 
-          UPDATE tools SET quantity_available = ( cantidad - v_oldcantidad) - quantity_available WHERE id_tool = v_tool;
+          UPDATE tools SET quantity_available = quantity_available - ( p_cantidad - v_oldcantidad) WHERE id_tool = v_tool;
+          SET retorno = 1;
         END IF;
-        SET retorno = 1;
-    END IF;
-     SET retorno = 0;
-    
+        IF retorno = 1 THEN
+          UPDATE exit_tools_detall SET quantity = p_cantidad WHERE id_exit_detall = p_id_exit_detalle;
+        END IF;
+    ELSE
+    SET retorno = 0;
+    END IF;  
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `update_exit_stock` (IN `cantidad` INT(11), IN `idMaster` INT(11), IN `IdDetalle` INT(11), IN `IdUser` INT(11), OUT `retorno` BOOLEAN)  BEGIN
@@ -340,14 +336,15 @@ INSERT INTO `exit_tools_detall` (`id_exit_detall`, `id_exit`, `id_tool`, `quanti
 (6, 26, 8, 3, 'picas', 1),
 (7, 27, 9, 2, 'cualquier cosa', 1),
 (8, 28, 8, 2, 'ds', 1),
-(9, 29, 2, 2, 'sdfgh', 1),
+(9, 29, 2, 3, 'sdfgh', 1),
 (10, 29, 7, 5, 'kjhgf', 1),
 (11, 30, 2, 11, 'asdf', 1),
 (12, 30, 9, 1, 'asd', 1),
 (13, 31, 8, 3, 'asas', 1),
 (14, 31, 9, 7, 'sa', 1),
 (15, 32, 8, 1, 'asdf', 1),
-(16, 32, 9, 15, 'asdfg', 1);
+(16, 32, 9, 15, 'asdfg', 1),
+(17, 33, 1, 1, 'aa', 1);
 
 --
 -- Disparadores `exit_tools_detall`
@@ -393,7 +390,8 @@ INSERT INTO `exit_tools_master` (`id_exit`, `id_user_receives`, `name_user_recei
 (29, 1234, 'Santiago', 18, 1, 0, '2017-10-22 19:21:54'),
 (30, 1234, 'Santiago', 18, 1, 0, '2017-10-22 21:44:50'),
 (31, 1234, 'Santiago', 18, 1, 0, '2017-10-22 21:49:58'),
-(32, 1234, 'Santiago', 18, 1, 0, '2017-10-22 21:55:02');
+(32, 1234, 'Santiago', 18, 1, 0, '2017-10-22 21:55:02'),
+(33, 1234, 'Santiago', 7, 1, 0, '2017-10-23 02:49:00');
 
 -- --------------------------------------------------------
 
@@ -736,8 +734,8 @@ CREATE TABLE `tools` (
 --
 
 INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`) VALUES
-(1, 'pala', 'acme', 234, 220, 6, 7),
-(2, 'martillo', '3456yw', 20, 6, 6, 7),
+(1, 'pala', 'acme', 234, 219, 6, 7),
+(2, 'martillo', '3456yw', 20, 9, 6, 7),
 (7, 'cuchillo', 'cualquiera', 50, 14, 6, 18),
 (8, 'pica', 'acme', 45, 9, 6, 18),
 (9, 'palustre', 'acme', 50, 5, 6, 7);
@@ -961,109 +959,91 @@ ALTER TABLE `user`
 --
 ALTER TABLE `cellar`
   MODIFY `id_cellar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
 --
 -- AUTO_INCREMENT de la tabla `equipments`
 --
 ALTER TABLE `equipments`
   MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT de la tabla `exit_equipment_master`
 --
 ALTER TABLE `exit_equipment_master`
   MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT de la tabla `exit_product_detalle`
 --
 ALTER TABLE `exit_product_detalle`
   MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
-
 --
 -- AUTO_INCREMENT de la tabla `exit_product_master`
 --
 ALTER TABLE `exit_product_master`
   MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
-
 --
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
 ALTER TABLE `exit_teams_detall`
   MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_detall`
 --
 ALTER TABLE `exit_tools_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_master`
 --
 ALTER TABLE `exit_tools_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
-
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT de la tabla `integridad_stock_plant`
 --
 ALTER TABLE `integridad_stock_plant`
   MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT de la tabla `intergridad_exit_product_detalle`
 --
 ALTER TABLE `intergridad_exit_product_detalle`
   MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
 --
 -- AUTO_INCREMENT de la tabla `measure`
 --
 ALTER TABLE `measure`
   MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
   MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
 ALTER TABLE `recover_password`
   MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
   MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
 --
 -- AUTO_INCREMENT de la tabla `stock_plant`
 --
 ALTER TABLE `stock_plant`
   MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
 --
 -- AUTO_INCREMENT de la tabla `tools`
 --
 ALTER TABLE `tools`
   MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
 --
 -- Restricciones para tablas volcadas
 --
@@ -1132,8 +1112,3 @@ ALTER TABLE `tools`
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_cellar`) REFERENCES `cellar` (`id_cellar`),
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id_role`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
