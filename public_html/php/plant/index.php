@@ -15,6 +15,7 @@
 	(isset($_REQUEST['offset'])? $offset = $_REQUEST['offset'] : $offset = "%%" );
 	$fecha_inicial = isset($_REQUEST['fecha_inicial'])? $_REQUEST['fecha_inicial'] : $Yesterday;
 	$fecha_final = isset($_REQUEST['fecha_final'])? $_REQUEST['fecha_final'] : $tomorrow;
+	$order = (isset($_REQUEST['order']) && $_REQUEST['order'] != "" ? $_REQUEST['order'] : "%%" );
 
 	// NECESARIO PARA LA PAGINACION
 	(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
@@ -24,6 +25,6 @@
 	$count_rows = $retorno_count['count'];
 	$href = '/php/plant/index.php';
 	// NECESARIO PARA LA PAGINACION
-	$retorno_planta = $planta->index_stock_planta($group,$product,$cellar,$nameReceive,$prefix,$fecha_inicial,$fecha_final,$limit,$offset);
+	$retorno_planta = $planta->index_stock_planta($group,$product,$cellar,$nameReceive,$prefix,$fecha_inicial,$fecha_final,$order,$limit,$offset);
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/plant/_view_stock_planta.php');
 ?>

@@ -25,6 +25,7 @@
 	            <input id="fecha_final" type="text" class="validate search datepicker" value="<?php echo ($fecha_final == "%%") ? "" : $fecha_final ?>" name="fecha_final" autocomplete="off">
 	            <label for="fecha_final" class="<?php echo ($fecha_final == "%%") ? "" : "active" ?> search">Final</label>
 	        </div>
+	        <input id="order" type="hidden" class="validate search" value="<?php echo ($order == "%%") ? "" : $order ?>" name="order" autocomplete="off">
 	        <input id="estado" type="hidden" class="validate search" value="<?php echo ($estado == "%%") ? "" : $estado ?>" name="estado" autocomplete="off">
 	        <p>
       			<input name="group1" value="1" type="radio" id="test1"  <?php echo ($estado == "1") ? "checked"  : "" ?> />
@@ -44,27 +45,27 @@
 </div>
 <div class="row" id="head_table">
 	<div class="col s3 centrar prymary_head_cell">
-		<a href="#" class="color_letra_primario">
+		<a href="#" class="tabla color_letra_primario" order="name_product ASC">
 			<strong>Producto  </strong>
 		</a>
 	</div>
 	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario">
+		<a href="#" class="tabla color_letra_primario" order="name_cellar ASC">
 			<strong>Bodega  </strong>
 		</a>
 	</div>
 	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario">
+		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
 			<strong>Lote  </strong>
 		</a>
 	</div>
 	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario">
+		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
 			<strong>Cantidad  </strong>
 		</a>
 	</div>
 	<div class="col s3 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario">
+		<a href="#" class="color_letra_primario">
 			<strong>Opciones  </strong>
 		</a>
 	</div>

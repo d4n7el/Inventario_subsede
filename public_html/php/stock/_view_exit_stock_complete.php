@@ -77,7 +77,7 @@
 			<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/expor_pdf.php" class="btn btn-success hide" target="_blank" id="new_impresion">Imprimir
 				<i class="material-icons left" >print</i>
 			</a>
-			<button class="btn generar_pdf" target="_blank" id="generar_pdf">
+			<button class="btn generar_pdf btn-primary" target="_blank" id="generar_pdf">
 				Generar PDF
 				<i class="material-icons left" >insert_drive_file</i>
 			</button>

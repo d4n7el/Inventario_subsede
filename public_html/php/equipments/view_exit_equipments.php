@@ -57,7 +57,7 @@
 	if (count($retorno_exit) > 0) {
 		foreach ($retorno_exit as $key => $value) { ?>
 			<div class="row tabla" id="celda_<?php echo $value['id_exit_equipment_master'].$value['exit_teams_detall'] ?>" >
-				<div class="col s2 primary_cell producto">
+				<div class="col s3 primary_cell producto">
 					<h6 class="col s12 centrar color_letra_secundario" >
 					 <?php echo $value['name_equipment']; ?></h6>
 				</div>
@@ -75,10 +75,10 @@
 					</h6>
 				</div>
 				<div class="col s1 second_cell">
-					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_exit_stock" data-target="modal_right" id_exit_product="<?php echo $value['id_exit'] ?>">visibility</button>
+					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_exit_inform" id_exit_master="<?php echo $value['id_exit'] ?>" ruta="php/equipments/exit_equipment_complete.php" data-target="modal_right">visibility</button>
 				</div>
 				<div class="col s1 second_cell">
-					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_view_exit_stock" id_exit_product="<?php echo $value['id_exit'] ?>" data-target="modal_center" id_exit_product_detalle="<?php echo $value['id_exit_detall'] ?>" stock="<?php echo $value['id_equipment'] ?>">create</button>
+					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_cant_inform" id_exit_master="<?php echo $value['id_exit'] ?>" id_exit_detalle="<?php echo $value['id_exit_detall'] ?>" data-target="modal_center" id_element="<?php echo $value['id_equipment'] ?>"  ruta="../php/equipments/edit_exit_equipment.php" ruta_update="../php/equipments/update_exit_equipment.php">create</button>
 				</div>
 				<div class="col s1 second_cell">
 					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_view_exit_stock" id_exit_product="<?php echo $value['id_exit'] ?>" data-target="modal_center" id_exit_product_detalle="<?php echo $value['id_exit_detall'] ?>" stock="<?php echo $value['id_equipment'] ?>">delete_forever</button>

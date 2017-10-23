@@ -27,16 +27,6 @@ $(document).on('ready',function(){
 		});
 	});
 	$('.modal').modal();
-	$('div.targeta_inicio').on('click', function(event) {
-		event.preventDefault();
-		$('div.targeta_inicio').css('height', '5em');
-		$(this).find('i').first().css('transform', 'rotate(720deg)');
-   		$(this)
-   		.animate({ opacity: "0" }, 100 )
-   		.animate({ height: "24em" }, 100 )
-	    .animate({ opacity: "1" }, 400 )
-	    .animate({ borderLeftWidth: "15px" }, 1000 );
-	});
 });
 function eliminar_eventos(){
 	$('form#submit_session').off('submit');
@@ -62,9 +52,53 @@ function eliminar_eventos(){
 	$('button.delete_exit_inform').off('click');
 	$('input#test1,input#test2').off('change');
 	$('button#generar_pdf').off('click');
+	$('a.tabla').off('click');
+	$('a.add_exit_plant').off('click');
+	$('a.delete_exit_plant').off('click');
+	$('form.search_exit_plant').off('submit');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	$('a.add_exit_plant').on('click', function(event) {
+		event.preventDefault();
+		var divs = $(this).attr('divs');
+		if ($('div#'+divs+"add").length > 0) {
+			mensaje_alert("error","No puedes agregar el producto varias veces",2000);
+		}else{
+			var html = $('div#'+divs).html();
+			$('div.list_add_exit_plant div.listado').after(html);
+			$('div.list_add_exit_plant div.card').first()
+				.animate({ opacity: 0 },0)
+				.animate({ opacity: 1 },1000);
+			$('div.list_add_exit_plant div.card').first().attr('id',divs+"add");
+			$('div.list_add_exit_plant div.card div.cantidad').removeClass('hide');
+			$('div.list_add_exit_plant div.card').addClass('fondo_negro');
+			$('div.list_add_exit_plant div.card p').removeClass('color_letra_secundario').addClass('color_letra_primario');
+			$('div.list_add_exit_plant div.card').removeClass('s12').addClass('col s6');
+			$('div.list_add_exit_plant a.add_exit_plant').addClass('hide');
+			$('div.list_add_exit_plant a.delete_exit_plant').removeClass('hide');
+			recargar_eventos();
+		}
+	});
+	$('form.search_exit_plant').on('submit', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('action');
+		var search = $('input#search').val();
+		$("div.formulario").load(ruta,{search: search},function() {
+			recargar_eventos();
+		});
+	});
+	$('a.delete_exit_plant').on('click', function(event) {
+		event.preventDefault();
+		$(this).closest('div.card')
+			.animate({ opacity: 0 },300);
+		$(this).closest('div.card').remove();
+	});
+	$('a.tabla').on('click', function(event) {
+		event.preventDefault();
+		$('input#order').val($(this).attr('order'));
+		$('form.search').submit();
+	});
 	$('input#Externo,input#interno').on('change', function(event) {
 		event.preventDefault();
 		if ($(this).val() == "Ext") {
@@ -304,12 +338,12 @@ var recargar_eventos = function(){
 		$(this).closest('div#vista_ventana').find('i').css('color', 'rgba(0,0,0,.4) !important');
 		$(this).closest('div').siblings('div').find('i').css('color', 'rgb(30,136,229)');
 	});
-	$('form.update_info').on('submit', function(event) {
+	/*$('form.update_info').on('submit', function(event) {
 		event.preventDefault();
 		var formData = new FormData(this);
 		var ruta = $(this).attr('action');
 		ajax_set_form_data(ruta,formData);
-	});
+	});*/
 	$('button.actualizar_info').on('click', function(event) {
 		$(this).closest('div').removeClass('s12').addClass('s4');
 		$(this).addClass('hide');
@@ -529,26 +563,29 @@ function mensaje_cargando(tipo,mensaje){
 }
 function ver_add_exit_product(product_exit){
 	if (disponible != "") {
+		var vencido = product_exit['lote'].indexOf("Vencido");
+		var status = ( vencido > 1 ) ? 'color_letra_danger' : 'color_letra_secundario';
+		var mensaje = ( vencido > 1 ) ? 'Sale producto vencido' : '';
 		if ($("div#"+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']).length == 0) {
 			var html =  
-			'<div class="col s6" style="margin-bottom: 1em">\
+			'<div class="col s6 '+status+'" style="margin-bottom: 1em">\
 				<input type="hidden" name="producto_id[]" value="'+product_exit['producto_id']+'">\
 				<input type="hidden" name="bodega_id[]" value="'+product_exit['bodega_id']+'">\
 				<input type="hidden" name="lote_id[]" value="'+product_exit['lote_id']+'">\
 				<div class="col s12 sombra element_salida">\
-					<a id="delete_exit" class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
-					<h6 class="col s12 m6 center titulo color_letra_secundario">Bodega: '+product_exit['bodega']+'</h6>\
-					<h6 class="col s12 m6 center titulo color_letra_secundario">producto: '+product_exit['producto']+'</h6>\
-					<h6 class="col s12 m12 center titulo color_letra_secundario">lote: '+product_exit['lote']+'</h6>\
+					<a id="delete_exit" class="btn-floating waves-effect waves-light white '+status+' right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
+					<h6 class="col s12 m6 center titulo '+status+' ">Bodega: '+product_exit['bodega']+'</h6>\
+					<h6 class="col s12 m6 center titulo '+status+' ">producto: '+product_exit['producto']+'</h6>\
+					<h6 class="col s12 m12 center titulo '+status+' ">lote: '+product_exit['lote']+'</h6>\
 					<div class="col s12" style="margin-top: 2em">\
 						<div class="input-field col s12 m6" id="'+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']+'">\
-							<i class="material-icons prefix">filter_9_plus</i>\
+							<i class="material-icons '+status+' prefix">filter_9_plus</i>\
 				            <input id="nombre_descripcion"  type="number" max="'+disponible+'" class="validate" name="cantidad[]" value="'+product_exit['cantidad']+'" autocomplete="off" required >\
 				            <label for="nombre_descripcion" class="active">Disponible ( '+disponible+' )</label>\
 					    </div>\
 					    <div class="input-field col s12 m6">\
-				            <input id="anotacion" type="text" class="validate" name="nota[]" autocomplete="off">\
-				            <label for="anotacion" class="">Nota</label>\
+				            <input id="anotacion" type="text" value="'+mensaje+'" class="validate" name="nota[]" autocomplete="off">\
+				            <label for="anotacion" class="active">Nota</label>\
 				        </div>\
 			        </div>\
 			    </div>\
