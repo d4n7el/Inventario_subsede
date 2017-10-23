@@ -72,17 +72,17 @@
 					 <?php echo $value['name_tool']; ?></h6>
 				</div>
 				<div class="col s2 second_cell cantidad_disponible">
-					<h6 class="col s12 centrar color_letra_secundario" id="cantidad_<?php echo $value['id_exit'].$value['id_exit_detall'].$value['id_stock'] ?>">
+					<h6 class="col s12 centrar color_letra_secundario" id="cantidad_<?php echo $value['id_exit'].$value['id_exit_detall'].$value['id_tool'] ?>">
 						<?php echo $value['quantity']; ?>
 					</h6>
 				</div>
 				<div class="col s2 second_cell cantidad_disponible">
-					<h6 class="col s12 centrar color_letra_secundario" id="cantidad_<?php echo $value['id_exit'].$value['id_exit_detall'].$value['id_stock'] ?>">
+					<h6 class="col s12 centrar color_letra_secundario">
 						<?php echo $value['name_user_receive']; ?>
 					</h6>
 				</div>
 				<div class="col s2 second_cell cantidad_disponible">
-					<h6 class="col s12 centrar color_letra_secundario" id="cantidad_<?php echo $value['id_exit'].$value['id_exit_detall'].$value['id_stock'] ?>">
+					<h6 class="col s12 centrar color_letra_secundario">
 						<?php echo $value['date_create']; ?>
 					</h6>
 				</div>

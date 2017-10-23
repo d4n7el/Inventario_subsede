@@ -135,10 +135,10 @@
             	$e->getMessage();
         	}
 		}
-		public function update_exit_tools($cantidad,$id_exit,$id_exit_detall,$id_user){
+		public function update_exit_tools($cantidad,$id_master,$id_detalle,$id_user){
 			try{
 				$sql_consult = $this->db->prepare("CALL update_cant_tools_detalle(?,?,?,?,@retorno)" ); 
-				$sql_consult->execute(array($cantidad,$id_exit,$id_exit_detall,$id_user));
+				$sql_consult->execute(array($cantidad,$id_master,$id_detalle,$id_user));
 				$sql_consult = $this->db->prepare("SELECT @retorno as retorno" );
 				$sql_consult->execute();
 				$result = $sql_consult->fetch();
