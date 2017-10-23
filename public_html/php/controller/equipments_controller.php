@@ -69,6 +69,20 @@
             	$e->getMessage();
         	}
 		}
+
+		public function search_equipment($equipo,$marca,$fecha_inicial,$fecha_final){
+			try {
+				$sql="SELECT * FROM search_equipment WHERE name_equipment LIKE '%$equipo%' AND mark LIKE '%$marca%' AND DATE(create_date) BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_equipment " ;
+				$sql_consult = $this->db->prepare($sql);
+				$sql_consult->execute();
+				$result = $sql_consult->fetch();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function update_equipment($equipo,$marca,$cantidad_total,$cantida_disponible,$bodega,$id_user,$id_equipo){
 			try {
 				$sql_consult = $this->db->prepare('UPDATE equipments SET name_equipment = ?, mark = ?, total_quantity =?, quantity_available =?, id_cellar = ?, id_user_create = ? WHERE id_equipment = ? ');
