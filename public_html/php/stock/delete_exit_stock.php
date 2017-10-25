@@ -12,7 +12,7 @@
 	if ($retorno_delete['retorno'] == 1) {
 		$respuesta = array('mensaje' => "Eliminado correctamente", 'status' => 1, 'process' => 'exit_product' );
 	}else{
-		$respuesta = array('mensaje' => "Error a elminar", 'status' => 1, 'process' => 'exit_product' );
+		$respuesta = array('mensaje' => "Error a elminar", 'status' => 0, 'process' => 'exit_product' );
 	}
 	echo json_encode($respuesta);
 ?>

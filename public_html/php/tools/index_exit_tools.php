@@ -28,6 +28,7 @@
 		$href = '/php/tools/index_exit_tools.php';
 		// NECESARIO PARA LA PAGINACION
 		$retorno_exit = $exits->get_exit_tools($tools,$cedula,$fecha_inicial,$fecha_final,$estado,$limit,$offset);
+		echo count($retorno_exit);
 		require_once($_SERVER['DOCUMENT_ROOT'].'/php/tools/_view_exit_tools.php');
 	}
 ?>

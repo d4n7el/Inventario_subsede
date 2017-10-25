@@ -94,10 +94,12 @@
         	}
 		}
 		public function get_exit_tools($tool,$cedula,$fecha_inicial,$fecha_final,$estado,$limit,$offset){
+
 			try {
+				echo $estado;
 				$sql_consult = $this->db->prepare("SELECT exit_tools_master.id_exit,exit_tools_master.id_user_receives,exit_tools_master.name_user_receive,exit_tools_master.id_user_delivery,exit_tools_master.date_create,exit_tools_detall.id_exit_detall,exit_tools_detall.id_tool,exit_tools_detall.quantity,exit_tools_detall.note_received,user.name_user,user.last_name_user,tools.name_tool,tools.mark,tools.total_quantity,tools.quantity_available FROM exit_tools_master 
 					INNER JOIN exit_tools_detall ON exit_tools_master.id_exit = exit_tools_detall.id_exit 
-					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user WHERE  id_user_receives LIKE ? AND name_tool LIKE ? AND exit_tools_master.date_create BETWEEN ? AND ? LIMIT $limit OFFSET $offset "); 
+					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user WHERE id_user_receives LIKE ? AND name_tool LIKE ? AND exit_tools_master.date_create BETWEEN ? AND ? LIMIT $limit OFFSET $offset "); 
 				$sql_consult->execute(array($cedula,$tool,$fecha_inicial,$fecha_final));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -146,6 +148,20 @@
 				return $result;
 			} catch (PDOException $e) {
             	$e->getMessage();
+        	}
+		}
+		public function delete_tools_exit($id_user,$id_exit,$id_exit_detalle,$id_element,$nota,$process){
+			try{
+				$sql_consult = $this->db->prepare("CALL delete_tools_exit (?,?,?,?,?,?,@retorno)");
+				$sql_consult->execute(array($id_user,$id_exit,$id_exit_detalle,$id_element,$nota,$process));
+				$sql_consult = $this->db->prepare("SELECT @retorno as retorno" );
+				$sql_consult->execute();
+				$result = $sql_consult->fetch();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	echo $e->getMessage();
         	}
 		}
 		
