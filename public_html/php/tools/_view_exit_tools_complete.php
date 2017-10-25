@@ -17,6 +17,10 @@
 				<h5 class=" col s12 center color_letra_secundario">Recibió</h5>
 				<h5 class="titulo col s12 center color_letra_secundario"><?php echo $retorno_view_exit_tools[0]['name_user_receive']; ?></h5>
 			</div>
+			<div class="col s4 i3">
+				<h5 class=" col s12 center color_letra_secundario">Bodega</h5>
+				<h5 class="titulo col s12 center color_letra_secundario">Herramientas</h5>
+			</div>
 			
 		</div>
 		<div class="row" id="head_table">

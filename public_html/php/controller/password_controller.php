@@ -17,7 +17,6 @@
 				$code = rand(10000,1000000);
 				$result = strtoupper($segunda_letra)."".$code."".strtoupper($primer_letra);
 				return $result;
-				
 			} catch (PDOException $e) {
             	$e->getMessage();
         	}

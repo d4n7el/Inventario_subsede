@@ -63,7 +63,7 @@
 				</div>
 				<div class="col s3 second_cell bodega">
 					<h6 class="col s12 centrar color_letra_secundario">
-					 <?php echo $value['name_user_receive']; ?></h6>
+					 <?php echo $value['name_user_receives']; ?></h6>
 				</div>
 				<div class="col s2 second_cell lote">
 					<h6 class="col s12 centrar color_letra_secundario">

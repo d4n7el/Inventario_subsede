@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 25-10-2017 a las 05:07:01
+-- Tiempo de generación: 26-10-2017 a las 00:20:58
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -26,6 +26,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_product_exit_stock` (IN `idU
    INSERT INTO intergridad_exit_product_detalle (exit_product_detalle,old_quantity,quantity,id_user,note,state,process) VALUES(idExit_product_detalle,cantidad,0,idUser,nota,0,proceso);
    UPDATE stock_plant SET state = 0 WHERE id_exit_product = idExit_product AND id_stock = stocks;
    SET retorno = 1;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_tools_exit` (IN `id_user` INT, IN `id_exit` INT, IN `id_exit_detalle` INT, IN `id_element` INT, IN `nota` INT, IN `process` INT, OUT `retorno` INT)  BEGIN  
+  DECLARE old_cantidad INT;
+    SELECT quantity INTO old_cantidad FROM exit_tools_detall WHERE id_exit_detall = id_exit_detalle;
+  UPDATE exit_tools_detall SET state = 0, quantity = 0 WHERE id_exit_detall = id_exit_detalle;
+    UPDATE tools SET quantity_available = quantity_available + old_cantidad WHERE id_tool = id_element;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `update_cant_tools_detalle` (IN `p_cantidad` INT, IN `id_exit_master` INT, IN `p_id_exit_detalle` INT, IN `p_id_user` INT, OUT `retorno` INT)  BEGIN 
@@ -122,17 +129,18 @@ CREATE TABLE `equipments` (
   `total_quantity` int(15) NOT NULL,
   `quantity_available` int(15) NOT NULL,
   `id_cellar` int(11) NOT NULL,
-  `id_user_create` int(11) NOT NULL
+  `id_user_create` int(11) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `equipments`
 --
 
-INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`) VALUES
-(1, 'teve', 'acme', 100, 100, 3, 7),
-(2, '654', 'ytr', 10, 10, 5, 7),
-(3, 'lazos', 'acme', 20, 20, 5, 7);
+INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `create_date`) VALUES
+(1, 'teve', 'acme', 100, 100, 5, 7, '2017-10-25 22:09:42'),
+(2, '654', 'ytr', 10, 10, 5, 7, '2017-10-25 22:09:42'),
+(3, 'lazos', 'acme', 20, 20, 5, 7, '2017-10-25 22:09:42');
 
 -- --------------------------------------------------------
 
@@ -746,19 +754,20 @@ CREATE TABLE `tools` (
   `total_quantity` int(4) NOT NULL,
   `quantity_available` int(4) NOT NULL,
   `id_cellar` int(11) NOT NULL,
-  `id_user_create` int(11) NOT NULL
+  `id_user_create` int(11) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tools`
 --
 
-INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`) VALUES
-(1, 'pala', 'acme', 234, 219, 6, 7),
-(2, 'martillo', '3456yw', 20, 9, 6, 7),
-(7, 'cuchillo', 'cualquiera', 50, 14, 6, 18),
-(8, 'pica', 'acme', 45, 9, 6, 18),
-(9, 'palustre', 'acme', 50, 5, 6, 7);
+INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `create_date`) VALUES
+(1, 'pala', 'acme', 234, 219, 6, 7, '2017-10-25 22:08:34'),
+(2, 'martillo', '3456yw', 20, 9, 6, 7, '2017-10-25 22:08:34'),
+(7, 'cuchillo', 'cualquiera', 50, 14, 6, 18, '2017-10-25 22:08:34'),
+(8, 'pica', 'acme', 45, 9, 6, 18, '2017-10-25 22:08:34'),
+(9, 'palustre', 'acme', 50, 5, 6, 7, '2017-10-25 22:08:34');
 
 -- --------------------------------------------------------
 

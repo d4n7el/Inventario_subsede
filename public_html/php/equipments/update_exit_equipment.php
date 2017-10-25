@@ -1,7 +1,12 @@
 <?php 
-	echo $id_exit_detall = $_POST['exit_equipment_detalle'];
-	echo $team = $_POST['equipo'];
-	echo $id_exit = $_POST['exit_equipment'];
-	echo $quantity = $_POST['cantidad'];
+	session_start();
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/equipments_controller.php');
+	$id_exit_detall = $_REQUEST['exit_equipment_detalle'];
+	$team = $_REQUEST['equipo'];
+	$id_exit = $_REQUEST['exit_equipment'];
+	$quantity = $_REQUEST['cantidad'];
+	$update_equipment = new Equipments();
+	$retorno_update= $update_equipment->update_cant_equipmet($id_exit_detall, $team, $id_exit, $quantity);
 
+	echo $retorno_update['retorno'];
 ?>

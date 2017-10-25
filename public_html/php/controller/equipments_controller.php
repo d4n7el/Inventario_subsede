@@ -128,7 +128,8 @@
 		public function get_exit_equipments($team,$cedula,$fecha_inicial,$fecha_final,$limit,$offset){
 			try {
 
-				$sql = "SELECT exit_equipment_master.date_create, exit_teams_detall.id_exit, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment, exit_equipment_master.name_user_receive FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE name_equipment LIKE ?  AND id_user_receives LIKE ? AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' LIMIT $limit OFFSET $offset ";
+				$sql = "SELECT exit_equipment_master.date_create, exit_teams_detall.id_exit, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment, exit_equipment_master.name_user_receives FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE name_equipment LIKE ?  AND id_user_receives LIKE ? AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' LIMIT $limit OFFSET $offset ";
+
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($team,$cedula));
 				$result = $sql_consult->fetchAll();
@@ -136,14 +137,14 @@
 				return $result;
 						
 			} catch (PDOException $e) {
-		           $e->getMessage();
+		         $e->getMessage();
 		       }
 		}
 
 
 		public function view_equipment_detall($id_equipment_master, $id_detall = '%%', $id_equipment = '%%' ){
 			try {
-				$sql = "SELECT exit_equipment_master.date_create, exit_teams_detall.id_exit, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment, exit_equipment_master.name_user_receive FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE  exit_teams_detall.id_exit = ? AND  exit_teams_detall.id_exit_detall LIKE ?";
+				$sql = "SELECT exit_equipment_master.date_create, equipments.quantity_available,exit_teams_detall.id_exit, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment, exit_equipment_master.name_user_receives FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE  exit_teams_detall.id_exit = ? AND  exit_teams_detall.id_exit_detall LIKE ?";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($id_equipment_master,$id_detall));
 				$result = $sql_consult->fetchAll();
@@ -154,6 +155,24 @@
 		           $e->getMessage();
 		       }
 		}
+
+
+
+		public function update_cant_equipmet($id_exit_detall, $team, $id_exit, $quantity){
+			try {
+				$sql_consult = $this->db->prepare('CALL update_quantity_equipments(?,?,?,?,@retorno)');
+	            $sql_consult->execute(array($id_exit_detall, $team, $id_exit, $quantity));
+	            $sql_consult = $this->db->prepare("SELECT @retorno as retorno");
+	            $sql_consult->execute();
+	            $result = $sql_consult->fecth();
+	            $this->db = null;
+	            return $result;
+            } catch (PDOException $e) {
+            	echo $e->getMessage();
+        	}
+		}
+
+
 
 
 
