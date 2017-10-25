@@ -15,7 +15,7 @@
 			</div>
 			<div class="col s4 i3">
 				<h5 class=" col s12 center color_letra_secundario">Recibió</h5>
-				<h5 class="titulo col s12 center color_letra_secundario"><?php echo $retorno_view[0]['name_user_receive']; ?></h5>
+				<h5 class="titulo col s12 center color_letra_secundario"><?php echo $retorno_view[0]['name_user_receives']; ?></h5>
 			</div>
 			
 			<div class="col s4 i3">

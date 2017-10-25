@@ -22,7 +22,6 @@
 		$href = '/php/equipments/index_exit.php';
 		// // NECESARIO PARA LA PAGINACION
 		 $retorno_exit = $exits->get_exit_equipments($team,$cedula,$fecha_inicial,$fecha_final,$limit,$offset);
-		 echo count($retorno_exit);
 		require_once($_SERVER['DOCUMENT_ROOT'].'/php/equipments/view_exit_equipments.php');
 	}
 ?>
