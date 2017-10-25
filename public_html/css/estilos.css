@@ -299,14 +299,14 @@ div#vista_ventana{
 #head_table div a{
 	padding: 1em;
 }
-.modal.bottom-sheet{
+.modal.bottom-sheet, #modal_full{
 	top: 0;
     margin-left: 50%;
     width: 50%;
     max-height: 100%;
     border-radius: 0;
     will-change: bottom, opacity;
-}
+} 
 div.logo_sena img{
 	width: 30%;
 }

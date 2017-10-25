@@ -83,6 +83,32 @@
             	$e->getMessage();
         	}
 		}
+		public function graphics_bar_acum_exit_income($fecha_inicial, $fecha_final){
+			try {
+				$sql =  "SELECT SUM(stock.amount_income) AS ingreso, products.name_product, SUM(exit_product_detalle.quantity) as salida FROM stock INNER JOIN products ON stock.id_product = products.id_product INNER JOIN exit_product_detalle ON stock.id_stock = exit_product_detalle.id_stock GROUP BY products.id_product";
+				$sql_consult = $this->db->prepare($sql);
+				$sql_consult->execute();
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
+		public function graphics_bar_acum_exit_date($fecha_inicial, $fecha_final){
+			try {
+				$sql =  "SELECT name_product, SUM(quantity) as count, prefix_measure FROM show_exit_stock WHERE date_create BETWEEN '$fecha_inicial' AND '$fecha_final' GROUP BY name_product ORDER BY SUM(quantity) DESC LIMIT 10  ";
+				$sql_consult = $this->db->prepare($sql);
+				$sql_consult->execute(array($fecha_inicial, $fecha_final));
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function get_exit_stock_count($id_exit_product = "%%",$destino = "%%",$product = "%%",$cellar = "%%",$lote = "%%",$fecha_inicial,$fecha_final,$estado){
 			try {
 				$sql_consult = $this->db->prepare("SELECT COUNT(id_stock) as count FROM show_exit_stock WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND nom_lot LIKE '$lote' AND destination LIKE '$destino' AND id_exit_product_master LIKE '$id_exit_product' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND state = $estado" );

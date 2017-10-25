@@ -56,9 +56,17 @@ function eliminar_eventos(){
 	$('a.add_exit_plant').off('click');
 	$('a.delete_exit_plant').off('click');
 	$('form.search_exit_plant').off('submit');
+	$('a.view_graphics').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	$('a.view_graphics').on('click', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('ruta');
+		$("div#modal_full div.modal-content").load(ruta,function() {
+			recargar_eventos();
+		});
+	});
 	$('a.add_exit_plant').on('click', function(event) {
 		event.preventDefault();
 		var divs = $(this).attr('divs');

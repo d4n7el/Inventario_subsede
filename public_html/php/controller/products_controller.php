@@ -32,6 +32,18 @@
             	$e->getMessage();
         	}
 		}
+		public function graphics_bar_total(){
+			try {
+				$sql_consult = $this->db->prepare("SELECT num_orders, name_product FROM products");
+				$sql_consult->execute();
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function graphics_pie(){
 			try {
 				$sql_consult = $this->db->prepare("SELECT cellar.name_cellar, COUNT(id_product) as count FROM products INNER JOIN cellar ON products.id_cellar = cellar.id_cellar GROUP BY products.id_cellar");

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 23-10-2017 a las 05:17:32
+-- Tiempo de generación: 25-10-2017 a las 05:07:01
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -206,7 +206,12 @@ INSERT INTO `exit_product_detalle` (`id_exit_product_detalle`, `id_exit_product_
 (90, 151, 22, 2, 'buenos', 1),
 (91, 151, 21, 1, 'mas buenos', 1),
 (92, 152, 22, 1, 'Biennnn', 1),
-(93, 152, 21, 3, 'Biennnn', 1);
+(93, 152, 21, 3, 'Biennnn', 1),
+(94, 153, 25, 20, '', 1),
+(95, 154, 26, 15, '', 1),
+(96, 155, 27, 1, '', 1),
+(97, 156, 23, 20, 'muy negra', 1),
+(98, 157, 28, 2, 'sale', 1);
 
 --
 -- Disparadores `exit_product_detalle`
@@ -280,7 +285,12 @@ INSERT INTO `exit_product_master` (`id_exit_product`, `user_delivery`, `user_rec
 (149, 7, 1234, 'Santiago', 'Int', 1, '2017-10-18 19:36:33'),
 (150, 7, 1234, 'Santiago', 'Int', 1, '2017-10-18 20:18:44'),
 (151, 7, 1234, 'Santiago', 'Int', 1, '2017-10-19 00:22:07'),
-(152, 7, 1234, 'Santiago', 'Manizales', 1, '2017-10-19 17:58:12');
+(152, 7, 1234, 'Santiago', 'Manizales', 1, '2017-10-19 17:58:12'),
+(153, 7, 1234, 'Santiago', 'Int', 1, '2017-10-24 22:05:20'),
+(154, 7, 1234, 'Santiago', 'Int', 1, '2017-10-25 00:34:27'),
+(155, 7, 1234, 'Santiago', 'Int', 1, '2017-10-25 00:53:18'),
+(156, 7, 1234, 'Santiago', 'Cali', 1, '2017-10-25 02:30:59'),
+(157, 7, 1234, 'Santiago', 'Int', 1, '2017-10-25 03:04:08');
 
 -- --------------------------------------------------------
 
@@ -574,9 +584,9 @@ INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `un
 (2, 'Carne roja', 'Carne roja', '1', 7, 3, 8, '2017-10-19 17:58:12'),
 (3, 'Leche', 'En polvo', '2', 7, 2, 3, '2017-10-13 15:20:42'),
 (4, 'Fresas', 'fresas', '2', 7, 1, 6, '2017-10-18 19:36:34'),
-(5, 'Tierra negra', '4738djid20', '1', 7, 4, 2, '2017-10-13 15:20:42'),
-(6, 'Sal marina', 'sal', '2', 7, 4, 0, '2017-10-19 06:13:31'),
-(7, 'Azucar', 'azucar', '1', 7, 4, 0, '2017-10-19 18:01:59');
+(5, 'Tierra negra', '4738djid20', '1', 7, 4, 3, '2017-10-25 02:30:59'),
+(6, 'Sal marina', 'sal', '2', 7, 4, 3, '2017-10-25 03:04:08'),
+(7, 'Azucar', 'azucar', '1', 7, 4, 1, '2017-10-25 00:34:27');
 
 -- --------------------------------------------------------
 
@@ -659,6 +669,7 @@ CREATE TABLE `stock` (
   `id_product` int(11) NOT NULL,
   `nom_lot` varchar(100) NOT NULL,
   `amount` int(11) NOT NULL,
+  `amount_income` int(11) NOT NULL,
   `expiration_date` date NOT NULL,
   `expiration_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `comercializadora` varchar(100) NOT NULL,
@@ -669,11 +680,15 @@ CREATE TABLE `stock` (
 -- Volcado de datos para la tabla `stock`
 --
 
-INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `expiration_date`, `expiration_create`, `comercializadora`, `state`) VALUES
-(21, 1, '4567yugj', 4, '2017-10-31', '2017-10-18 20:15:50', 'casa', 1),
-(22, 2, '45768ighio', 13, '2017-10-30', '2017-10-18 20:16:44', 'casas', 1),
-(23, 5, '39r8euwkw', 200, '2017-10-27', '2017-10-19 06:16:11', 'negra', 1),
-(24, 1, '9i4k302', 100, '2017-10-31', '2017-10-19 06:19:56', 'sab', 1);
+INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `amount_income`, `expiration_date`, `expiration_create`, `comercializadora`, `state`) VALUES
+(21, 1, '4567yugj', 4, 10, '2017-10-31', '2017-10-18 20:15:50', 'casa', 1),
+(22, 2, '45768ighio', 13, 20, '2017-10-30', '2017-10-18 20:16:44', 'casas', 1),
+(23, 5, '39r8euwkw', 180, 200, '2017-10-27', '2017-10-19 06:16:11', 'negra', 1),
+(24, 1, '9i4k302', 100, 100, '2017-10-31', '2017-10-19 06:19:56', 'sab', 1),
+(25, 6, '09escsdadq0', 180, 200, '2017-11-17', '2017-10-24 22:04:57', 'salma', 1),
+(26, 7, '893iwkdsl', 285, 300, '2017-12-31', '2017-10-25 00:34:03', 'azuc', 1),
+(27, 6, '3879iwksa', 29, 30, '2017-10-31', '2017-10-25 00:49:36', '23kajs', 1),
+(28, 6, '8943wejqo01p', 278, 280, '2017-12-29', '2017-10-25 03:00:48', 'salk', 1);
 
 -- --------------------------------------------------------
 
@@ -712,7 +727,11 @@ INSERT INTO `stock_plant` (`id_stock_plant`, `id_stock`, `quantity`, `id_exit_pr
 (24, 13, 10, 149, 1, '2017-10-18 19:36:34'),
 (25, 22, 4, 150, 1, '2017-10-18 20:18:44'),
 (27, 22, 2, 151, 1, '2017-10-19 00:22:07'),
-(28, 21, 1, 151, 1, '2017-10-19 00:22:07');
+(28, 21, 1, 151, 1, '2017-10-19 00:22:07'),
+(29, 25, 20, 153, 1, '2017-10-24 22:05:20'),
+(30, 26, 15, 154, 1, '2017-10-25 00:34:27'),
+(31, 27, 1, 155, 1, '2017-10-25 00:53:18'),
+(32, 28, 2, 157, 1, '2017-10-25 03:04:08');
 
 -- --------------------------------------------------------
 
@@ -974,12 +993,12 @@ ALTER TABLE `exit_equipment_master`
 -- AUTO_INCREMENT de la tabla `exit_product_detalle`
 --
 ALTER TABLE `exit_product_detalle`
-  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_master`
 --
 ALTER TABLE `exit_product_master`
-  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
 --
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
@@ -1029,12 +1048,12 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT de la tabla `stock_plant`
 --
 ALTER TABLE `stock_plant`
-  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT de la tabla `tools`
 --

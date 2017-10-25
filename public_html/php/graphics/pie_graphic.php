@@ -16,7 +16,7 @@ var barChart = new Chart(popCanvas, {
       labels: mensajes,
       datasets: [{
         label: "Population (millions)",
-        backgroundColor: ['#e64a19',"#0d47a1","#43a047","#aa00ff","#0288d1","#6d4c41","#d84315","#6200ea"],
+        backgroundColor: ['rgb(91,160,148)',"rgb(0,174,106)","rgb(186,189,68)","rgb(25,43,56)","rgb(56,119,105)","rgb(249,85,87)","rgb(228,182,61)","#d84315","#6200ea","rgb(141,84,58)", "rgb(255,74,33)", "rgb(129,167,53)"],
         data: datos
       }]
     },

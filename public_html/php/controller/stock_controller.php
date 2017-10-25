@@ -10,8 +10,8 @@
 		}
 		public function insert_stock($id_product,$nom_lot,$amount,$expiration,$comercializadora){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO stock (id_product,nom_lot,amount,expiration_date,comercializadora) VALUES (?,?,?,?,?)'  );
-				$sql_consult->execute(array($id_product,$nom_lot,$amount,$expiration,$comercializadora));
+				$sql_consult = $this->db->prepare('INSERT INTO stock (id_product,nom_lot,amount,expiration_date,comercializadora,amount_income) VALUES (?,?,?,?,?,?)'  );
+				$sql_consult->execute(array($id_product,$nom_lot,$amount,$expiration,$comercializadora,$amount));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
 				return $result;

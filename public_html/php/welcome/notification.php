@@ -4,6 +4,7 @@
 	$dia = date("d");
 	$mes = date("F");
 ?>
+
 <div class="row">
 	<div class="contenedor col s12 m4">
 		<div class="calendar col s12 m12">
@@ -16,7 +17,7 @@
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
-	 			 <a class="waves-effect col s12 waves-light btn-large">
+	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_full" ruta="../php/products/graphics_bar_total_exit.php" >
 	 			 	Vencimientos
 	 			 	<i class="material-icons left">visibility</i>
 	 			</a>
@@ -37,25 +38,25 @@
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
-	 			 <a class="waves-effect col s12 waves-light btn-large">
-	 			 	Destino Interno
+	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_full" ruta="../php/products/graphics_bar_total_exit.php" >
+	 			 	Salidas
 	 			 	<i class="material-icons left">visibility</i>
 	 			</a>
 	 		</div>
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect  col s12 waves-light btn-large">
+	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_full" ruta="../php/stock/graphic_acum_exit_date.php" >
+	 			 	Acumulado
 	 			 	<i class="material-icons left">visibility</i>
-	 				Destino Externo
 	 			</a>
 	 		</div>
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect  col s12 waves-light btn-large">
+	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_full" ruta="../php/stock/graphics_bar_exit_income.php" >
+	 			 	Salidas
 	 			 	<i class="material-icons left">visibility</i>
-	 				Acumulado salidas
 	 			</a>
 	 		</div>
 		</div>
