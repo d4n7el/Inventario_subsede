@@ -55,7 +55,7 @@ foreach ($retorno_equipos as $key => $value) { ?>
 		            <label for="cantida_disponible" class="active">Cantidad Disponible</label>
 		        </div>		
 		        
-		        <div class="action col s12 centrar">
+		        <div class="action col s4 centrar">
 		        	<button class="waves-effect waves-light btn btn-success hide actualizar_info">
 		        		<i class="material-icons left">near_me</i>Guardar
 		        	</button>

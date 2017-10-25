@@ -16,14 +16,14 @@
 			            <label for="nombre_marca" class="">Marca</label>
 			        </div>
 			        <div class="input-field col s12 m12">
-			            <i class="material-icons prefix">subject</i>
+			            <i class="material-icons prefix">filter_9_plus</i>
 			            <input id="nombre_cantidad" type="number" class="validate" name="cantidad" autocomplete="off" required>
 			            <label for="nombre_cantidad" class="">Cantidad</label>
 			        </div>
 					
 					<!-- El siguiente div está oculto hasta nuevo aviso -->
 			        <div class="input-field col s12 m12">
-			            <i class="material-icons prefix">subject</i>
+			            <i class="material-icons prefix">filter_9_plus</i>
 			            <input id="nombre_cant_dis" type="number" class="validate" name="cantidad_disponible" autocomplete="off" required>
 			            <label for="nombre_cant_dis" class="">Cantidad Disponible</label>
 			        </div>

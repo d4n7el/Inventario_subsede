@@ -19,6 +19,6 @@
 	$count_rows = $retorno_count_equipments['count'];
 	$href = '/php/equipments/index.php';
 	// NECESARIO PARA LA PAGINACION
-	$retorno_equipos = $equipos->get_equipments_pag($limit,$offset);
+	$retorno_equipos = $equipos->get_equipments_pag($equipo,$marca,$fecha_inicial,$fecha_final,$limit,$offset);
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/equipments/_view_list_equipments.php');
 ?>

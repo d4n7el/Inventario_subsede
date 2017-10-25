@@ -59,7 +59,7 @@
                     </button>
                 </div>
             </div>
-             <div class="input-field col s12 m12" id="view_add_elements" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/_partials/_select_quantity.php">
+            <div class="input-field col s12 m12" id="view_add_elements" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/_partials/_select_quantity.php">
                 <p class="col s12 center guia_abajo"><i class="material-icons col s12">expand_more</i><i class="material-icons col s12 second">expand_more</i></p>
             </div>
         </form> 
