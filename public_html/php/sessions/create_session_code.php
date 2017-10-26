@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="formulario col s12 contenedor_session centrar">
+    <div class="col s12 contenedor_session centrar">
     	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/sessions/new_session_code.php" class="create_info">
 	        <div class="input-field col s12 m12">
 	            <i class="material-icons prefix">credit_card</i>

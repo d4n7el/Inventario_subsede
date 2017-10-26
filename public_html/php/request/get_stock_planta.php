@@ -3,6 +3,10 @@
 		$data = array(
 			'user' => "Subsede_santarosa", 
 			'token' => "2y10MbgK/SGQWmmh1uEpHtC3WeySu5VfCYSbF42hyi/IBaS5TMIgiXFGG",
+			//'cellar' => "Lacteos",
+			//'product' => "Leche",
+			//'limit' => 1, 
+			//'offset' => 2,
 		);
 		//url contra la que atacamos
 		$request = curl_init("https://pruebasd4n7el.000webhostapp.com/php/request/apiPlanta.php");

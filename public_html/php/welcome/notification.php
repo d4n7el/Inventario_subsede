@@ -17,7 +17,7 @@
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_full" ruta="../php/products/graphics_bar_total_exit.php" >
+	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/products/graphics_bar_total_exit.php" >
 	 			 	Vencimientos
 	 			 	<i class="material-icons left">visibility</i>
 	 			</a>
@@ -38,7 +38,7 @@
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_full" ruta="../php/products/graphics_bar_total_exit.php" >
+	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/products/graphics_bar_total_exit.php" >
 	 			 	Salidas
 	 			 	<i class="material-icons left">visibility</i>
 	 			</a>
@@ -46,7 +46,7 @@
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_full" ruta="../php/stock/graphic_acum_exit_date.php" >
+	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/stock/graphic_acum_exit_date.php" >
 	 			 	Acumulado
 	 			 	<i class="material-icons left">visibility</i>
 	 			</a>
@@ -54,7 +54,7 @@
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_full" ruta="../php/stock/graphics_bar_exit_income.php" >
+	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/stock/graphics_bar_exit_income.php" >
 	 			 	Salidas
 	 			 	<i class="material-icons left">visibility</i>
 	 			</a>

@@ -20,6 +20,18 @@
             	$e->getMessage();
         	}
 		}
+		public function graphics_pie(){
+			try {
+				$sql_consult = $this->db->prepare("SELECT name_tool, total_quantity AS count FROM tools ORDER BY total_quantity DESC LIMIT 12 ");
+				$sql_consult->execute();
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function get_tools($herramientas,$marca,$fecha_inicial,$fecha_final,$limit,$offset){
 			try {
 				$sql_consult = $this->db->prepare("SELECT * FROM tools WHERE name_tool LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ?  LIMIT $limit OFFSET $offset" );

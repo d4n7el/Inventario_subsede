@@ -3,7 +3,7 @@
 	if (isset($_SESSION["id_user_activo"])) {
 ?>
 		<div class="row">
-		    <div class="formulario col m6 offset-m3">
+		    <div class="formulario col m6">
 		    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/new_equipment.php" class="create_info">
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">account_circle</i>
@@ -23,7 +23,7 @@
 			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">local_grocery_store</i>
 			            <input id="cantidad_disponible" type="text" class="validate" name="cantidad" autocomplete="off" required>
-			            <label for="cantidad_disponible" class="">Cantidad</label>
+			            <label for="cantidad_disponible" class="">Cantidad disponible</label>
 			        </div>
 			        <div class="action col m12">
 			        	<button class="waves-effect waves-light btn btn-primary">
@@ -32,6 +32,9 @@
 			        </div>	
 				</form>
 		    </div>
+		    <div class="col s6" id="view_graphics">
+	    		<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/equipments/graphics_pie.php") ?>
+	    	</div>
 		</div>
 		<?php 
 	}

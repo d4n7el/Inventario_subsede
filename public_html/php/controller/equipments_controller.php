@@ -21,6 +21,18 @@
             	$e->getMessage();
         	}
 		}
+		public function graphics_pie(){
+			try {
+				$sql_consult = $this->db->prepare("SELECT name_equipment, total_quantity AS count FROM equipments ORDER BY total_quantity DESC LIMIT 12 ");
+				$sql_consult->execute();
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function get_equipments(){
 			try {
 				$sql_consult = $this->db->prepare("SELECT * FROM equipments" );
@@ -145,7 +157,7 @@
 
 		public function view_equipment_detall($id_equipment_master, $id_detall = '%%', $id_equipment = '%%' ){
 			try {
-				$sql = "SELECT exit_equipment_master.date_create, equipments.quantity_available,exit_teams_detall.id_exit, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment, exit_equipment_master.name_user_receives FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE  exit_teams_detall.id_exit = ? AND  exit_teams_detall.id_exit_detall LIKE ?";
+				$sql = "SELECT exit_equipment_master.date_create, equipments.quantity_available,exit_teams_detall.id_exit,exit_teams_detall.state, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment, exit_equipment_master.name_user_receives FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE  exit_teams_detall.id_exit = ? AND  exit_teams_detall.id_exit_detall LIKE ?";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($id_equipment_master,$id_detall));
 				$result = $sql_consult->fetchAll();
@@ -161,11 +173,11 @@
 
 		public function update_cant_equipmet($id_exit_detall, $team, $id_exit, $quantity){
 			try {
-				$sql_consult = $this->db->prepare('CALL update_quantity_equipments(?,?,?,?,@retorno)');
+				$sql_consult = $this->db->prepare("CALL update_quantity_equipments(?,?,?,?,@retorno)");
 	            $sql_consult->execute(array($id_exit_detall, $team, $id_exit, $quantity));
-	            $sql_consult = $this->db->prepare("SELECT @retorno as retorno");
-	            $sql_consult->execute();
-	            $result = $sql_consult->fecth();
+	            $sql_consults = $this->db->prepare("SELECT @retorno as retorno");
+	            $sql_consults->execute();
+	            $result = $sql_consults->fetch();
 	            $this->db = null;
 	            return $result;
             } catch (PDOException $e) {

@@ -85,7 +85,7 @@
 		}
 		public function graphics_bar_acum_exit_income($fecha_inicial, $fecha_final){
 			try {
-				$sql =  "SELECT SUM(stock.amount_income) AS ingreso, products.name_product, SUM(exit_product_detalle.quantity) as salida FROM stock INNER JOIN products ON stock.id_product = products.id_product INNER JOIN exit_product_detalle ON stock.id_stock = exit_product_detalle.id_stock GROUP BY products.id_product";
+				$sql =  "SELECT SUM(stock.amount_income) AS ingreso, products.name_product, SUM(exit_product_detalle.quantity) as salida FROM stock INNER JOIN products ON stock.id_product = products.id_product LEFT JOIN exit_product_detalle ON stock.id_stock = exit_product_detalle.id_stock GROUP BY products.id_product";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
@@ -137,7 +137,7 @@
 			try {
 				$sql_consult = $this->db->prepare("CALL delete_product_exit_stock (?,?,?,?,?,?,@retorno)");
 				$sql_consult->execute(array($id_user,$id_exit_product,$id_exit_product_detalle,$stock,$nota,$process));
-				$sql_consult = $this->db->prepare("SELECT @retorno as retorno" );
+				$sql_consult = $this->db->prepare("SELECT @retorno as retorno");
 				$sql_consult->execute();
 				$result = $sql_consult->fetch();
 				$this->db = null;
