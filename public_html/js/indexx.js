@@ -63,7 +63,7 @@ var recargar_eventos = function(){
 	$('a.view_graphics').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('ruta');
-		$("div#modal_full div.modal-content").load(ruta,function() {
+		$("div#modal_right div.modal-content").load(ruta,function() {
 			recargar_eventos();
 		});
 	});
@@ -346,12 +346,12 @@ var recargar_eventos = function(){
 		$(this).closest('div#vista_ventana').find('i').css('color', 'rgba(0,0,0,.4) !important');
 		$(this).closest('div').siblings('div').find('i').css('color', 'rgb(30,136,229)');
 	});
-	// $('form.update_info').on('submit', function(event) {
-	// 	event.preventDefault();
-	// 	var formData = new FormData(this);
-	// 	var ruta = $(this).attr('action');
-	// 	ajax_set_form_data(ruta,formData);
-	// });
+	$('form.update_info').on('submit', function(event) {
+		event.preventDefault();
+		var formData = new FormData(this);
+		var ruta = $(this).attr('action');
+		ajax_set_form_data(ruta,formData);
+	});
 	$('button.actualizar_info').on('click', function(event) {
 		$(this).closest('div').removeClass('s12').addClass('s4');
 		$(this).addClass('hide');
@@ -426,6 +426,7 @@ function request_user(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
+	    	console.log(response);
 	    	var response = jQuery.parseJSON(response);
 	    	$.each(response,function(index, value) {
 	    		if (index === "data") {
@@ -483,6 +484,7 @@ function success(response = "Exito"){
 	}
 }
 function clean_input(){
+	$('form.update_info input[type=password]').val("");
 	$('.create_info')[0].reset(); //Sirve para resetear a su estado original el form
 	$('.create_info i, .create_info label').removeClass('active'); 
 	$('.create_info input').removeClass('valid');

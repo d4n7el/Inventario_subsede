@@ -3,7 +3,7 @@
 	if (isset($_SESSION["id_user_activo"])) {
 ?>
 		<div class="row">
-		    <div class="formulario col m6 offset-m3">
+		    <div class="formulario col m6">
 		    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/new_tools.php" class="create_info">
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">account_circle</i>
@@ -36,6 +36,9 @@
 			        </div>	
 				</form>
 		    </div>
+		    <div class="col s6" id="view_graphics">
+	    		<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/tools/graphics_pie.php") ?>
+	    	</div>
 		</div>
 		<?php 
 	}

@@ -8,6 +8,7 @@ $retorno = $sessions->init_session_user($cedula);
 if (count($retorno) > 0 ) {
 	if (password_verify($pass,$retorno['pass'])) {
 		$_SESSION["id_user_activo"] = $retorno['id_user'];
+		$_SESSION["id_user_pass"] = $retorno['pass'];
 		$_SESSION["cedula_user_activo"] = $retorno['cedula'];
 		$_SESSION["name_user_activo"] = $retorno['name_user'];
 		$_SESSION["last_name_user_activo"] = $retorno['last_name_user'];

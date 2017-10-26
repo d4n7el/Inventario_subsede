@@ -41,4 +41,4 @@ echo json_encode($datos);
 <!-- <script type="text/javascript">
 var row = <?= ($datos) ?>;
 console.log(row);
-</script> -->
+</script> 
