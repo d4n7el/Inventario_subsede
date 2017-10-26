@@ -200,9 +200,15 @@ div.contenedor_session{
 }
 .btn-success{
 	background-color: rgb(242,83,85);
+	color: white;
 }
 .btn-success:hover{
 	background-color: rgb(242,83,85);
+	color: white;
+}
+.btn-success:focus{
+	background-color: rgb(242,83,85);
+	color: white;
 }
 .btn i{
 	color: rgb(33,49,62);

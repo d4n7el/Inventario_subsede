@@ -34,7 +34,7 @@
 		}
 		public function get_tools($herramientas,$marca,$fecha_inicial,$fecha_final,$limit,$offset){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM tools WHERE name_tool LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ?  LIMIT $limit OFFSET $offset" );
+				$sql_consult = $this->db->prepare("SELECT * FROM tools WHERE name_tool LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? ORDER BY create_date DESC  LIMIT $limit OFFSET $offset" );
 				$sql_consult->execute(array($herramientas,$marca,$fecha_inicial,$fecha_final));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;

@@ -35,66 +35,73 @@
 		</div>
 	</form>
 </div>
+<div class="row" id="head_table">
+	<div class="col s3 centrar prymary_head_cell">
+		<a href="#" class="tabla color_letra_primario" order="name_product ASC">
+			<strong>Nombre</strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="name_cellar ASC">
+			<strong>Apellido</strong>
+		</a>
+	</div>
+	<div class="col s3 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+			<strong>Email  </strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
+			<strong>Cedula  </strong>
+		</a>
+	</div>
+	<div class="col s1 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
+			<strong>Bodega  </strong>
+		</a>
+	</div>
+	<div class="col s1 centrar head_cell">
+		<a href="#" class="color_letra_primario">
+			<strong>Opciones  </strong>
+		</a>
+	</div>
+</div>
 <?php 
 	if (count($retorno_user) > 0) {
 		foreach ($retorno_user as $key => $value) { ?>
-			<div class="row" id="update_<?php echo $value['id_user'] ?>">
-				<section>
-					<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/update_user.php" class="update_info" accept-charset="utf-8">
-						<input value="<?php echo $value['id_user'] ?>" name="id_user" type="hidden" readonly="readonly">
-						<div class="input-field col s4">
-				            <i class="material-icons prefix">account_circle</i>
-				            <input id="nombre_user" type="text" class="validate editar_info" name="nombre" autocomplete="off" value="<?php echo $value['name_user'] ?>"  readonly="readonly">
-				            <label for="nombre_user" class="active">Nombre del Usuario</label>
-				        </div>	
-				        <div class="input-field col s4">
-				            <i class="material-icons prefix">account_circle</i>
-				            <input id="apellido_user" type="text"  class="validate editar_info" name="apellido" autocomplete="off" value="<?php echo $value['last_name_user'] ?>" readonly="readonly" >
-				            <label for="apellido_user" class="active">Apellidos del Usuario</label>
-				        </div>
-				        <div class="input-field col s4 hide oculto">
-				            <i class="material-icons prefix">credit_card</i>
-				            <input id="cedula_user" type="text" class="validate editar_info" name="cedula" autocomplete="off" value="<?php echo $value['cedula'] ?>" readonly="readonly" >
-				            <label for="cedula_user" class="active">Cédula del Usuario</label>
-				        </div>
-				        <div class="input-field col s4 hide oculto">
-				            <i class="material-icons prefix">email</i>
-				            <input id="email_user" type="email" class="validate" name="email" autocomplete="off" required value="<?php echo $value['email_user'] ?>">
-				            <label for="email_user" class="active">Correo Electrónico</label>
-				        </div>
-				        <div class="input-field col s4 hide oculto">
-				        	<i class="material-icons prefix">thumbs_up_down</i>
-						    <select name="estado">
-							      <option value="" disabled selected>Estado</option>
-							      <option value="0" <?php echo ($estado == "0") ? "selected"  : "" ?>>Inactivo</option>
-							      <option value="1" <?php echo ($estado == "1") ? "selected"  : "" ?>>Activo</option>
-						    </select>
-						    <label>Estado</label>
-						</div>
-				        <div class="input-field col s4 hide oculto">
-				        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/roles/_view_roles_select.php'); ?>
-				        </div>
-				        <div class="input-field col s4 hide oculto">
-				        	<?php 
-				        		require($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); 
-				        	?>
-				        </div>
-				        <div class="action col s4 centrar">
-				        	<button class="waves-effect waves-light btn btn-success hide actualizar_info">
-				        		<i class="material-icons left">near_me</i>Guardar
-				        	</button>
-				        	<button class="waves-effect waves-light btn btn-primary editar_info">
-				        		<i class="material-icons left">cached</i>Editar
-				        	</button>
-				        </div>
-			    	</form>
-			    </section>
+			<div class="row tabla" id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >
+				<div class="col s3 primary_cell producto">
+					<h6 class="col s12 centrar color_letra_secundario" >
+					 <?php echo $value['name_user']; ?></h6>
+				</div>
+				<div class="col s2 second_cell bodega">
+					<h6 class="col s12 centrar color_letra_secundario">
+					 <?php echo $value['last_name_user']; ?></h6>
+				</div>
+				<div class="col s3 second_cell lote">
+					<h6 class="col s12 centrar color_letra_secundario">
+					<?php echo $value['email_user']; ?></h6>
+				</div>
+				<div class="col s2 second_cell cantidad_disponible">
+					<h6 class="col s12 centrar color_letra_secundario" id="cantidad_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'].$value['id_stock'] ?>">
+						<?php echo $value['cedula']?>
+					</h6>
+				</div>
+				<div class="col s1 second_cell cantidad_disponible">
+					<h6 class="col s12 centrar color_letra_secundario" id="cantidad_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'].$value['id_stock'] ?>">
+						<?php echo $value['name_cellar']?>
+					</h6>
+				</div>
+				<div class="col s1 second_cell">
+					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_user" ruta="../php/users/index.php" id_user="<?php echo $value['id_user'] ?>" data-target="modal_right">visibility</button>
+				</div>
 			</div>
 			<?php 
 		}
 	}else{ ?>
 		<h5 class="col s12 centrar color_letra_secundario">No se obtuvieron resultados</h5>
-		<?php 
+	<?php 
 	}
 ?>
 <div class="paginacion col m12">

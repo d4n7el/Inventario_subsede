@@ -14,6 +14,8 @@ $(document).on('ready',function(){
 	$('button.link_page_session').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('ruta');
+		$('button.link_page_session').removeClass('btn-success');
+		$(this).addClass('btn-success');
 		$("div.contenedor_session").load(ruta,function() {
 			recargar_eventos();
 		});
@@ -57,9 +59,18 @@ function eliminar_eventos(){
 	$('a.delete_exit_plant').off('click');
 	$('form.search_exit_plant').off('submit');
 	$('a.view_graphics').off('click');
+	$('button.view_info_user').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	$('button.view_info_user').on('click', function(event) {
+		event.preventDefault();
+		var id_user = $(this).attr('id_user');
+		var ruta = $(this).attr('ruta');
+		$("div#modal_right div.modal-content").load(ruta,{id_user: id_user},function() {
+			recargar_eventos();
+		});
+	});
 	$('a.view_graphics').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('ruta');
@@ -409,6 +420,11 @@ function ajax_set_form_data(ruta,formData){
  	    	if (response['status']==1 && response['process']=='update_cant_product' && response['cantidad'] != undefined ) {
  	    		$('h6#cantidad_'+div_id).text(response['cantidad']);
  	    	}
+ 	    	if (response['status']==1 && response['redirecTo'] != undefined && response['redirecTo'] != "" ) {
+ 	    		$("div.contenedor_session").load(response['redirecTo'],function() {
+					recargar_eventos();
+				});
+ 	    	} 	
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(estado);

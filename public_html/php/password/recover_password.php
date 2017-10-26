@@ -48,7 +48,7 @@
 		if($mail->Send()) {
 			$retorno_insert_code = $insert_code->insert_code($return_user['email_user'],$code_new);
 			if ($retorno_insert_code > 0) {
-				$respuesta = ['mensaje' => 'Se envio el codigo a '.$_REQUEST['correo'], 'status' => 1, 'duracion' => 2000];
+				$respuesta = ['mensaje' => 'Se envio el codigo a '.$_REQUEST['correo'], 'status' => 1, 'duracion' => 2000, 'redirecTo' => "../php/sessions/create_session_code.php"];
 			}
 		}else{
 	   		
