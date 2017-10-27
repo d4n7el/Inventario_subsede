@@ -100,7 +100,7 @@
 		public function exit_equipment_master($id_user_receives,$id_user_delivery,$nom_receive){
 
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO exit_equipment_master (id_user_receives,id_user_delivery,name_user_receive) VALUES (?,?,?)'  );
+				$sql_consult = $this->db->prepare('INSERT INTO exit_equipment_master (id_user_receives,id_user_delivery,name_user_receives) VALUES (?,?,?)'  );
 				$sql_consult->execute(array($id_user_receives,$id_user_delivery,$nom_receive));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
@@ -113,7 +113,8 @@
 		public function exit_equipment_detall($valores_insert){
 
 			try {
-				$sql_consult = $this->db->prepare("INSERT INTO exit_teams_detall (id_exit,id_equipment,quantity,note) VALUES $valores_insert");
+				$sql = "INSERT INTO exit_teams_detall (id_exit,id_equipment,quantity,note) VALUES $valores_insert";
+				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $this->db->lastInsertId();
 				$this->db = null;
