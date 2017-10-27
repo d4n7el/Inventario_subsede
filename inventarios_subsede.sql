@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 26-10-2017 a las 10:46:17
+-- Tiempo de generación: 27-10-2017 a las 02:49:01
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -57,6 +57,29 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_cant_tools_detalle` (IN `p_c
     ELSE
     SET retorno = 0;
     END IF;  
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_equipments` (IN `p_equipo` VARCHAR(50), IN `p_marca` VARCHAR(50), IN `p_cantidad_total` INT, IN `p_bodega` INT, IN `p_id_user` INT, IN `p_id_equipo` INT, OUT `retorno` INT)  BEGIN
+    DECLARE v_old_total INT;
+    DECLARE v_old_disponible INT;
+    DECLARE v_prestados INT;
+    SELECT total_quantity INTO v_old_total FROM equipments WHERE id_equipment = p_id_equipo;
+    SELECT quantity_available INTO v_old_disponible FROM equipments WHERE id_equipment = p_id_equipo;
+    SET v_prestados = v_old_total - v_old_disponible;
+    IF v_prestados <= p_cantidad_total THEN
+        IF v_old_total >= p_cantidad_total THEN
+            UPDATE equipments SET quantity_available = quantity_available - (v_old_total - p_cantidad_total) WHERE id_equipment = p_id_equipo;
+            SET retorno = 1;
+        ELSE
+            UPDATE equipments SET quantity_available = quantity_available + (p_cantidad_total - v_old_total ) WHERE id_equipment = p_id_equipo;
+            SET retorno = 1;
+        END IF;
+    ELSE
+        SET retorno = 0;
+    END IF;  
+    IF retorno > 0 THEN 
+        UPDATE equipments SET name_equipment = p_equipo, mark = p_marca, total_quantity = p_cantidad_total, id_cellar = p_bodega, id_user_create = p_id_user WHERE id_equipment = p_id_equipo;
+    END IF; 
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `update_exit_stock` (IN `cantidad` INT(11), IN `idMaster` INT(11), IN `IdDetalle` INT(11), IN `IdUser` INT(11), OUT `retorno` BOOLEAN)  BEGIN
@@ -164,7 +187,7 @@ CREATE TABLE `equipments` (
 --
 
 INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `create_date`) VALUES
-(1, 'teve', 'acme', 100, 102, 5, 7, '2017-10-25 22:09:42'),
+(1, 'Tv', 'acme', 4, 2, 5, 7, '2017-10-25 22:09:42'),
 (2, '654', 'ytr', 10, 10, 5, 7, '2017-10-25 22:09:42'),
 (3, 'lazos', 'acme', 20, 20, 5, 7, '2017-10-25 22:09:42');
 
@@ -246,7 +269,8 @@ INSERT INTO `exit_product_detalle` (`id_exit_product_detalle`, `id_exit_product_
 (96, 155, 27, 1, '', 1),
 (97, 156, 23, 20, 'muy negra', 1),
 (98, 157, 28, 2, 'sale', 1),
-(99, 158, 29, 20, 'bien', 1);
+(99, 158, 29, 20, 'bien', 1),
+(100, 159, 21, 4, 'Verde', 1);
 
 --
 -- Disparadores `exit_product_detalle`
@@ -326,7 +350,8 @@ INSERT INTO `exit_product_master` (`id_exit_product`, `user_delivery`, `user_rec
 (155, 7, 1234, 'Santiago', 'Int', 1, '2017-10-25 00:53:18'),
 (156, 7, 1234, 'Santiago', 'Cali', 1, '2017-10-25 02:30:59'),
 (157, 7, 1234, 'Santiago', 'Int', 1, '2017-10-25 03:04:08'),
-(158, 7, 98511504, 'Eleuterio Herrera Soto', 'Int', 1, '2017-10-26 07:01:11');
+(158, 7, 98511504, 'Eleuterio Herrera Soto', 'Int', 1, '2017-10-26 07:01:11'),
+(159, 7, 18595130, 'Jhon  Jairo Cuaervo', 'Risaralda', 1, '2017-10-26 20:03:32');
 
 -- --------------------------------------------------------
 
@@ -617,7 +642,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `unit_measure`, `id_user_create`, `id_cellar`, `num_orders`, `creation_date`) VALUES
-(1, 'Savila', 'Savila', '1', 7, 1, 11, '2017-10-19 17:58:12'),
+(1, 'Savila', 'Savila', '1', 7, 1, 12, '2017-10-26 20:03:32'),
 (2, 'Carne roja', 'Carne roja', '1', 7, 3, 8, '2017-10-19 17:58:12'),
 (3, 'Leche', 'En polvo', '2', 7, 2, 4, '2017-10-26 07:01:11'),
 (4, 'Fresas', 'fresas', '2', 7, 1, 6, '2017-10-18 19:36:34'),
@@ -647,7 +672,9 @@ CREATE TABLE `recover_password` (
 INSERT INTO `recover_password` (`id_recover`, `code_recover`, `email_user`, `use_code`, `fecha_creacion`) VALUES
 (1, 'F679953I', 'd4n7elfelipe@gmail.com', 1, '2017-10-15 03:58:24'),
 (2, 'P721195W', 'd4n7elfelipe@gmail.com', 1, '2017-10-26 07:45:22'),
-(3, 'Q883592Q', 'd4n7elfelipe@gmail.com', 1, '2017-10-26 07:57:03');
+(3, 'Q883592Q', 'd4n7elfelipe@gmail.com', 1, '2017-10-26 07:57:03'),
+(4, 'N997689E', 'd4n7elfelipe@gmail.com', 0, '2017-10-26 17:39:45'),
+(5, 'R174282W', 'd4n7elfelipe@gmail.com', 0, '2017-10-26 18:10:06');
 
 -- --------------------------------------------------------
 
@@ -721,7 +748,7 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `amount_income`, `expiration_date`, `expiration_create`, `comercializadora`, `state`) VALUES
-(21, 1, '4567yugj', 4, 10, '2017-10-31', '2017-10-18 20:15:50', 'casa', 1),
+(21, 1, '4567yugj', 0, 10, '2017-10-31', '2017-10-18 20:15:50', 'casa', 1),
 (22, 2, '45768ighio', 13, 20, '2017-10-30', '2017-10-18 20:16:44', 'casas', 1),
 (23, 5, '39r8euwkw', 180, 200, '2017-10-27', '2017-10-19 06:16:11', 'negra', 1),
 (24, 1, '9i4k302', 100, 100, '2017-10-31', '2017-10-19 06:19:56', 'sab', 1),
@@ -802,7 +829,8 @@ INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity
 (2, 'martillo', '3456yw', 20, 9, 6, 7, '2017-10-25 22:08:34'),
 (7, 'cuchillo', 'cualquiera', 50, 14, 6, 18, '2017-10-25 22:08:34'),
 (8, 'pica', 'acme', 45, 9, 6, 18, '2017-10-25 22:08:34'),
-(9, 'palustre', 'acme', 50, 5, 6, 7, '2017-10-25 22:08:34');
+(9, 'palustre', 'acme', 50, 5, 6, 7, '2017-10-25 22:08:34'),
+(10, 'Palin', 'Acme', 10, 9, 6, 7, '2017-10-26 19:56:37');
 
 -- --------------------------------------------------------
 
@@ -835,8 +863,8 @@ INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `email_user`, `ced
 (19, 'Juan camilo', 'Ortiz', 'juan@gmail.com', '999999999', '$2y$10$hK8UMSasfKHpZ0sqwM2XM.8hsLsARBwZpDywZFOzhaGaFfwhjMDFa', 4, 3, 1),
 (20, 'Sofhia', 'Garzon', 'sofhia@gmail.com', '4444', '$2y$10$SCZ8eU.YXk.n/IeOi5.6sOvhuGn9uhO.KgXAY9fYu9NzO1zzNUCKa', 5, 1, 1),
 (21, 'Laura', 'Marin', 'lau@gmail.com', '333', '$2y$10$bY1llUyBaMKVq2ej.D2yp.JvBUGt3zOoeUQYxQCEhdgShrbrZoPEy', 3, 2, 1),
-(22, 'Luna', 'Muños', 'luna@gmail.com', '55555', '$2y$10$INEsra7Ta37fLhxF558OVuc8YkKJW9XOYnYf8a145LLQ8pLuqlUty', 4, 3, 1),
-(23, 'Miguel', 'zamora', 'migue@gmail.com', '111111', '$2y$10$z0b5GSuxGZv94C6KcZjwPuIy8lrg2Fu2GpHL.8.EAwdyZoDfuuMmG', 4, 1, 1);
+(22, 'Luna', 'Muños', '', '55555', '$2y$10$INEsra7Ta37fLhxF558OVuc8YkKJW9XOYnYf8a145LLQ8pLuqlUty', 4, 3, 0),
+(23, 'Miguel', 'zamora', '', '111111', '$2y$10$z0b5GSuxGZv94C6KcZjwPuIy8lrg2Fu2GpHL.8.EAwdyZoDfuuMmG', 4, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1027,7 +1055,7 @@ ALTER TABLE `cellar`
 -- AUTO_INCREMENT de la tabla `equipments`
 --
 ALTER TABLE `equipments`
-  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `exit_equipment_master`
 --
@@ -1037,12 +1065,12 @@ ALTER TABLE `exit_equipment_master`
 -- AUTO_INCREMENT de la tabla `exit_product_detalle`
 --
 ALTER TABLE `exit_product_detalle`
-  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_master`
 --
 ALTER TABLE `exit_product_master`
-  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
+  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 --
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
@@ -1082,7 +1110,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
 ALTER TABLE `recover_password`
-  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
@@ -1102,7 +1130,7 @@ ALTER TABLE `stock_plant`
 -- AUTO_INCREMENT de la tabla `tools`
 --
 ALTER TABLE `tools`
-  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
