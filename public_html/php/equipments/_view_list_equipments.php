@@ -48,12 +48,7 @@ foreach ($retorno_equipos as $key => $value) { ?>
 		        	<i  class="material-icons prefix">business_center</i>
 		        	<input id="cantidad_total" type="text" class="validate editar_info" name="cantidad_total" autocomplete="off" value="<?php echo $value['total_quantity'] ?>">
 		        	<label for="cantidad_total" class="active">Cantidad Total</label>
-		        </div>
-		        <div class="input-field col s4 hide oculto">
-		            <i class="material-icons prefix">local_grocery_store</i>
-		            <input id="cantida_disponible" type="text" class="validate editar_info" name="cantidad_disponible" autocomplete="off" value="<?php echo $value['quantity_available'] ?>"  readonly="readonly">
-		            <label for="cantida_disponible" class="active">Cantidad Disponible</label>
-		        </div>		
+		        </div>	
 		        
 		        <div class="action col s4 centrar">
 		        	<button class="waves-effect waves-light btn btn-success hide actualizar_info">

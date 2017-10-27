@@ -7,13 +7,12 @@
 	$equipo 			= $_REQUEST["equipo"];
 	$marca 		        = $_REQUEST["marca"];
 	$cantidad_total		= $_REQUEST["cantidad_total"];
-	$cantidad 			= $_REQUEST["cantidad_disponible"];
 	$bodega 			= 5;
-	$retorno_equipment 	= $equipment->update_equipment($equipo,$marca,$cantidad_total,$cantidad,$bodega,$id_user,$id_equipo);
-	if (count($retorno_equipment) > 0) {
-		$respuesta = array('mensaje' => "Actualización correcta", 'status' => 1 );
+	$retorno_equipment 	= $equipment->update_equipment($equipo,$marca,$cantidad_total,$bodega,$id_user,$id_equipo);
+	if ($retorno_equipment['retorno'] > 0) {
+		$respuesta = array('mensaje' => "Actualizacion Exitosa", 'status' => 1 );
 	}else{
-		$respuesta = array('mensaje' => "error", 'status' => 0 );
+		$respuesta = array('mensaje' => "No puedes realizar esta accion", 'status' => 0 );
 	}
 	echo json_encode($respuesta);
 ?>

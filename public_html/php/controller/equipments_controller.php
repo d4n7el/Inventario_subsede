@@ -84,15 +84,15 @@
         	}
 		}
 
-		public function update_equipment($equipo,$marca,$cantidad_total,$cantida_disponible,$bodega,$id_user,$id_equipo){
+		public function update_equipment($equipo,$marca,$cantidad_total,$bodega,$id_user,$id_equipo){
 			try {
-				$sql_consult = $this->db->prepare('UPDATE equipments SET name_equipment = ?, mark = ?, total_quantity =?, quantity_available =?, id_cellar = ?, id_user_create = ? WHERE id_equipment = ? ');
-	            if ($sql_consult->execute(array($equipo,$marca,$cantidad_total,$cantida_disponible,$bodega,$id_user,$id_equipo))) {
-	            	return 1;
-	            }else{
-	            	return 0;
-	            }
-	            $this->db = null;
+				$sql_consult = $this->db->prepare("CALL update_equipments(?,?,?,?,?,?,@retorno)");
+	            	$sql_consult->execute(array($equipo,$marca,$cantidad_total,$bodega,$id_user,$id_equipo));
+	            	$sql_consults = $this->db->prepare("SELECT @retorno as retorno");
+		            $sql_consults->execute();
+		            $result = $sql_consults->fetch();
+	            	return $result;
+	            	$this->db = null;
             } catch (PDOException $e) {
             	$e->getMessage();
         	}
