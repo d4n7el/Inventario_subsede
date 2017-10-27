@@ -22,7 +22,7 @@
 		}
 		public function get_user($name,$cedula,$correo,$apellido,$id_user,$estado,$limit,$offset){
 			try {
-				$sql = "SELECT * FROM user INNER JOIN cellar ON user.id_cellar = cellar.id_cellar WHERE id_user LIKE '$id_user' AND name_user LIKE '$name' AND cedula LIKE '$cedula' AND email_user LIKE '$correo' AND last_name_user LIKE '$apellido' AND state LIKE '$estado' ORDER BY id_user DESC LIMIT $limit OFFSET $offset ";
+				$sql = "SELECT * FROM user INNER JOIN cellar ON user.id_cellar = cellar.id_cellar INNER JOIN roles ON user.id_role = roles.id_role WHERE id_user LIKE '$id_user' AND name_user LIKE '$name' AND cedula LIKE '$cedula' AND email_user LIKE '$correo' AND last_name_user LIKE '$apellido' AND state LIKE '$estado' ORDER BY id_user DESC LIMIT $limit OFFSET $offset ";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($id_user,$name,$cedula,$correo,$apellido));
 				$result = $sql_consult->fetchAll();

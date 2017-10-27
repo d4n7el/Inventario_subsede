@@ -10,7 +10,7 @@
 		}
 		public function init_session_user($cedula){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role  WHERE cedula = ? AND state = 1 LIMIT 1");
+				$sql_consult = $this->db->prepare("SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role INNER JOIN cellar ON user.id_cellar = cellar.id_cellar WHERE cedula = ? AND state = 1 LIMIT 1");
 				$sql_consult->execute(array($cedula));
 				$result = $sql_consult->fetch();
 				$this->db = null;

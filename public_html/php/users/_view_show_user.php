@@ -3,6 +3,7 @@
 		$readonly = ($_SESSION["id_user_activo"] == $value['id_user'] || $_SESSION["id_user_activo_role"] == "A_A-a_1") ? "" : "readonly" ?>	
 		<div class="row" id="update_<?php echo $value['id_user'] ?>">
 			<section >
+				<h6 class="titutlo"><?php echo $value['name_cellar']." - ". $value['name_rol'] ?></h6>
 				<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/update_user.php" class="update_info" accept-charset="utf-8">
 					<input value="<?php echo $value['id_user'] ?>" name="id_user" type="hidden" readonly="readonly">
 					<div class="input-field col s4">
@@ -25,12 +26,16 @@
 			            <input <?php echo $readonly; ?>id="cedula_user" type="text" class="validate editar_info" name="cedula" autocomplete="off" value="<?php echo $value['cedula'] ?>" readonly="readonly" >
 			            <label for="cedula_user" class="active">Cedula cliente</label>
 			        </div>
-			        <div class="input-field col s4">
-			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/roles/_view_roles_select.php'); ?>
-			        </div>
-			        <div class="input-field col s4">
-			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
-			        </div>
+			        <?php  
+			        if ($_SESSION["id_user_activo_role"] == "A_A-a_1") { ?>
+				        <div class="input-field col s4">
+				        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/roles/_view_roles_select.php'); ?>
+				        </div>
+				        <div class="input-field col s4">
+				        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
+				        </div>
+			        	<?php 
+					}?>
 			        <div class="input-field col s4">
 				        	<i class="material-icons prefix">thumbs_up_down</i>
 						    <select name="estado">
