@@ -32,10 +32,10 @@
             	$e->getMessage();
         	}
 		}
-		public function graphics_pie(){
+		public function graphics_pie($id_producto){
 			try {
-				$sql_consult = $this->db->prepare("SELECT products.name_product, COUNT(id_stock) as count FROM products INNER JOIN stock ON products.id_product = stock.id_product GROUP BY products.id_product");
-				$sql_consult->execute();
+				$sql_consult = $this->db->prepare("SELECT products.name_product, COUNT(id_stock) as count FROM products INNER JOIN stock ON products.id_product = stock.id_product WHERE products.id_product LIKE ? GROUP BY products.id_product");
+				$sql_consult->execute(array($id_producto));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;

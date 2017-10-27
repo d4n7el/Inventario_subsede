@@ -46,64 +46,67 @@
 		</div>
 	</form>
 </div>
+<div class="row" id="head_table">
+	<div class="col s2 centrar prymary_head_cell">
+		<a href="#" class="tabla color_letra_primario" order="name_product ASC">
+			<strong>Producto</strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="name_cellar ASC">
+			<strong>Bodega</strong>
+		</a>
+	</div>
+	<div class="col s3 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+			<strong>Vencimiento  </strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
+			<strong>Cantidad</strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
+			<strong>Bodega  </strong>
+		</a>
+	</div>
+	<div class="col s1 centrar head_cell">
+		<a href="#" class="color_letra_primario">
+			<strong>Opciones  </strong>
+		</a>
+	</div>
+</div>
 <?php 
 if (count($retorno_stock) > 0) {
 	foreach ($retorno_stock as $key => $value) { ?>
-		<div class="row" id="">
-			<section>
-				<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/update_stock.php" class="update_info" accept-charset="utf-8">
-				         <input id="nombre_producto" type="hidden" class="validate editar_info" name="id_stock" autocomplete="off" value="<?php echo $value['id_stock'] ?>"  readonly="readonly">
-				    <h6 class="titulo">	
-						<?php echo $value['name_product']." - ". $value['name_cellar']; ?>
-				    </h6>
-
-					<div class="input-field col s4 m4 hide oculto">
-				           <?php require($_SERVER['DOCUMENT_ROOT'].'/php/products/view_selects_products.php'); ?>
-				    </div>
-
-					<div class="input-field col s4 m4">
-				           <i class="material-icons prefix">dashboard</i>
-				           <input id="lote" type="text" class="validate editar_info" name="nombre_lote" autocomplete="off" value="<?php echo $value['nom_lot'] ?>"  readonly="readonly">
-				           <label for="lote" class="active">Lote</label>
-				    </div>
-
-					<div class="input-field col s4  m4">
-				        <i class="material-icons prefix">filter_9_plus</i>
-				        <input id="nombre_producto" type="text" class="validate editar_info" name="amount" autocomplete="off" value="<?php echo $value['amount'] ?>"  readonly="readonly">
-				         <label for="nombre_producto" class="active">Cantidad</label>
-				    </div>
-
-
-					<div class="input-field col s4  m4 oculto hide ">
-				        <i class="material-icons prefix">date_range</i>
-				        <input id="nombre_producto" type="text" class="validate datepicker editar_info" name="expiration" autocomplete="off" value="<?php echo $value['expiration_date'] ?>"  readonly="readonly">
-				        <label for="nombre_producto" class="active">Fecha Vencimiento</label>
-				    </div>
-				    <div class="input-field col s3 m4 hide oculto">
-				    	<i class="material-icons prefix">thumbs_up_down</i>
-					    <select name="estado">
-						      <option value="" disabled selected>Estado</option>
-						      <option value="0" <?php echo ($estado == "0") ? "selected"  : "" ?>>Inactivo</option>
-						      <option value="1" <?php echo ($estado == "1") ? "selected"  : "" ?>>Activo</option>
-					    </select>
-					    <label>Estado</label>
-					</div>
-					<div class="input-field col s4 hide oculto">
-				        <i class="material-icons prefix">home</i>
-				        <input id="nombre_producto" type="text" class="validate editar_info" name="comercializadora" autocomplete="off" value="<?php echo $value['comercializadora'] ?>"  readonly="readonly">
-				        <label for="nombre_producto" class="active">Comercializadora</label>
-				    </div>
-				    <div class="action col s4 centrar">
-				       <button class="waves-effect waves-light btn btn-success hide actualizar_info">
-				        <i class="material-icons left">near_me</i>Guardar
-				       </button>
-
-				       <button class="waves-effect waves-light btn btn-primary editar_info">
-				        <i class="material-icons left">cached</i>Editar
-				       </button>
-				    </div>
-				</form>
-			</section>	    
+		<div class="row tabla " id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >
+			<div class="col s2 primary_cell producto">
+				<h6 class="col s12 center color_letra_secundario" >
+				 <?php echo $value['name_product']; ?></h6>
+			</div>
+			<div class="col s2 second_cell bodega">
+				<h6 class="col s12 center color_letra_secundario">
+				 <?php echo $value['name_cellar']; ?></h6>
+			</div>
+			<div class="col s3 second_cell lote">
+				<h6 class="col s12 center color_letra_secundario">
+				<?php echo $value['expiration_date']; ?></h6>
+			</div>
+			<div class="col s2 second_cell cantidad_disponible">
+				<h6 class="col s12 center color_letra_secundario">
+					<?php echo $value['amount']?>
+				</h6>
+			</div>
+			<div class="col s2 second_cell cantidad_disponible">
+				<h6 class="col s12 center color_letra_secundario">
+					<?php echo $value['name_cellar']?>
+				</h6>
+			</div>
+			<div class="col s1 second_cell">
+				<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_stock" stock="<?php echo $value['id_stock'] ?>" data-target="modal_right">visibility</button>
+			</div>
 		</div>
 		<?php  
 	}

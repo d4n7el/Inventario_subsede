@@ -60,6 +60,7 @@ function eliminar_eventos(){
 	$('form.search_exit_plant').off('submit');
 	$('a.view_graphics').off('click');
 	$('button.view_info_user').off('click');
+	$('button.view_info_stock').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
@@ -142,7 +143,7 @@ var recargar_eventos = function(){
 		event.preventDefault();
 		var ruta = "../php/stock/index.php";
 		var id_stock = $(this).attr('stock');
-		$("div#modal_center div.modal-content form").load(ruta,{id_stock: id_stock},function() {
+		$("div#modal_right div.modal-content").load(ruta,{id_stock: id_stock},function() {
 			recargar_eventos();
 		});
 	});
