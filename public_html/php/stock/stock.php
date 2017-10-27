@@ -1,8 +1,9 @@
 <?php  
 	session_start();
-if (isset($_SESSION["id_user_activo"])) { ?>
+if (isset($_SESSION["id_user_activo"])) { 
+	$col = (isset($_REQUEST['alterno']) ? "s12" : "s6" );?>
 	<div class="row">
-	    <div class="formulario col m6">
+	    <div class="formulario col <?php echo $col ?>">
 	    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/new_stock.php" class="create_info">
 					<div class="input-field col s12 m12" id="stock">
 		        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
@@ -11,7 +12,6 @@ if (isset($_SESSION["id_user_activo"])) { ?>
 		        <div class="input-field col s12 m12" id="mostrar_productos">
 					
 		        </div>
-
 		        <div id="formulario">
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">dashboard</i>
@@ -47,9 +47,13 @@ if (isset($_SESSION["id_user_activo"])) { ?>
 		        </div>
 		    </form>	
 	    </div>
-	    <div class="col s6" id="view_graphics">
-    		<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/stock/graphics_pie.php") ?>
-    	</div>
+	    <?php
+	    if (!isset($_REQUEST['alterno'])) { ?>
+		    <div class="col s6" id="view_graphics">
+	    		<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/stock/graphics_pie.php") ?>
+	    	</div>
+    		<?php
+		} ?>
 	</div>
 	<?php 
 }	?>

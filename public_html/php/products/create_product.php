@@ -1,9 +1,10 @@
 <?php  
 	session_start();
 	if (isset($_SESSION["id_user_activo"])) {
+	$col = (isset($_REQUEST['alterno']) ? "s12" : "s6" );
 ?>
 		<div class="row">
-		    <div class="formulario col m6">
+		    <div class="formulario col <?php echo $col ?>">
 		    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/new_product.php" class="create_info">
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">account_circle</i>
@@ -21,16 +22,21 @@
   					<div class="input-field col s12 m12">
 			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
 			        </div>
-			        <div class="action col m12">
+			        <div class="action col m12 centrar">
 			        	<button class="waves-effect waves-light btn btn-primary">
 			        		<i class="material-icons left">near_me</i>Guardar
 			        	</button>
 			        </div>	
 				</form>
 		    </div>
-		    <div class="col s6" id="view_graphics">
-	    		<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/products/graphics_pie.php") ?>
-	    	</div>
+		    <?php 
+		    if (!isset($_REQUEST['alterno'])) { ?>
+		    	<div class="col <?php echo $col ?>" id="view_graphics">
+	    			<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/products/graphics_pie.php") ?>
+	    		</div>
+		    	<?php
+		    } ?>
+		    
 		</div>
 		<?php 
 	}

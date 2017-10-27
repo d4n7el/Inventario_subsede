@@ -1,4 +1,12 @@
 <div class="row">
+    <div class="formulario col s12 alternos" id="">
+        <button type="" class="waves-effect flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_right">Crea un producto
+            <i class="material-icons left">add</i>
+        </button>
+        <button type="" class="waves-effect flujo_alterno waves-light btn btn-success" ruta="../php/stock/stock.php" data-target="modal_right">Crea un Stock
+            <i class="material-icons left">add</i>
+        </button>
+    </div>
     <form action="#" accept-charset="utf-8" id="add_exit_product">
         <div class="formulario col s5" id="">
             <h5 class="titulo"> Selecciona los campos</h5>	

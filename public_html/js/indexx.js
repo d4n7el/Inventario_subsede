@@ -61,9 +61,18 @@ function eliminar_eventos(){
 	$('a.view_graphics').off('click');
 	$('button.view_info_user').off('click');
 	$('button.view_info_stock').off('click');
+	$('button.flujo_alterno').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	$('button.flujo_alterno').on('click', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('ruta');
+		var alterno = 1;
+		$("div#modal_right div.modal-content").load(ruta,{alterno : alterno},function() {
+			recargar_eventos();
+		});
+	});
 	$('button.view_info_user').on('click', function(event) {
 		event.preventDefault();
 		var id_user = $(this).attr('id_user');
@@ -506,6 +515,7 @@ function clean_input(){
 	$('.create_info')[0].reset(); //Sirve para resetear a su estado original el form
 	$('.create_info i, .create_info label').removeClass('active'); 
 	$('.create_info input').removeClass('valid');
+	$('#modal_right').modal('close');
 }
 function parse_fecha_numeric(fecha){
 	var fecha = new Date(fecha);
