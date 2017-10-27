@@ -95,7 +95,7 @@
 				}
 			?>
 			<div class="col s1 second_cell">
-				<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_stock" id_exit_product="<?php echo $value['id_exit_product'] ?>" data-target="modal_center" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" id_plant="<?php echo $value['id_stock_plant']?>">receipt</button>
+				<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_stock" id_exit_product="<?php echo $value['id_exit_product'] ?>" data-target="modal_right" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" id_plant="<?php echo $value['id_stock_plant']?>">receipt</button>
 			</div>
 		</div>
 		<?php

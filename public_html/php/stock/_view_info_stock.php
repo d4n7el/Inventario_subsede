@@ -45,15 +45,21 @@ if (count($retorno_stock) > 0) {
 				        <input id="nombre_producto" type="text" class="validate editar_info" name="comercializadora" autocomplete="off" value="<?php echo $value['comercializadora'] ?>"  readonly="readonly">
 				        <label for="nombre_producto" class="active">Comercializadora</label>
 				    </div>
-				    <div class="action col s4 centrar">
-				       <button class="waves-effect waves-light btn btn-success hide actualizar_info">
-				        <i class="material-icons left">near_me</i>Guardar
-				       </button>
+				    <?php 
+				    	if ($_SESSION["id_user_activo_role"] == "A_A-a_1") { ?>
+				    		<div class="action col s4 centrar">
+						       <button class="waves-effect waves-light btn btn-success hide actualizar_info">
+						        <i class="material-icons left">near_me</i>Guardar
+						       </button>
 
-				       <button class="waves-effect waves-light btn btn-primary editar_info">
-				        <i class="material-icons left">cached</i>Editar
-				       </button>
-				    </div>
+						       <button class="waves-effect waves-light btn btn-primary editar_info">
+						        <i class="material-icons left">cached</i>Editar
+						       </button>
+						    </div>
+				    		<?php 
+				    	}
+				    ?>
+				    
 				</form>
 			</section>	    
 		</div>
