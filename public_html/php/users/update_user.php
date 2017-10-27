@@ -5,7 +5,7 @@
 	$apellido 		= addslashes($_REQUEST['apellido']);
 	$cedula 		= addslashes($_REQUEST['cedula']);
 	$id_user 		= addslashes($_REQUEST['id_user']);
-	$email 			= addslashes($_REQUEST['email']);
+	$email 			= addslashes($_REQUEST['email_user']);
 	$estado 			= addslashes($_REQUEST['estado']);
 	$cellar 		= addslashes($_REQUEST['cellar']);
 	$rol 			= addslashes($_REQUEST['rol']);

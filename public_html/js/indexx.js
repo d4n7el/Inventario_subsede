@@ -66,8 +66,9 @@ var recargar_eventos = function(){
 	$('button.view_info_user').on('click', function(event) {
 		event.preventDefault();
 		var id_user = $(this).attr('id_user');
+		var estado = $(this).attr('state');
 		var ruta = $(this).attr('ruta');
-		$("div#modal_right div.modal-content").load(ruta,{id_user: id_user},function() {
+		$("div#modal_right div.modal-content").load(ruta,{id_user: id_user, estado: estado},function() {
 			recargar_eventos();
 		});
 	});

@@ -22,7 +22,6 @@
 		// NECESARIO PARA LA PAGINACION
 		
 		$retorno_user = $welcome->get_user($name,$cedula,$correo,$apellido,$id_user,$estado,$limit,$offset);
-		
 		if ($id_user == "%%") {
 			require($_SERVER['DOCUMENT_ROOT'].'/php/users/_view_list_user.php');
 		}else{

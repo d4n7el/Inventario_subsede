@@ -16,6 +16,11 @@
 			            <label for="apellido_user" class="active">Apellido cliente</label>
 			        </div>
 			        <div class="input-field col s4">
+			            <i class="material-icons prefix">account_circle</i>
+			            <input <?php echo $readonly; ?>id="apellido_user" type="text"  class="validate editar_info" name="email_user" autocomplete="off" value="<?php echo $value['email_user'] ?>" readonly="readonly" >
+			            <label for="email_user" class="active">Correo</label>
+			        </div>
+			        <div class="input-field col s4">
 			            <i class="material-icons prefix">credit_card</i>
 			            <input <?php echo $readonly; ?>id="cedula_user" type="text" class="validate editar_info" name="cedula" autocomplete="off" value="<?php echo $value['cedula'] ?>" readonly="readonly" >
 			            <label for="cedula_user" class="active">Cedula cliente</label>
