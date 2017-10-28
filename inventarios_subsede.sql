@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 28-10-2017 a las 06:22:58
+-- Tiempo de generación: 28-10-2017 a las 08:27:24
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -104,20 +104,31 @@ state) VALUES (IdDetalle,IdUser,"bien",old_cantidad, cantidad,"Update",1);
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_quantity_available` (IN `equipo` INT, IN `disponible` INT, IN `nota` VARCHAR(50), OUT `retorno` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_quantity_available` (IN `equipo` INT, IN `disponible` INT, IN `nota` VARCHAR(50), IN `proceso` INT, OUT `retorno` INT)  BEGIN
   DECLARE v_total INT;
     DECLARE v_prestamos INT;
+    DECLARE v_available INT;
     SELECT COUNT(id_exit_detall) INTO v_prestamos FROM exit_teams_detall INNER JOIN exit_equipment_master ON exit_teams_detall.id_exit = exit_equipment_master.id_exit WHERE id_equipment = equipo AND exit_equipment_master.received = 0;
     SELECT total_quantity INTO v_total FROM equipments WHERE id_equipment = equipo;
-    IF v_total >= disponible THEN
-      IF disponible >= v_prestamos THEN
-          UPDATE equipments SET quantity_available = disponible WHERE id_equipment = equipo;
-            SET retorno = 1;
+    SELECT quantity_available INTO v_available FROM equipments WHERE id_equipment = equipo;
+    IF proceso LIKE 1 THEN
+        IF v_total >= disponible + v_prestamos + v_available THEN
+          IF disponible >= v_prestamos THEN
+              UPDATE equipments SET quantity_available = quantity_available + disponible WHERE id_equipment = equipo;
+                SET retorno = 1;
+            ELSE
+              SET retorno = -1;
+            END IF;
         ELSE
-          SET retorno = -1;
+          SET retorno = 0;
         END IF;
     ELSE
-      SET retorno = 0;
+        IF v_available - disponible >= v_prestamos THEN
+            UPDATE equipments SET quantity_available = quantity_available - disponible WHERE id_equipment = equipo;
+            SET retorno = 1;
+        ELSE
+            SET retorno = -1;
+        END IF;
     END IF;
 END$$
 
