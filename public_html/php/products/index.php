@@ -12,16 +12,15 @@
 	$producto = isset($_REQUEST['producto']) && $_REQUEST['producto'] != "" ? $_REQUEST['producto'] : "%%";
 	$bodega = isset($_REQUEST['bodega']) && $_REQUEST['bodega'] != "" ? $_REQUEST['bodega'] : "%%";
 	$casa = isset($_REQUEST['casa']) && $_REQUEST['casa'] != "" ? $_REQUEST['casa'] : "%%";
-	$measure = isset($_REQUEST['measure']) && $_REQUEST['measure'] != "" ? $_REQUEST['measure'] : "%%";
 	$fecha_inicial = isset($_REQUEST['fecha_inicial'])? $_REQUEST['fecha_inicial'] : $Yesterday;
 	$fecha_final = isset($_REQUEST['fecha_final'])? $_REQUEST['fecha_final'] : $tomorrow;
 	$limit = 2;
 	$offset = $limit * $pagina;
-	$retorno_count_products = $count_products->count_products($producto,$bodega,$measure,$fecha_inicial,$fecha_final);
+	$retorno_count_products = $count_products->count_products($producto,$bodega,$fecha_inicial,$fecha_final);
 	$count_rows = $retorno_count_products['count'];
 	$href = '/php/products/index.php';
 	// NECESARIO PARA LA PAGINACION
 
-	$retorno_productos = $productos->get_products($producto,$bodega,$measure,$fecha_inicial,$fecha_final,$limit, $offset);
+	$retorno_productos = $productos->get_products($producto,$bodega,$fecha_inicial,$fecha_final,$limit, $offset);
 	include($_SERVER['DOCUMENT_ROOT'].'/php/products/_view_list_products.php');
 ?>

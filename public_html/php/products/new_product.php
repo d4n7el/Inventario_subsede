@@ -5,9 +5,8 @@
 	$id_user 			= $_SESSION["id_user_activo"]; 
 	$producto 			= $_REQUEST["producto"];
 	$descripcion 		= $_REQUEST["descripcion"];
-	$unidad_medida 		= $_REQUEST["unidad_medida"];
 	$bodega 			= $_REQUEST["cellar"];
-	$retorno_product 	= $product->insert_product($producto,$descripcion,$unidad_medida,$id_user,$bodega);
+	$retorno_product 	= $product->insert_product($producto,$descripcion,$id_user,$bodega);
 	if ($retorno_product > 0) {
 		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create','graphics' => 'php/products/graphics_pie.php' );
 	}else{

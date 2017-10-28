@@ -26,41 +26,58 @@
 		</div>
 	</form>
 </div>
-
-
+<div class="row" id="head_table">
+	<div class="col s2 centrar prymary_head_cell">
+		<a href="#" class="tabla color_letra_primario" order="name_product ASC">
+			<strong>Producto</strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="name_cellar ASC">
+			<strong>Bodega</strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+			<strong>Cantidad  </strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+			<strong>Disponible  </strong>
+		</a>
+	</div>
+	<div class="col s4 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
+			<strong>Opciones</strong>
+		</a>
+	</div>
+</div>
 <?php 
 foreach ($retorno_equipos as $key => $value) { ?>
-	<div class="row" id="update_<?php echo $value['id_user'] ?>">
-		<section>
-			<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/update_equipment.php" class="update_info" accept-charset="utf-8">
-				<input value="<?php echo $value['id_equipment'] ?>" name="id_equipo" type="hidden" readonly="readonly">
-				<div class="input-field col s4">
-		            <i class="material-icons prefix">account_circle</i>
-		            <input id="nombre_equipo" type="text" class="validate editar_info" name="equipo" autocomplete="off" value="<?php echo $value['name_equipment'] ?>"  readonly="readonly">
-		            <label for="nombre_producto" class="active">Nombre equipo</label>
-		        </div>
-		        <div class="input-field col s4">
-		            <i class="material-icons prefix">subject</i>
-		            <input id="marca" type="text" class="validate editar_info" name="marca" autocomplete="off" value="<?php echo $value['mark'] ?>"  readonly="readonly">
-		            <label for="marca" class="active">Marca Equipo</label>
-		        </div>
-		        <div class="input-field col s4 hide oculto">
-		        	<i  class="material-icons prefix">business_center</i>
-		        	<input id="cantidad_total" type="text" class="validate editar_info" name="cantidad_total" autocomplete="off" value="<?php echo $value['total_quantity'] ?>">
-		        	<label for="cantidad_total" class="active">Cantidad Total</label>
-		        </div>	
-		        
-		        <div class="action col s4 centrar">
-		        	<button class="waves-effect waves-light btn btn-success hide actualizar_info">
-		        		<i class="material-icons left">near_me</i>Guardar
-		        	</button>
-		        	<button class="waves-effect waves-light btn btn-primary editar_info">
-		        		<i class="material-icons left">cached</i>Editar
-		        	</button>
-		        </div>
-	    	</form>
-	    </section>
-	</div>
+	<div class="row tabla " id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >
+			<div class="col s2 primary_cell producto">
+				<h6 class="col s12 center color_letra_secundario" >
+				 <?php echo $value['name_equipment']; ?></h6>
+			</div>
+			<div class="col s2 second_cell bodega">
+				<h6 class="col s12 center color_letra_secundario">
+				 <?php echo $value['mark']; ?></h6>
+			</div>
+			<div class="col s2 second_cell cantidad_disponible">
+				<h6 class="col s12 center color_letra_secundario">
+					<?php echo $value['total_quantity']?>
+				</h6>
+			</div>
+			<div class="col s2 second_cell cantidad_disponible">
+				<h6 class="col s12 center color_letra_secundario">
+					<?php echo $value['quantity_available']?>
+				</h6>
+			</div>
+			<div class="col s1 second_cell">
+				<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_equipment" equipment="<?php echo $value['id_equipment'] ?>" ruta="../php/equipments/index.php" data-target="modal_right">visibility</button>
+			</div>
+		</div>
 	<?php 
 } ?>
 <div class="paginacion col m12">

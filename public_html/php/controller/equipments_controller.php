@@ -45,17 +45,42 @@
             	$e->getMessage();
         	}
 		}
-		public function get_equipments_pag($equipo,$marca,$fecha_inicial,$fecha_final,$limit,$offset){
+		public function outside($id_equipment){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM equipments  WHERE name_equipment LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? ORDER BY id_equipment LIMIT $limit OFFSET $offset " );
-
-				$sql_consult->execute(array($equipo,$marca,$fecha_inicial,$fecha_final));
-				$result = $sql_consult->fetchAll();
+				$sql_consult = $this->db->prepare("SELECT COUNT(id_exit_detall) AS count FROM exit_teams_detall INNER JOIN exit_equipment_master ON exit_teams_detall.id_exit = exit_equipment_master.id_exit WHERE id_equipment = ? AND exit_equipment_master.received = 0" );
+				$sql_consult->execute(array($id_equipment));
+				$result = $sql_consult->fetch();
 				$this->db = null;
 				return $result;
 				
 			} catch (PDOException $e) {
             	$e->getMessage();
+        	}
+		}
+		public function update_equipment_available($equipo,$disponible,$nota){
+			try {
+				$sql_consult = $this->db->prepare("CALL update_quantity_available(?,?,?,@retorno)");
+	            $sql_consult->execute(array($equipo,$disponible,$nota));
+	            $sql_consults = $this->db->prepare("SELECT @retorno as retorno");
+	            $sql_consults->execute();
+	            $result = $sql_consults->fetch();
+	            $this->db = null;
+	            return $result;
+            } catch (PDOException $e) {
+            	echo  $e->getMessage();
+        	}
+		}
+		public function get_equipments_pag($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final,$limit,$offset){
+			try {
+				$sql_consult = $this->db->prepare("SELECT * FROM equipments  WHERE id_equipment LIKE ? AND name_equipment LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? ORDER BY id_equipment LIMIT $limit OFFSET $offset " );
+
+				$sql_consult->execute(array($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final));
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	echo $e->getMessage();
         	}
 		}
 
@@ -185,10 +210,5 @@
             	echo $e->getMessage();
         	}
 		}
-
-
-
-
-
 	}
 ?>

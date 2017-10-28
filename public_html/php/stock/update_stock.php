@@ -10,9 +10,8 @@
 	$expiration 		= $_REQUEST["expiration"];
 	$state 				= $_REQUEST["estado"];
 	$comercializadora 	= $_REQUEST["comercializadora"];
-	$retorno_stock 	= $stock->update_stock($id_stock,$id_product,$nom_lot,$amount,$expiration,$state,$comercializadora);
-
-
+	$unidad_medida 	= $_REQUEST["unidad_medida"];
+	$retorno_stock 	= $stock->update_stock($id_stock,$id_product,$nom_lot,$amount,$expiration,$state,$comercializadora,$unidad_medida);
 	if ($retorno_stock > 0) {
 		$respuesta = array('mensaje' => "registro correcto", 'status' => 1 );
 	}else{

@@ -8,10 +8,10 @@
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
 		}
-		public function insert_stock($id_product,$nom_lot,$amount,$expiration,$comercializadora){
+		public function insert_stock($id_product,$nom_lot,$amount,$expiration,$comercializadora,$unidad_medida){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO stock (id_product,nom_lot,amount,expiration_date,comercializadora,amount_income) VALUES (?,?,?,?,?,?)'  );
-				$sql_consult->execute(array($id_product,$nom_lot,$amount,$expiration,$comercializadora,$amount));
+				$sql_consult = $this->db->prepare('INSERT INTO stock (id_product,nom_lot,amount,expiration_date,comercializadora,amount_income,unit_measure) VALUES (?,?,?,?,?,?,?)'  );
+				$sql_consult->execute(array($id_product,$nom_lot,$amount,$expiration,$comercializadora,$amount,$unidad_medida));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
 				return $result;
@@ -59,7 +59,7 @@
 		}
 		public function get_stock($id_product){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM stock WHERE id_product = ? AND state = 1 " );
+				$sql_consult = $this->db->prepare("SELECT * FROM stock INNER JOIN measure ON stock.unit_measure = measure.id_measure WHERE id_product = ? AND state = 1 " );
 				$sql_consult->execute(array($id_product));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -68,10 +68,10 @@
             	$e->getMessage();
         	}
 		}
-		public function update_stock($id_stock,$id_product,$nom_lot,$amount,$expiration,$state,$comercializadora){
+		public function update_stock($id_stock,$id_product,$nom_lot,$amount,$expiration,$state,$comercializadora,$unidad_medida){
 			try {
-				$sql_consult = $this->db->prepare("UPDATE stock SET id_product = ?, nom_lot = ? , amount = ?, expiration_date = ?,state = ?, comercializadora  = ?  WHERE id_stock = ? ");
-	            if ($sql_consult->execute(array($id_product,$nom_lot,$amount,$expiration, $state, $comercializadora,$id_stock))) {
+				$sql_consult = $this->db->prepare("UPDATE stock SET id_product = ?, nom_lot = ? , amount = ?, expiration_date = ?,state = ?, comercializadora  = ?, unit_measure = ?  WHERE id_stock = ? ");
+	            if ($sql_consult->execute(array($id_product,$nom_lot,$amount,$expiration, $state, $comercializadora,$unidad_medida,$id_stock))) {
 	            	return 1;
 	            }else{
 	            	return 0;

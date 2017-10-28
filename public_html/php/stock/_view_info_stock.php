@@ -18,13 +18,14 @@ if (count($retorno_stock) > 0) {
 				           <input id="lote" type="text" class="validate editar_info" name="nombre_lote" autocomplete="off" value="<?php echo $value['nom_lot'] ?>"  readonly="readonly">
 				           <label for="lote" class="active">Lote</label>
 				    </div>
-
 					<div class="input-field col s4  m4">
 				        <i class="material-icons prefix">filter_9_plus</i>
 				        <input id="cantidad" type="text" class="validate editar_info" name="amount" autocomplete="off" value="<?php echo $value['amount'] ?>"  readonly="readonly">
 				         <label for="cantidad" class="active">Cantidad</label>
 				    </div>
-
+					<div class="input-field col s4">
+			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/measure/get_measure.php'); ?>
+			        </div>
 
 					<div class="input-field col s4  m4 ">
 				        <i class="material-icons prefix">date_range</i>

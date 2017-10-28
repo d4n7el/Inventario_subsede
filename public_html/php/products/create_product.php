@@ -17,9 +17,6 @@
 			            <label for="nombre_descripcion" class="">Descripción</label>
 			        </div>	
   					<div class="input-field col s12 m12">
-			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/measure/get_measure.php'); ?>
-			        </div>
-  					<div class="input-field col s12 m12">
 			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
 			        </div>
 			        <div class="action col m12 centrar">

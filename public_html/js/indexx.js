@@ -62,6 +62,7 @@ function eliminar_eventos(){
 	$('button.view_info_user').off('click');
 	$('button.view_info_stock').off('click');
 	$('button.flujo_alterno').off('click');
+	$('button.view_info_equipment').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
@@ -148,11 +149,19 @@ var recargar_eventos = function(){
 		ajax_get_data(ruta,formData);
 	});
 	$('select').material_select();
-		$('button.view_info_stock').on('click', function(event) {
+	$('button.view_info_stock').on('click', function(event) {
 		event.preventDefault();
 		var ruta = "../php/stock/index.php";
 		var id_stock = $(this).attr('stock');
 		$("div#modal_right div.modal-content").load(ruta,{id_stock: id_stock},function() {
+			recargar_eventos();
+		});
+	});
+	$('button.view_info_equipment').on('click', function(event) {
+		event.preventDefault();
+		var ruta = "../php/equipments/index.php";
+		var id_equipment = $(this).attr('equipment');
+		$("div#modal_right div.modal-content").load(ruta,{id_equipment: id_equipment},function() {
 			recargar_eventos();
 		});
 	});
@@ -312,8 +321,9 @@ var recargar_eventos = function(){
 	});
 	$('select#id_lote').change(function(event) {
 		disponible = $('option:selected', this).attr('disponible');
+		unidad = $('option:selected', this).attr('unidad');
 		$('input#cantidad').attr('max',disponible).val(disponible);
-		$('input#cantidad').siblings('label').text('Cantidad disponible ( '+ disponible + " )");
+		$('input#cantidad').siblings('label').text('disponibles ( '+ disponible + " ) Unidad de salida " + unidad);
 	});
 	$('a.pagination').on('click', function(event) {
 		event.preventDefault();
@@ -351,12 +361,12 @@ var recargar_eventos = function(){
 	$('input#test1,input#test2').on('change',function(event) {
 		$('input#estado').val($(this).val());
 	});
-	$('form.create_info').on('submit', function(event) {
-		event.preventDefault();
-		var formData = new FormData(this);
-		var ruta =  $(this).attr('action');
-		ajax_set_form_data(ruta,formData);
-	});
+	// $('form.create_info').on('submit', function(event) {
+	// 	event.preventDefault();
+	// 	var formData = new FormData(this);
+	// 	var ruta =  $(this).attr('action');
+	// 	ajax_set_form_data(ruta,formData);
+	// });
 	$('button.editar_info').on('click', function(event) {
 		event.preventDefault();
 		$(this).closest('div').removeClass('s4').addClass('s12');
@@ -368,12 +378,12 @@ var recargar_eventos = function(){
 		$(this).closest('div#vista_ventana').find('i').css('color', 'rgba(0,0,0,.4) !important');
 		$(this).closest('div').siblings('div').find('i').css('color', 'rgb(30,136,229)');
 	});
-	$('form.update_info').on('submit', function(event) {
-		event.preventDefault();
-		var formData = new FormData(this);
-		var ruta = $(this).attr('action');
-		ajax_set_form_data(ruta,formData);
-	});
+	// $('form.update_info').on('submit', function(event) {
+	// 	event.preventDefault();
+	// 	var formData = new FormData(this);
+	// 	var ruta = $(this).attr('action');
+	// 	ajax_set_form_data(ruta,formData);
+	// });
 	$('button.actualizar_info').on('click', function(event) {
 		$(this).closest('div').removeClass('s12').addClass('s4');
 		$(this).addClass('hide');

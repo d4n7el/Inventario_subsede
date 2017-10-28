@@ -8,16 +8,16 @@
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
 		}
-		public function insert_product($producto,$descripcion,$unidad_medida,$id_user,$bodega){
+		public function insert_product($producto,$descripcion,$id_user,$bodega){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO products (name_product,description_product,unit_measure,id_user_create,id_cellar) VALUES (?,?,?,?,?)'  );
-				$sql_consult->execute(array($producto,$descripcion,$unidad_medida,$id_user,$bodega));
+				$sql_consult = $this->db->prepare('INSERT INTO products (name_product,description_product,id_user_create,id_cellar) VALUES (?,?,?,?)'  );
+				$sql_consult->execute(array($producto,$descripcion,$id_user,$bodega));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
 				return $result;
 				
 			} catch (PDOException $e) {
-            	$e->getMessage();
+            	echo $e->getMessage();
         	}
 		}
 		public function get_products_cellar($id_cellar){
@@ -56,9 +56,9 @@
             	$e->getMessage();
         	}
 		}
-		public function get_products($producto,$bodega,$measure,$fecha_inicial,$fecha_final,$limit, $offset){
+		public function get_products($producto,$bodega,$fecha_inicial,$fecha_final,$limit, $offset){
 			try {
-				$sql = "SELECT * FROM get_products WHERE name_product LIKE '%$producto%' AND name_cellar LIKE '$bodega' AND prefix_measure LIKE '$measure' AND DATE(creation_date) BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_product DESC LIMIT $limit OFFSET $offset ";
+				$sql = "SELECT * FROM get_products WHERE name_product LIKE '%$producto%' AND name_cellar LIKE '$bodega' AND DATE(creation_date) BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_product DESC LIMIT $limit OFFSET $offset ";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
@@ -69,9 +69,9 @@
             	$e->getMessage();
         	}
 		}
-		public function count_products($producto,$bodega,$measure,$fecha_inicial,$fecha_final){
+		public function count_products($producto,$bodega,$fecha_inicial,$fecha_final){
 			try {
-				$sql = "SELECT COUNT(id_product) as count FROM get_products WHERE name_product LIKE '%$producto%' AND name_cellar LIKE '$bodega' AND prefix_measure LIKE '$measure' AND DATE(creation_date) BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_product DESC";
+				$sql = "SELECT COUNT(id_product) as count FROM get_products WHERE name_product LIKE '%$producto%' AND name_cellar LIKE '$bodega' AND DATE(creation_date) BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_product DESC";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetch();
@@ -82,10 +82,10 @@
             	$e->getMessage();
         	}
 		}
-		public function update_product($producto,$descripcion,$bodega,$id_user,$unidad_medida,$id_producto){
+		public function update_product($producto,$descripcion,$bodega,$id_user,$id_producto){
 			try {
-				$sql_consult = $this->db->prepare('UPDATE products SET name_product = ?, description_product = ?, id_cellar = ?, id_user_create = ?, unit_measure = ? WHERE id_product = ? ');
-	            if ($sql_consult->execute(array($producto,$descripcion,$bodega,$id_user,$unidad_medida,$id_producto))) {
+				$sql_consult = $this->db->prepare('UPDATE products SET name_product = ?, description_product = ?, id_cellar = ?, id_user_create = ? WHERE id_product = ? ');
+	            if ($sql_consult->execute(array($producto,$descripcion,$bodega,$id_user,$id_producto))) {
 	            	return 1;
 	            }else{
 	            	return 0;

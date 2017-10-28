@@ -13,7 +13,7 @@ $retorno_stock = $stock->get_stock($id_product_exit);?>
 		foreach ($retorno_stock as $stock) { 
 			$vencimiento = date('Y-m-d', strtotime($stock['expiration_date'])); 
 			if ($vencimiento > $fecha) { ?> 	
-				<option value="<?php echo $stock['id_stock']; ?>" disponible="<?php echo $stock['amount'] ?>" class="<?php echo ($vencimiento > $fecha)? "": " color_letra_danger"; ?>"><?php echo $stock['nom_lot']; echo ($vencimiento > $fecha)? "": " Vencido"; ?></option>
+				<option value="<?php echo $stock['id_stock']; ?>" disponible="<?php echo $stock['amount'] ?>" class="<?php echo ($vencimiento > $fecha)? "": " color_letra_danger"; ?>" unidad="<?php echo $stock['name_measure'] ?>"><?php echo $stock['nom_lot']; echo ($vencimiento > $fecha)? "": " Vencido"; ?></option>
 				<?php
 			}  
 		}

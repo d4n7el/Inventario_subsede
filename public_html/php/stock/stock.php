@@ -24,8 +24,9 @@ if (isset($_SESSION["id_user_activo"])) {
 			            <input id="cantidad" type="number" min="0" class="validate" name="amount" autocomplete="off" required>
 			            <label for="cantidad" class="">Cantidad</label>
 			        </div>
-
-
+					<div class="input-field col s12 m12">
+			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/measure/get_measure.php'); ?>
+			        </div>
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">date_range</i>
 			            <input id="fecha_vencimiento" type="text" class="datepicker" name="expiration" autocomplete="off" required>

@@ -6,10 +6,6 @@
 	            <label for="producto" class="<?php echo ($producto == "%%") ? "" : "active" ?> search">Producto</label>
 	        </div>
 	        <div class="input-field col s12 m2">
-	            <input id="measure" type="text" value="<?php echo ($measure == "%%") ? "" : $measure ?>" class="validate search" name="measure" autocomplete="off">
-	            <label for="measure" class="<?php echo ($measure == "%%") ? "" : "active" ?> search">Medida</label>
-	        </div>
-	        <div class="input-field col s12 m2">
 	            <input id="bodega" type="text" class="validate search" value="<?php echo ($bodega == "%%") ? "" : $bodega ?>" name="bodega" autocomplete="off">
 	            <label for="bodega" class="<?php echo ($bodega == "%%") ? "" : "active" ?> search">Bodega</label>
 	        </div>
@@ -44,9 +40,6 @@
 			            <i class="material-icons prefix">account_circle</i>
 			            <input id="descripcion_producto" type="text" class="validate editar_info" name="descripcion" autocomplete="off" value="<?php echo $value['description_product'] ?>"  readonly="readonly">
 			            <label for="descripcion_producto" class="active">Descripción producto</label>
-			        </div>	
-			        <div class="input-field col s4 hide oculto">
-			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/measure/get_measure.php'); ?>
 			        </div>
 			        <div class="input-field col s4 hide oculto">
 			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); 
