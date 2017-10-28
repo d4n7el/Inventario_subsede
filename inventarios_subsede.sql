@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 27-10-2017 a las 02:49:01
+-- Tiempo de generación: 28-10-2017 a las 06:22:58
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -104,6 +104,23 @@ state) VALUES (IdDetalle,IdUser,"bien",old_cantidad, cantidad,"Update",1);
     END IF;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_quantity_available` (IN `equipo` INT, IN `disponible` INT, IN `nota` VARCHAR(50), OUT `retorno` INT)  BEGIN
+  DECLARE v_total INT;
+    DECLARE v_prestamos INT;
+    SELECT COUNT(id_exit_detall) INTO v_prestamos FROM exit_teams_detall INNER JOIN exit_equipment_master ON exit_teams_detall.id_exit = exit_equipment_master.id_exit WHERE id_equipment = equipo AND exit_equipment_master.received = 0;
+    SELECT total_quantity INTO v_total FROM equipments WHERE id_equipment = equipo;
+    IF v_total >= disponible THEN
+      IF disponible >= v_prestamos THEN
+          UPDATE equipments SET quantity_available = disponible WHERE id_equipment = equipo;
+            SET retorno = 1;
+        ELSE
+          SET retorno = -1;
+        END IF;
+    ELSE
+      SET retorno = 0;
+    END IF;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `update_quantity_equipments` (IN `p_id_exit_detall` INT, IN `p_team` INT, IN `p_id_exit` INT, IN `p_quantity` INT, OUT `retorno` INT)  BEGIN
   DECLARE v_old_quantity INT;
     DECLARE v_equipment INT;
@@ -188,7 +205,7 @@ CREATE TABLE `equipments` (
 
 INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `create_date`) VALUES
 (1, 'Tv', 'acme', 4, 2, 5, 7, '2017-10-25 22:09:42'),
-(2, '654', 'ytr', 10, 10, 5, 7, '2017-10-25 22:09:42'),
+(2, 'Computador', 'Acme', 10, 9, 5, 7, '2017-10-25 22:09:42'),
 (3, 'lazos', 'acme', 20, 20, 5, 7, '2017-10-25 22:09:42');
 
 -- --------------------------------------------------------
@@ -212,14 +229,7 @@ CREATE TABLE `exit_equipment_master` (
 --
 
 INSERT INTO `exit_equipment_master` (`id_exit`, `id_user_receives`, `name_user_receives`, `id_user_delivery`, `delivery`, `received`, `date_create`) VALUES
-(1, 1234, 'Santiago', 7, 1, 0, '2017-10-05 23:26:19'),
-(2, 1234, 'Santiago', 7, 1, 0, '2017-10-05 23:28:59'),
-(3, 1234, 'Santiago', 7, 1, 0, '2017-10-05 23:36:56'),
-(4, 1234, 'Santiago', 7, 1, 0, '2017-10-05 23:38:02'),
-(5, 1234, 'Santiago', 7, 1, 0, '2017-10-05 23:41:06'),
-(6, 1234, 'Santiago', 7, 1, 0, '2017-10-05 23:41:55'),
-(7, 1234, 'Santiago', 7, 1, 0, '2017-10-18 03:27:10'),
-(8, 1234, 'Santiago', 7, 1, 0, '2017-10-18 19:45:34');
+(12, 18595130, 'Jhon  Jairo Cuaervo', 7, 1, 0, '2017-10-28 00:41:05');
 
 -- --------------------------------------------------------
 
@@ -270,7 +280,7 @@ INSERT INTO `exit_product_detalle` (`id_exit_product_detalle`, `id_exit_product_
 (97, 156, 23, 20, 'muy negra', 1),
 (98, 157, 28, 2, 'sale', 1),
 (99, 158, 29, 20, 'bien', 1),
-(100, 159, 21, 4, 'Verde', 1);
+(100, 159, 21, 1, 'Verde', 1);
 
 --
 -- Disparadores `exit_product_detalle`
@@ -373,15 +383,7 @@ CREATE TABLE `exit_teams_detall` (
 --
 
 INSERT INTO `exit_teams_detall` (`id_exit_detall`, `id_exit`, `id_equipment`, `quantity`, `note`, `state`) VALUES
-(1, 1, 1, 1, 'bien', 1),
-(2, 2, 1, 1, 'Biennnnnn', 1),
-(3, 3, 1, 2, 'Bien', 1),
-(4, 4, 1, 2, 'Bien', 1),
-(5, 5, 1, 2, 'Biennnnnnnnnnaa', 1),
-(6, 6, 1, 2, 'Biennnnnnnnnnaa', 1),
-(7, 7, 2, 1, 'bien', 1),
-(8, 8, 3, 10, 'buenos', 1),
-(9, 8, 1, 3, '', 1);
+(12, 12, 1, 1, 'Tv samsung', 1);
 
 -- --------------------------------------------------------
 
@@ -475,13 +477,10 @@ CREATE TABLE `get_products` (
 `id_product` int(11)
 ,`name_product` varchar(100)
 ,`description_product` varchar(250)
-,`unit_measure` varchar(20)
 ,`id_cellar` int(11)
 ,`num_orders` int(11)
 ,`creation_date` timestamp
 ,`name_cellar` varchar(50)
-,`name_measure` varchar(20)
-,`prefix_measure` varchar(6)
 );
 
 -- --------------------------------------------------------
@@ -500,7 +499,8 @@ CREATE TABLE `get_stock` (
 ,`comercializadora` varchar(100)
 ,`id_product` int(11)
 ,`name_product` varchar(100)
-,`unit_measure` varchar(20)
+,`unit_measure` int(11)
+,`name_measure` varchar(20)
 ,`id_user_create` int(11)
 ,`id_cellar` int(11)
 ,`creation_date` timestamp
@@ -571,7 +571,9 @@ INSERT INTO `intergridad_exit_product_detalle` (`id_integridad`, `exit_product_d
 (26, 89, 2, 1, 7, 'bien', 1, 'Update', '2017-10-18 23:23:51'),
 (27, 88, 4, 10, 7, 'bien', 1, 'Update', '2017-10-18 23:24:33'),
 (28, 91, 0, 5, 7, 'gfds', 0, 'delete', '2017-10-19 00:23:35'),
-(29, 91, 1, 0, 7, 'bien', 1, 'Update', '2017-10-19 00:27:46');
+(29, 91, 1, 0, 7, 'bien', 1, 'Update', '2017-10-19 00:27:46'),
+(30, 100, 0, 4, 7, 'hkj,m', 0, 'delete', '2017-10-28 04:13:15'),
+(31, 100, 1, 0, 7, 'bien', 1, 'Update', '2017-10-28 04:13:30');
 
 -- --------------------------------------------------------
 
@@ -595,7 +597,8 @@ INSERT INTO `measure` (`id_measure`, `name_measure`, `prefix_measure`, `id_user_
 (1, 'Kilogramo', 'Kg', 7, '2017-10-04 02:03:50'),
 (2, 'Libra', 'Lb', 7, '2017-09-30 23:20:13'),
 (3, 'Onza', 'Oz', 7, '2017-10-19 05:48:47'),
-(4, 'Tonelada', 'Tl', 7, '2017-10-19 05:56:31');
+(4, 'Tonelada', 'Tl', 7, '2017-10-19 05:56:31'),
+(5, 'Unidad', 'Un', 7, '2017-10-27 15:55:12');
 
 -- --------------------------------------------------------
 
@@ -630,7 +633,6 @@ CREATE TABLE `products` (
   `id_product` int(11) NOT NULL,
   `name_product` varchar(100) NOT NULL,
   `description_product` varchar(250) NOT NULL,
-  `unit_measure` varchar(20) NOT NULL,
   `id_user_create` int(11) NOT NULL,
   `id_cellar` int(11) NOT NULL,
   `num_orders` int(11) NOT NULL DEFAULT '0',
@@ -641,15 +643,18 @@ CREATE TABLE `products` (
 -- Volcado de datos para la tabla `products`
 --
 
-INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `unit_measure`, `id_user_create`, `id_cellar`, `num_orders`, `creation_date`) VALUES
-(1, 'Savila', 'Savila', '1', 7, 1, 12, '2017-10-26 20:03:32'),
-(2, 'Carne roja', 'Carne roja', '1', 7, 3, 8, '2017-10-19 17:58:12'),
-(3, 'Leche', 'En polvo', '2', 7, 2, 4, '2017-10-26 07:01:11'),
-(4, 'Fresas', 'fresas', '2', 7, 1, 6, '2017-10-18 19:36:34'),
-(5, 'Tierra negra', '4738djid20', '1', 7, 4, 3, '2017-10-25 02:30:59'),
-(6, 'Sal marina', 'sal', '2', 7, 4, 3, '2017-10-25 03:04:08'),
-(7, 'Azucar', 'azucar', '1', 7, 4, 1, '2017-10-25 00:34:27'),
-(8, 'Miel', 'Abeja', '3', 7, 4, 0, '2017-10-26 06:55:07');
+INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `id_user_create`, `id_cellar`, `num_orders`, `creation_date`) VALUES
+(1, 'Savila', 'Savila', 7, 1, 12, '2017-10-26 20:03:32'),
+(2, 'Carne roja', 'Carne roja', 7, 3, 8, '2017-10-19 17:58:12'),
+(3, 'Leche', 'En polvo', 7, 2, 4, '2017-10-26 07:01:11'),
+(4, 'Fresas', 'fresas', 7, 1, 6, '2017-10-18 19:36:34'),
+(5, 'Tierra negra', '4738djid20', 7, 4, 3, '2017-10-25 02:30:59'),
+(6, 'Sal marina', 'sal', 7, 4, 3, '2017-10-25 03:04:08'),
+(7, 'Azucar', 'azucar', 7, 4, 1, '2017-10-25 00:34:27'),
+(8, 'Miel', 'Abeja', 7, 4, 0, '2017-10-26 06:55:07'),
+(9, 'Cafe', 'cafe negro', 7, 4, 0, '2017-10-27 15:56:11'),
+(10, 'Moras', 'Moras', 7, 1, 0, '2017-10-27 16:12:11'),
+(11, 'insulina..', 'insu', 7, 2, 0, '2017-10-28 03:32:17');
 
 -- --------------------------------------------------------
 
@@ -740,6 +745,7 @@ CREATE TABLE `stock` (
   `expiration_date` date NOT NULL,
   `expiration_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `comercializadora` varchar(100) NOT NULL,
+  `unit_measure` int(11) NOT NULL DEFAULT '1',
   `state` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -747,17 +753,22 @@ CREATE TABLE `stock` (
 -- Volcado de datos para la tabla `stock`
 --
 
-INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `amount_income`, `expiration_date`, `expiration_create`, `comercializadora`, `state`) VALUES
-(21, 1, '4567yugj', 0, 10, '2017-10-31', '2017-10-18 20:15:50', 'casa', 1),
-(22, 2, '45768ighio', 13, 20, '2017-10-30', '2017-10-18 20:16:44', 'casas', 1),
-(23, 5, '39r8euwkw', 180, 200, '2017-10-27', '2017-10-19 06:16:11', 'negra', 1),
-(24, 1, '9i4k302', 100, 100, '2017-10-31', '2017-10-19 06:19:56', 'sab', 1),
-(25, 6, '09escsdadq0', 180, 200, '2017-11-17', '2017-10-24 22:04:57', 'salma', 1),
-(26, 7, '893iwkdsl', 285, 300, '2017-12-31', '2017-10-25 00:34:03', 'azuc', 1),
-(27, 6, '3879iwksa', 29, 30, '2017-10-31', '2017-10-25 00:49:36', '23kajs', 1),
-(28, 6, '8943wejqo01p', 278, 280, '2017-12-29', '2017-10-25 03:00:48', 'salk', 1),
-(29, 3, 'aaaaaa234', 180, 200, '2017-11-15', '2017-10-26 05:29:31', 'leaaaa', 1),
-(30, 8, '2o239eikwq', 20, 20, '2017-10-31', '2017-10-26 06:55:30', 'mielita', 1);
+INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `amount_income`, `expiration_date`, `expiration_create`, `comercializadora`, `unit_measure`, `state`) VALUES
+(21, 1, '4567yugj', 3, 10, '2017-10-31', '2017-10-18 20:15:50', 'casa', 1, 1),
+(22, 2, '45768ighio', 13, 20, '2017-10-30', '2017-10-18 20:16:44', 'casas', 1, 1),
+(23, 5, '39r8euwkw', 180, 200, '2017-10-27', '2017-10-19 06:16:11', 'negra', 1, 1),
+(24, 1, '9i4k302', 100, 100, '2017-10-31', '2017-10-19 06:19:56', 'sab', 1, 1),
+(25, 6, '09escsdadq0', 180, 200, '2017-11-17', '2017-10-24 22:04:57', 'salma', 1, 1),
+(26, 7, '893iwkdsl', 285, 300, '2017-12-31', '2017-10-25 00:34:03', 'azuc', 1, 1),
+(27, 6, '3879iwksa', 29, 30, '2017-10-31', '2017-10-25 00:49:36', '23kajs', 1, 1),
+(28, 6, '8943wejqo01p', 278, 280, '2017-12-29', '2017-10-25 03:00:48', 'salk', 1, 1),
+(29, 3, 'aaaaaa234', 180, 200, '2017-11-15', '2017-10-26 05:29:31', 'leaaaa', 1, 1),
+(30, 8, '2o239eikwq', 20, 20, '2017-10-31', '2017-10-26 06:55:30', 'mielita', 1, 1),
+(31, 5, 'e5678uij', 200, 200, '2017-11-30', '2017-10-27 14:55:21', 'nef', 1, 1),
+(32, 6, 'wd0pqwñlas', 200, 200, '2017-10-31', '2017-10-27 15:12:47', 'aa', 1, 1),
+(33, 9, '738iejsijdai', 200, 200, '2017-11-30', '2017-10-27 16:00:12', 'cafeblack', 1, 1),
+(36, 1, 'yeudiskkaam', 30, 200, '2017-11-30', '2017-10-27 16:14:04', 'jd sab', 1, 1),
+(37, 11, '8379iejds', 20, 20, '2017-10-31', '2017-10-28 03:45:58', 'ask', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -855,16 +866,17 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `email_user`, `cedula`, `pass`, `id_cellar`, `id_role`, `state`) VALUES
-(7, 'Daniel Felipe', 'Zamora Ortiz', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$2rEqDpWxicakFsNSBvtYaeuCHmXOKK.lKnSXLDu7vKJIAXO6ZVaUC', 2, 1, 1),
+(7, 'Daniel Felipe', 'Zamora Ortiz', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$bPJBNXLV7UnbSfnEh5h/QuEudZgz3a19QpHJYSfI09ztxsCtDOGay', 2, 1, 1),
 (15, 'Stefania', 'Casas', 'Ecasas05@misena.edu.co', '1093227968', '$2y$10$fi/ObWvWDHI8qOItzyf1..J.WmBk6YnMOVAeATY8NJPotQYZUQJcq', 3, 1, 1),
 (16, 'Pedro', 'Triviño', 'pnmontealegre@misena.edu.co', '1225092661', '$2y$10$eYo1Chuil/FLsTMRsBbHDeL3PBqbPX9Kif7XJUJEnqLg2oub6YvdO', 4, 1, 1),
 (17, 'Yeison', 'Londoño Tabarez', 'yeiko1022@hotmail.com', '1088347434', '$2y$10$FFTBYqNzlEJC4pVWqM/6MehsSgVQj1jYeOaLtvZwxkKCboD8qy/0K', 4, 1, 1),
 (18, 'Julio Cesar', 'Guapacha ', 'jcguapacha2@misena.edu.co', '1088299682', '$2y$10$V//tBsKlFLY8pyF83XJgR.fd7NXWbHw3vs6GM3WN7CYnwrAbAS.h2', 5, 1, 1),
 (19, 'Juan camilo', 'Ortiz', 'juan@gmail.com', '999999999', '$2y$10$hK8UMSasfKHpZ0sqwM2XM.8hsLsARBwZpDywZFOzhaGaFfwhjMDFa', 4, 3, 1),
-(20, 'Sofhia', 'Garzon', 'sofhia@gmail.com', '4444', '$2y$10$SCZ8eU.YXk.n/IeOi5.6sOvhuGn9uhO.KgXAY9fYu9NzO1zzNUCKa', 5, 1, 1),
-(21, 'Laura', 'Marin', 'lau@gmail.com', '333', '$2y$10$bY1llUyBaMKVq2ej.D2yp.JvBUGt3zOoeUQYxQCEhdgShrbrZoPEy', 3, 2, 1),
-(22, 'Luna', 'Muños', '', '55555', '$2y$10$INEsra7Ta37fLhxF558OVuc8YkKJW9XOYnYf8a145LLQ8pLuqlUty', 4, 3, 0),
-(23, 'Miguel', 'zamora', '', '111111', '$2y$10$z0b5GSuxGZv94C6KcZjwPuIy8lrg2Fu2GpHL.8.EAwdyZoDfuuMmG', 4, 1, 0);
+(20, 'Sofhia', 'Garzon', 'Garzon@hotamil.com', '4444', '$2y$10$SCZ8eU.YXk.n/IeOi5.6sOvhuGn9uhO.KgXAY9fYu9NzO1zzNUCKa', 5, 1, 0),
+(21, 'Laura', 'Marin', 'lau@gmail.com', '333', '$2y$10$bY1llUyBaMKVq2ej.D2yp.JvBUGt3zOoeUQYxQCEhdgShrbrZoPEy', 3, 3, 1),
+(22, 'Luna', 'Muños', 'luna@hotmail.com', '55555', '$2y$10$INEsra7Ta37fLhxF558OVuc8YkKJW9XOYnYf8a145LLQ8pLuqlUty', 4, 3, 0),
+(23, 'Miguel', 'zamora', 'miguel@hotmail.com', '111111', '$2y$10$z0b5GSuxGZv94C6KcZjwPuIy8lrg2Fu2GpHL.8.EAwdyZoDfuuMmG', 4, 1, 0),
+(24, 'aprendiz', 'sena', 'dfzamora8@misena.edu.co', '12345', '$2y$10$fkV9C.TmtMlgojPH2dda/.gdYeULkePgyZSWM8f.intJj7.sn9Ys6', 3, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -873,7 +885,7 @@ INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `email_user`, `ced
 --
 DROP TABLE IF EXISTS `get_products`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `get_products`  AS  select `products`.`id_product` AS `id_product`,`products`.`name_product` AS `name_product`,`products`.`description_product` AS `description_product`,`products`.`unit_measure` AS `unit_measure`,`products`.`id_cellar` AS `id_cellar`,`products`.`num_orders` AS `num_orders`,`products`.`creation_date` AS `creation_date`,`cellar`.`name_cellar` AS `name_cellar`,`measure`.`name_measure` AS `name_measure`,`measure`.`prefix_measure` AS `prefix_measure` from ((`products` join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`products`.`unit_measure` = `measure`.`id_measure`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `get_products`  AS  select `products`.`id_product` AS `id_product`,`products`.`name_product` AS `name_product`,`products`.`description_product` AS `description_product`,`products`.`id_cellar` AS `id_cellar`,`products`.`num_orders` AS `num_orders`,`products`.`creation_date` AS `creation_date`,`cellar`.`name_cellar` AS `name_cellar` from (`products` join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) ;
 
 -- --------------------------------------------------------
 
@@ -882,7 +894,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `get_stock`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `get_stock`  AS  select `stock`.`id_stock` AS `id_stock`,`stock`.`state` AS `state`,`stock`.`nom_lot` AS `nom_lot`,`stock`.`amount` AS `amount`,`stock`.`expiration_date` AS `expiration_date`,`stock`.`expiration_create` AS `expiration_create`,`stock`.`comercializadora` AS `comercializadora`,`products`.`id_product` AS `id_product`,`products`.`name_product` AS `name_product`,`products`.`unit_measure` AS `unit_measure`,`products`.`id_user_create` AS `id_user_create`,`products`.`id_cellar` AS `id_cellar`,`stock`.`expiration_create` AS `creation_date`,`cellar`.`name_cellar` AS `name_cellar` from ((`stock` join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `get_stock`  AS  select `stock`.`id_stock` AS `id_stock`,`stock`.`state` AS `state`,`stock`.`nom_lot` AS `nom_lot`,`stock`.`amount` AS `amount`,`stock`.`expiration_date` AS `expiration_date`,`stock`.`expiration_create` AS `expiration_create`,`stock`.`comercializadora` AS `comercializadora`,`products`.`id_product` AS `id_product`,`products`.`name_product` AS `name_product`,`stock`.`unit_measure` AS `unit_measure`,`measure`.`name_measure` AS `name_measure`,`products`.`id_user_create` AS `id_user_create`,`products`.`id_cellar` AS `id_cellar`,`stock`.`expiration_create` AS `creation_date`,`cellar`.`name_cellar` AS `name_cellar` from (((`stock` join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) ;
 
 -- --------------------------------------------------------
 
@@ -891,7 +903,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `planta_stock`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `planta_stock`  AS  select `stock`.`expiration_date` AS `expiration_date`,`stock_plant`.`state` AS `state`,`stock_plant`.`id_stock_plant` AS `id_stock_plant`,`stock_plant`.`quantity` AS `quantity`,`stock_plant`.`id_stock` AS `id_stock`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user`,`exit_product_master`.`name_receive` AS `name_receive`,`stock_plant`.`id_exit_product` AS `id_exit_product`,`stock_plant`.`date_create` AS `date_create`,`products`.`name_product` AS `name_product`,`cellar`.`name_cellar` AS `name_cellar`,`measure`.`prefix_measure` AS `prefix_measure`,`stock`.`nom_lot` AS `nom_lot` from ((((((`stock_plant` join `exit_product_master` on((`stock_plant`.`id_exit_product` = `exit_product_master`.`id_exit_product`))) join `stock` on((`stock_plant`.`id_stock` = `stock`.`id_stock`))) join `user` on((`exit_product_master`.`user_delivery` = `user`.`id_user`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`products`.`unit_measure` = `measure`.`id_measure`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `planta_stock`  AS  select `stock`.`expiration_date` AS `expiration_date`,`stock_plant`.`state` AS `state`,`stock_plant`.`id_stock_plant` AS `id_stock_plant`,`stock_plant`.`quantity` AS `quantity`,`stock_plant`.`id_stock` AS `id_stock`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user`,`exit_product_master`.`name_receive` AS `name_receive`,`stock_plant`.`id_exit_product` AS `id_exit_product`,`stock_plant`.`date_create` AS `date_create`,`products`.`name_product` AS `name_product`,`cellar`.`name_cellar` AS `name_cellar`,`measure`.`prefix_measure` AS `prefix_measure`,`stock`.`nom_lot` AS `nom_lot` from ((((((`stock_plant` join `exit_product_master` on((`stock_plant`.`id_exit_product` = `exit_product_master`.`id_exit_product`))) join `stock` on((`stock_plant`.`id_stock` = `stock`.`id_stock`))) join `user` on((`exit_product_master`.`user_delivery` = `user`.`id_user`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) ;
 
 -- --------------------------------------------------------
 
@@ -900,7 +912,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `show_exit_stock`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `show_exit_stock`  AS  select `products`.`name_product` AS `name_product`,`cellar`.`name_cellar` AS `name_cellar`,`stock`.`nom_lot` AS `nom_lot`,`exit_product_detalle`.`id_stock` AS `id_stock`,`exit_product_detalle`.`id_exit_product_master` AS `id_exit_product_master`,`exit_product_detalle`.`quantity` AS `quantity`,`exit_product_detalle`.`note` AS `note`,`stock`.`amount` AS `amount`,`exit_product_detalle`.`id_exit_product_detalle` AS `id_exit_product_detalle`,`exit_product_detalle`.`state` AS `state`,`exit_product_master`.`user_receives` AS `user_receives`,`exit_product_master`.`destination` AS `destination`,`exit_product_master`.`delivery` AS `delivery`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user`,`exit_product_master`.`name_receive` AS `name_receive`,`exit_product_master`.`date_create` AS `date_create`,`measure`.`prefix_measure` AS `prefix_measure` from ((((((`exit_product_master` join `exit_product_detalle` on((`exit_product_master`.`id_exit_product` = `exit_product_detalle`.`id_exit_product_master`))) join `stock` on((`exit_product_detalle`.`id_stock` = `stock`.`id_stock`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `user` on((`exit_product_master`.`user_delivery` = `user`.`id_user`))) join `measure` on((`products`.`unit_measure` = `measure`.`id_measure`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) order by `exit_product_master`.`id_exit_product` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `show_exit_stock`  AS  select `products`.`name_product` AS `name_product`,`cellar`.`name_cellar` AS `name_cellar`,`stock`.`nom_lot` AS `nom_lot`,`exit_product_detalle`.`id_stock` AS `id_stock`,`exit_product_detalle`.`id_exit_product_master` AS `id_exit_product_master`,`exit_product_detalle`.`quantity` AS `quantity`,`exit_product_detalle`.`note` AS `note`,`stock`.`amount` AS `amount`,`exit_product_detalle`.`id_exit_product_detalle` AS `id_exit_product_detalle`,`exit_product_detalle`.`state` AS `state`,`exit_product_master`.`user_receives` AS `user_receives`,`exit_product_master`.`destination` AS `destination`,`exit_product_master`.`delivery` AS `delivery`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user`,`exit_product_master`.`name_receive` AS `name_receive`,`exit_product_master`.`date_create` AS `date_create`,`measure`.`prefix_measure` AS `prefix_measure` from ((((((`exit_product_master` join `exit_product_detalle` on((`exit_product_master`.`id_exit_product` = `exit_product_detalle`.`id_exit_product_master`))) join `stock` on((`exit_product_detalle`.`id_stock` = `stock`.`id_stock`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `user` on((`exit_product_master`.`user_delivery` = `user`.`id_user`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) order by `exit_product_master`.`id_exit_product` ;
 
 --
 -- Índices para tablas volcadas
@@ -1060,7 +1072,7 @@ ALTER TABLE `equipments`
 -- AUTO_INCREMENT de la tabla `exit_equipment_master`
 --
 ALTER TABLE `exit_equipment_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_detalle`
 --
@@ -1075,7 +1087,7 @@ ALTER TABLE `exit_product_master`
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
 ALTER TABLE `exit_teams_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_detall`
 --
@@ -1095,17 +1107,17 @@ ALTER TABLE `integridad_stock_plant`
 -- AUTO_INCREMENT de la tabla `intergridad_exit_product_detalle`
 --
 ALTER TABLE `intergridad_exit_product_detalle`
-  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT de la tabla `measure`
 --
 ALTER TABLE `measure`
-  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
@@ -1120,7 +1132,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT de la tabla `stock_plant`
 --
@@ -1135,7 +1147,7 @@ ALTER TABLE `tools`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- Restricciones para tablas volcadas
 --
