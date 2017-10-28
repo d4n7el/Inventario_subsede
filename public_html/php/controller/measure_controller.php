@@ -2,7 +2,6 @@
 	class Measures{
 		private $bd;
 		private $retorno;
-
 		public function __construct(){
 			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
 			$this->db = Conexion::conect();
@@ -22,7 +21,7 @@
 		}
 		public function graphics_pie(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT measure.name_measure, COUNT(products.id_product) as count FROM measure INNER JOIN products ON measure.id_measure = products.unit_measure GROUP BY measure.name_measure");
+				$sql_consult = $this->db->prepare("SELECT measure.name_measure, COUNT(stock.id_stock) as count FROM measure INNER JOIN stock ON measure.id_measure = stock.unit_measure GROUP BY measure.name_measure ORDER BY COUNT(stock.id_stock) LIMIT 13 ");
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;

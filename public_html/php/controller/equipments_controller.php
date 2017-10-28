@@ -57,10 +57,10 @@
             	$e->getMessage();
         	}
 		}
-		public function update_equipment_available($equipo,$disponible,$nota){
+		public function update_equipment_available($equipo,$disponible,$nota,$proceso){
 			try {
-				$sql_consult = $this->db->prepare("CALL update_quantity_available(?,?,?,@retorno)");
-	            $sql_consult->execute(array($equipo,$disponible,$nota));
+				$sql_consult = $this->db->prepare("CALL update_quantity_available(?,?,?,?,@retorno)");
+	            $sql_consult->execute(array($equipo,$disponible,$nota,$proceso));
 	            $sql_consults = $this->db->prepare("SELECT @retorno as retorno");
 	            $sql_consults->execute();
 	            $result = $sql_consults->fetch();
