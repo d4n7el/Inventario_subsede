@@ -25,8 +25,8 @@
   var chartOptions = {
     scales: {
       yAxes: [{
-        barPercentage: 1,
-        maxBarThickness: 1
+        barPercentage: .5,
+        maxBarThickness: .1
       }]
     },
     elements: {

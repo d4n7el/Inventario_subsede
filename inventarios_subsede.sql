@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 29-10-2017 a las 04:11:09
+-- Tiempo de generación: 29-10-2017 a las 21:59:56
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -19,6 +19,14 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_equipment_exit` (IN `id_user` INT, IN `id_exit` INT, IN `id_exit_detalle` INT, IN `id_element` INT, IN `nota` INT, IN `process` INT, OUT `retorno` INT)  BEGIN  
+  DECLARE old_cantidad INT;
+    SELECT quantity INTO old_cantidad FROM exit_teams_detall WHERE id_exit_detall = id_exit_detalle;
+  UPDATE exit_teams_detall SET state = 0, quantity = 0 WHERE id_exit_detall = id_exit_detalle;
+    UPDATE equipments SET quantity_available = quantity_available + old_cantidad WHERE id_equipment = id_element;
+    SET retorno = 1;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_product_exit_stock` (IN `idUser` INT, IN `idExit_product` INT, IN `idExit_product_detalle` INT, IN `stocks` INT, IN `nota` VARCHAR(50), IN `proceso` VARCHAR(20), OUT `retorno` INT)  BEGIN
   DECLARE cantidad INT;
     SELECT quantity INTO cantidad FROM exit_product_detalle WHERE id_exit_product_detalle = idExit_product_detalle  AND id_exit_product_master = idExit_product AND id_stock = stocks;
@@ -458,7 +466,8 @@ CREATE TABLE `exit_tools_detall` (
 --
 
 INSERT INTO `exit_tools_detall` (`id_exit_detall`, `id_exit`, `id_tool`, `quantity`, `note_received`, `state`) VALUES
-(90, 72, 1, 4, 'aaaa', 1);
+(90, 72, 1, 4, 'aaaa', 1),
+(91, 73, 10, 1, 'buen estado', 1);
 
 --
 -- Disparadores `exit_tools_detall`
@@ -496,7 +505,22 @@ CREATE TABLE `exit_tools_master` (
 --
 
 INSERT INTO `exit_tools_master` (`id_exit`, `id_user_receives`, `name_user_receive`, `id_user_delivery`, `delivery`, `received`, `date_create`) VALUES
-(72, 1087556331, 'Johanna Marcela Velez Garcia', 24, 1, 0, '2017-10-29 00:55:24');
+(72, 1087556331, 'Johanna Marcela Velez Garcia', 24, 1, 0, '2017-10-29 00:55:24'),
+(73, 1087556331, 'Johanna Marcela Velez Garcia', 24, 1, 0, '2017-10-29 03:14:04');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `expiration_stock`
+--
+
+CREATE TABLE `expiration_stock` (
+  `id_expiration` int(11) NOT NULL,
+  `id_stock` int(11) NOT NULL,
+  `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `amount_due` int(11) NOT NULL,
+  `note` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -792,7 +816,7 @@ INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `amount_inco
 (21, 1, '4567yugj', 0.1, 10, '2017-10-31', '2017-10-18 20:15:50', 'casa', 1, 1),
 (22, 2, '45768ighio', 5.3, 20, '2017-10-30', '2017-10-18 20:16:44', 'casas', 1, 1),
 (23, 5, '39r8euwkw', 180, 200, '2017-10-27', '2017-10-19 06:16:11', 'negra', 1, 1),
-(24, 1, '9i4k302', 99, 100, '2017-10-31', '2017-10-19 06:19:56', 'sab', 1, 1),
+(24, 1, '9i4k302', 99, 100, '2017-10-24', '2017-10-19 06:19:56', 'sab', 1, 1),
 (25, 6, '09escsdadq0', 180, 200, '2017-11-17', '2017-10-24 22:04:57', 'salma', 1, 1),
 (26, 7, '893iwkdsl', 285, 300, '2017-12-31', '2017-10-25 00:34:03', 'azuc', 1, 1),
 (27, 6, '3879iwksa', 29, 30, '2017-10-31', '2017-10-25 00:49:36', '23kajs', 1, 1),
@@ -881,7 +905,7 @@ INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity
 (7, 'cuchillo', 'cualquiera', 20, 14, 6, 24, '2017-10-25 22:08:34'),
 (8, 'pica', 'acme', 20, 0, 6, 24, '2017-10-25 22:08:34'),
 (9, 'palustre', 'acme', 50, 0, 6, 7, '2017-10-25 22:08:34'),
-(10, 'Palin', 'Acme', 10, 1, 6, 24, '2017-10-26 19:56:37');
+(10, 'Palin', 'Acme', 10, 2, 6, 24, '2017-10-26 19:56:37');
 
 -- --------------------------------------------------------
 
@@ -1018,6 +1042,12 @@ ALTER TABLE `exit_tools_master`
   ADD KEY `id_user_receives` (`id_user_receives`);
 
 --
+-- Indices de la tabla `expiration_stock`
+--
+ALTER TABLE `expiration_stock`
+  ADD PRIMARY KEY (`id_expiration`);
+
+--
 -- Indices de la tabla `integridad_stock_plant`
 --
 ALTER TABLE `integridad_stock_plant`
@@ -1132,12 +1162,17 @@ ALTER TABLE `exit_teams_detall`
 -- AUTO_INCREMENT de la tabla `exit_tools_detall`
 --
 ALTER TABLE `exit_tools_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_master`
 --
 ALTER TABLE `exit_tools_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+--
+-- AUTO_INCREMENT de la tabla `expiration_stock`
+--
+ALTER TABLE `expiration_stock`
+  MODIFY `id_expiration` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `integridad_stock_plant`
 --

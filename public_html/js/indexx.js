@@ -65,6 +65,7 @@ function eliminar_eventos(){
 	$('button.view_info_equipment').off('click');
 	$('button.view_info_product').off('click');
 	$('button.view_info_tool').off('click');
+	$('a.view_expiration').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
@@ -73,6 +74,13 @@ var recargar_eventos = function(){
 		var ruta = $(this).attr('ruta');
 		var alterno = 1;
 		$("div#modal_right div.modal-content").load(ruta,{alterno : alterno},function() {
+			recargar_eventos();
+		});
+	});
+	$('button.expired_output').on('click', function(event) {
+		event.preventDefault();
+		var ruta = "../php/stock/_expired_output.php";
+		$("div#modal_center div.modal-content").load(ruta,function() {
 			recargar_eventos();
 		});
 	});
@@ -158,6 +166,13 @@ var recargar_eventos = function(){
 		var ruta = "../php/stock/index.php";
 		var id_stock = $(this).attr('stock');
 		$("div#modal_right div.modal-content").load(ruta,{id_stock: id_stock},function() {
+			recargar_eventos();
+		});
+	});
+	$('a.view_expiration').on('click', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('ruta');
+		$("div#modal_right div.modal-content").load(ruta,function() {
 			recargar_eventos();
 		});
 	});
@@ -545,6 +560,7 @@ function clean_input(){
 	$('.create_info i, .create_info label').removeClass('active'); 
 	$('.create_info input').removeClass('valid');
 	$('#modal_right').modal('close');
+	$('#modal_center').modal('close');
 }
 function parse_fecha_numeric(fecha){
 	var fecha = new Date(fecha);

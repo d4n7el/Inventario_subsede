@@ -3,8 +3,10 @@
 	$fecha = date('Y-m-d');
 	$dia = date("d");
 	$mes = date("F");
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/stock_controller.php');
+	$expiration = new Stock();
+	$count_expiration = $expiration->expiration_count($fecha);
 ?>
-
 <div class="row">
 	<div class="contenedor col s12 m4">
 		<div class="calendar col s12 m12">
@@ -17,16 +19,16 @@
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/products/graphics_bar_total_exit.php" >
+
+	 			<a class="waves-effect col s12 waves-light btn-large view_expiration" href="#modal_right" ruta="../php/stock/expiration.php" >
 	 			 	Vencimientos
-	 			 	<i class="material-icons left">visibility</i>
+	 			 	<a class="btn btn-large btn-floating pulse cyan color_letra_danger view_expiration" ruta="../php/stock/expiration.php"  href="#modal_right"><?php echo $count_expiration['count'] ?></a>
 	 			</a>
 	 		</div>
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
 	 			<a class="waves-effect  col s12 waves-light btn-large">
-	 			 	<i class="material-icons left">visibility</i>
 	 				Mal estado
 	 			</a>
 	 		</div>
@@ -40,7 +42,6 @@
 	 		<div class="targeta_notificacion col s12 centrar">
 	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/products/graphics_bar_total_exit.php" >
 	 			 	Salidas
-	 			 	<i class="material-icons left">visibility</i>
 	 			</a>
 	 		</div>
 		</div>
@@ -48,7 +49,6 @@
 	 		<div class="targeta_notificacion col s12 centrar">
 	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/stock/graphic_acum_exit_date.php" >
 	 			 	Acumulado
-	 			 	<i class="material-icons left">visibility</i>
 	 			</a>
 	 		</div>
 		</div>
@@ -56,7 +56,6 @@
 	 		<div class="targeta_notificacion col s12 centrar">
 	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/stock/graphics_bar_exit_income.php" >
 	 			 	Salidas
-	 			 	<i class="material-icons left">visibility</i>
 	 			</a>
 	 		</div>
 		</div>
@@ -69,14 +68,12 @@
 	 		<div class="targeta_notificacion col s12 centrar">
 	 			 <a class="waves-effect col s12 waves-light btn-large">
 	 			 	Salidas planta
-	 			 	<i class="material-icons left">visibility</i>
 	 			</a>
 	 		</div>
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
 	 			<a class="waves-effect  col s12 waves-light btn-large">
-	 			 	<i class="material-icons left">visibility</i>
 	 				Destino Externo
 	 			</a>
 	 		</div>
@@ -84,7 +81,6 @@
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
 	 			<a class="waves-effect  col s12 waves-light btn-large">
-	 			 	<i class="material-icons left">visibility</i>
 	 				Acumulado salidas
 	 			</a>
 	 		</div>
