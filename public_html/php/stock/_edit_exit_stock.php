@@ -1,4 +1,7 @@
 <div class="row">
+	<h6 class="titulo fondo_negro paddin1 color_letra_primario center">
+		Actualización de salida de <?php echo $retorno_edit_exit[0]['name_product'] ?>
+	</h6>
 	<input type="hidden" name="exit_product_detalle" value="<?php echo $retorno_edit_exit[0]['id_exit_product_detalle'] ?>">
 	<input type="hidden" name="stock" value="<?php echo $retorno_edit_exit[0]['id_stock'] ?>">
 	<input type="hidden" name="exit_product" value="<?php echo $retorno_edit_exit[0]['id_exit_product_master'] ?>">

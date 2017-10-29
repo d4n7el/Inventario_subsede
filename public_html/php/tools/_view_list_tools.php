@@ -27,43 +27,67 @@
 		</div>
 	</form>
 </div>
+<div class="row" id="head_table">
+	<div class="col s2 centrar prymary_head_cell">
+		<a href="#" class="tabla color_letra_primario" order="name_product ASC">
+			<strong>Herramienta</strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="name_cellar ASC">
+			<strong>Marca</strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+			<strong>cantidad  </strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+			<strong>Disponibles  </strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+			<strong>Creación  </strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
+			<strong>Opciones</strong>
+		</a>
+	</div>
+</div>
 <?php
 	foreach ($retorno_herramientas as $key => $value) {?>
-		<div class="row" id="update_<?php echo $value['id_tool'] ?>">
-			<section>
-				<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/update_tools.php" class="update_info" accept-charset="utf-8">
-					<input value="<?php echo $value['id_tool'] ?>" name="id_herramientas" type="hidden" readonly="readonly">
-					<div class="input-field col 4">
-					            <i class="material-icons prefix">account_circle</i>
-					            <input id="nombre_herramienta" type="text" class="validate" name="herramienta" autocomplete="off" value ="<?php echo $value['name_tool'] ?>" readonly="readonly">
-					            <label for="nombre_herramienta" class="active">Nombre de herramienta</label>
-					        </div>
-					        <div class="input-field col s4">
-					            <i class="material-icons prefix">subject</i>
-					            <input id="nombre_marca" type="text" class="validate" name="marca" autocomplete="off" value="<?php echo $value['mark'] ?>" readonly="readonly">
-					            <label for="nombre_marca" class="active">Marca</label>
-					        </div>
-					        <div class="input-field col s4 hide oculto ">
-					            <i class="material-icons prefix">filter_9_plus</i>
-					            <input id="nombre_cantidad" type="text" class="validate" name="cantidad" autocomplete="off" value="<?php echo $value['total_quantity'] ?>" readonly="readonly">
-					            <label for="nombre_cantidad" class="active">Cantidad</label>
-					        </div>
-					        <!-- El siguiente div está oculto hasta nuevo -->
-					        <div class="input-field col s4 hide oculto" style="display: none;">
-					            <i class="material-icons prefix">filter_9_plus</i>
-					            <input id="nombre_cant_dis" type="text" class="validate" name="cantidad_disponible" autocomplete="off" value="<?php echo $value['quantity_available'] ?>" readonly="readonly">
-					            <label for="nombre_cant_dis" class="active">Cantidad Disponible</label>
-					        </div>
-			        <div class="action col s4 centrar">
-			        	<button class="waves-effect waves-light btn btn-success hide actualizar_info">
-			        		<i class="material-icons left">near_me</i>Guardar
-			        	</button>
-			        	<button class="waves-effect waves-light btn btn-primary editar_info">
-			        		<i class="material-icons left">cached</i>Editar
-			        	</button>
-			        </div>
-		    	</form>
-		    </section>
+		<div class="row tabla " id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >
+			<div class="col s2 primary_cell producto">
+				<h6 class="col s12 center color_letra_secundario" >
+				 <?php echo $value['name_tool']; ?></h6>
+			</div>
+			<div class="col s2 second_cell bodega">
+				<h6 class="col s12 center color_letra_secundario">
+				 <?php echo $value['mark']; ?></h6>
+			</div>
+			<div class="col s2 second_cell cantidad_disponible">
+				<h6 class="col s12 center color_letra_secundario">
+					<?php echo $value['total_quantity']?>
+				</h6>
+			</div>
+			<div class="col s2 second_cell cantidad_disponible">
+				<h6 class="col s12 center color_letra_secundario">
+					<?php echo $value['quantity_available']?>
+				</h6>
+			</div>
+			<div class="col s2 second_cell cantidad_disponible">
+				<h6 class="col s12 center color_letra_secundario">
+					<?php echo $value['create_date']?>
+				</h6>
+			</div>
+			<div class="col s1 second_cell">
+				<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_tool" tool="<?php echo $value['id_tool'] ?>" ruta="../php/tools/index.php" data-target="modal_right">visibility</button>
+			</div>
 		</div>
 		<?php
 	}

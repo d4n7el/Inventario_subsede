@@ -28,7 +28,6 @@
 		}else{
 			$paso=false;
 		}
-
 	}
 	if ($paso==true) {
 		foreach ($element as $key => $value) {

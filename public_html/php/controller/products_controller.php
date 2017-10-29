@@ -69,6 +69,18 @@
             	$e->getMessage();
         	}
 		}
+		public function get_product_id($id_product){
+			try {
+				$sql = "SELECT * FROM get_products WHERE id_product = ? LIMIT 1 ";
+				$sql_consult = $this->db->prepare($sql);
+				$sql_consult->execute(array($id_product));
+				$result = $sql_consult->fetch();
+				$this->db = null;
+				return $result;
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function count_products($producto,$bodega,$fecha_inicial,$fecha_final){
 			try {
 				$sql = "SELECT COUNT(id_product) as count FROM get_products WHERE name_product LIKE '%$producto%' AND name_cellar LIKE '$bodega' AND DATE(creation_date) BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id_product DESC";

@@ -20,7 +20,12 @@
 	$count_rows = $retorno_count_products['count'];
 	$href = '/php/products/index.php';
 	// NECESARIO PARA LA PAGINACION
-
-	$retorno_productos = $productos->get_products($producto,$bodega,$fecha_inicial,$fecha_final,$limit, $offset);
-	include($_SERVER['DOCUMENT_ROOT'].'/php/products/_view_list_products.php');
+	if (isset($_REQUEST['id_product'])) {
+		$retorno_productos = $productos->get_product_id($_REQUEST['id_product']);
+		include($_SERVER['DOCUMENT_ROOT'].'/php/products/_view_show_product.php');
+	}else{
+		$retorno_productos = $productos->get_products($producto,$bodega,$fecha_inicial,$fecha_final,$limit, $offset);
+		include($_SERVER['DOCUMENT_ROOT'].'/php/products/_view_list_products.php');
+	}
+	
 ?>

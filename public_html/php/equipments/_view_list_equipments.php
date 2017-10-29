@@ -47,7 +47,12 @@
 			<strong>Disponible  </strong>
 		</a>
 	</div>
-	<div class="col s4 centrar head_cell">
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+			<strong>Creacion </strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
 		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
 			<strong>Opciones</strong>
 		</a>
@@ -56,28 +61,33 @@
 <?php 
 foreach ($retorno_equipos as $key => $value) { ?>
 	<div class="row tabla " id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >
-			<div class="col s2 primary_cell producto">
-				<h6 class="col s12 center color_letra_secundario" >
-				 <?php echo $value['name_equipment']; ?></h6>
-			</div>
-			<div class="col s2 second_cell bodega">
-				<h6 class="col s12 center color_letra_secundario">
-				 <?php echo $value['mark']; ?></h6>
-			</div>
-			<div class="col s2 second_cell cantidad_disponible">
-				<h6 class="col s12 center color_letra_secundario">
-					<?php echo $value['total_quantity']?>
-				</h6>
-			</div>
-			<div class="col s2 second_cell cantidad_disponible">
-				<h6 class="col s12 center color_letra_secundario">
-					<?php echo $value['quantity_available']?>
-				</h6>
-			</div>
-			<div class="col s1 second_cell">
-				<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_equipment" equipment="<?php echo $value['id_equipment'] ?>" ruta="../php/equipments/index.php" data-target="modal_right">visibility</button>
-			</div>
+		<div class="col s2 primary_cell producto">
+			<h6 class="col s12 center color_letra_secundario" >
+			 <?php echo $value['name_equipment']; ?></h6>
 		</div>
+		<div class="col s2 second_cell bodega">
+			<h6 class="col s12 center color_letra_secundario">
+			 <?php echo $value['mark']; ?></h6>
+		</div>
+		<div class="col s2 second_cell cantidad_disponible">
+			<h6 class="col s12 center color_letra_secundario">
+				<?php echo $value['total_quantity']?>
+			</h6>
+		</div>
+		<div class="col s2 second_cell cantidad_disponible">
+			<h6 class="col s12 center color_letra_secundario">
+				<?php echo $value['quantity_available']?>
+			</h6>
+		</div>
+		<div class="col s2 second_cell cantidad_disponible">
+			<h6 class="col s12 center color_letra_secundario">
+				<?php echo $value['create_date']?>
+			</h6>
+		</div>
+		<div class="col s1 second_cell">
+			<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_equipment" equipment="<?php echo $value['id_equipment'] ?>" ruta="../php/equipments/index.php" data-target="modal_right">visibility</button>
+		</div>
+	</div>
 	<?php 
 } ?>
 <div class="paginacion col m12">

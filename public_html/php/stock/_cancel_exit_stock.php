@@ -5,6 +5,9 @@
 ?>
 <form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/delete_exit_stock.php" class="create_info">
 	<div class="row">
+		<h6 class="titulo fondo_negro paddin1 color_letra_primario center">
+			Cancelación salida de <?php echo $producto ?>
+		</h6>
 		<h5 class="titulo color_letra_secundario col s6 center"> Producto: <?php echo $producto ?> </h5>
 		<h5 class="titulo color_letra_secundario col s6 center"> Bodega: <?php echo $bodega ?> </h5>
 		<h5 class="titulo color_letra_secundario col s6 center"> Lote: <?php echo $lote ?> </h5>

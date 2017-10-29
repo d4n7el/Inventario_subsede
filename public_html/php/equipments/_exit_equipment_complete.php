@@ -2,10 +2,10 @@
 	if (count($retorno_view) > 0) {  	?>
 	<div id="area_impresion">
 		<div class="row">
-			<div class="logo_sena col s4 centrar">
+			<div class="logo_sena col s12 centrar">
 				<img src="/image/logo_sena_min.png" alt="">
 			</div>
-			<div class="col s8 i1">
+			<div class="col s12 i1">
 				<h5 class=" col s12 center color_letra_secundario">Fecha de salida</h5>
 				<h5 class="titulo col s12 center color_letra_secundario"><?php echo $retorno_view[0]['date_create']; ?></h5>
 			</div>
@@ -24,19 +24,25 @@
 			</div>
 		</div>
 		<div class="row" id="head_table">
-			<div class="col s3 centrar prymary_head_cell i4">
+			<div class="col s2 centrar prymary_head_cell i4">
 				<a href="#" class="color_letra_primario">
 					<strong>Equipo  </strong>
 				</a>
 			</div>
-			<div class="col s3 centrar head_cell i4">
-				<a href="#" class="tabla color_letra_primario">
-					<strong>Bodega  </strong>
-				</a>
-			</div>
-			<div class="col s3 centrar head_cell i4">
+			
+			<div class="col s2 centrar head_cell i4">
 				<a href="#" class="tabla color_letra_primario">
 					<strong>Cantidad  </strong>
+				</a>
+			</div>
+			<div class="col s2 centrar head_cell i4">
+				<a href="#" class="tabla color_letra_primario">
+					<strong>Entregado  </strong>
+				</a>
+			</div>
+			<div class="col s2 centrar head_cell i4">
+				<a href="#" class="tabla color_letra_primario">
+					<strong>Regresado  </strong>
 				</a>
 			</div>
 			<div class="col s3 centrar head_cell i4">
@@ -48,14 +54,17 @@
 		<?php
 		foreach ($retorno_view as $key => $view) { ?>
 			<div class="row content_impresion" >
-				<div class="col s3 i4">
+				<div class="col s2 i4">
 					<h6 class="titulo  center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['name_equipment']; ?></h6>
 				</div>
-				<div class="col s3 i4">
-					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>">Equipos</h6>
-				</div>
-				<div class="col s3 i4">
+				<div class="col s2 i4">
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['quantity']; ?></h6>
+				</div>
+				<div class="col s2 i4">
+					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['delivery']; ?></h6>
+				</div>
+				<div class="col s2 i4">
+					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['received']; ?></h6>
 				</div>
 				<div class="col s3 i4">
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['note']; ?></h6>

@@ -23,11 +23,12 @@
 	$retorno_count_user = $count_stock->count_stock($id_stock,$lote,$bodega,$producto,$casa,$vencimiento,$fecha_inicial,$fecha_final,$estado);
 	$count_rows = $retorno_count_user['count'];
 	$href = '/php/stock/index.php';
-	// NECESARIO PARA LA PAGINACION
-	$retorno_stock = $stock->get_search_stock($id_stock,$lote,$bodega,$producto,$casa,$fecha_inicial,$fecha_final,$vencimiento,$estado,$limit,$offset);
+	// NECESARIO PARA LA PAGINACIOn
 	if ($id_stock == "%%") {
+		$retorno_stock = $stock->get_search_stock($id_stock,$lote,$bodega,$producto,$casa,$fecha_inicial,$fecha_final,$vencimiento,$estado,$limit,$offset);
 		require($_SERVER['DOCUMENT_ROOT'].'/php/stock/_view_list_stock.php');
 	}else{
+		$retorno_stock = $stock->get_search_stock_id($id_stock);
 		require($_SERVER['DOCUMENT_ROOT'].'/php/stock/_view_info_stock.php');
 	}
 	

@@ -67,7 +67,7 @@
 	    <div class="col s12 targeta_inicio">
 			<div class="card transparent ">
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/create_tools.php" id="" class="link_page color_letra_primario" titulo="Ingresar Herramienta">Ingresar Herramienta <i class="material-icons right color_letra_primario">add</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/create_tools.php" id="" class="link_page color_letra_primario" titulo="Ingresar Herramienta">Crear Herramienta <i class="material-icons right color_letra_primario">add</i></a>
 				</div>
 				<div class="card-action" >
 					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools" class="link_page color_letra_primario" titulo="Ver Herramientas">Ver Herramientas<i class="material-icons right color_letra_primario">visibility</i></a>

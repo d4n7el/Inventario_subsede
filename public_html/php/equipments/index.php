@@ -22,7 +22,6 @@
 	// NECESARIO PARA LA PAGINACION
 	$retorno_equipos = $equipos->get_equipments_pag($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final,$limit,$offset);
 	if ($id_equipment == "%%") {
-
 		require_once($_SERVER['DOCUMENT_ROOT'].'/php/equipments/_view_list_equipments.php');
 	}else{
 		$equipos = new Equipments();

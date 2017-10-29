@@ -24,9 +24,10 @@
             </div>
             <div class="input-field col s12 m12" id="cantidad_disponible">
                 <i class="material-icons prefix">filter_9_plus</i>
-                <input id="cantidad" type="number" class="validate" name="cantidad[]" value="" autocomplete="off" max="" required >
+                <input id="cantidad" type="number" class="validate" name="cantidad[]" value="" step="0.01" autocomplete="off" max="" required >
                 <label for="cantidad" class="active">Cantidad</label>
             </div>
+
             <div class="action col s12 centrar">
             	<button class="waves-effect waves-light btn btn-primary" id="">
             		<i class="material-icons left">near_me</i>Agregar a la lista
@@ -50,7 +51,7 @@
                 </div>
                 <div class="input-field col s12 m12 hide" id="desc_destino">
                     <i class="material-icons prefix">airport_shuttle</i>
-                    <input id="desc_destino" type="text" class="validate" name="destino" value="" autocomplete="off" max="" disabled="" required >
+                    <input id="desc_destino" type="text" class="validate" name="destino" value="" autocomplete="off" max="" required >
                     <label for="desc_destino" class="active">Especificacion destino</label>
                 </div>
                 <div class="input-field col s12 m12">

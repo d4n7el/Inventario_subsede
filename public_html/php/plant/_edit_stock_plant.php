@@ -13,7 +13,7 @@
 	</div>
 	<div class="input-field col s8 offset-s2" style="margin-top: 4em">
         <i class="material-icons prefix">filter_9_plus</i>
-        <input id="cantidad" type="number" min="0" max="" class="validate" name="cantidad" autocomplete="off" value="" required>
+        <input id="cantidad" type="number" min="0" max="" step="0.01" class="validate" name="cantidad" autocomplete="off" value="" required>
         <label for="cantidad" class="active">Cantidad disponible: <?php echo $retorno_planta[0]['quantity']." ".$retorno_planta[0]['prefix_measure'] ?> </label>
     </div>
     <div class="input-field col s8 offset-s2">

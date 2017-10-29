@@ -15,7 +15,7 @@
 	$valores_insert = "";
 	$ids_cant_stock = "";
 	$consulta_cantidades = [];
-	if ($destino == "Int" || $destino != "" && $recive != "" && count($cantidad) > 0 && count($stock) > 0) {	
+	if ($destino == "Interno" || $destino != "" && $recive != "" && count($cantidad) > 0 && count($stock) > 0) {	
 		foreach ($stock as $index => $id_stock) {
 			$ids_cant_stock.= "id_stock = ".$id_stock." OR ";
 		}
@@ -40,7 +40,7 @@
 			$detalle = new ExitProduct();
 			$retorno_detalle = $detalle->insert_exit_product_detalle($valores_insert);
 			if ($retorno > 0 AND $retorno_detalle > 0) {
-				if ($destino == "Int") {
+				if ($destino == "Interno") {
 					$valores_insert_planta = "";
 					$planta = new ExitProduct();
 					foreach ($products as $key => $value) {

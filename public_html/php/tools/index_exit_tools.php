@@ -16,9 +16,6 @@
 		$fecha_inicial = (isset($_REQUEST['fecha_inicial']) && $_REQUEST['fecha_inicial'] != "" ? $_REQUEST['fecha_inicial'] : $yesterday);
 		$estado = (isset($_REQUEST['estado']) && $_REQUEST['estado'] != "" ? $_REQUEST['estado'] : 	 1);
 		$id_exit_tool = (isset($_REQUEST['id_exit_tool']) && $_REQUEST['id_exit_tool'] != "" ? $_REQUEST['id_exit_tool'] : 	 1);
-		
-
-		
 		// NECESARIO PARA LA PAGINACION
 		(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
 		$limit = 1;

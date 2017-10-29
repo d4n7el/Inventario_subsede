@@ -25,36 +25,57 @@
 		</div>
 	</form>
 </div>
+<div class="row" id="head_table">
+	<div class="col s2 centrar prymary_head_cell">
+		<a href="#" class="tabla color_letra_primario" order="name_product ASC">
+			<strong>Producto</strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="name_cellar ASC">
+			<strong>Bodega</strong>
+		</a>
+	</div>
+	<div class="col s3 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+			<strong>creación  </strong>
+		</a>
+	</div>
+	<div class="col s2 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+			<strong>Ica  </strong>
+		</a>
+	</div>
+	<div class="col s3 centrar head_cell">
+		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
+			<strong>Opciones</strong>
+		</a>
+	</div>
+</div>
 <?php 
 	foreach ($retorno_productos as $key => $value) { ?>
-		<div class="row" id="update_<?php echo $value['id_user'] ?>">
-			<section>
-				<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/update_product.php" class="update_info" accept-charset="utf-8">
-					<input value="<?php echo $value['id_product'] ?>" name="id_producto" type="hidden" readonly="readonly">
-					<div class="input-field col s4">
-			            <i class="material-icons prefix">account_circle</i>
-			            <input id="nombre_producto" type="text" class="validate editar_info" name="producto" autocomplete="off" value="<?php echo $value['name_product'] ?>"  readonly="readonly">
-			            <label for="nombre_producto" class="active">Nombre producto</label>
-			        </div>
-			        <div class="input-field col s4">
-			            <i class="material-icons prefix">account_circle</i>
-			            <input id="descripcion_producto" type="text" class="validate editar_info" name="descripcion" autocomplete="off" value="<?php echo $value['description_product'] ?>"  readonly="readonly">
-			            <label for="descripcion_producto" class="active">Descripción producto</label>
-			        </div>
-			        <div class="input-field col s4 hide oculto">
-			        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); 
-			        	?>
-			        </div>
-			        <div class="action col s4 centrar">
-			        	<button class="waves-effect waves-light btn btn-success hide actualizar_info">
-			        		<i class="material-icons left">near_me</i>Guardar
-			        	</button>
-			        	<button class="waves-effect waves-light btn btn-primary editar_info">
-			        		<i class="material-icons left">cached</i>Editar
-			        	</button>
-			        </div>
-		    	</form>
-		    </section>
+		<div class="row tabla " id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >
+			<div class="col s2 primary_cell producto">
+				<h6 class="col s12 center color_letra_secundario" >
+				 <?php echo $value['name_product']; ?></h6>
+			</div>
+			<div class="col s2 second_cell bodega">
+				<h6 class="col s12 center color_letra_secundario">
+				 <?php echo $value['name_cellar']; ?></h6>
+			</div>
+			<div class="col s3 second_cell cantidad_disponible">
+				<h6 class="col s12 center color_letra_secundario">
+					<?php echo $value['creation_date']?>
+				</h6>
+			</div>
+			<div class="col s2 second_cell cantidad_disponible">
+				<h6 class="col s12 center color_letra_secundario">
+					Ica cod
+				</h6>
+			</div>
+			<div class="col s1 second_cell">
+				<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_product" product="<?php echo $value['id_product'] ?>" ruta="../php/products/index.php" data-target="modal_center">visibility</button>
+			</div>
 		</div>
 		<?php  
 	}

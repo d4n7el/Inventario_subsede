@@ -2,6 +2,9 @@
 if (count($retorno_stock) > 0) {
 	foreach ($retorno_stock as $key => $value) { ?>
 		<div class="row" id="">
+			<h6 class="titulo fondo_negro paddin1 color_letra_primario center">
+				Actualizar Informacion de <?php echo $value['name_product'] ?>
+			</h6>
 			<section>
 				<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/update_stock.php" class="update_info" accept-charset="utf-8">
 				         <input id="nombre_producto" type="hidden" class="validate editar_info" name="id_stock" autocomplete="off" value="<?php echo $value['id_stock'] ?>"  readonly="readonly">
@@ -65,6 +68,9 @@ if (count($retorno_stock) > 0) {
 			</section>	    
 		</div>
 		<div class="col s6" id="view_graphics">
+			<h6 class="titulo fondo_negro paddin1 color_letra_primario center">
+				Grafica
+			</h6>
     		<?php
     		 	require_once($_SERVER['DOCUMENT_ROOT']."/php/stock/graphics_pie.php"); 
     		 ?>

@@ -5,7 +5,7 @@ $sessions = new Session();
 $cedula = addslashes($_REQUEST['cedula']);
 $pass = addslashes($_REQUEST['pass']);
 $retorno = $sessions->init_session_user($cedula);
-if (count($retorno) > 0 ) {
+if (isset($retorno['id_user'])) {
 	if (password_verify($pass,$retorno['pass'])) {
 		$_SESSION["id_user_activo"] = $retorno['id_user'];
 		$_SESSION["id_user_activo_role"] = $retorno['level'];

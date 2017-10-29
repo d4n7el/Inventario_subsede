@@ -63,6 +63,8 @@ function eliminar_eventos(){
 	$('button.view_info_stock').off('click');
 	$('button.flujo_alterno').off('click');
 	$('button.view_info_equipment').off('click');
+	$('button.view_info_product').off('click');
+	$('button.view_info_tool').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
@@ -134,10 +136,12 @@ var recargar_eventos = function(){
 		event.preventDefault();
 		if ($(this).val() == "Ext") {
 			$('div#desc_destino').removeClass('hide');
-			$('div#desc_destino input').removeAttr('disabled');
+			$('div#desc_destino input').removeAttr('readonly');
+			$('div#desc_destino input').val('');
 		}else{
 			$('div#desc_destino').addClass('hide');
-			$('div#desc_destino input').add('disabled');
+			$('div#desc_destino input').add('readonly');
+			$('div#desc_destino input').val('Interno');
 		}
 	});
 	$('button#generar_pdf').on('click', function(event) {
@@ -157,11 +161,27 @@ var recargar_eventos = function(){
 			recargar_eventos();
 		});
 	});
+	$('button.view_info_product').on('click', function(event) {
+		event.preventDefault();
+		var ruta = "../php/products/index.php";
+		var id_product = $(this).attr('product');
+		$("div#modal_center div.modal-content").load(ruta,{id_product: id_product},function() {
+			recargar_eventos();
+		});
+	});
 	$('button.view_info_equipment').on('click', function(event) {
 		event.preventDefault();
 		var ruta = "../php/equipments/index.php";
 		var id_equipment = $(this).attr('equipment');
 		$("div#modal_right div.modal-content").load(ruta,{id_equipment: id_equipment},function() {
+			recargar_eventos();
+		});
+	});
+	$('button.view_info_tool').on('click', function(event) {
+		event.preventDefault();
+		var ruta = "../php/tools/index.php";
+		var id_tool = $(this).attr('tool');
+		$("div#modal_right div.modal-content").load(ruta,{id_tool: id_tool},function() {
 			recargar_eventos();
 		});
 	});
@@ -323,6 +343,7 @@ var recargar_eventos = function(){
 		disponible = $('option:selected', this).attr('disponible');
 		unidad = $('option:selected', this).attr('unidad');
 		$('input#cantidad').attr('max',disponible).val(disponible);
+		$('input#cantidad').attr('min','0.1').val(disponible);
 		$('input#cantidad').siblings('label').text('disponibles ( '+ disponible + " ) Unidad de salida " + unidad);
 	});
 	$('a.pagination').on('click', function(event) {
@@ -369,7 +390,6 @@ var recargar_eventos = function(){
 	});
 	$('button.editar_info').on('click', function(event) {
 		event.preventDefault();
-		$(this).closest('div').removeClass('s4').addClass('s12');
 		$(this).closest('form').find('div.oculto').addClass('hide');
 		$(this).closest('form').find('div').removeClass('hide');
 		$(this).closest('form').find('button').removeClass('hide');
@@ -385,7 +405,6 @@ var recargar_eventos = function(){
 		ajax_set_form_data(ruta,formData);
 	});
 	$('button.actualizar_info').on('click', function(event) {
-		$(this).closest('div').removeClass('s12').addClass('s4');
 		$(this).addClass('hide');
 		$(this).closest('form').find('button.editar_info').removeClass('hide');
 		$(this).closest('form').find('div.oculto').addClass('hide');
@@ -628,7 +647,7 @@ function ver_add_exit_product(product_exit){
 					<div class="col s12" style="margin-top: 2em">\
 						<div class="input-field col s12 m6" id="'+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']+'">\
 							<i class="material-icons '+status+' prefix">filter_9_plus</i>\
-				            <input id="nombre_descripcion"  type="number" max="'+disponible+'" class="validate" name="cantidad[]" value="'+product_exit['cantidad']+'" autocomplete="off" required >\
+				            <input id="nombre_descripcion" step="0.01"  type="number" max="'+disponible+'" class="validate" name="cantidad[]" value="'+product_exit['cantidad']+'" autocomplete="off" required >\
 				            <label for="nombre_descripcion" class="active">Disponible ( '+disponible+' )</label>\
 					    </div>\
 					    <div class="input-field col s12 m6">\

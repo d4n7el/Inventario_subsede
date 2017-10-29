@@ -2,10 +2,10 @@
 	if (count($retorno_view_exit_tools) > 0) {  ?>
 	<div id="area_impresion">
 		<div class="row">
-			<div class="logo_sena col s4 centrar i1">
+			<div class="logo_sena col s12 centrar i1">
 				<img src="/image/logo_sena_min.png" alt="">
 			</div>
-			<div class="col s8 i3">
+			<div class="col s12 i3">
 				<h5 class=" col s12 center color_letra_secundario">Fecha de salida</h5>
 				<h5 class="titulo col s12 center color_letra_secundario"><?php echo $retorno_view_exit_tools[0]['date_create']; ?></h5>
 			</div>
