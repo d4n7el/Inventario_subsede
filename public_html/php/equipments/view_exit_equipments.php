@@ -81,7 +81,7 @@
 					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_cant_inform" id_exit_master="<?php echo $value['id_exit'] ?>" id_exit_detalle="<?php echo $value['id_exit_detall'] ?>" data-target="modal_center" id_element="<?php echo $value['id_equipment'] ?>"  ruta="../php/equipments/edit_exit_equipment.php" ruta_update="../php/equipments/update_exit_equipment.php">create</button>
 				</div>
 				<div class="col s1 second_cell">
-					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_view_exit_stock" id_exit_product="<?php echo $value['id_exit'] ?>" data-target="modal_center" id_exit_product_detalle="<?php echo $value['id_exit_detall'] ?>" stock="<?php echo $value['id_equipment'] ?>">delete_forever</button>
+				<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger delete_exit_inform" id_element="<?php echo $value['id_equipment'] ?>" id_exit_master="<?php echo $value['id_exit'] ?>" data-target="modal_center" id_exit_detalle="<?php echo $value['id_exit_detall'] ?>" stock="<?php echo $value['id_equipment'] ?>" ruta="../php/equipments/_cancel_exit_equipment.php">clear</button>
 				</div>				
 			</div>
 			<?php 

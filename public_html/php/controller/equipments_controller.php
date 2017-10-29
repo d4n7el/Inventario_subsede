@@ -207,5 +207,21 @@
             	echo $e->getMessage();
         	}
 		}
+
+		public function delete_equipment_exit($id_user,$id_exit,$id_exit_detalle,$id_element,$nota,$process){
+			try{
+				$sql_consult = $this->db->prepare("CALL delete_equipment_exit (?,?,?,?,?,?,@retorno)");
+				$sql_consult->execute(array($id_user,$id_exit,$id_exit_detalle,$id_element,$nota,$process));
+				$sql_consult = $this->db->prepare("SELECT @retorno as retorno" );
+				$sql_consult->execute();
+				$result = $sql_consult->fetch();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
+
 	}
 ?>
