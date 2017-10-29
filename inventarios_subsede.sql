@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 29-10-2017 a las 21:59:56
+-- Tiempo de generación: 30-10-2017 a las 00:03:03
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -41,6 +41,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_tools_exit` (IN `id_user` IN
     SELECT quantity INTO old_cantidad FROM exit_tools_detall WHERE id_exit_detall = id_exit_detalle;
   UPDATE exit_tools_detall SET state = 0, quantity = 0 WHERE id_exit_detall = id_exit_detalle;
     UPDATE tools SET quantity_available = quantity_available + old_cantidad WHERE id_tool = id_element;
+    SET retorno = 1;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `new_expiration` (IN `v_id_stock` INT, IN `v_nota` VARCHAR(140), IN `v_id_user` INT, OUT `retorno` INT)  BEGIN
+  DECLARE cantidad INT;
+    SELECT amount INTO cantidad FROM stock WHERE id_stock = v_id_stock;
+  UPDATE stock SET state = 0 WHERE id_stock = v_id_stock;
+    INSERT INTO expiration_stock (id_stock,amount_due,note,id_user) VALUES (v_id_stock,cantidad,v_nota,v_id_user);
     SET retorno = 1;
 END$$
 
@@ -252,7 +260,7 @@ CREATE TABLE `equipments` (
 --
 
 INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `create_date`) VALUES
-(1, 'Tv', 'acme', 4, 1, 5, 7, '2017-10-25 22:09:42'),
+(1, 'Tv', 'acme', 4, 2, 5, 7, '2017-10-25 22:09:42'),
 (2, 'Computador', 'Acme', 10, 9, 5, 7, '2017-10-25 22:09:42'),
 (3, 'lazos', 'acme', 20, 20, 5, 7, '2017-10-25 22:09:42');
 
@@ -444,7 +452,7 @@ CREATE TABLE `exit_teams_detall` (
 --
 
 INSERT INTO `exit_teams_detall` (`id_exit_detall`, `id_exit`, `id_equipment`, `quantity`, `note`, `state`) VALUES
-(12, 12, 1, 1, 'Tv samsung', 1);
+(12, 12, 1, 0, 'Tv samsung', 0);
 
 -- --------------------------------------------------------
 
@@ -519,7 +527,8 @@ CREATE TABLE `expiration_stock` (
   `id_stock` int(11) NOT NULL,
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `amount_due` int(11) NOT NULL,
-  `note` varchar(100) NOT NULL
+  `note` varchar(150) NOT NULL,
+  `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1172,7 +1181,7 @@ ALTER TABLE `exit_tools_master`
 -- AUTO_INCREMENT de la tabla `expiration_stock`
 --
 ALTER TABLE `expiration_stock`
-  MODIFY `id_expiration` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_expiration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `integridad_stock_plant`
 --

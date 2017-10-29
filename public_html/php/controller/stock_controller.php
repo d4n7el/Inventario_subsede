@@ -20,30 +20,6 @@
             	 $e->getMessage();
         	}
 		}
-		public function expiration_count($fecha){
-			try {
-				$sql = "SELECT COUNT(stock.id_stock) as count FROM stock LEFT JOIN expiration_stock ON stock.id_stock =  expiration_stock.id_stock WHERE expiration_stock.id_stock is NUll AND stock.expiration_date < '$fecha' " ;
-				$sql_consult = $this->db->prepare($sql);
-				$sql_consult->execute();
-				$result = $sql_consult->fetch();
-				$this->db = null;
-				return $result;
-			} catch (PDOException $e) {
-            	$e->getMessage();
-        	}
-		}
-		public function get_expiration($fecha){
-			try {
-				$sql = "SELECT stock.id_stock,stock.unit_measure,stock.unit_measure,stock.expiration_date, stock.nom_lot,stock.amount,products.name_product,cellar.name_cellar  FROM stock LEFT JOIN expiration_stock ON stock.id_stock =  expiration_stock.id_stock INNER JOIN products ON stock.id_product = products.id_product INNER JOIN cellar ON products.id_cellar = cellar.id_cellar WHERE expiration_stock.id_stock is NUll AND stock.expiration_date < '$fecha'" ;
-				$sql_consult = $this->db->prepare($sql);
-				$sql_consult->execute();
-				$result = $sql_consult->fetchAll();
-				$this->db = null;
-				return $result;
-			} catch (PDOException $e) {
-            	$e->getMessage();
-        	}
-		}
 		public function get_search_stock($id_stock,$lote,$cellar,$product,$casa,$fecha_inicial,$fecha_final,$vencimiento,$estado,$limit,$offset){
 			try {
 				$sql = "SELECT * FROM get_stock WHERE id_stock LIKE '$id_stock' AND nom_lot LIKE '$lote' AND name_cellar LIKE'$cellar' AND  name_product LIKE '$product' AND comercializadora LIKE '$casa' AND expiration_date LIKE '$vencimiento' AND expiration_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND state LIKE $estado ORDER BY id_stock DESC LIMIT $limit OFFSET $offset" ;

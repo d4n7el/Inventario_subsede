@@ -31,7 +31,7 @@
 <?php
 	if (count($get_expiration) > 0) {	
 		foreach ($get_expiration as $key => $value) {?>
-			<div class="row tabla " id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >
+			<div class="row tabla " id="celda_stock<?php echo $value['id_stock'] ?>" >
 				<div class="col s3 primary_cell producto">
 					<h6 class="col s12 center color_letra_secundario" >
 					 <?php echo $value['name_product']; ?></h6>
