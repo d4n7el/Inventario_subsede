@@ -10,6 +10,10 @@ body{
 .color_letra_danger{
 	color: rgb(242,83,85) !important;
 }
+.fondo_claro{
+	transition: 1s ease;
+	background-color: rgb(242,83,85) !important;
+}
 div.alternos{
 	margin-top: -6em;
 }
@@ -147,6 +151,10 @@ label.search{
 	color: color: rgba(0,0,0,.5) !important;
 	padding-left: 0em !important;
 }
+.toast{
+	background-color: rgb(242,83,85);
+	color: white;
+}
 input[type=text]:not(.search),input[type=number]:not(.search),input[type=password]:not(.search){
 	color: black !important;
 	border-radius: 20px !important;
@@ -156,7 +164,6 @@ input.search{
 }
 input[type=text]:not(.search):focus,input[type=number]:not(.search):focus,input[type=password]:not(.search):focus{
 	color: black !important;
-	padding-left: 2em !important;
 	box-shadow: 0px 0px 0px transparent !important;
 }
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
@@ -301,7 +308,7 @@ div.menu{
 div#vista_ventana{
 	margin-top: 11em !important;
 }
-.card-action, .fondo_negro{
+.fondo_negro{
 	background-color: rgb(33,49,62) !important;
 }
 div.action{

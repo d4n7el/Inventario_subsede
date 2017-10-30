@@ -89,12 +89,17 @@
 				<div class="col s1 second_cell">
 					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_exit_inform" data-target="modal_right" id_exit_master="<?php echo $value['id_exit'] ?>" ruta="../php/tools/exit_tools_complete.php">visibility</button>
 				</div>
-				<div class="col s1 second_cell">
-					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_cant_inform"  id_element="<?php echo $value['id_tool'] ?>" id_exit_master="<?php echo $value['id_exit'] ?>" data-target="modal_center" id_exit_detalle="<?php echo $value['id_exit_detall'] ?>"  ruta="../php/tools/edit_exit_tools.php" ruta_update="../php/tools/update_exit_tools.php">create</button>
-				</div>
-				<div class="col s1 second_cell">
-					<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger delete_exit_inform" id_element="<?php echo $value['id_tool'] ?>" id_exit_master="<?php echo $value['id_exit'] ?>" data-target="modal_center" id_exit_detalle="<?php echo $value['id_exit_detall'] ?>" stock="<?php echo $value['id_tool'] ?>" ruta="../php/tools/_cancel_exit_tools.php">clear</button>
-				</div>
+				<?php  
+				if ($value['returned'] != 1) { ?>
+					<div class="col s1 second_cell">
+						<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger edit_cant_inform"  id_element="<?php echo $value['id_tool'] ?>" id_exit_master="<?php echo $value['id_exit'] ?>" data-target="modal_center" id_exit_detalle="<?php echo $value['id_exit_detall'] ?>"  ruta="../php/tools/edit_exit_tools.php" ruta_update="../php/tools/update_exit_tools.php">create</button>
+					</div>
+					<div class="col s1 second_cell">
+						<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger delete_exit_inform" id_element="<?php echo $value['id_tool'] ?>" id_exit_master="<?php echo $value['id_exit'] ?>" data-target="modal_center" id_exit_detalle="<?php echo $value['id_exit_detall'] ?>" stock="<?php echo $value['id_tool'] ?>" ruta="../php/tools/_cancel_exit_tools.php">clear</button>
+					</div>
+					<?php
+					}
+				?>
 			</div>
 			<?php 
 		}

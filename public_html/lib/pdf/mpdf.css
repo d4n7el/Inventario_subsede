@@ -38,7 +38,12 @@ a.mpdf_index_link {
 	color: #000000; 
 	text-decoration: none; 
 }
-
+.show{
+	display: none;
+}
+.hide{
+	visibility: visible;
+}
 
 
 /* TABLE OF CONTENTS */

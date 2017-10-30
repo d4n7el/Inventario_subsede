@@ -130,6 +130,19 @@
             	$e->getMessage();
         	}
 		}
+		public function returned_tool($master,$detalle,$state){
+			try {
+				$sql_consult = $this->db->prepare('UPDATE exit_tools_detall SET returned = ? WHERE id_exit_detall = ? AND id_exit = ? ');
+	            if ($sql_consult->execute(array($state,$detalle,$master))) {
+	            	return 1;
+	            }else{
+	            	return 0;
+	            }
+	            $this->db = null;
+            } catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function exit_tools_master($id_user,$id_user_receive,$name_user_receive){
 			try {
 				$sql_consult = $this->db->prepare('INSERT INTO exit_tools_master(id_user_receives,name_user_receive,id_user_delivery) VALUES (?,?,?)');
@@ -157,7 +170,7 @@
 		public function get_exit_tools($tool,$cedula,$fecha_inicial,$fecha_final,$estado,$limit,$offset){
 
 			try {
-				$sql_consult = $this->db->prepare("SELECT exit_tools_master.id_exit,exit_tools_master.id_user_receives,exit_tools_master.name_user_receive,exit_tools_master.id_user_delivery,exit_tools_master.date_create,exit_tools_detall.id_exit_detall,exit_tools_detall.id_tool,exit_tools_detall.quantity,exit_tools_detall.note_received,user.name_user,user.last_name_user,tools.name_tool,tools.mark,tools.total_quantity,tools.quantity_available FROM exit_tools_master 
+				$sql_consult = $this->db->prepare("SELECT exit_tools_master.id_exit,exit_tools_master.id_user_receives,exit_tools_detall.returned,exit_tools_master.name_user_receive,exit_tools_master.id_user_delivery,exit_tools_master.date_create,exit_tools_detall.id_exit_detall,exit_tools_detall.id_tool,exit_tools_detall.quantity,exit_tools_detall.note_received,user.name_user,user.last_name_user,tools.name_tool,tools.mark,tools.total_quantity,tools.quantity_available FROM exit_tools_master 
 					INNER JOIN exit_tools_detall ON exit_tools_master.id_exit = exit_tools_detall.id_exit 
 					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user WHERE exit_tools_detall.state = ? AND id_user_receives LIKE ? AND name_tool LIKE ? AND exit_tools_master.date_create BETWEEN ? AND ? LIMIT $limit OFFSET $offset "); 
 				$sql_consult->execute(array($estado,$cedula,$tool,$fecha_inicial,$fecha_final));
@@ -185,16 +198,17 @@
 		}
 		public function show_exit_tools($id_exit_master, $id_exit_detall="%%"){
 			try {
-				$sql_consult = $this->db->prepare("SELECT exit_tools_master.delivery, exit_tools_master.received, exit_tools_detall.state, exit_tools_master.id_exit,exit_tools_master.id_user_receives,exit_tools_master.name_user_receive,exit_tools_master.id_user_delivery,exit_tools_master.date_create,exit_tools_detall.id_exit_detall,exit_tools_detall.id_tool,exit_tools_detall.quantity,exit_tools_detall.note_received,user.name_user,user.last_name_user,tools.name_tool,tools.mark,tools.total_quantity,tools.quantity_available FROM exit_tools_master 
+				$sql = "SELECT exit_tools_detall.delivered, exit_tools_detall.returned, exit_tools_detall.state, exit_tools_master.id_exit,exit_tools_master.id_user_receives,exit_tools_master.name_user_receive,exit_tools_master.id_user_delivery,exit_tools_master.date_create,exit_tools_detall.id_exit_detall,exit_tools_detall.id_tool,exit_tools_detall.quantity,exit_tools_detall.note_received,user.name_user,user.last_name_user,tools.name_tool,tools.mark,tools.total_quantity,tools.quantity_available FROM exit_tools_master 
 					INNER JOIN exit_tools_detall ON exit_tools_master.id_exit = exit_tools_detall.id_exit 
-					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user  WHERE exit_tools_detall.id_exit = ?  " );
-				$sql_consult->execute(array($id_exit_master));
+					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user  WHERE exit_tools_detall.id_exit_detall LIKE ? AND exit_tools_master.id_exit LIKE ?  ";
+				$sql_consult = $this->db->prepare($sql);
+				$sql_consult->execute(array($id_exit_detall,$id_exit_master));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;
 				
 			} catch (PDOException $e) {
-            	$e->getMessage();
+            	echo $e->getMessage();
         	}
 		}
 		public function update_exit_tools($cantidad,$id_master,$id_detalle,$id_user){

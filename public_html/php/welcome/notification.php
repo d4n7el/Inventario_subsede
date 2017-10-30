@@ -22,7 +22,11 @@
 
 	 			<a class="waves-effect col s12 waves-light btn-large view_expiration" href="#modal_right" ruta="../php/expiration/expiration.php" >
 	 			 	Vencimientos
-	 			 	<a class="btn btn-large btn-floating pulse cyan color_letra_danger view_expiration view_expiration_count" ruta="../php/expiration/expiration.php"  href="#modal_right"><?php echo $count_expiration['count'] ?></a>
+	 			 	<?php 
+	 			 	if ($count_expiration['count'] > 0) { ?>
+	 			 		<a class="btn btn-large btn-floating pulse cyan color_letra_danger view_expiration view_expiration_count" ruta="../php/expiration/expiration.php"  href="#modal_right"><?php echo $count_expiration['count'] ?></a>
+	 			 		<?php 
+	 			 	}?>	
 	 			</a>
 	 		</div>
 		</div>

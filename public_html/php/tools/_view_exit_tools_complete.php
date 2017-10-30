@@ -1,11 +1,12 @@
 <?php
+	session_start();
 	if (count($retorno_view_exit_tools) > 0) {  ?>
 	<div id="area_impresion">
 		<div class="row">
 			<div class="logo_sena col s12 centrar i1">
 				<img src="/image/logo_sena_min.png" alt="">
 			</div>
-			<div class="col s12 i3">
+			<div class="col s12 i1">
 				<h5 class=" col s12 center color_letra_secundario">Fecha de salida</h5>
 				<h5 class="titulo col s12 center color_letra_secundario"><?php echo $retorno_view_exit_tools[0]['date_create']; ?></h5>
 			</div>
@@ -54,17 +55,27 @@
 		foreach ($retorno_view_exit_tools as $key => $view) { ?>
 			<div class="row content_impresion" >
 				<div class="col s3 i5">
-					<h6 class="titulo primary_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['name_tool']; ?></h6>
+					<h6 class="titulo  center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['name_tool']; ?></h6>
 				</div>
 				<div class="col s2 i5">
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['quantity']; ?></h6>
 				</div>
 				<div class="col s2 i5">
-					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo ($view['delivery'] == 0 ? "No" : "Si" ); ?></h6>
+					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo ($view['delivered'] == 0 ? "No" : "Si" ); ?></h6>
 				</div>
-				<div class="col s2 i5">
-					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo ($view['received'] == 0 ? "No" : "Si" ); ?></h6>
+				<div class="col s2 i5 <?php echo ($view['returned'] == 1 AND $_SESSION["id_user_activo_role"] != "A_A-a_1") ? "" : "hide" ?>">
+					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>" id="<?php echo $view['id_exit_detall'].$view['id_exit'] ?>"><?php echo ($view['returned'] == 0 ? "No" : "Si" ); ?></h6>
 				</div>
+				<?php 
+				if ($view['returned'] == 0 OR $_SESSION["id_user_activo_role"] == "A_A-a_1" || $_SESSION["id_user_activo_role"] == "B_1-b_1") { ?>
+					<div class="col s2 i5 centrar show">
+						<p style="margin-top: 0em">
+					      <input type="checkbox" class="state" id="state_<?php echo $view['id_exit_detall'].$view['id_exit'] ?>	" value="<?php echo ($view['returned'] == 0 ? "0" : "1" ); ?>" <?php echo ($view['returned'] == 0 ? "" : "checked" ); ?> ruta="../php/tools/returned_tool.php" master="<?php echo $view['id_exit'] ?>" detalle="<?php echo $view['id_exit_detall']?>" />
+					      <label for="state_<?php echo $view['id_exit_detall'].$view['id_exit'] ?>	"></label>
+					    </p>
+					</div>
+					<?php
+				} ?>
 				<div class="col s3 i5">
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['note_received']; ?></h6>
 				</div>

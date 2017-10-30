@@ -9,7 +9,6 @@
 	$count_exits = new Tools();
 	if (isset($_SESSION["id_user_activo"])) {
 		(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
-
 		$tools = (isset($_REQUEST['tools']) && $_REQUEST['tools'] != "" ? $_REQUEST['tools'] : "%%" );
 		$cedula = (isset($_REQUEST['cedula']) && $_REQUEST['cedula'] != "" ? $_REQUEST['cedula'] : "%%" );
 		$fecha_final = (isset($_REQUEST['fecha_final']) && $_REQUEST['fecha_final'] != "" ? $_REQUEST['fecha_final'] : $tomorrow );

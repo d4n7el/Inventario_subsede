@@ -4,6 +4,8 @@ $(document).on('ready',function(){
 	recargar_eventos();
 	$('a.link_page').on('click', function(event) {
 		event.preventDefault();
+		$('a.link_page').closest('div.card-action').addClass('fondo_negro').removeClass('fondo_claro');
+		$(this).closest('div.card-action').addClass('fondo_claro').removeClass('fondo_negro');
 		var ruta = $(this).attr('href');
 		var titulo = $(this).attr('titulo');;
 		$('a.brand-logo').text(titulo);
@@ -66,9 +68,26 @@ function eliminar_eventos(){
 	$('button.view_info_product').off('click');
 	$('button.view_info_tool').off('click');
 	$('a.view_expiration').off('click');
+	$('input.state').off('change');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	$('input.state').on('change', function(event) {
+		($(this).val() == 1) ? $(this).val("0") : $(this).val("1");
+		($(this).val() == 1) ? mensaje =  "Si" : mensaje = "No";
+		var state = $(this).val();
+		var master = $(this).attr('master');
+		var detalle = $(this).attr('detalle');
+		var ruta = $(this).attr('ruta');
+		formData = {
+			'master': master,
+			'detalle': detalle,
+			'state': state
+		};
+		$('h6#'+detalle+master).text(mensaje);
+		console.log(formData);
+		ajax_get_data(ruta,formData);
+	});
 	$('button.flujo_alterno').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('ruta');
@@ -160,6 +179,10 @@ var recargar_eventos = function(){
 			'html': $('div#area_impresion').html(),
 		}
 		ajax_get_data(ruta,formData);
+	});
+	$('a#new_impresion').on('click', function(event) {
+		$('button#generar_pdf').removeClass('hide').addClass('btn-primary');
+		$(this).addClass('hide');
 	});
 	$('select').material_select();
 	$('button.view_info_stock').on('click', function(event) {
@@ -508,7 +531,7 @@ function request_user(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	console.log(response);
+	    	//console.log(response);
 	    	var response = jQuery.parseJSON(response);
 	    	$.each(response,function(index, value) {
 	    		if (index === "data") {
@@ -535,9 +558,10 @@ function ajax_get_data(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	if (response['process'] != undefined) {
-	    		view_btn_imprimir(response);
-	    	}
+	    	(response['process'] != undefined && response['process'] == "imprimir") ? view_btn_imprimir(response) : "";
+	    	(response['process'] != undefined && response['process'] == "imprimiendo") ? view_btn_imprimir(response) : "";
+	    	(response['process'] != undefined && response['process'] == "returned") ?  dialogo(response['mensaje'],response['status']) : "";
+	    	(response['process'] != undefined && response['process'] == "returned") ?  $('form.search').submit() : "";
 	    },
 	    error: function(jqXHR,error,estado){
 	    	console.log(jqXHR);
@@ -564,6 +588,12 @@ function success(response = "Exito"){
 	}else{
 		mensaje_alert("error",response['mensaje']);
 	}
+}
+function dialogo(mensaje,status = 1 ,duracion = 4000){
+	if (status == 1) {
+		$('div.toast').addClass('fondo_negro');
+	}
+	Materialize.toast(mensaje, duracion)
 }
 function clean_input(){
 	$('form.update_info input[type=password]').val("");
@@ -714,5 +744,9 @@ function view_btn_imprimir(response){
 	}else{
 		$('a#new_impresion').addClass('hide');
 		$('button#generar_pdf').removeClass('hide');	
+	}
+	if (response['process'] == "imprimiendo" && response['status'] == 1) {
+		$('a#new_impresion').addClass('hide');
+		$('button#generar_pdf').removeClass('hide');
 	}
 }
