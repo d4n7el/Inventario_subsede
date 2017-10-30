@@ -43,7 +43,7 @@
 					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index_exit.php" class="link_page color_letra_primario" titulo="Ver salidas de productos">Ver salidas<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 				<div class="card-action" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index_exit.php" class="link_page color_letra_primario" titulo="Productos vencidos">Productos vencidos<i class="material-icons right color_letra_primario">visibility</i></a>
+					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/expiration/index.php" class="link_page color_letra_primario" titulo="Productos vencidos">Productos vencidos<i class="material-icons right color_letra_primario">visibility</i></a>
 				</div>
 			</div>
 	    </div>
