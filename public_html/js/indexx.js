@@ -649,7 +649,7 @@ function mensaje_alert(tipo,mensaje,duracion){
 						<div class="card-image centrar">\
 							<img src="'+img+'">\
 						</div>\
-						<div class="card-action">\
+						<div class="card-action fondo_negro">\
 							<a href="#" class="color_letra_primario">'+mensaje+'</a>\
 						</div>\
 					</div>\
@@ -675,7 +675,7 @@ function mensaje_cargando(tipo,mensaje){
 						<div class="card-image centrar">\
 							<img src="'+img+'">\
 						</div>\
-						<div class="card-action">\
+						<div class="card-action fondo_negro">\
 							<a href="#" class="color_letra_primario">'+mensaje+'</a>\
 						</div>\
 					</div>\

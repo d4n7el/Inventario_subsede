@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 31-10-2017 a las 00:21:50
+-- Tiempo de generación: 31-10-2017 a las 00:56:12
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -155,7 +155,7 @@ BEGIN
     DECLARE v_total INT;
     DECLARE v_prestamos INT;
     DECLARE v_available INT;
-    SELECT COUNT(id_exit_detall) INTO v_prestamos FROM exit_tools_detall INNER JOIN exit_tools_master ON exit_tools_detall.id_exit = exit_tools_master.id_exit WHERE id_tool = herramienta AND exit_tools_master.received = 0;
+    SELECT COUNT(id_exit_detall) INTO v_prestamos FROM exit_tools_detall INNER JOIN exit_tools_master ON exit_tools_detall.id_exit = exit_tools_master.id_exit WHERE id_tool = herramienta AND exit_tools_detall.returned = 0;
     SELECT total_quantity INTO v_total FROM tools WHERE id_tool = herramienta;
     SELECT quantity_available INTO v_available FROM tools WHERE id_tool = herramienta;
     IF proceso LIKE 1 THEN
@@ -483,7 +483,7 @@ CREATE TABLE `exit_tools_detall` (
 INSERT INTO `exit_tools_detall` (`id_exit_detall`, `id_exit`, `id_tool`, `quantity`, `note_received`, `state`, `delivered`, `returned`) VALUES
 (96, 75, 1, 0, 'ahi va', 0, 1, 1),
 (97, 75, 2, 0, 'bueno', 0, 1, 1),
-(98, 75, 10, 1, 'perfecto', 1, 1, 0);
+(98, 75, 10, 1, 'perfecto', 1, 1, 1);
 
 --
 -- Disparadores `exit_tools_detall`
@@ -931,7 +931,7 @@ INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity
 (7, 'cuchillo', 'cualquiera', 20, 12, 6, 24, '2017-10-25 22:08:34'),
 (8, 'pica', 'acme', 20, 0, 6, 24, '2017-10-25 22:08:34'),
 (9, 'palustre', 'acme', 50, 0, 6, 7, '2017-10-25 22:08:34'),
-(10, 'Palin', 'Acme', 10, 1, 6, 24, '2017-10-26 19:56:37');
+(10, 'Palin', 'Acme', 10, 3, 6, 24, '2017-10-26 19:56:37');
 
 -- --------------------------------------------------------
 
