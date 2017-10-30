@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 30-10-2017 a las 00:03:03
+-- Tiempo de generación: 30-10-2017 a las 03:30:31
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -531,6 +531,14 @@ CREATE TABLE `expiration_stock` (
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `expiration_stock`
+--
+
+INSERT INTO `expiration_stock` (`id_expiration`, `id_stock`, `date_create`, `amount_due`, `note`, `id_user`) VALUES
+(10, 24, '2017-10-13 00:47:26', 99, 'Se vencio el dia', 7),
+(12, 23, '2017-10-30 02:10:07', 180, 'toco', 7);
+
 -- --------------------------------------------------------
 
 --
@@ -569,6 +577,22 @@ CREATE TABLE `get_stock` (
 ,`id_cellar` int(11)
 ,`creation_date` timestamp
 ,`name_cellar` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `index_expiration_record`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `index_expiration_record` (
+`note` varchar(150)
+,`amount_due` int(11)
+,`creation` date
+,`expiration_date` date
+,`name_user` varchar(50)
+,`name_product` varchar(100)
+,`nom_lot` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -824,8 +848,8 @@ CREATE TABLE `stock` (
 INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `amount_income`, `expiration_date`, `expiration_create`, `comercializadora`, `unit_measure`, `state`) VALUES
 (21, 1, '4567yugj', 0.1, 10, '2017-10-31', '2017-10-18 20:15:50', 'casa', 1, 1),
 (22, 2, '45768ighio', 5.3, 20, '2017-10-30', '2017-10-18 20:16:44', 'casas', 1, 1),
-(23, 5, '39r8euwkw', 180, 200, '2017-10-27', '2017-10-19 06:16:11', 'negra', 1, 1),
-(24, 1, '9i4k302', 99, 100, '2017-10-24', '2017-10-19 06:19:56', 'sab', 1, 1),
+(23, 5, '39r8euwkw', 180, 200, '2017-10-27', '2017-10-19 06:16:11', 'negra', 1, 0),
+(24, 1, '9i4k302', 99, 100, '2017-10-24', '2017-10-19 06:19:56', 'sab', 1, 0),
 (25, 6, '09escsdadq0', 180, 200, '2017-11-17', '2017-10-24 22:04:57', 'salma', 1, 1),
 (26, 7, '893iwkdsl', 285, 300, '2017-12-31', '2017-10-25 00:34:03', 'azuc', 1, 1),
 (27, 6, '3879iwksa', 29, 30, '2017-10-31', '2017-10-25 00:49:36', '23kajs', 1, 1),
@@ -972,6 +996,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Estructura para la vista `index_expiration_record`
+--
+DROP TABLE IF EXISTS `index_expiration_record`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `index_expiration_record`  AS  select `expiration_stock`.`note` AS `note`,`expiration_stock`.`amount_due` AS `amount_due`,cast(`expiration_stock`.`date_create` as date) AS `creation`,`stock`.`expiration_date` AS `expiration_date`,`user`.`name_user` AS `name_user`,`products`.`name_product` AS `name_product`,`stock`.`nom_lot` AS `nom_lot` from (((`expiration_stock` join `user` on((`expiration_stock`.`id_user` = `user`.`id_user`))) join `stock` on((`expiration_stock`.`id_stock` = `stock`.`id_stock`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `planta_stock`
 --
 DROP TABLE IF EXISTS `planta_stock`;
@@ -1054,7 +1087,8 @@ ALTER TABLE `exit_tools_master`
 -- Indices de la tabla `expiration_stock`
 --
 ALTER TABLE `expiration_stock`
-  ADD PRIMARY KEY (`id_expiration`);
+  ADD PRIMARY KEY (`id_expiration`),
+  ADD UNIQUE KEY `id_stock` (`id_stock`);
 
 --
 -- Indices de la tabla `integridad_stock_plant`
@@ -1181,7 +1215,7 @@ ALTER TABLE `exit_tools_master`
 -- AUTO_INCREMENT de la tabla `expiration_stock`
 --
 ALTER TABLE `expiration_stock`
-  MODIFY `id_expiration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_expiration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `integridad_stock_plant`
 --
