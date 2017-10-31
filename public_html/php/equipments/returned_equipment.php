@@ -9,7 +9,7 @@
 		$state = $_REQUEST['state'];
 		$mensaje = ($_REQUEST['state'] == 1) ? "Elemento retornado" : "Elemento no devuelto";
 		$returned_equipments = $equipment->returned_equipment($master,$detalle,$state);
-		$respuesta = array('mensaje' => $returned_equipments, 'status' => 1, 'process' => 'returned' );
+		$respuesta = array('mensaje' => $mensaje, 'status' => 1, 'process' => 'returned' );
 	}else{
 		$respuesta = array('mensaje' => "nada", 'status' => 0 );
 	}

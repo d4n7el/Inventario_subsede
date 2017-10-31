@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 31-10-2017 a las 00:56:12
+-- Tiempo de generación: 31-10-2017 a las 03:25:55
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -22,7 +22,7 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_equipment_exit` (IN `id_user` INT, IN `id_exit` INT, IN `id_exit_detalle` INT, IN `id_element` INT, IN `nota` INT, IN `process` INT, OUT `retorno` INT)  BEGIN  
   DECLARE old_cantidad INT;
     SELECT quantity INTO old_cantidad FROM exit_teams_detall WHERE id_exit_detall = id_exit_detalle;
-  UPDATE exit_teams_detall SET state = 0, quantity = 0 WHERE id_exit_detall = id_exit_detalle;
+  UPDATE exit_teams_detall SET state = 0, quantity = 0, returned = 1 WHERE id_exit_detall = id_exit_detalle;
     UPDATE equipments SET quantity_available = quantity_available + old_cantidad WHERE id_equipment = id_element;
     SET retorno = 1;
 END$$
@@ -78,26 +78,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_cant_tools_detalle` (IN `p_c
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `update_equipments` (IN `p_equipo` VARCHAR(50), IN `p_marca` VARCHAR(50), IN `p_cantidad_total` INT, IN `p_bodega` INT, IN `p_id_user` INT, IN `p_id_equipo` INT, OUT `retorno` INT)  BEGIN
-    DECLARE v_old_total INT;
-    DECLARE v_old_disponible INT;
-    DECLARE v_prestados INT;
-    SELECT total_quantity INTO v_old_total FROM equipments WHERE id_equipment = p_id_equipo;
-    SELECT quantity_available INTO v_old_disponible FROM equipments WHERE id_equipment = p_id_equipo;
-    SET v_prestados = v_old_total - v_old_disponible;
-    IF v_prestados <= p_cantidad_total THEN
-        IF v_old_total >= p_cantidad_total THEN
-            UPDATE equipments SET quantity_available = quantity_available - (v_old_total - p_cantidad_total) WHERE id_equipment = p_id_equipo;
-            SET retorno = 1;
-        ELSE
-            UPDATE equipments SET quantity_available = quantity_available + (p_cantidad_total - v_old_total ) WHERE id_equipment = p_id_equipo;
-            SET retorno = 1;
-        END IF;
-    ELSE
-        SET retorno = 0;
-    END IF;  
-    IF retorno > 0 THEN 
-        UPDATE equipments SET name_equipment = p_equipo, mark = p_marca, total_quantity = p_cantidad_total, id_cellar = p_bodega, id_user_create = p_id_user WHERE id_equipment = p_id_equipo;
-    END IF; 
+UPDATE equipments SET name_equipment = p_equipo, mark = p_marca, total_quantity = p_cantidad_total, id_cellar = p_bodega, id_user_create = p_id_user WHERE id_equipment = p_id_equipo;
+    SET retorno = 1;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `update_exit_stock` (IN `cantidad` FLOAT, IN `idMaster` INT(11), IN `IdDetalle` INT(11), IN `IdUser` INT(11), OUT `retorno` BOOLEAN)  BEGIN
@@ -126,7 +108,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_quantity_available` (IN `equ
   DECLARE v_total INT;
     DECLARE v_prestamos INT;
     DECLARE v_available INT;
-    SELECT COUNT(id_exit_detall) INTO v_prestamos FROM exit_teams_detall INNER JOIN exit_equipment_master ON exit_teams_detall.id_exit = exit_equipment_master.id_exit WHERE id_equipment = equipo AND exit_equipment_master.received = 0;
+    SELECT COUNT(id_exit_detall) INTO v_prestamos FROM exit_teams_detall INNER JOIN exit_equipment_master ON exit_teams_detall.id_exit = exit_equipment_master.id_exit WHERE id_equipment = equipo AND exit_teams_detall.returned = 0;
     SELECT total_quantity INTO v_total FROM equipments WHERE id_equipment = equipo;
     SELECT quantity_available INTO v_available FROM equipments WHERE id_equipment = equipo;
     IF proceso LIKE 1 THEN
@@ -262,8 +244,8 @@ CREATE TABLE `equipments` (
 --
 
 INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `create_date`) VALUES
-(1, 'Tv', 'acme', 4, 2, 5, 7, '2017-10-25 22:09:42'),
-(2, 'Computador', 'Acme', 10, 9, 5, 7, '2017-10-25 22:09:42'),
+(1, 'Tv', 'acme', 15, 17, 5, 7, '2017-10-25 22:09:42'),
+(2, 'Computador', 'Acme', 10, 8, 5, 7, '2017-10-25 22:09:42'),
 (3, 'lazos', 'acme', 20, 20, 5, 7, '2017-10-25 22:09:42');
 
 -- --------------------------------------------------------
@@ -277,8 +259,6 @@ CREATE TABLE `exit_equipment_master` (
   `id_user_receives` int(11) NOT NULL,
   `name_user_receives` varchar(50) NOT NULL,
   `id_user_delivery` int(11) NOT NULL,
-  `delivery` tinyint(1) NOT NULL DEFAULT '1',
-  `received` tinyint(1) NOT NULL DEFAULT '0',
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -286,8 +266,10 @@ CREATE TABLE `exit_equipment_master` (
 -- Volcado de datos para la tabla `exit_equipment_master`
 --
 
-INSERT INTO `exit_equipment_master` (`id_exit`, `id_user_receives`, `name_user_receives`, `id_user_delivery`, `delivery`, `received`, `date_create`) VALUES
-(12, 18595130, 'Jhon  Jairo Cuaervo', 7, 1, 0, '2017-10-28 00:41:05');
+INSERT INTO `exit_equipment_master` (`id_exit`, `id_user_receives`, `name_user_receives`, `id_user_delivery`, `date_create`) VALUES
+(12, 18595130, 'Jhon  Jairo Cuaervo', 7, '2017-10-28 00:41:05'),
+(13, 12, 'carlos diaz Soto', 7, '2017-10-31 01:26:25'),
+(14, 12, 'carlos diaz Soto', 7, '2017-10-31 02:18:49');
 
 -- --------------------------------------------------------
 
@@ -449,15 +431,48 @@ CREATE TABLE `exit_teams_detall` (
   `id_equipment` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `note` text NOT NULL,
-  `state` tinyint(1) NOT NULL DEFAULT '1'
+  `state` tinyint(1) NOT NULL DEFAULT '1',
+  `delivered` int(11) NOT NULL DEFAULT '1',
+  `returned` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `exit_teams_detall`
 --
 
-INSERT INTO `exit_teams_detall` (`id_exit_detall`, `id_exit`, `id_equipment`, `quantity`, `note`, `state`) VALUES
-(12, 12, 1, 0, 'Tv samsung', 0);
+INSERT INTO `exit_teams_detall` (`id_exit_detall`, `id_exit`, `id_equipment`, `quantity`, `note`, `state`, `delivered`, `returned`) VALUES
+(12, 12, 1, 0, 'Tv samsung', 0, 1, 1),
+(13, 13, 1, 0, 'tv', 0, 1, 1),
+(14, 13, 2, 0, 'pc', 0, 1, 1),
+(15, 14, 1, 1, 'bueno', 1, 1, 1);
+
+--
+-- Disparadores `exit_teams_detall`
+--
+DELIMITER $$
+CREATE TRIGGER `returned_equipment` AFTER UPDATE ON `exit_teams_detall` FOR EACH ROW BEGIN
+DECLARE v_disponible INT;
+SELECT quantity_available INTO v_disponible FROM equipments WHERE id_equipment = NEW.id_equipment;
+IF v_disponible > 0 AND v_disponible >= NEW.quantity THEN
+  IF NEW.returned = 0 THEN
+      UPDATE equipments SET quantity_available =    quantity_available -      NEW.quantity WHERE id_equipment = NEW.id_equipment;
+    ELSE
+      UPDATE equipments SET quantity_available =    quantity_available +      NEW.quantity WHERE id_equipment = NEW.id_equipment;
+    END IF;
+END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_quantity_equipment` AFTER INSERT ON `exit_teams_detall` FOR EACH ROW BEGIN
+DECLARE v_disponible INT;
+SELECT quantity_available INTO v_disponible FROM equipments WHERE id_equipment = NEW.id_equipment;
+IF v_disponible > 0 AND v_disponible >= NEW.quantity THEN 
+  UPDATE equipments SET quantity_available =    quantity_available - NEW.quantity WHERE id_equipment = NEW.id_equipment;
+END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -931,7 +946,7 @@ INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity
 (7, 'cuchillo', 'cualquiera', 20, 12, 6, 24, '2017-10-25 22:08:34'),
 (8, 'pica', 'acme', 20, 0, 6, 24, '2017-10-25 22:08:34'),
 (9, 'palustre', 'acme', 50, 0, 6, 7, '2017-10-25 22:08:34'),
-(10, 'Palin', 'Acme', 10, 3, 6, 24, '2017-10-26 19:56:37');
+(10, 'pala', 'Acme', 11, 7, 6, 7, '2017-10-26 19:56:37');
 
 -- --------------------------------------------------------
 
@@ -1178,7 +1193,7 @@ ALTER TABLE `equipments`
 -- AUTO_INCREMENT de la tabla `exit_equipment_master`
 --
 ALTER TABLE `exit_equipment_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_detalle`
 --
@@ -1193,7 +1208,7 @@ ALTER TABLE `exit_product_master`
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
 ALTER TABLE `exit_teams_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_detall`
 --
