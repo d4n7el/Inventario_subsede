@@ -61,11 +61,21 @@
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['quantity']; ?></h6>
 				</div>
 				<div class="col s2 i4">
-					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['delivery']; ?></h6>
+					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['delivered']; ?></h6>
 				</div>
-				<div class="col s2 i4">
-					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['received']; ?></h6>
+				<div class="col s2 i5 <?php echo ($view['returned'] == 1 AND $_SESSION["id_user_activo_role"] != "A_A-a_1")  || $view['state'] == 0 ? "" : "hide" ?>">
+					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>" id="<?php echo $view['id_exit_detall'].$view['id_exit'] ?>"><?php echo ($view['returned'] == 0 ? "No" : "Si" ); ?></h6>
 				</div>
+				<?php 
+				if ($view['returned'] == 0 OR $_SESSION["id_user_activo_role"] == "A_A-a_1" || $_SESSION["id_user_activo_role"] == "B_1-b_1" AND $view['state'] != 0 ) { ?>
+					<div class="col s2 i5 centrar show">
+						<p style="margin-top: 0em">
+					      <input type="checkbox" class="state" id="state_<?php echo $view['id_exit_detall'].$view['id_exit'] ?>" value="<?php echo ($view['returned'] == 0 ? "0" : "1"); ?>" <?php echo ($view['returned'] == 0 ? "" : "checked"); ?> ruta="../php/equipments/returned_equipment.php" master="<?php echo $view['id_exit'] ?>" detalle="<?php echo $view['id_exit_detall']?>" />
+					      <label for="state_<?php echo $view['id_exit_detall'].$view['id_exit'] ?>"></label>
+					    </p>
+					</div>
+					<?php
+				} ?>
 				<div class="col s3 i4">
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['note']; ?></h6>
 				</div>

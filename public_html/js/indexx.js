@@ -488,9 +488,7 @@ function ajax_set_form_data(ruta,formData){
 	    	if (response['status']==1 && response['process']=='create')  {
  	    		clean_input();
  	    		if (response['graphics'] != undefined) {
-					$('div#view_graphics').load(response['graphics'],function() {
-						console.log(response['graphics']);
-					});
+					$('div#view_graphics').load(response['graphics']);
 		    	}
  	    	}
  	    	if (response['status']==1 && response['process']=='exit_product')  {
@@ -506,6 +504,9 @@ function ajax_set_form_data(ruta,formData){
  	    		$("div.contenedor_session").load(response['redirecTo'],function() {
 					recargar_eventos();
 				});
+ 	    	}
+ 	    	if (response['status']==1 && response['closeModal'] != undefined && response['closeModal'] == 1 ) {
+ 	    		$('#modal_right,#modal_center').modal('close');
  	    	} 	
 	    },
 	    error: function(jqXHR,error,estado){
@@ -600,8 +601,6 @@ function clean_input(){
 	$('.create_info')[0].reset(); //Sirve para resetear a su estado original el form
 	$('.create_info i, .create_info label').removeClass('active'); 
 	$('.create_info input').removeClass('valid');
-	$('#modal_right').modal('close');
-	$('#modal_center').modal('close');
 }
 function parse_fecha_numeric(fecha){
 	var fecha = new Date(fecha);

@@ -4,7 +4,7 @@
 	$equipment 			= new Equipments(); 
 	$id_user			= $_SESSION["id_user_activo"];
 	$id_equipo 		    = $_REQUEST["id_equipo"];
-	$equipo 			= $_REQUEST["id_equipo"];
+	$equipo 			= $_REQUEST["equipo"];
 	$marca 		        = $_REQUEST["marca"];
 	$cantidad_total		= $_REQUEST["cantidad_total"];
 	$disponible 		= $_REQUEST["cantidad_disponible"];
@@ -20,9 +20,9 @@
 			$respuesta = array('mensaje' => "No puedes realizar esta accion", 'status' => 0 );
 		}
 	}elseif (isset($_REQUEST["cantidad_disponible"]) && isset($_REQUEST["nota"]) && isset($_REQUEST["process"])) {
-		$retorno_equipment 	= $equipment->update_equipment_available($equipo,$disponible,$nota,$proceso);
+		$retorno_equipment 	= $equipment->update_equipment_available($id_equipo,$disponible,$nota,$proceso);
 		if ($retorno_equipment['retorno'] == 1) {
-			$respuesta = array('mensaje' => $retorno_equipment['retorno'] , 'status' => 1 );
+			$respuesta = array('mensaje' => "Actualizacion exitosa" , 'status' => 1, 'closeModal' => 1 );
 		}elseif ($retorno_equipment['retorno'] == -1){
 			$respuesta = array('mensaje' => "La cantidad disponible debe ser mayor a la cantidad prestada actual" , 'status' => 0 );
 		}elseif ($retorno_equipment['retorno'] == 0) {
