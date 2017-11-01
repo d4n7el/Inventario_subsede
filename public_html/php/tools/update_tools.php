@@ -4,14 +4,15 @@
 	$tools 					= new tools();
 	$id_user 				= $_SESSION["id_user_activo"]; 
 	$id_herramienta 		= $_REQUEST["id_herramientas"];
-	$herramienta 			= $_REQUEST["herramienta"];
-	$marca 		    		= $_REQUEST["marca"];
-	$cantidad 				= $_REQUEST["cantidad"];
+	
 	$disponible 			= $_REQUEST["cantidad_disponible"];
 	$nota 					= $_REQUEST["nota"];
 	$proceso 				= $_REQUEST["process"];
 	$bodega 			    = 6;
 	if (!isset($_REQUEST["cantidad_disponible"]) AND !isset($_REQUEST["nota"]) AND !isset($_REQUEST["process"]) AND isset($_REQUEST["id_herramientas"]) ) {
+		$herramienta 			= $_REQUEST["herramienta"];
+		$marca 		    		= $_REQUEST["marca"];
+		$cantidad 				= $_REQUEST["cantidad"];
 		$retorno_tools	= $tools->update_tools($herramienta,$marca,$cantidad,$bodega, $id_herramienta,$id_user);
 		if ($retorno_tools > 0) {
 			$respuesta = array('mensaje' => "Actualización correcta", 'status' => 1, 'closeModal' => 1 );
