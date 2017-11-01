@@ -1,9 +1,10 @@
 <?php  
 	session_start();
 	if (isset($_SESSION["id_user_activo"])) {
+		$col = (isset($_REQUEST['alterno']) ? "s12" : "s6" );	
 ?>
 		<div class="row">
-		    <div class="formulario col m6">
+		    <div class="formulario $col">
 		    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/new_equipment.php" class="create_info">
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">account_circle</i>
@@ -32,9 +33,13 @@
 			        </div>	
 				</form>
 		    </div>
+		    <?php 
+		    if (!isset($_REQUEST['alterno'])){ ?>
 		    <div class="col s6" id="view_graphics">
 	    		<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/equipments/graphics_pie.php") ?>
-	    	</div>
+	    	</div> <?php
+	    	}?>
+	    	
 		</div>
 		<?php 
 	}
