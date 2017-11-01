@@ -4,7 +4,7 @@
 		$col = (isset($_REQUEST['alterno']) ? "s12" : "s6" );	
 ?>
 		<div class="row">
-		    <div class="formulario $col">
+		    <div class="formulario col <?php echo $col ?> ">
 		    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/new_equipment.php" class="create_info">
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">account_circle</i>
