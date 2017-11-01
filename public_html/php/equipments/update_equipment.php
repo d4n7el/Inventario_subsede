@@ -4,15 +4,15 @@
 	$equipment 			= new Equipments(); 
 	$id_user			= $_SESSION["id_user_activo"];
 	$id_equipo 		    = $_REQUEST["id_equipo"];
-	$equipo 			= $_REQUEST["equipo"];
-	$marca 		        = $_REQUEST["marca"];
-	$cantidad_total		= $_REQUEST["cantidad_total"];
 	$disponible 		= $_REQUEST["cantidad_disponible"];
 	$nota 				= $_REQUEST["nota"];
 	$proceso 			= $_REQUEST["process"];
 	$bodega 			= 5;
 	//B_1-b_1
 	if (!isset($_REQUEST["cantidad_disponible"]) && !isset($_REQUEST["nota"] )) {
+		$equipo 			= $_REQUEST["equipo"];
+		$marca 		        = $_REQUEST["marca"];
+		$cantidad_total		= $_REQUEST["cantidad_total"];
 		$retorno_equipment 	= $equipment->update_equipment($equipo,$marca,$cantidad_total,$bodega,$id_user,$id_equipo);
 		if ($retorno_equipment['retorno'] > 0) {
 			$respuesta = array('mensaje' => "Actualizacion Exitosa", 'status' => 1 );

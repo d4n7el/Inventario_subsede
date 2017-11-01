@@ -42,7 +42,7 @@ foreach ($retorno_equipos as $key => $value) { ?>
 			<?php echo 'El sistema registra una cantidad de equipos disponibles actualmente de '.$value['quantity_available']. " y una cantidad prestada de ".$retorno_outside['count'] ; ?>
 		</h5>
 		<section>
-			<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/update_equipment.php" class="update_info" accept-charset="utf-8">
+			<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/update_equipment.php" class="" accept-charset="utf-8">
 				<input value="<?php echo $value['id_equipment'] ?>" name="id_equipo" type="hidden" readonly="readonly">
 				<input value="1" name="process" type="hidden" readonly="readonly">
 		        <div class="input-field col s5">
@@ -72,7 +72,7 @@ foreach ($retorno_equipos as $key => $value) { ?>
 			Restar Cantidad disponible al Equipo.
 		</h6>
 		<section>
-			<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/update_equipment.php" class="update_info" accept-charset="utf-8">
+			<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/update_equipment.php" class="" accept-charset="utf-8">
 				<input value="<?php echo $value['id_equipment'] ?>" name="id_equipo" type="hidden" readonly="readonly">
 				<input value="0" name="process" type="hidden" readonly="readonly">
 		        <div class="input-field col s5">
