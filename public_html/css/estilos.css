@@ -17,6 +17,9 @@ body{
 div.alternos{
 	margin-top: -6em;
 }
+a.brand-logo img{
+	opacity: .1;
+}
 a.pulse{
 	border-radius: 5px;
 	margin-top: 2.5em !important;

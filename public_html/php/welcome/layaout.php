@@ -13,7 +13,9 @@
 	<header>
   		<nav>
 	    <div class="nav-wrapper fondo_negro">
-	    	<a href="#" class="brand-logo" style="margin-left: 1em">Inicio</a>
+	    	<a href="../index.php" class="brand-logo" style="margin-left: 1em">
+	    		<img src="../image/sena.svg" alt="">
+	    	</a>
 	    	<?php 
 	      	if (isset($_SESSION["name_user_activo"])) { ?>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">

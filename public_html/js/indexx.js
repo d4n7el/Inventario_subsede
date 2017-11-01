@@ -7,8 +7,6 @@ $(document).on('ready',function(){
 		$('a.link_page').closest('div.card-action').addClass('fondo_negro').removeClass('fondo_claro');
 		$(this).closest('div.card-action').addClass('fondo_claro').removeClass('fondo_negro');
 		var ruta = $(this).attr('href');
-		var titulo = $(this).attr('titulo');;
-		$('a.brand-logo').text(titulo);
 		$("div#vista_ventana").load(ruta,function() {
 			recargar_eventos();
 		});

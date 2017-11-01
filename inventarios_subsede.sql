@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 31-10-2017 a las 03:25:55
+-- Tiempo de generación: 01-11-2017 a las 01:34:36
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -243,11 +243,6 @@ CREATE TABLE `equipments` (
 -- Volcado de datos para la tabla `equipments`
 --
 
-INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `create_date`) VALUES
-(1, 'Tv', 'acme', 15, 17, 5, 7, '2017-10-25 22:09:42'),
-(2, 'Computador', 'Acme', 10, 8, 5, 7, '2017-10-25 22:09:42'),
-(3, 'lazos', 'acme', 20, 20, 5, 7, '2017-10-25 22:09:42');
-
 -- --------------------------------------------------------
 
 --
@@ -266,10 +261,6 @@ CREATE TABLE `exit_equipment_master` (
 -- Volcado de datos para la tabla `exit_equipment_master`
 --
 
-INSERT INTO `exit_equipment_master` (`id_exit`, `id_user_receives`, `name_user_receives`, `id_user_delivery`, `date_create`) VALUES
-(12, 18595130, 'Jhon  Jairo Cuaervo', 7, '2017-10-28 00:41:05'),
-(13, 12, 'carlos diaz Soto', 7, '2017-10-31 01:26:25'),
-(14, 12, 'carlos diaz Soto', 7, '2017-10-31 02:18:49');
 
 -- --------------------------------------------------------
 
@@ -290,46 +281,6 @@ CREATE TABLE `exit_product_detalle` (
 -- Volcado de datos para la tabla `exit_product_detalle`
 --
 
-INSERT INTO `exit_product_detalle` (`id_exit_product_detalle`, `id_exit_product_master`, `id_stock`, `quantity`, `note`, `state`) VALUES
-(71, 137, 13, 4, 'Externo', 1),
-(72, 138, 14, 4, '', 1),
-(73, 138, 13, 1, '', 1),
-(74, 139, 16, 3, '', 1),
-(75, 140, 13, 3, 'Frescas', 1),
-(76, 141, 18, 2, '', 1),
-(77, 142, 17, 2, 'ytrew', 1),
-(78, 143, 13, 4, 'Frequitos', 1),
-(79, 144, 14, 2, 'bien', 1),
-(80, 145, 17, 1, '', 1),
-(81, 145, 13, 5, '', 1),
-(82, 145, 15, 3, '', 1),
-(83, 146, 13, 2, 'fresquitas', 1),
-(84, 147, 20, 10, 'Sabila', 1),
-(85, 148, 13, 10, '', 1),
-(86, 149, 16, 0, '', 0),
-(87, 149, 13, 10, 'rfuyfyugu', 1),
-(88, 150, 22, 4, 'roja', 1),
-(89, 150, 21, 2, 'savila', 1),
-(90, 151, 22, 2, 'buenos', 1),
-(91, 151, 21, 1, 'mas buenos', 1),
-(92, 152, 22, 1, 'Biennnn', 1),
-(93, 152, 21, 3, 'Biennnn', 1),
-(94, 153, 25, 20, '', 1),
-(95, 154, 26, 15, '', 1),
-(96, 155, 27, 1, '', 1),
-(97, 156, 23, 20, 'muy negra', 1),
-(98, 157, 28, 2, 'sale', 1),
-(99, 158, 29, 20, 'bien', 1),
-(100, 159, 21, 1, 'Verde', 1),
-(101, 160, 21, 1, 'aaa', 1),
-(102, 161, 24, 1, 'decimal', 1),
-(103, 162, 21, 1, 'decimal2', 1),
-(104, 163, 21, 0.5, 'float3', 1),
-(105, 164, 22, 7.7, 'float destino', 1),
-(106, 164, 21, 0.6, 'float destino', 1),
-(107, 165, 37, 10.5, 'bien', 1),
-(108, 166, 29, 20, '', 1),
-(109, 166, 21, 0.1, '', 1);
 
 --
 -- Disparadores `exit_product_detalle`
@@ -387,37 +338,6 @@ CREATE TABLE `exit_product_master` (
 -- Volcado de datos para la tabla `exit_product_master`
 --
 
-INSERT INTO `exit_product_master` (`id_exit_product`, `user_delivery`, `user_receives`, `name_receive`, `destination`, `delivery`, `date_create`) VALUES
-(137, 7, 1234, 'Santiago', 'Ext', 1, '2017-10-09 02:53:14'),
-(138, 7, 634343434, 'Jhon Jairo Cuaervo', 'Int', 1, '2017-10-09 02:54:42'),
-(139, 7, 1234, 'Santiago', 'Int', 1, '2017-10-09 03:50:44'),
-(140, 7, 1234, 'Santiago', 'Int', 1, '2017-10-11 20:41:28'),
-(141, 7, 1234, 'Santiago', 'Int', 1, '2017-10-12 02:15:04'),
-(142, 7, 1234, 'Santiago', 'Int', 1, '2017-10-12 02:16:36'),
-(143, 7, 18595130, 'Jhon  Jairo Cuaervo', 'Int', 1, '2017-10-12 02:28:48'),
-(144, 7, 1234, 'Santiago', 'Int', 1, '2017-10-13 02:11:32'),
-(145, 7, 98511504, 'Eleuterio Herrera Soto', 'Int', 1, '2017-10-13 15:20:42'),
-(146, 7, 512332323, 'Johanna Marcela Velez Garcia', 'Int', 1, '2017-10-15 05:58:14'),
-(147, 7, 1234, 'Santiago', 'Ext', 1, '2017-10-17 02:36:57'),
-(148, 7, 1234, 'Santiago', 'Int', 1, '2017-10-18 03:22:01'),
-(149, 7, 1234, 'Santiago', 'Int', 1, '2017-10-18 19:36:33'),
-(150, 7, 1234, 'Santiago', 'Int', 1, '2017-10-18 20:18:44'),
-(151, 7, 1234, 'Santiago', 'Int', 1, '2017-10-19 00:22:07'),
-(152, 7, 1234, 'Santiago', 'Manizales', 1, '2017-10-19 17:58:12'),
-(153, 7, 1234, 'Santiago', 'Int', 1, '2017-10-24 22:05:20'),
-(154, 7, 1234, 'Santiago', 'Int', 1, '2017-10-25 00:34:27'),
-(155, 7, 1234, 'Santiago', 'Int', 1, '2017-10-25 00:53:18'),
-(156, 7, 1234, 'Santiago', 'Cali', 1, '2017-10-25 02:30:59'),
-(157, 7, 1234, 'Santiago', 'Int', 1, '2017-10-25 03:04:08'),
-(158, 7, 98511504, 'Eleuterio Herrera Soto', 'Int', 1, '2017-10-26 07:01:11'),
-(159, 7, 18595130, 'Jhon  Jairo Cuaervo', 'Risaralda', 1, '2017-10-26 20:03:32'),
-(160, 7, 18595130, 'Jhon  Jairo Cuaervo', 'Int', 1, '2017-10-28 15:36:05'),
-(161, 7, 18595130, 'Jhon  Jairo Cuaervo', 'Int', 1, '2017-10-28 15:42:47'),
-(162, 7, 18595130, 'Jhon  Jairo Cuaervo', 'Int', 1, '2017-10-28 15:47:02'),
-(163, 7, 18595130, 'Jhon  Jairo Cuaervo', 'Int', 1, '2017-10-28 15:50:16'),
-(164, 24, 18595130, 'Jhon  Jairo Cuaervo', 'Interno', 1, '2017-10-28 21:27:16'),
-(165, 24, 18595130, 'Jhon  Jairo Cuaervo', 'Interno', 1, '2017-10-28 21:30:55'),
-(166, 7, 12, 'carlos diaz Soto', 'Interno', 1, '2017-10-30 21:05:27');
 
 -- --------------------------------------------------------
 
@@ -439,12 +359,6 @@ CREATE TABLE `exit_teams_detall` (
 --
 -- Volcado de datos para la tabla `exit_teams_detall`
 --
-
-INSERT INTO `exit_teams_detall` (`id_exit_detall`, `id_exit`, `id_equipment`, `quantity`, `note`, `state`, `delivered`, `returned`) VALUES
-(12, 12, 1, 0, 'Tv samsung', 0, 1, 1),
-(13, 13, 1, 0, 'tv', 0, 1, 1),
-(14, 13, 2, 0, 'pc', 0, 1, 1),
-(15, 14, 1, 1, 'bueno', 1, 1, 1);
 
 --
 -- Disparadores `exit_teams_detall`
@@ -495,11 +409,6 @@ CREATE TABLE `exit_tools_detall` (
 -- Volcado de datos para la tabla `exit_tools_detall`
 --
 
-INSERT INTO `exit_tools_detall` (`id_exit_detall`, `id_exit`, `id_tool`, `quantity`, `note_received`, `state`, `delivered`, `returned`) VALUES
-(96, 75, 1, 0, 'ahi va', 0, 1, 1),
-(97, 75, 2, 0, 'bueno', 0, 1, 1),
-(98, 75, 10, 1, 'perfecto', 1, 1, 1);
-
 --
 -- Disparadores `exit_tools_detall`
 --
@@ -547,9 +456,6 @@ CREATE TABLE `exit_tools_master` (
 -- Volcado de datos para la tabla `exit_tools_master`
 --
 
-INSERT INTO `exit_tools_master` (`id_exit`, `id_user_receives`, `name_user_receive`, `id_user_delivery`, `date_create`) VALUES
-(75, 12, 'carlos diaz Soto', 7, '2017-10-30 22:37:13');
-
 -- --------------------------------------------------------
 
 --
@@ -568,10 +474,6 @@ CREATE TABLE `expiration_stock` (
 --
 -- Volcado de datos para la tabla `expiration_stock`
 --
-
-INSERT INTO `expiration_stock` (`id_expiration`, `id_stock`, `date_create`, `amount_due`, `note`, `id_user`) VALUES
-(12, 23, '2017-10-30 02:10:07', 180, 'toco', 7),
-(14, 29, '2017-10-30 21:38:06', 160, 'funciona', 7);
 
 -- --------------------------------------------------------
 
@@ -649,14 +551,6 @@ CREATE TABLE `integridad_stock_plant` (
 -- Volcado de datos para la tabla `integridad_stock_plant`
 --
 
-INSERT INTO `integridad_stock_plant` (`id_integridad`, `id_stock_plant`, `quantity`, `old_quantity`, `id_user`, `note`, `date_create`) VALUES
-(1, 22, 1, 0, 7, 'kfkd', '2017-10-18 03:39:14'),
-(2, 22, 0, 1, 7, 'fds', '2017-10-18 03:40:01'),
-(3, 34, 1, 1, 7, 'sdfghj', '2017-10-28 16:15:05'),
-(4, 37, 1, 0, 7, 'fds', '2017-10-28 16:16:49'),
-(5, 37, 1, 1, 7, 'era esto', '2017-10-28 16:18:36'),
-(6, 37, 1, 1, 24, 'hj', '2017-10-28 16:47:23');
-
 -- --------------------------------------------------------
 
 --
@@ -678,28 +572,6 @@ CREATE TABLE `intergridad_exit_product_detalle` (
 --
 -- Volcado de datos para la tabla `intergridad_exit_product_detalle`
 --
-
-INSERT INTO `intergridad_exit_product_detalle` (`id_integridad`, `exit_product_detalle`, `quantity`, `old_quantity`, `id_user`, `note`, `state`, `process`, `date_create`) VALUES
-(10, 83, 0, 4, 7, 'prueba de old', 0, 'delete', '2017-10-16 15:31:50'),
-(13, 83, 1, 1, 7, 'bien', 1, 'Update', '2017-10-16 16:04:41'),
-(14, 83, 2, 1, 7, 'bien', 1, 'Update', '2017-10-16 16:05:21'),
-(15, 84, 0, 10, 7, 'prueba', 0, 'delete', '2017-10-17 03:39:24'),
-(16, 84, 10, 0, 7, 'bien', 1, 'Update', '2017-10-17 03:39:40'),
-(17, 85, 0, 2, 7, 'no eran', 0, 'delete', '2017-10-18 03:33:44'),
-(18, 85, 10, 0, 7, 'bien', 1, 'Update', '2017-10-18 04:04:58'),
-(19, 86, 0, 10, 7, 'ytytth', 0, 'delete', '2017-10-18 19:38:22'),
-(20, 89, 0, 2, 7, 'ghjk', 0, 'delete', '2017-10-18 20:52:25'),
-(21, 89, 9, 0, 7, 'bien', 1, 'Update', '2017-10-18 21:01:08'),
-(22, 89, 0, 9, 7, 'gfhjmn', 0, 'delete', '2017-10-18 21:01:50'),
-(23, 89, 1, 0, 7, 'bien', 1, 'Update', '2017-10-18 21:02:45'),
-(24, 88, 0, 10, 7, 'fgh', 0, 'delete', '2017-10-18 21:05:09'),
-(25, 88, 10, 0, 7, 'bien', 1, 'Update', '2017-10-18 21:05:41'),
-(26, 89, 2, 1, 7, 'bien', 1, 'Update', '2017-10-18 23:23:51'),
-(27, 88, 4, 10, 7, 'bien', 1, 'Update', '2017-10-18 23:24:33'),
-(28, 91, 0, 5, 7, 'gfds', 0, 'delete', '2017-10-19 00:23:35'),
-(29, 91, 1, 0, 7, 'bien', 1, 'Update', '2017-10-19 00:27:46'),
-(30, 100, 0, 4, 7, 'hkj,m', 0, 'delete', '2017-10-28 04:13:15'),
-(31, 100, 1, 0, 7, 'bien', 1, 'Update', '2017-10-28 04:13:30');
 
 -- --------------------------------------------------------
 
@@ -769,19 +641,6 @@ CREATE TABLE `products` (
 -- Volcado de datos para la tabla `products`
 --
 
-INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `id_user_create`, `id_cellar`, `num_orders`, `creation_date`) VALUES
-(1, 'Savila', 'Savila', 7, 1, 17, '2017-10-28 21:27:16'),
-(2, 'Carne roja', 'Carne roja', 7, 3, 9, '2017-10-28 21:27:16'),
-(3, 'Leche', 'En polvo', 7, 2, 5, '2017-10-30 21:05:27'),
-(4, 'Fresas', 'fresas', 7, 1, 6, '2017-10-18 19:36:34'),
-(5, 'Tierra negra', '4738djid20', 7, 4, 3, '2017-10-25 02:30:59'),
-(6, 'Sal marina', 'sal', 7, 4, 3, '2017-10-25 03:04:08'),
-(7, 'Azucar', 'azucar', 7, 4, 1, '2017-10-25 00:34:27'),
-(8, 'Miel', 'Abeja', 7, 4, 0, '2017-10-26 06:55:07'),
-(9, 'Cafe', 'cafe negro', 7, 4, 0, '2017-10-27 15:56:11'),
-(10, 'Moras', 'Moras', 24, 1, 0, '2017-10-28 18:57:31'),
-(11, 'insulina..', 'insu', 24, 1, 1, '2017-10-28 21:30:55');
-
 -- --------------------------------------------------------
 
 --
@@ -799,13 +658,6 @@ CREATE TABLE `recover_password` (
 --
 -- Volcado de datos para la tabla `recover_password`
 --
-
-INSERT INTO `recover_password` (`id_recover`, `code_recover`, `email_user`, `use_code`, `fecha_creacion`) VALUES
-(1, 'F679953I', 'd4n7elfelipe@gmail.com', 1, '2017-10-15 03:58:24'),
-(2, 'P721195W', 'd4n7elfelipe@gmail.com', 1, '2017-10-26 07:45:22'),
-(3, 'Q883592Q', 'd4n7elfelipe@gmail.com', 1, '2017-10-26 07:57:03'),
-(4, 'N997689E', 'd4n7elfelipe@gmail.com', 0, '2017-10-26 17:39:45'),
-(5, 'R174282W', 'd4n7elfelipe@gmail.com', 0, '2017-10-26 18:10:06');
 
 -- --------------------------------------------------------
 
@@ -879,23 +731,6 @@ CREATE TABLE `stock` (
 -- Volcado de datos para la tabla `stock`
 --
 
-INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `amount_income`, `expiration_date`, `expiration_create`, `comercializadora`, `unit_measure`, `state`) VALUES
-(21, 1, '4567yugj', 0.1, 10, '2017-10-31', '2017-10-18 20:15:50', 'casa', 1, 1),
-(22, 2, '45768ighio', 5.3, 20, '2017-10-30', '2017-10-18 20:16:44', 'casas', 1, 1),
-(23, 5, '39r8euwkw', 180, 200, '2017-10-27', '2017-10-19 06:16:11', 'negra', 1, 0),
-(24, 1, '9i4k302', 99, 100, '2017-10-24', '2017-10-19 06:19:56', 'sab', 1, 1),
-(25, 6, '09escsdadq0', 180, 200, '2017-11-17', '2017-10-24 22:04:57', 'salma', 1, 1),
-(26, 7, '893iwkdsl', 285, 300, '2017-12-31', '2017-10-25 00:34:03', 'azuc', 1, 1),
-(27, 6, '3879iwksa', 29, 30, '2017-10-31', '2017-10-25 00:49:36', '23kajs', 1, 1),
-(28, 6, '8943wejqo01p', 278, 280, '2017-12-29', '2017-10-25 03:00:48', 'salk', 1, 1),
-(29, 3, 'aaaaaa234', 160, 200, '2017-10-24', '2017-10-26 05:29:31', 'leaaaa', 1, 0),
-(30, 8, '2o239eikwq', 20, 20, '2017-10-31', '2017-10-26 06:55:30', 'mielita', 1, 1),
-(31, 5, 'e5678uij', 200, 200, '2017-11-30', '2017-10-27 14:55:21', 'nef', 1, 1),
-(32, 6, 'wd0pqwñlas', 200, 200, '2017-10-31', '2017-10-27 15:12:47', 'aa', 1, 1),
-(33, 9, '738iejsijdai', 200, 200, '2017-11-30', '2017-10-27 16:00:12', 'cafeblack', 1, 1),
-(36, 1, 'yeudiskkaam', 30, 200, '2017-11-30', '2017-10-27 16:14:04', 'jd sab', 1, 1),
-(37, 11, '8379iejds', 9.5, 20, '2017-10-31', '2017-10-28 03:45:58', 'ask', 5, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -914,11 +749,6 @@ CREATE TABLE `stock_plant` (
 --
 -- Volcado de datos para la tabla `stock_plant`
 --
-
-INSERT INTO `stock_plant` (`id_stock_plant`, `id_stock`, `quantity`, `id_exit_product`, `state`, `date_create`) VALUES
-(39, 29, 20, 166, 0, '2017-10-30 21:05:27'),
-(40, 21, 0.1, 166, 1, '2017-10-30 21:05:27');
-
 -- --------------------------------------------------------
 
 --
@@ -939,15 +769,6 @@ CREATE TABLE `tools` (
 --
 -- Volcado de datos para la tabla `tools`
 --
-
-INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `create_date`) VALUES
-(1, 'pala', 'acme', 234, 11, 6, 7, '2017-10-25 22:08:34'),
-(2, 'martillo', '3456yw', 20, 2, 6, 24, '2017-10-25 22:08:34'),
-(7, 'cuchillo', 'cualquiera', 20, 12, 6, 24, '2017-10-25 22:08:34'),
-(8, 'pica', 'acme', 20, 0, 6, 24, '2017-10-25 22:08:34'),
-(9, 'palustre', 'acme', 50, 0, 6, 7, '2017-10-25 22:08:34'),
-(10, 'pala', 'Acme', 11, 7, 6, 7, '2017-10-26 19:56:37');
-
 -- --------------------------------------------------------
 
 --
@@ -971,17 +792,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `email_user`, `cedula`, `pass`, `id_cellar`, `id_role`, `state`) VALUES
-(7, 'Daniel Felipe', 'Zamora Ortiz', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$bPJBNXLV7UnbSfnEh5h/QuEudZgz3a19QpHJYSfI09ztxsCtDOGay', 2, 1, 1),
-(15, 'Stefania', 'Casas', 'Ecasas05@misena.edu.co', '1093227968', '$2y$10$fi/ObWvWDHI8qOItzyf1..J.WmBk6YnMOVAeATY8NJPotQYZUQJcq', 3, 1, 1),
-(16, 'Pedro', 'Triviño', 'pnmontealegre@misena.edu.co', '1225092661', '$2y$10$eYo1Chuil/FLsTMRsBbHDeL3PBqbPX9Kif7XJUJEnqLg2oub6YvdO', 4, 1, 1),
-(17, 'Yeison', 'Londoño Tabarez', 'yeiko1022@hotmail.com', '1088347434', '$2y$10$FFTBYqNzlEJC4pVWqM/6MehsSgVQj1jYeOaLtvZwxkKCboD8qy/0K', 4, 1, 1),
-(18, 'Julio Cesar', 'Guapacha ', 'jcguapacha2@misena.edu.co', '1088299682', '$2y$10$V//tBsKlFLY8pyF83XJgR.fd7NXWbHw3vs6GM3WN7CYnwrAbAS.h2', 5, 1, 1),
-(19, 'Juan camilo', 'Ortiz', 'juan@gmail.com', '999999999', '$2y$10$hK8UMSasfKHpZ0sqwM2XM.8hsLsARBwZpDywZFOzhaGaFfwhjMDFa', 4, 3, 1),
-(20, 'Sofhia', 'Garzon', 'Garzon@hotamil.com', '4444', '$2y$10$SCZ8eU.YXk.n/IeOi5.6sOvhuGn9uhO.KgXAY9fYu9NzO1zzNUCKa', 5, 1, 0),
-(21, 'Laura', 'Marin', 'lau@gmail.com', '333', '$2y$10$bY1llUyBaMKVq2ej.D2yp.JvBUGt3zOoeUQYxQCEhdgShrbrZoPEy', 3, 3, 1),
-(22, 'Luna', 'Muños', 'luna@hotmail.com', '55555', '$2y$10$INEsra7Ta37fLhxF558OVuc8YkKJW9XOYnYf8a145LLQ8pLuqlUty', 4, 3, 0),
-(23, 'Miguel', 'zamora', 'miguel@hotmail.com', '111111', '$2y$10$z0b5GSuxGZv94C6KcZjwPuIy8lrg2Fu2GpHL.8.EAwdyZoDfuuMmG', 4, 1, 0),
-(24, 'aprendiz', 'sena', 'dfzamora8@misena.edu.co', '12345', '$2y$10$fkV9C.TmtMlgojPH2dda/.gdYeULkePgyZSWM8f.intJj7.sn9Ys6', 3, 3, 1);
+(7, 'Super', 'U', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$bPJBNXLV7UnbSfnEh5h/QuEudZgz3a19QpHJYSfI09ztxsCtDOGay', 2, 1, 1);
 
 -- --------------------------------------------------------
 

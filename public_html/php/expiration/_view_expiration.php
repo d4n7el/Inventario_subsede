@@ -51,9 +51,14 @@
 						<?php echo $value['expiration_date']?>
 					</h6>
 				</div>
-				<div class="col s2 second_cell">
-					<button type="" class="col s12 btn btn-primary material-icons color_letra_danger modal-trigger expired_output" stock="<?php echo $value['id_stock'] ?>" id="stock_<?php echo $value['id_stock'] ?>" data-target="modal_center">warning</button>
-				</div>
+				<?php  
+				if ($_SESSION["id_user_activo_role"] == "A_A-a_1" || $_SESSION["id_user_activo_role"] == 'a_A_2_a2') { ?>
+					
+					<div class="col s2 second_cell">
+						<button type="" class="col s12 btn btn-primary material-icons color_letra_danger modal-trigger expired_output" stock="<?php echo $value['id_stock'] ?>" id="stock_<?php echo $value['id_stock'] ?>" data-target="modal_center">warning</button>
+					</div>
+					<?php
+				} ?>
 			</div>
 			<?php
 		}
