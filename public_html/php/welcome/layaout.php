@@ -20,12 +20,14 @@
 	      	if (isset($_SESSION["name_user_activo"])) { ?>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
 					<li>
-						<a class="btn-floating btn-nav btn view_user" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" id_user="<?php echo $_SESSION["id_user_activo"] ?>">
-							<i class="material-icons color_letra_secundario">account_circle</i>
+						<a class=" btn-nav btn view_user" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" id_user="<?php echo $_SESSION["id_user_activo"] ?>">
+							<?php echo $_SESSION["name_user_activo"] ?>
+							<i class="material-icons color_letra_secundario left">account_circle</i>
 						</a>
 					</li>
+					
 					<li>
-						<a class="btn-floating btn-cerrar btn-nav btn" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/sessions/remove_session.php?cerrarSesion=true">
+						<a class=" btn-cerrar btn-nav btn" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/sessions/remove_session.php?cerrarSesion=true">
 						<i class="material-icons">power_settings_new</i>
 						</a>
 					</li>	

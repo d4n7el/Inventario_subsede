@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 01-11-2017 a las 01:34:36
+-- Tiempo de generación: 01-11-2017 a las 02:31:14
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -220,7 +220,10 @@ INSERT INTO `cellar` (`id_cellar`, `name_cellar`, `description_cellar`, `date_cr
 (3, 'Carnicos', 'Bodega carnicos', '2017-08-06 18:46:36'),
 (4, 'Insumos', 'Bodega Insumos', '2017-08-06 18:46:36'),
 (5, 'Equipos', 'Bodega equipos', '2017-08-06 18:47:46'),
-(6, 'Herramientas', 'Bodega Herramientas', '2017-08-06 18:47:46');
+(6, 'Herramientas', 'Bodega Herramientas', '2017-08-06 18:47:46'),
+(7, 'Cafe', 'Bodega cafe', '2017-11-01 01:12:39'),
+(8, 'Platano', 'Bodega platano', '2017-11-01 01:12:39'),
+(9, 'Aguacate', 'Bodega aguacate', '2017-11-01 01:13:14');
 
 -- --------------------------------------------------------
 
@@ -239,10 +242,6 @@ CREATE TABLE `equipments` (
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `equipments`
---
-
 -- --------------------------------------------------------
 
 --
@@ -256,11 +255,6 @@ CREATE TABLE `exit_equipment_master` (
   `id_user_delivery` int(11) NOT NULL,
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `exit_equipment_master`
---
-
 
 -- --------------------------------------------------------
 
@@ -276,11 +270,6 @@ CREATE TABLE `exit_product_detalle` (
   `note` text NOT NULL,
   `state` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `exit_product_detalle`
---
-
 
 --
 -- Disparadores `exit_product_detalle`
@@ -334,11 +323,6 @@ CREATE TABLE `exit_product_master` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `exit_product_master`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -355,10 +339,6 @@ CREATE TABLE `exit_teams_detall` (
   `delivered` int(11) NOT NULL DEFAULT '1',
   `returned` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `exit_teams_detall`
---
 
 --
 -- Disparadores `exit_teams_detall`
@@ -406,10 +386,6 @@ CREATE TABLE `exit_tools_detall` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `exit_tools_detall`
---
-
---
 -- Disparadores `exit_tools_detall`
 --
 DELIMITER $$
@@ -452,10 +428,6 @@ CREATE TABLE `exit_tools_master` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `exit_tools_master`
---
-
 -- --------------------------------------------------------
 
 --
@@ -470,10 +442,6 @@ CREATE TABLE `expiration_stock` (
   `note` varchar(150) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `expiration_stock`
---
 
 -- --------------------------------------------------------
 
@@ -547,10 +515,6 @@ CREATE TABLE `integridad_stock_plant` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `integridad_stock_plant`
---
-
 -- --------------------------------------------------------
 
 --
@@ -568,10 +532,6 @@ CREATE TABLE `intergridad_exit_product_detalle` (
   `process` varchar(20) NOT NULL,
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `intergridad_exit_product_detalle`
---
 
 -- --------------------------------------------------------
 
@@ -637,10 +597,6 @@ CREATE TABLE `products` (
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `products`
---
-
 -- --------------------------------------------------------
 
 --
@@ -654,10 +610,6 @@ CREATE TABLE `recover_password` (
   `use_code` tinyint(1) NOT NULL DEFAULT '0',
   `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `recover_password`
---
 
 -- --------------------------------------------------------
 
@@ -679,7 +631,8 @@ CREATE TABLE `roles` (
 INSERT INTO `roles` (`id_role`, `name_rol`, `description_role`, `level`) VALUES
 (1, 'Super Usuario', 'hace de todo', 'A_A-a_1'),
 (2, 'Bodegero', 'Encargado de bodegas', 'B_1-b_1'),
-(3, 'Aprendiz', 'Estudiante sena', 'E_1_S1');
+(3, 'Aprendiz', 'Estudiante sena', 'E_1_S1'),
+(4, 'Delegado superU', 'delegado', 'a_A_2_a2');
 
 -- --------------------------------------------------------
 
@@ -727,10 +680,6 @@ CREATE TABLE `stock` (
   `state` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `stock`
---
-
 -- --------------------------------------------------------
 
 --
@@ -746,9 +695,6 @@ CREATE TABLE `stock_plant` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `stock_plant`
---
 -- --------------------------------------------------------
 
 --
@@ -766,9 +712,6 @@ CREATE TABLE `tools` (
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tools`
---
 -- --------------------------------------------------------
 
 --
@@ -792,7 +735,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `email_user`, `cedula`, `pass`, `id_cellar`, `id_role`, `state`) VALUES
-(7, 'Super', 'U', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$bPJBNXLV7UnbSfnEh5h/QuEudZgz3a19QpHJYSfI09ztxsCtDOGay', 2, 1, 1);
+(7, 'Super', 'U', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$bPJBNXLV7UnbSfnEh5h/QuEudZgz3a19QpHJYSfI09ztxsCtDOGay', 2, 1, 1),
+(25, 'Julio', 'guapacha', 'jcguapacha2@misena.edu.co', '1088299682', '$2y$10$GuGW5qbEhFRGYcK/nRkDR.tXtZWFgY7McSVbbofa8Z7rvuOoN1ftm', 6, 2, 1),
+(26, 'Stefania', 'Casas', 'Ecasas05@misena.edu.co', '1093227968', '$2y$10$QM7Sq0BHA5xxzfVhE.rKMO3Gh6fZl457Q1xKBa2QeggiFIluNu0WO', 6, 3, 1),
+(27, 'Pedro', 'Triviño', 'pnmontealegre@misena.edu.co', '1225092661', '$2y$10$oIozH7Vqs1nboSP5l8me2.Nr6ut7BRGv4YykesezuNRfMn.QdDDOm', 5, 2, 1),
+(28, 'Yeison', 'Londoño Tabarez', 'yeiko1022@hotmail.com', '1088347434', '$2y$10$SzJoVLEdFfrskcK7Nk2tCOej0SCST9ZU2RyD3doFhrgOeEugAOvbO', 2, 4, 1),
+(29, 'Alejandro', 'rojas', 'alejo@gmail.com', '12345', '$2y$10$iuWHXvTGKc5BOMjJcm3jUed7k.t0aZuY9TkrjKJnhkzqpXQ8moHw6', 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -994,7 +942,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `cellar`
 --
 ALTER TABLE `cellar`
-  MODIFY `id_cellar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_cellar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `equipments`
 --
@@ -1064,7 +1012,7 @@ ALTER TABLE `recover_password`
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `stock`
 --
@@ -1084,7 +1032,7 @@ ALTER TABLE `tools`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- Restricciones para tablas volcadas
 --
