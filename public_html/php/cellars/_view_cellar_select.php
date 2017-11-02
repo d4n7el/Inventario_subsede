@@ -8,12 +8,17 @@
 		<option value="" disabled selected>Selecciona la Bodega</option>
 		<?php
 			$value['id_cellar'] = isset($value['id_cellar']) ? $value['id_cellar'] : 0;
-			foreach ($retorno_cellar as $cellar) { 
-				if ($_SESSION["cellar_id_user_activo"] == $cellar['id_cellar'] || $_SESSION["id_user_activo_role"] == "A_A-a_1" || $_SESSION["id_user_activo_role"] == "a_A_2_a2") { ?>
-					<option <?php  echo $cellar['id_cellar'] == $value['id_cellar'] ? "selected" : '';?> value="<?php echo $cellar['id_cellar']; ?>"><?php echo $cellar['name_cellar']; ?></option>
-					<?php
+			foreach ($retorno_cellar as $cellar) {
+				if (!isset($exit_product)) { 
+					if ($_SESSION["cellar_id_user_activo"] == $cellar['id_cellar'] || $_SESSION["id_user_activo_role"] == "A_A-a_1" || $_SESSION["id_user_activo_role"] == "a_A_2_a2") { ?>
+						<option <?php  echo $cellar['id_cellar'] == $value['id_cellar'] ? "selected" : '';?> value="<?php echo $cellar['id_cellar']; ?>"><?php echo $cellar['name_cellar']; ?></option>
+						<?php
+					}
+				}else{?>
+						<option <?php  echo $cellar['id_cellar'] == $value['id_cellar'] ? "selected" : '';?> value="<?php echo $cellar['id_cellar']; ?>"><?php echo $cellar['name_cellar']; ?></option>
+						<?php
+					
 				}
 			}
 		?>
-		option
 	</select>

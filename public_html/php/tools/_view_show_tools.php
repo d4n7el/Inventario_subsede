@@ -78,7 +78,7 @@
 		        <div class="input-field col s7">
 		        	<i  class="material-icons prefix">speaker_notes</i>
 		        	<input id="nota" type="text" class="validate editar_info" name="nota" autocomplete="off" required >
-		        	<label for="nota" class="active">Nota actuaización</label>
+		        	<label for="nota" class="active">Nota actualización</label>
 		        </div>	
 		        <div class="action col s12 centrar">
 		        	<button class="waves-effect waves-light btn btn-success hide actualizar_info">

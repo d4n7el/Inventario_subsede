@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 01-11-2017 a las 02:31:14
+-- Tiempo de generación: 01-11-2017 a las 22:29:00
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -241,6 +241,13 @@ CREATE TABLE `equipments` (
   `id_user_create` int(11) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `equipments`
+--
+
+INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `create_date`) VALUES
+(1, 'pulidora', 'jonk', 10, 10, 5, 7, '2017-11-01 19:18:08');
 
 -- --------------------------------------------------------
 
@@ -597,6 +604,15 @@ CREATE TABLE `products` (
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `products`
+--
+
+INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `id_user_create`, `id_cellar`, `num_orders`, `creation_date`) VALUES
+(1, 'Fresas', 'rojas', 7, 1, 0, '2017-11-01 19:09:29'),
+(2, 'Aguacate', 'Tolima', 7, 9, 0, '2017-11-01 19:09:52'),
+(3, 'Cafe', 'Fresco', 7, 7, 0, '2017-11-01 19:10:25');
+
 -- --------------------------------------------------------
 
 --
@@ -630,9 +646,9 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id_role`, `name_rol`, `description_role`, `level`) VALUES
 (1, 'Super Usuario', 'hace de todo', 'A_A-a_1'),
-(2, 'Bodegero', 'Encargado de bodegas', 'B_1-b_1'),
-(3, 'Aprendiz', 'Estudiante sena', 'E_1_S1'),
-(4, 'Delegado superU', 'delegado', 'a_A_2_a2');
+(2, 'Delegado superU.', 'delegado', 'a_A_2_a2'),
+(3, 'Bodeguero', 'Encargado de bodegas', 'B_1-b_1'),
+(4, 'Aprendiz', 'Estudiante sena', 'E_1_S1');
 
 -- --------------------------------------------------------
 
@@ -679,6 +695,13 @@ CREATE TABLE `stock` (
   `unit_measure` int(11) NOT NULL DEFAULT '1',
   `state` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `stock`
+--
+
+INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `amount_income`, `expiration_date`, `expiration_create`, `comercializadora`, `unit_measure`, `state`) VALUES
+(1, 3, '78wqiksk', 230, 230, '2017-12-31', '2017-11-01 19:15:13', 'cafeblack', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -736,11 +759,11 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `email_user`, `cedula`, `pass`, `id_cellar`, `id_role`, `state`) VALUES
 (7, 'Super', 'U', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$bPJBNXLV7UnbSfnEh5h/QuEudZgz3a19QpHJYSfI09ztxsCtDOGay', 2, 1, 1),
-(25, 'Julio', 'guapacha', 'jcguapacha2@misena.edu.co', '1088299682', '$2y$10$GuGW5qbEhFRGYcK/nRkDR.tXtZWFgY7McSVbbofa8Z7rvuOoN1ftm', 6, 2, 1),
-(26, 'Stefania', 'Casas', 'Ecasas05@misena.edu.co', '1093227968', '$2y$10$QM7Sq0BHA5xxzfVhE.rKMO3Gh6fZl457Q1xKBa2QeggiFIluNu0WO', 6, 3, 1),
-(27, 'Pedro', 'Triviño', 'pnmontealegre@misena.edu.co', '1225092661', '$2y$10$oIozH7Vqs1nboSP5l8me2.Nr6ut7BRGv4YykesezuNRfMn.QdDDOm', 5, 2, 1),
-(28, 'Yeison', 'Londoño Tabarez', 'yeiko1022@hotmail.com', '1088347434', '$2y$10$SzJoVLEdFfrskcK7Nk2tCOej0SCST9ZU2RyD3doFhrgOeEugAOvbO', 2, 4, 1),
-(29, 'Alejandro', 'rojas', 'alejo@gmail.com', '12345', '$2y$10$iuWHXvTGKc5BOMjJcm3jUed7k.t0aZuY9TkrjKJnhkzqpXQ8moHw6', 2, 2, 1);
+(25, 'Julio', 'guapacha', 'jcguapacha2@misena.edu.co', '1088299682', '$2y$10$GuGW5qbEhFRGYcK/nRkDR.tXtZWFgY7McSVbbofa8Z7rvuOoN1ftm', 6, 3, 1),
+(26, 'Stefania', 'Casas', 'Ecasas05@misena.edu.co', '1093227968', '$2y$10$QM7Sq0BHA5xxzfVhE.rKMO3Gh6fZl457Q1xKBa2QeggiFIluNu0WO', 6, 4, 1),
+(27, 'Pedro', 'Triviño', 'pnmontealegre@misena.edu.co', '1225092661', '$2y$10$oIozH7Vqs1nboSP5l8me2.Nr6ut7BRGv4YykesezuNRfMn.QdDDOm', 5, 3, 1),
+(28, 'Yeison', 'Londoño Tabarez', 'yeiko1022@hotmail.com', '1088347434', '$2y$10$SzJoVLEdFfrskcK7Nk2tCOej0SCST9ZU2RyD3doFhrgOeEugAOvbO', 2, 2, 1),
+(29, 'Alejandro', 'rojas', 'alejo@gmail.com', '12345', '$2y$10$iuWHXvTGKc5BOMjJcm3jUed7k.t0aZuY9TkrjKJnhkzqpXQ8moHw6', 2, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -947,52 +970,52 @@ ALTER TABLE `cellar`
 -- AUTO_INCREMENT de la tabla `equipments`
 --
 ALTER TABLE `equipments`
-  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `exit_equipment_master`
 --
 ALTER TABLE `exit_equipment_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_detalle`
 --
 ALTER TABLE `exit_product_detalle`
-  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_master`
 --
 ALTER TABLE `exit_product_master`
-  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
 ALTER TABLE `exit_teams_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_detall`
 --
 ALTER TABLE `exit_tools_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_master`
 --
 ALTER TABLE `exit_tools_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `expiration_stock`
 --
 ALTER TABLE `expiration_stock`
-  MODIFY `id_expiration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_expiration` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `integridad_stock_plant`
 --
 ALTER TABLE `integridad_stock_plant`
-  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `intergridad_exit_product_detalle`
 --
 ALTER TABLE `intergridad_exit_product_detalle`
-  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `measure`
 --
@@ -1002,32 +1025,32 @@ ALTER TABLE `measure`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
 ALTER TABLE `recover_password`
-  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `stock_plant`
 --
 ALTER TABLE `stock_plant`
-  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tools`
 --
 ALTER TABLE `tools`
-  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
