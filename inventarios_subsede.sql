@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 01-11-2017 a las 22:29:00
+-- Tiempo de generación: 02-11-2017 a las 06:13:17
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -247,7 +247,8 @@ CREATE TABLE `equipments` (
 --
 
 INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `create_date`) VALUES
-(1, 'pulidora', 'jonk', 10, 10, 5, 7, '2017-11-01 19:18:08');
+(1, 'pulidora', 'jonk', 10, 8, 5, 7, '2017-11-01 19:18:08'),
+(2, 'Tv', 'acme', 12, 10, 5, 7, '2017-11-02 01:43:57');
 
 -- --------------------------------------------------------
 
@@ -263,6 +264,17 @@ CREATE TABLE `exit_equipment_master` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `exit_equipment_master`
+--
+
+INSERT INTO `exit_equipment_master` (`id_exit`, `id_user_receives`, `name_user_receives`, `id_user_delivery`, `date_create`) VALUES
+(1, 12, 'carlos diaz Soto', 7, '2017-11-02 01:48:59'),
+(2, 12, 'carlos diaz Soto', 7, '2017-11-02 01:49:56'),
+(3, 12, 'carlos diaz Soto', 7, '2017-11-02 01:52:17'),
+(4, 12, 'carlos diaz Soto', 7, '2017-11-02 01:53:50'),
+(5, 12, 'carlos diaz Soto', 7, '2017-11-02 02:28:30');
+
 -- --------------------------------------------------------
 
 --
@@ -277,6 +289,17 @@ CREATE TABLE `exit_product_detalle` (
   `note` text NOT NULL,
   `state` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `exit_product_detalle`
+--
+
+INSERT INTO `exit_product_detalle` (`id_exit_product_detalle`, `id_exit_product_master`, `id_stock`, `quantity`, `note`, `state`) VALUES
+(1, 1, 1, 10.8, 'en bolsa', 1),
+(2, 1, 2, 3.9, 'buenos', 1),
+(3, 2, 2, 7, 'pruebas', 1),
+(4, 3, 2, 2, '', 1),
+(5, 3, 3, 1, 'prueba A', 1);
 
 --
 -- Disparadores `exit_product_detalle`
@@ -330,6 +353,15 @@ CREATE TABLE `exit_product_master` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `exit_product_master`
+--
+
+INSERT INTO `exit_product_master` (`id_exit_product`, `user_delivery`, `user_receives`, `name_receive`, `destination`, `delivery`, `date_create`) VALUES
+(1, 7, 12, 'carlos diaz Soto', 'Interno', 1, '2017-11-01 23:34:21'),
+(2, 7, 16, 'carlos diaz Soto', 'Interno', 1, '2017-11-02 03:46:58'),
+(3, 7, 15, 'oto Herrera Soto', 'Interno', 1, '2017-11-02 03:50:57');
+
 -- --------------------------------------------------------
 
 --
@@ -346,6 +378,16 @@ CREATE TABLE `exit_teams_detall` (
   `delivered` int(11) NOT NULL DEFAULT '1',
   `returned` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `exit_teams_detall`
+--
+
+INSERT INTO `exit_teams_detall` (`id_exit_detall`, `id_exit`, `id_equipment`, `quantity`, `note`, `state`, `delivered`, `returned`) VALUES
+(1, 2, 1, 1, '', 1, 1, 0),
+(2, 3, 2, 0, '', 0, 1, 1),
+(3, 4, 2, 0, '', 0, 1, 1),
+(4, 5, 1, 1, 'grande', 1, 1, 0);
 
 --
 -- Disparadores `exit_teams_detall`
@@ -563,7 +605,10 @@ INSERT INTO `measure` (`id_measure`, `name_measure`, `prefix_measure`, `id_user_
 (2, 'Libra', 'Lb', 7, '2017-09-30 23:20:13'),
 (3, 'Onza', 'Oz', 7, '2017-10-19 05:48:47'),
 (4, 'Tonelada', 'Tl', 7, '2017-10-19 05:56:31'),
-(5, 'Unidad', 'Un', 7, '2017-10-27 15:55:12');
+(5, 'Unidad', 'Un', 7, '2017-10-27 15:55:12'),
+(6, 'Gramos', 'Gr', 7, '2017-11-01 23:17:17'),
+(7, 'cc', 'cc', 7, '2017-11-02 03:10:39'),
+(9, 'Litro', 'Lt', 7, '2017-11-02 03:15:58');
 
 -- --------------------------------------------------------
 
@@ -611,7 +656,9 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `id_user_create`, `id_cellar`, `num_orders`, `creation_date`) VALUES
 (1, 'Fresas', 'rojas', 7, 1, 0, '2017-11-01 19:09:29'),
 (2, 'Aguacate', 'Tolima', 7, 9, 0, '2017-11-01 19:09:52'),
-(3, 'Cafe', 'Fresco', 7, 7, 0, '2017-11-01 19:10:25');
+(3, 'Cafe', 'Fresco', 7, 7, 1, '2017-11-01 23:34:21'),
+(6, 'Mangos', 'mangos', 7, 1, 3, '2017-11-02 03:50:57'),
+(7, 'Libersol fertilizante', 'fertilizante', 7, 4, 1, '2017-11-02 03:50:57');
 
 -- --------------------------------------------------------
 
@@ -701,7 +748,9 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `amount_income`, `expiration_date`, `expiration_create`, `comercializadora`, `unit_measure`, `state`) VALUES
-(1, 3, '78wqiksk', 230, 230, '2017-12-31', '2017-11-01 19:15:13', 'cafeblack', 2, 1);
+(1, 3, '78wqiksk', 219.2, 230, '2017-12-31', '2017-11-01 19:15:13', 'cafeblack', 2, 1),
+(2, 6, '6543dfs', 206.1, 219, '2017-11-30', '2017-11-01 23:21:45', 'mangas', 5, 1),
+(3, 7, '40-15', 2, 3, '2018-11-14', '2017-11-02 03:15:16', 'ytre', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -717,6 +766,17 @@ CREATE TABLE `stock_plant` (
   `state` tinyint(1) NOT NULL DEFAULT '1',
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `stock_plant`
+--
+
+INSERT INTO `stock_plant` (`id_stock_plant`, `id_stock`, `quantity`, `id_exit_product`, `state`, `date_create`) VALUES
+(1, 1, 10.8, 1, 1, '2017-11-01 23:34:21'),
+(2, 2, 3.9, 1, 1, '2017-11-01 23:34:21'),
+(3, 2, 7, 2, 1, '2017-11-02 03:46:58'),
+(4, 2, 2, 3, 1, '2017-11-02 03:50:57'),
+(5, 3, 1, 3, 1, '2017-11-02 03:50:57');
 
 -- --------------------------------------------------------
 
@@ -734,6 +794,13 @@ CREATE TABLE `tools` (
   `id_user_create` int(11) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tools`
+--
+
+INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `create_date`) VALUES
+(1, 'pala', 'acme', 10, 7, 6, 7, '2017-11-02 01:57:20');
 
 -- --------------------------------------------------------
 
@@ -758,7 +825,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `email_user`, `cedula`, `pass`, `id_cellar`, `id_role`, `state`) VALUES
-(7, 'Super', 'U', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$bPJBNXLV7UnbSfnEh5h/QuEudZgz3a19QpHJYSfI09ztxsCtDOGay', 2, 1, 1),
+(7, 'Admin', 'U', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$bPJBNXLV7UnbSfnEh5h/QuEudZgz3a19QpHJYSfI09ztxsCtDOGay', 2, 1, 1),
 (25, 'Julio', 'guapacha', 'jcguapacha2@misena.edu.co', '1088299682', '$2y$10$GuGW5qbEhFRGYcK/nRkDR.tXtZWFgY7McSVbbofa8Z7rvuOoN1ftm', 6, 3, 1),
 (26, 'Stefania', 'Casas', 'Ecasas05@misena.edu.co', '1093227968', '$2y$10$QM7Sq0BHA5xxzfVhE.rKMO3Gh6fZl457Q1xKBa2QeggiFIluNu0WO', 6, 4, 1),
 (27, 'Pedro', 'Triviño', 'pnmontealegre@misena.edu.co', '1225092661', '$2y$10$oIozH7Vqs1nboSP5l8me2.Nr6ut7BRGv4YykesezuNRfMn.QdDDOm', 5, 3, 1),
@@ -970,27 +1037,27 @@ ALTER TABLE `cellar`
 -- AUTO_INCREMENT de la tabla `equipments`
 --
 ALTER TABLE `equipments`
-  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `exit_equipment_master`
 --
 ALTER TABLE `exit_equipment_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_detalle`
 --
 ALTER TABLE `exit_product_detalle`
-  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_master`
 --
 ALTER TABLE `exit_product_master`
-  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
 ALTER TABLE `exit_teams_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_detall`
 --
@@ -1020,12 +1087,12 @@ ALTER TABLE `intergridad_exit_product_detalle`
 -- AUTO_INCREMENT de la tabla `measure`
 --
 ALTER TABLE `measure`
-  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
@@ -1040,17 +1107,17 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `stock_plant`
 --
 ALTER TABLE `stock_plant`
-  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `tools`
 --
 ALTER TABLE `tools`
-  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
