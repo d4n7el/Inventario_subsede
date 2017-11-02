@@ -4,6 +4,9 @@ if (isset($_SESSION["id_user_activo"])) {
 	$col = (isset($_REQUEST['alterno']) ? "s12" : "s6" );?>
 	<div class="row">
 	    <div class="formulario col <?php echo $col ?>">
+	    	<h6 class="color_letra_primario center paddin1 fondo_negro">
+					Crear Stock
+				</h6>
 	    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/new_stock.php" class="create_info">
 					<div class="input-field col s12 m12" id="stock">
 		        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
@@ -39,7 +42,7 @@ if (isset($_SESSION["id_user_activo"])) {
 			            <label for="Comercializadora" class="">Casa Comercializadora</label>
 			        </div>			        			        
 			     
-			        <div class="action col m12">
+			        <div class="action col m12 centrar">
 			        	<button class="waves-effect waves-light btn btn-primary">
 			        		<i class="material-icons left">near_me</i>Guardar
 			        	</button>

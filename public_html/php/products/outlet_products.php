@@ -1,9 +1,9 @@
 <div class="row">
     <div class="formulario col s12 alternos" id="">
-        <button type="" class="waves-effect flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_right">Crea un producto
+        <button type="" class="waves-effect flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center">Crea un producto
             <i class="material-icons left">add</i>
         </button>
-        <button type="" class="waves-effect flujo_alterno waves-light btn btn-success" ruta="../php/stock/stock.php" data-target="modal_right">Crea un Stock
+        <button type="" class="waves-effect flujo_alterno waves-light btn btn-success" ruta="../php/stock/stock.php" data-target="modal_center">Crea un Stock
             <i class="material-icons left">add</i>
         </button>
     </div>

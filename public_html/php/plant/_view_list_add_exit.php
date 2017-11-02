@@ -1,4 +1,4 @@
-<div class="col s7 list_add_exit_plant">
+<div class="col s6 list_add_exit_plant hide ">
 	<form action="" class="create_info">
 		<div class="listado">
 			<h5 class="col s12 titulo center">Listado de salida</h5>

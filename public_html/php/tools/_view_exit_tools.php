@@ -1,6 +1,6 @@
 <div class="row">
 	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/index_exit_tools.php/" accept-charset="utf-8" class="search">
-		<div class="flitro col s9 centrar sombra_blanca">
+		<div class="flitro col s12 centrar sombra_blanca">
 			<div class="input-field col s12 m2">
 	            <i class="material-icons prefix">search</i>
 	            <input id="tools" type="text" value="<?php echo ($tools == "%%") ? "" : $tools ?>" class="validate search" name="tools" autocomplete="off">
@@ -8,7 +8,7 @@
 	        </div>
 	        <div class="input-field col s12 m2">
 	            <input id="cedula" type="text" class="validate search" value="<?php echo ($cedula == "%%") ? "" : $cedula  ?>" name="cedula" autocomplete="off">
-	            <label for="cedula" class="<?php echo ($cedula == "%%") ? "" : "active" ?> search">Cedula de quien recibe</label>
+	            <label for="cedula" class="<?php echo ($cedula == "%%") ? "" : "active" ?> search">quien recibe ?</label>
 	        </div>
 	           
 	        <div class="input-field col s12 m2">

@@ -7,7 +7,7 @@
 	$cedula 		= addslashes($_REQUEST['cedula']);
 	$id_user 		= addslashes($_REQUEST['id_user']);
 	
-	$estado 			= addslashes($_REQUEST['estado']);
+	$estado 		= addslashes($_REQUEST['estado']);
 	$cellar 		= (addslashes($_REQUEST['cellar']) ? $_REQUEST['cellar'] : $_SESSION["cellar_id_user_activo"]);
 	$rol 			= (addslashes($_REQUEST['rol']) ? $_REQUEST['rol'] : $_SESSION["id_user_activo_id_role"] );
 	$email 			= (addslashes($_REQUEST['email_user']) ? $_REQUEST['email_user'] : $_SESSION["email_user_activo"] );

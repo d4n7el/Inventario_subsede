@@ -1,6 +1,6 @@
 <div class="row">
     <div class="formulario col s12 alternos" id="">
-        <button type="" class="waves-effect flujo_alterno waves-light btn btn-success" ruta="../php/equipments/create_equipment.php" data-target="modal_right">Crea un equipo
+        <button type="" class="waves-effect flujo_alterno waves-light btn btn-success" ruta="../php/equipments/create_equipment.php" data-target="modal_center">Crea un equipo
             <i class="material-icons left">add</i>
         </button>
     </div>

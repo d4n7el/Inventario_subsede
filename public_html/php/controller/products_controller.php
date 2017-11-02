@@ -17,7 +17,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
 		public function get_products_cellar($id_cellar){

@@ -1,6 +1,6 @@
 <?php 
-	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/equipments_controller.php');
 	session_start();
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/equipments_controller.php');
 	$delete_exit = new Equipments();
 	$id_user 					= addslashes($_SESSION["id_user_activo"]);
 	$id_exit 					= addslashes($_REQUEST["id_exit"]);

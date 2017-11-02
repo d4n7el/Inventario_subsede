@@ -1,6 +1,6 @@
 <div class="row">
 	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/expiration/index.php/" accept-charset="utf-8" class="search">
-		<div class="flitro col s9 centrar sombra_blanca">
+		<div class="flitro col s12 centrar sombra_blanca">
 			<div class="input-field col s12 m3">
 	            <i class="material-icons prefix">search</i>
 	            <input id="filter" type="text" value="<?php echo ($filter == "%%") ? "" : $filter ?>" class="validate search" name="filter" autocomplete="off">

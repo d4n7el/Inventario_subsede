@@ -1,6 +1,6 @@
 <div class="row ">
 	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/" accept-charset="utf-8" class="search">
-		<div class="flitro col s9 centrar sombra_blanca">
+		<div class="flitro col s12 centrar sombra_blanca">
 			<div class="input-field col s12 m3">
 	            <input id="product" type="text" value="<?php echo ($product == "%%") ? "" : $product ?>" class="validate search" name="product" autocomplete="off">
 	            <label for="product" class="<?php echo ($product == "%%") ? "" : "active" ?> search">Producto</label>

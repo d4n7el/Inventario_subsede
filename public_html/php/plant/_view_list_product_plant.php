@@ -1,5 +1,7 @@
-<form action="<?php $_SERVER['DOCUMENT_ROOT']?>/php/plant/exit_plant.php" class="search_exit_plant">		
-	<div class="input-field col s12 m12">
+<form action="<?php $_SERVER['DOCUMENT_ROOT']?>/php/plant/exit_plant.php" class="search_exit_plant">			<button class="waves-effect waves-light btn btn-success col s4 offset-s8" id="view_list_exit" data-target="modal_right" >
+		<i class="material-icons left color_letra_primario">visibility</i>Productos salida ()
+	</button>
+	<div class="input-field col s12 m6">
         <i class="material-icons prefix">send</i>
         <input id="search" type="text" class="validate" name="search" value="<?php echo ($search == "%%") ? "" : $search  ?>" autocomplete="off" required>
         <label for="search" class="active">Producto,Lote ó bodega</label>
@@ -11,18 +13,18 @@
 	if (count($retorno_exit_planta) > 0) {  
 		foreach ($retorno_exit_planta as $key => $exit) { 
 			$vencimiento = date('Y-m-d', strtotime($exit['expiration_date'])); ?>
-			<div class="col s12 m12" id="<?php echo $exit['id_stock']."_".$exit['id_exit_product']."_".$exit['id_exit_product'] ?>">
-	          	<div class="card" style="padding-top: 1em">
+			<div class="col s12 m12 l4" id="<?php echo $exit['id_stock']."_".$exit['id_exit_product']."_".$exit['id_exit_product'] ?>" style="padding: 0px;">
+	          	<div class="card">
 	          		<div class="input-field col s12 m12 hide cantidad">
 			            <input id="cantidad" type="number" class="validate search" name="cantidad" autocomplete="off" min="0" max="<?php echo $exit['quantity'] ?>" required>
 			            <label for="cantidad" class="">disponible <?php echo $exit['quantity']; ?></label>
 		        	</div>
 	           		<div class="card-content white-text">
 	           				<h5 class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo ($fecha < $vencimiento) ? "" : "Vencido" ?></h5>
-	              			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo $exit['name_product'] ?></p>
-	              			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center">Bodega : <?php echo $exit['name_cellar']; ?></p>
+	              			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo $exit['name_product']." - ".$exit['name_cellar'] ?></p>
 	              			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center">Lote : <?php echo $exit['nom_lot']; ?></p>
 	              			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center">Cantidad : <?php echo $exit['quantity']; ?></p>
+	              			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center">Vencimiento : <?php echo $vencimiento; ?></p>
 	              			<input type="hidden" name="elements[]" value="<?php echo $exit['id_stock'] ?>" readonly>
 	              			<input type="hidden" name="id_master[]" value="<?php echo $exit['id_exit_product'] ?>" readonly>
 	              			<input type="hidden" name="id_master[]" value="<?php echo $exit['id_stock_plant'] ?>" readonly>

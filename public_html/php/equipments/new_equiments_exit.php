@@ -1,9 +1,9 @@
 <?php
+	session_start();
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/equipments_controller.php');
 	$equipment_exit= new Equipments();
 	$equipment_exit_detall= new Equipments(); 
 	$cant_equipment = new Equipments();
-	session_start();
 	$id_user_delivery= $_SESSION["id_user_activo"];
 	$id_user_receives = $_REQUEST['receive_user']; 
 	$element = $_REQUEST['id_element'];

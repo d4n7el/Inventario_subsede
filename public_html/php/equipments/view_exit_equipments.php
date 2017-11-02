@@ -1,6 +1,6 @@
 <div class="row">
 	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/index_exit.php/" accept-charset="utf-8" class="search">
-		<div class="flitro col s9 centrar sombra_blanca">
+		<div class="flitro col s12 centrar sombra_blanca">
 			<div class="input-field col s12 m2">
 	            <i class="material-icons prefix">search</i>
 	            <input id="team" type="text" value="<?php echo ($team == "%%") ? "" : $team ?>" class="validate search" name="team" autocomplete="off">

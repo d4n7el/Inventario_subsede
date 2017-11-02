@@ -14,9 +14,6 @@ body{
 	transition: 1s ease;
 	background-color: rgb(242,83,85) !important;
 }
-div.alternos{
-	margin-top: -6em;
-}
 a.brand-logo img{
 	opacity: .1;
 }
@@ -25,6 +22,10 @@ a.pulse{
 	margin-top: 2.5em !important;
 	color: red;
 	margin-left: -2em;
+}
+.list_stock_exit div.card{
+	padding: 1em 0em 1em;
+	border-right: 5px white solid;
 }
 .sombra{
 	box-shadow: 0 2px 2px 0 rgba(33,49,62,.2), 0 1px 5px 0 rgba(33,49,62,.2), 0 2px 1px 2px rgba(33,49,62,.2);
@@ -41,7 +42,7 @@ div.logo_sena img{
 }
 .form_fix_right{
 	position: absolute;
-	top: 12em;
+	top: 14em;
 	right: 0  !important;
 }
 .content_impresion div{
@@ -52,23 +53,18 @@ div.list_stock_exit{
 	overflow: scroll;
 }
 div.formulario{
+	margin-top: 1em;
 	border-right: 1px dashed rgba(3,124,136,.2);
 }
 p.guia_abajo i{
 	color: white !important;
 	text-shadow: 0 2px 10px 10px rgba(0,133,122,1), 0 1px 5px 10px rgba(0,133,122,1), 0 2px 1px 2px rgba(0,133,122,1);
 	font-size: 4em;
-	animation-name: guia_abajo;
-    animation-duration: 1s;
-    animation-iteration-count: 20;
+	text-shadow:5px 5px 5px rgba(0,133,122,.1);
+
 }
 p.guia_abajo i.second{
 	margin-top: -1.5em;
-}
-@keyframes guia_abajo {
-    from {font-size: 5em;
-    	text-shadow: 2px 2px rgb(33,49,62);}
-    to {font-size: 4em}
 }
 .nav-wrapper{
 	background-color: transparent !important;
@@ -141,8 +137,6 @@ div.element_salida{
 	align-items: center;
 }
 div.flitro{
-	position: fixed;
-	top: 6em;
 	z-index: 100;
 	background: rgb(33,49,62);
 }
@@ -195,6 +189,26 @@ input.valid .search{
 div.input-field i{
 	color: rgb(30,136,229);
 }
+img.cargando{
+	animation-name: opacity_change;
+	animation-duration: .4s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+@-webkit-keyframes opacity_change {
+	from { 
+		opacity: .4;
+		-ms-transform: rotate(7deg); /* IE 9 */
+	    -webkit-transform: rotate(7deg); /* Chrome, Safari, Opera */
+	    transform: rotate(7deg);
+	}
+	to { 
+		opacity: 1; 
+		-ms-transform: rotate(-3deg); /* IE 9 */
+	    -webkit-transform: rotate(-3deg); /* Chrome, Safari, Opera */
+	    transform: rotate(-3deg);
+	}
+}
 h5.titulo{
 	color: rgb(33,49,62);
 	font-size: 1em;
@@ -202,7 +216,7 @@ h5.titulo{
 }
 h6.titulo{
 	color: rgb(33,49,62);
-	font-size: 1em;
+	font-size: 1.1em;
 	margin-bottom: 2em;
 }
 div.contenedor_session{
@@ -210,9 +224,6 @@ div.contenedor_session{
 }
 .btn{
 	margin-top: 2em;
-}
-.btn:focus{
-	color: white !important;
 }
 .btn-primary,.btn-nav{
 	margin-right: .3em;
@@ -227,6 +238,11 @@ div.contenedor_session{
 }
 .btn-primary:hover{
 	background-color: white;
+}
+.btn-primary:focus{
+	background-color: white;
+	color: rgb(33,49,62) !important;
+
 }
 .btn-success{
 	background-color: rgb(242,83,85);
@@ -317,7 +333,7 @@ div.menu{
 	background-color: rgba(40,61,73,1)!important;
 }
 div#vista_ventana{
-	margin-top: 11em !important;
+	margin-top: 7em !important;
 }
 .fondo_negro{
 	background-color: rgb(33,49,62) !important;

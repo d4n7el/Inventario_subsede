@@ -25,28 +25,28 @@
 			</div>
 		</div>
 		<div class="row" id="head_table">
-			<div class="col s2 centrar prymary_head_cell i4">
+			<div class="col s2 centrar prymary_head_cell i5">
 				<a href="#" class="color_letra_primario">
 					<strong>Equipo  </strong>
 				</a>
 			</div>
 			
-			<div class="col s2 centrar head_cell i4">
+			<div class="col s2 centrar head_cell i5">
 				<a href="#" class="tabla color_letra_primario">
 					<strong>Cantidad  </strong>
 				</a>
 			</div>
-			<div class="col s2 centrar head_cell i4">
+			<div class="col s2 centrar head_cell i5">
 				<a href="#" class="tabla color_letra_primario">
 					<strong>Entregado  </strong>
 				</a>
 			</div>
-			<div class="col s2 centrar head_cell i4">
+			<div class="col s2 centrar head_cell i5">
 				<a href="#" class="tabla color_letra_primario">
 					<strong>Regresado  </strong>
 				</a>
 			</div>
-			<div class="col s3 centrar head_cell i4">
+			<div class="col s3 centrar head_cell i5">
 				<a href="#" class="tabla color_letra_primario">
 					<strong>Nota  </strong>
 				</a>
@@ -55,10 +55,10 @@
 		<?php
 		foreach ($retorno_view as $key => $view) { ?>
 			<div class="row content_impresion" >
-				<div class="col s2 i4">
+				<div class="col s2 i5">
 					<h6 class="titulo  center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['name_equipment']; ?></h6>
 				</div>
-				<div class="col s2 i4">
+				<div class="col s2 i5">
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['quantity']; ?></h6>
 				</div>
 				<div class="col s2 i5">

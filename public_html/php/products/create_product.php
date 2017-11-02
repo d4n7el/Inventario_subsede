@@ -5,6 +5,9 @@
 ?>
 		<div class="row">
 		    <div class="formulario col <?php echo $col ?>">
+		    	<h6 class="color_letra_primario center paddin1 fondo_negro">
+					Crear productos
+				</h6>
 		    	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/new_product.php" class="create_info">
 					<div class="input-field col s12 m12">
 			            <i class="material-icons prefix">account_circle</i>

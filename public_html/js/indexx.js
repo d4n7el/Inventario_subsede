@@ -47,7 +47,7 @@ function eliminar_eventos(){
 	$('form.create_info #pass_user, form.create_info #pass_user_confirm').off('focusout');
 	$('#id_product_exit').off('change');
 	$('form#add_exit_product').off('submit');
-	$('a#delete_exit').off('click');
+	$('a.delete_exit').off('click');
 	$('button.view_exit_inform').off('click');
 	$('form.search').off('submit');
 	$('button.edit_cant_inform').off('click');
@@ -67,9 +67,16 @@ function eliminar_eventos(){
 	$('button.view_info_tool').off('click');
 	$('a.view_expiration').off('click');
 	$('input.state').off('change');
+	$('button#view_list_exit').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	$('button#view_list_exit').on('click', function(event) {
+		event.preventDefault();
+		var html = $('div.list_add_exit_plant').html();
+		$("div#modal_right div.modal-content").html('<div class="row list_stock_exit">'+html+"</div>");
+		$("div#modal_right div.modal-content div.list_add_exit_plant").removeClass('hide');
+	});
 	$('input.state').on('change', function(event) {
 		($(this).val() == 1) ? $(this).val("0") : $(this).val("1");
 		($(this).val() == 1) ? mensaje =  "Si" : mensaje = "No";
@@ -90,7 +97,7 @@ var recargar_eventos = function(){
 		event.preventDefault();
 		var ruta = $(this).attr('ruta');
 		var alterno = 1;
-		$("div#modal_right div.modal-content").load(ruta,{alterno : alterno},function() {
+		$("div#modal_center div.modal-content").load(ruta,{alterno : alterno},function() {
 			recargar_eventos();
 		});
 	});
@@ -124,6 +131,7 @@ var recargar_eventos = function(){
 		if ($('div#'+divs+"add").length > 0) {
 			mensaje_alert("error","No puedes agregar el producto varias veces",2000);
 		}else{
+			mensaje_alert("success","Agregado correctamente",2000);
 			var html = $('div#'+divs).html();
 			$('div.list_add_exit_plant div.listado').after(html);
 			$('div.list_add_exit_plant div.card').first()
@@ -312,27 +320,26 @@ var recargar_eventos = function(){
 		event.preventDefault();
 		if (cantidad != "" &&  nombre != "") {
 			ruta = $('div#view_add_elements').attr('ruta');
-			var html =  '<div class="col s12" style="margin-bottom: 1em">\
-							 <input type="hidden" name="id_element[]" value="'+id+'">\
+			var html =  '<div class="col s4" style="margin-bottom: 1em">\
+							<input type="hidden" name="id_element[]" value="'+id+'">\
 							<input type="hidden" name="" value="'+id+'">\
-							<div class="col s12 sombra element_salida">\
-								<a class="btn-floating waves-effect waves-light white right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
-								<h6 class="col s12 titulo color_letra_secundario center">'+nombre+'</h6>\
-								<div class="input-field col s12 m6" id="'+nombre+'">\
+							<a class="btn-floating delete_exit waves-effect waves-light btn-success right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
+							<div class="col s12  element_salida fondo_negro">\
+								<h6 class="col s12 titulo color_letra_primario center">'+nombre+'</h6>\
+								<div class="input-field col s12" id="'+nombre+'">\
+									<i class="material-icons prefix">description</i>\
+						            <input id="cantidad" type="text" class="validate search"  min="0" max="'+cantidad+'" value="'+cantidad+'" name="cantidaddes[]" autocomplete="off">\
+						            <label for="cantidad" class="active">Cantidad</label>\
 							    </div>\
-							    <div class="input-field col s12 m6">\
-						            <input id="anotacion" type="text" class="validate" name="nota[]" autocomplete="off">\
+							    <div class="input-field col s12">\
+							    	<i class="material-icons prefix">description</i>\
+						            <input id="anotacion" type="text" class="validate search" name="nota[]" autocomplete="off">\
 						            <label for="anotacion" class="">Nota</label>\
 						        </div>\
 						    </div>\
 				        </div>'; 
 			$("div#view_add_elements").append(html);
-			$("div#"+nombre).load(ruta,{cantidad_disponible: disponible, cantidad: cantidad},function() {
-				$('option#'+nombre+"_"+id).attr('disabled', 'true').attr('selected','true');
-				$('select#select_equipment').val( $('select#select_equipment').prop('defaultSelected') );
-				cantidad = ""; 	nombre = "";	id = "";	disponible = "";
-				recargar_eventos();
-			});
+			recargar_eventos();
 		}else{
 			mensaje_alert("error","Selecciona todos los campos",2000);
 		}
@@ -351,14 +358,12 @@ var recargar_eventos = function(){
 			recargar_eventos();
 		});
 	});
-	$('a#delete_exit').on('click', function(event) {
+	$('a.delete_exit').on('click', function(event) {
 		event.preventDefault();
 		$(this).closest('div').animate({
 			opacity: "0",
 			overflow: "hidden",
-			height: "0px",
-			width: "0px",
-		},1000, function() {
+		},500, function() {
 			$(this).closest('div').remove();
 		});
 		
@@ -634,7 +639,7 @@ function ver_info_user(datos,status){
 function mensaje_alert(tipo,mensaje,duracion){
 	duracion || (duracion = 2000);
 	if (tipo == "success") {
-		var img = "../image/success.gif";
+		var img = "../image/sena.svg";
 	}else{
 		var img = "../image/errormessage.png";
 	}
@@ -643,10 +648,10 @@ function mensaje_alert(tipo,mensaje,duracion){
 			<div class="row">\
 				<div class="col s12 m6 offset-m3">\
 					<div class="card">\
-						<div class="card-image centrar">\
-							<img src="'+img+'">\
+						<div class="card-image centrar fondo_negro">\
+							<img src="'+img+'" class="cargando">\
 						</div>\
-						<div class="card-action fondo_negro">\
+						<div class="card-action fondo_negro center">\
 							<a href="#" class="color_letra_primario">'+mensaje+'</a>\
 						</div>\
 					</div>\
@@ -662,7 +667,7 @@ function mensaje_alert(tipo,mensaje,duracion){
 }
 function mensaje_cargando(tipo,mensaje){
 	if(tipo == "process"){
-		var img = "../image/process.webp";
+		var img = "../image/sena.svg";
 	}
 	var html = 
 		'<div class="modal-content">\
@@ -670,7 +675,7 @@ function mensaje_cargando(tipo,mensaje){
 				<div class="col s12 m6 offset-m3">\
 					<div class="card">\
 						<div class="card-image centrar">\
-							<img src="'+img+'">\
+							<img src="'+img+'" class="cargando">\
 						</div>\
 						<div class="card-action fondo_negro">\
 							<a href="#" class="color_letra_primario">'+mensaje+'</a>\
@@ -685,27 +690,27 @@ function mensaje_cargando(tipo,mensaje){
 function ver_add_exit_product(product_exit){
 	if (disponible != "") {
 		var vencido = product_exit['lote'].indexOf("Vencido");
-		var status = ( vencido > 1 ) ? 'color_letra_danger' : 'color_letra_secundario';
+		var status = ( vencido > 1 ) ? 'color_letra_danger' : 'color_letra_primario';
 		var mensaje = ( vencido > 1 ) ? 'Sale producto vencido' : '';
 		if ($("div#"+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']).length == 0) {
 			var html =  
-			'<div class="col s6 '+status+'" style="margin-bottom: 1em">\
+			'<div class="col s4 '+status+'" style="margin-bottom: 1em">\
 				<input type="hidden" name="producto_id[]" value="'+product_exit['producto_id']+'">\
 				<input type="hidden" name="bodega_id[]" value="'+product_exit['bodega_id']+'">\
 				<input type="hidden" name="lote_id[]" value="'+product_exit['lote_id']+'">\
-				<div class="col s12 sombra element_salida">\
-					<a id="delete_exit" class="btn-floating waves-effect waves-light white '+status+' right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
-					<h6 class="col s12 m6 center titulo '+status+' ">Bodega: '+product_exit['bodega']+'</h6>\
-					<h6 class="col s12 m6 center titulo '+status+' ">producto: '+product_exit['producto']+'</h6>\
+				<div class="col s12 sombra element_salida fondo_negro">\
+					<a  class="delete_exit btn-floating waves-effect waves-light white '+status+' right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
+					<h6 class="col s12 center titulo '+status+' ">Bodega: '+product_exit['bodega']+" - "+ product_exit['producto']+'</h6>\
 					<h6 class="col s12 m12 center titulo '+status+' ">lote: '+product_exit['lote']+'</h6>\
 					<div class="col s12" style="margin-top: 2em">\
-						<div class="input-field col s12 m6" id="'+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']+'">\
+						<div class="input-field col s12 12" id="'+product_exit['bodega']+"_"+product_exit['producto_id']+"_"+product_exit['lote']+'">\
 							<i class="material-icons '+status+' prefix">filter_9_plus</i>\
-				            <input id="nombre_descripcion" step="0.01"  type="number" max="'+disponible+'" class="validate" name="cantidad[]" value="'+product_exit['cantidad']+'" autocomplete="off" required >\
+				            <input id="nombre_descripcion" step="0.01"  type="number" max="'+disponible+'" class="validate search" name="cantidad[]" value="'+product_exit['cantidad']+'" autocomplete="off" required >\
 				            <label for="nombre_descripcion" class="active">Disponible ( '+disponible+' )</label>\
 					    </div>\
-					    <div class="input-field col s12 m6">\
-				            <input id="anotacion" type="text" value="'+mensaje+'" class="validate" name="nota[]" autocomplete="off">\
+					    <div class="input-field col s12 12">\
+					    	<i class="material-icons '+status+' prefix">description</i>\
+				            <input id="anotacion" type="text" value="'+mensaje+'" class="validate search" name="nota[]" autocomplete="off">\
 				            <label for="anotacion" class="active">Nota</label>\
 				        </div>\
 			        </div>\
