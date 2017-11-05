@@ -68,6 +68,8 @@ function eliminar_eventos(){
 	$('a.view_expiration').off('click');
 	$('input.state').off('change');
 	$('button#view_list_exit').off('click');
+	$('button.view_entry_inform').off('click');
+	$('button.edit_entry_cant_inform').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
@@ -76,6 +78,7 @@ var recargar_eventos = function(){
 		var html = $('div.list_add_exit_plant').html();
 		$("div#modal_right div.modal-content").html('<div class="row list_stock_exit">'+html+"</div>");
 		$("div#modal_right div.modal-content div.list_add_exit_plant").removeClass('hide');
+		recargar_eventos();
 	});
 	$('input.state').on('change', function(event) {
 		($(this).val() == 1) ? $(this).val("0") : $(this).val("1");
@@ -131,7 +134,7 @@ var recargar_eventos = function(){
 		if ($('div#'+divs+"add").length > 0) {
 			mensaje_alert("error","No puedes agregar el producto varias veces",2000);
 		}else{
-			mensaje_alert("success","Agregado correctamente",2000);
+			dialogo("Agregado correctamente",status = 1 ,duracion = 4000)
 			var html = $('div#'+divs).html();
 			$('div.list_add_exit_plant div.listado').after(html);
 			$('div.list_add_exit_plant div.card').first()
@@ -139,8 +142,6 @@ var recargar_eventos = function(){
 				.animate({ opacity: 1 },1000);
 			$('div.list_add_exit_plant div.card').first().attr('id',divs+"add");
 			$('div.list_add_exit_plant div.card div.cantidad').removeClass('hide');
-			$('div.list_add_exit_plant div.card').addClass('fondo_negro');
-			$('div.list_add_exit_plant div.card p').removeClass('color_letra_secundario').addClass('color_letra_primario');
 			$('div.list_add_exit_plant div.card').removeClass('s12').addClass('col s6');
 			$('div.list_add_exit_plant a.add_exit_plant').addClass('hide');
 			$('div.list_add_exit_plant a.delete_exit_plant').removeClass('hide');
@@ -157,9 +158,11 @@ var recargar_eventos = function(){
 	});
 	$('a.delete_exit_plant').on('click', function(event) {
 		event.preventDefault();
-		$(this).closest('div.card')
+		var div = $(this).attr('divs')+"add";
+		$('div#'+div)
 			.animate({ opacity: 0 },300);
-		$(this).closest('div.card').remove();
+		$('div#'+div).remove();
+		$('div#'+div).remove();
 	});
 	$('a.tabla').on('click', function(event) {
 		event.preventDefault();
@@ -249,14 +252,25 @@ var recargar_eventos = function(){
 			recargar_eventos();
 		});
 	});
+	$('button.view_entry_inform').on('click', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('ruta');
+		var id_process = $(this).attr('id_process');
+		var proccess = $(this).attr('procceso');
+		$("div#modal_right div.modal-content").load(ruta,{id_process: id_process,proccess: proccess},function() {
+			recargar_eventos();
+		});
+	});
 	$('button.view_exit_inform').on('click', function(event) {
 		event.preventDefault();
-		var ruta = $(this).attr('ruta')
+		var ruta = $(this).attr('ruta');
+		var id_process = $(this).attr('id_process');
 		var id_exit_master = $(this).attr('id_exit_master');
 		$("div#modal_right div.modal-content").load(ruta,{id_exit_master: id_exit_master},function() {
 			recargar_eventos();
 		});
 	});
+
 	$('button.delete_exit_inform').on('click', function(event) {
 		event.preventDefault();
 		var id_exit_master = $(this).attr('id_exit_master');
@@ -295,6 +309,24 @@ var recargar_eventos = function(){
 			recargar_eventos();
 		});
 	});
+	$('button.edit_entry_cant_inform').on('click', function(event) {
+		var ruta = $(this).attr('ruta');
+		var ruta_update = $(this).attr('ruta_update');
+		var procceso = $(this).attr('procceso');
+		var id_process = $(this).attr('id_process');
+		var stock = $(this).attr('stock');
+		var formData = {
+			'procceso': procceso,
+			'id_process': id_process,
+			'stock': stock
+		}
+		div_id = procceso+id_process+stock;
+		console.log(div_id);
+		$('div#modal_center div.modal-content form').load(ruta,formData,function() {
+			$('div#modal_center div.modal-content form').attr('action',ruta_update);
+			recargar_eventos();
+		});
+	});
 	$('form#add_exit_product').on('submit', function(event) {
 		event.preventDefault();
 		var bodega 			= $( "#id_cellar option:selected" ).text();
@@ -320,26 +352,30 @@ var recargar_eventos = function(){
 		event.preventDefault();
 		if (cantidad != "" &&  nombre != "") {
 			ruta = $('div#view_add_elements').attr('ruta');
-			var html =  '<div class="col s4" style="margin-bottom: 1em">\
-							<input type="hidden" name="id_element[]" value="'+id+'">\
-							<input type="hidden" name="" value="'+id+'">\
-							<a class="btn-floating delete_exit waves-effect waves-light btn-success right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
-							<div class="col s12  element_salida fondo_negro">\
-								<h6 class="col s12 titulo color_letra_primario center">'+nombre+'</h6>\
-								<div class="input-field col s12" id="'+nombre+'">\
-									<i class="material-icons prefix">description</i>\
-						            <input id="cantidad" type="text" class="validate search"  min="0" max="'+cantidad+'" value="'+cantidad+'" name="cantidaddes[]" autocomplete="off">\
-						            <label for="cantidad" class="active">Cantidad</label>\
+			if ($('div#'+id+nombre+cantidad).length == 0) {
+				var html =  '<div class="col s4" style="margin-bottom: 1em" id="'+id+nombre+cantidad+'">\
+								<input type="hidden" name="id_element[]" value="'+id+'">\
+								<input type="hidden" name="" value="'+id+'">\
+								<a class="btn-floating delete_exit waves-effect waves-light btn-success right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
+								<div class="col s12  element_salida fondo_negro">\
+									<h6 class="col s12 titulo color_letra_primario center">'+nombre+'</h6>\
+									<div class="input-field col s12" id="'+nombre+'">\
+										<i class="material-icons color_letra_primario prefix">filter_9_plus</i>\
+							            <input id="cantidad" type="text" class="validate search"  min="0" max="'+cantidad+'" value="'+cantidad+'" name="cantidaddes[]" autocomplete="off">\
+							            <label for="cantidad" class="active">Cantidad</label>\
+								    </div>\
+								    <div class="input-field col s12">\
+								    	<i class="material-icons color_letra_primario prefix">description</i>\
+							            <input id="anotacion" type="text" class="validate search" name="nota[]" autocomplete="off">\
+							            <label for="anotacion" class="">Nota</label>\
+							        </div>\
 							    </div>\
-							    <div class="input-field col s12">\
-							    	<i class="material-icons prefix">description</i>\
-						            <input id="anotacion" type="text" class="validate search" name="nota[]" autocomplete="off">\
-						            <label for="anotacion" class="">Nota</label>\
-						        </div>\
-						    </div>\
-				        </div>'; 
-			$("div#view_add_elements").append(html);
-			recargar_eventos();
+					        </div>'; 
+				$("div#view_add_elements").append(html);
+				recargar_eventos();
+			}else{
+				mensaje_alert("error","No puedes añadir el mismo equipo varias veces",2000);
+			}
 		}else{
 			mensaje_alert("error","Selecciona todos los campos",2000);
 		}
@@ -603,6 +639,9 @@ function clean_input(){
 	$('form.update_info input[type=password]').val("");
 	$('.create_info')[0].reset(); //Sirve para resetear a su estado original el form
 	$('.create_info i, .create_info label').removeClass('active'); 
+	$('div#name_receive_user').html("");
+	$('input#receive_user').val("");
+	$('div#view_add_elements').html("");
 	$('.create_info input').removeClass('valid');
 }
 function parse_fecha_numeric(fecha){

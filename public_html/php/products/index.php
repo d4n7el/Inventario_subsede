@@ -5,7 +5,7 @@
 	date_default_timezone_set('America/Bogota');
 	$fecha = date('Y-m-d');
 	$tomorrow = date( "Y-m-d", strtotime( "+1 day", strtotime($fecha)));  
-	$Yesterday = date( "Y-m-d", strtotime( "-7 day", strtotime($fecha)));  
+	$Yesterday = date( "Y-m-d", strtotime( "-7 day", strtotime($fecha)));
 	// NECESARIO PARA LA PAGINACION
 	$count_products = new Products();
 	(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);

@@ -9,7 +9,7 @@
 	$expiration 		= $_REQUEST["expiration"];
 	$comercializadora 	= $_REQUEST["comercializadora"];
 	$unidad_medida 	= $_REQUEST["unidad_medida"];
-	$retorno_stock 	= $stock->insert_stock($id_product,$nom_lot,$amount,$expiration,$comercializadora,$unidad_medida);
+	$retorno_stock 	= $stock->insert_stock($id_product,$nom_lot,$amount,$expiration,$comercializadora,$unidad_medida,$id_user);
 	if ($retorno_stock > 0) {
 		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create', 'graphics' => 'php/stock/graphics_pie.php' );
 	}else{

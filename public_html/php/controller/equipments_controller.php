@@ -3,16 +3,19 @@
 	class Equipments{
 		private $bd;
 		private $retorno;
+		private $zone;
 
 		public function __construct(){
+			session_start();
 			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
+			$this->zone = ($_SESSION["id_user_activo_role"] == "A_A-a_1") ? "A" : "B";
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
 		}
 		public function insert_equipment($equipo,$marca,$cantidad_total,$cantida_disponible,$bodega,$id_user){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO equipments (name_equipment,mark,total_quantity,quantity_available,id_cellar,id_user_create) VALUES (?,?,?,?,?,?)'  );
-				$sql_consult->execute(array($equipo,$marca,$cantidad_total,$cantida_disponible,$bodega,$id_user));
+				$sql_consult = $this->db->prepare('INSERT INTO equipments (name_equipment,mark,total_quantity,quantity_available,id_cellar,id_user_create,zone) VALUES (?,?,?,?,?,?,?)'  );
+				$sql_consult->execute(array($equipo,$marca,$cantidad_total,$cantida_disponible,$bodega,$id_user,$this->zone));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
 				return $result;
@@ -23,7 +26,7 @@
 		}
 		public function graphics_pie(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT name_equipment, total_quantity AS count FROM equipments ORDER BY total_quantity DESC LIMIT 12 ");
+				$sql_consult = $this->db->prepare("SELECT name_equipment, total_quantity AS count FROM equipments WHERE zone = '$this->zone' ORDER BY total_quantity DESC LIMIT 12 ");
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -35,7 +38,7 @@
 		}
 		public function get_equipments(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM equipments" );
+				$sql_consult = $this->db->prepare("SELECT * FROM equipments WHERE zone = '$this->zone' " );
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -72,7 +75,7 @@
 		}
 		public function get_equipments_pag($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final,$limit,$offset){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM equipments  WHERE id_equipment LIKE ? AND name_equipment LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? ORDER BY id_equipment LIMIT $limit OFFSET $offset " );
+				$sql_consult = $this->db->prepare("SELECT * FROM equipments  WHERE id_equipment LIKE ? AND name_equipment LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? AND zone = '$this->zone' ORDER BY id_equipment LIMIT $limit OFFSET $offset " );
 
 				$sql_consult->execute(array($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final));
 				$result = $sql_consult->fetchAll();
@@ -96,10 +99,10 @@
             	$e->getMessage();
         	}
 		}
-		public function count_equipments(){
+		public function count_equipments($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final){
 			try {
-				$sql_consult = $this->db->prepare("SELECT COUNT(id_equipment) AS count FROM equipments " );
-				$sql_consult->execute();
+				$sql_consult = $this->db->prepare("SELECT COUNT(id_equipment) AS count FROM equipments WHERE id_equipment LIKE ? AND name_equipment LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? AND zone = '$this->zone'" );
+				$sql_consult->execute(array($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final));
 				$result = $sql_consult->fetch();
 				$this->db = null;
 				return $result;
@@ -152,7 +155,7 @@
 
 		public function get_exit_equipments_count($team,$cedula ,$fecha_inicial,$fecha_final){
 			try {
-				$sql_consult = $this->db->prepare("SELECT COUNT(id_exit_detall) as count FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE name_equipment LIKE ?  AND id_user_receives LIKE ? AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final'" );
+				$sql_consult = $this->db->prepare("SELECT COUNT(id_exit_detall) as count FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE name_equipment LIKE ?  AND id_user_receives LIKE ? AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND equipments.zone = '$this->zone' " );
 				$sql_consult->execute(array($team,$cedula));
 				$result = $sql_consult->fetch();
 				$this->db = null;
@@ -165,7 +168,7 @@
 		public function get_exit_equipments($team,$cedula,$fecha_inicial,$fecha_final,$limit,$offset){
 			try {
 
-				$sql = "SELECT exit_equipment_master.date_create, exit_teams_detall.id_exit, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment,exit_teams_detall.returned, exit_equipment_master.name_user_receives FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE name_equipment LIKE ?  AND id_user_receives LIKE ? AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY exit_equipment_master.id_exit DESC LIMIT $limit OFFSET $offset ";
+				$sql = "SELECT exit_equipment_master.date_create, exit_teams_detall.id_exit, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment,exit_teams_detall.returned, exit_equipment_master.name_user_receives FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE name_equipment LIKE ?  AND id_user_receives LIKE ? AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND equipments.zone = '$this->zone' ORDER BY exit_equipment_master.id_exit DESC LIMIT $limit OFFSET $offset ";
 
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($team,$cedula));

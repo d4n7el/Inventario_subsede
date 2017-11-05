@@ -1,6 +1,7 @@
-<form action="<?php $_SERVER['DOCUMENT_ROOT']?>/php/plant/exit_plant.php" class="search_exit_plant">			<button class="waves-effect waves-light btn btn-success col s4 offset-s8" id="view_list_exit" data-target="modal_right" >
+<button class="waves-effect waves-light btn btn-success col s4 offset-s8" id="view_list_exit" data-target="modal_right" >
 		<i class="material-icons left color_letra_primario">visibility</i>Productos salida ()
 	</button>
+<form action="<?php $_SERVER['DOCUMENT_ROOT']?>/php/plant/exit_plant.php" class="search_exit_plant">			
 	<div class="input-field col s12 m6">
         <i class="material-icons prefix">send</i>
         <input id="search" type="text" class="validate" name="search" value="<?php echo ($search == "%%") ? "" : $search  ?>" autocomplete="off" required>
@@ -30,12 +31,11 @@
 	              			<input type="hidden" name="id_master[]" value="<?php echo $exit['id_stock_plant'] ?>" readonly>
 	              			<?php 
 	              				if ($fecha < $vencimiento) { ?>
-	              					<a class="btn-floating btn-primary halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $exit['id_stock']."_".$exit['id_exit_product']."_".$exit['id_exit_product'] ?>">
-	              						<i class="material-icons color_letra_secundario left">add
-	              						</i>
+	              					<a class="btn centrar btn-success halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $exit['id_stock']."_".$exit['id_exit_product']."_".$exit['id_exit_product'] ?>">
+	              						Añadir a salida
 	              					</a>
-	              					<a class="btn-floating btn-success  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $exit['id_stock']."_".$exit['id_exit_product']."_".$exit['id_exit_product'] ?>">
-	              						<i class="material-icons color_letra_primario left">clear</i>
+	              					<a class="btn centrar btn-success  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $exit['id_stock']."_".$exit['id_exit_product']."_".$exit['id_exit_product'] ?>">
+	              						Elimiinar de salida
 	              					</a>
 	              					<?php 
 	              				}

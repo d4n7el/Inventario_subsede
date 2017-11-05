@@ -65,7 +65,7 @@
 			</div>
 			<div class="col s2 second_cell cantidad_disponible i5">
 				<h6 class="col s12 centrar <?php echo ($value['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>" id="cantidad_<?php echo $value['id_exit_product'].$value['id_stock'] ?>">
-					<?php echo $value['quantity']." ".$value['prefix_measure']; ?>
+					<?php echo (isset($value['quantity'])) ? $value['quantity']." ".$value['prefix_measure'] : $value['amount']." ".$value['prefix_measure']; ?>
 				</h6>
 			</div>
 			<div class="col s2 second_cell cantidad_disponible i5">

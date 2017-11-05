@@ -14,9 +14,9 @@
 	$marca = isset($_REQUEST['marca']) && $_REQUEST['marca'] != "" ? $_REQUEST['marca'] : "%%";
 	$fecha_inicial = isset($_REQUEST['fecha_inicial'])? $_REQUEST['fecha_inicial'] : $Yesterday;
 	$fecha_final = isset($_REQUEST['fecha_final'])? $_REQUEST['fecha_final'] : $tomorrow;
-	$limit = 2;
+	$limit = 1;
 	$offset = $limit * $pagina;
-	$retorno_count_equipments = $count_equipments->count_equipments();
+	$retorno_count_equipments = $count_equipments->count_equipments($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final);
 	$count_rows = $retorno_count_equipments['count'];
 	$href = '/php/equipments/index.php';
 	// NECESARIO PARA LA PAGINACION

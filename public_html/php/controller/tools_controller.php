@@ -2,16 +2,19 @@
 	class Tools{
 		private $bd;
 		private $retorno;
+		private $zone;
 
 		public function __construct(){
+			session_start();
 			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
+			$this->zone = ($_SESSION["id_user_activo_role"] == "A_A-a_1") ? "A" : "B";
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
 		}
 		public function insert_tools($nombre,$marca,$cantidad,$cantidad_disp,$bodega, $id_user){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO tools (name_tool,mark,total_quantity,quantity_available,id_cellar,id_user_create) VALUES (?,?,?,?,?,?)');
-				$sql_consult->execute(array($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_user));
+				$sql_consult = $this->db->prepare('INSERT INTO tools (name_tool,mark,total_quantity,quantity_available,id_cellar,id_user_create,zone) VALUES (?,?,?,?,?,?,?)');
+				$sql_consult->execute(array($nombre,$marca,$cantidad,$cantidad_disp,$bodega,$id_user,$this->zone));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
 				return $result;
@@ -47,7 +50,7 @@
 		}
 		public function graphics_pie(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT name_tool, total_quantity AS count FROM tools ORDER BY total_quantity DESC LIMIT 12 ");
+				$sql_consult = $this->db->prepare("SELECT name_tool, total_quantity AS count FROM tools WHERE zone = '$this->zone' ORDER BY total_quantity DESC LIMIT 12 ");
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -59,7 +62,7 @@
 		}
 		public function get_tools($herramientas,$marca,$fecha_inicial,$fecha_final,$limit,$offset){
 			try {
-				$sql = "SELECT * FROM tools WHERE name_tool LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? ORDER BY create_date DESC  LIMIT $limit OFFSET $offset";
+				$sql = "SELECT * FROM tools WHERE name_tool LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? AND zone = '$this->zone' ORDER BY create_date DESC  LIMIT $limit OFFSET $offset";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($herramientas,$marca,$fecha_inicial,$fecha_final));
 				$result = $sql_consult->fetchAll();
@@ -95,7 +98,7 @@
 		}
 		public function get_tools_all(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM tools WHERE id_cellar = 6" );
+				$sql_consult = $this->db->prepare("SELECT * FROM tools WHERE zone = '$this->zone'" );
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -172,7 +175,7 @@
 			try {
 				$sql_consult = $this->db->prepare("SELECT exit_tools_master.id_exit,exit_tools_master.id_user_receives,exit_tools_detall.returned,exit_tools_master.name_user_receive,exit_tools_master.id_user_delivery,exit_tools_master.date_create,exit_tools_detall.id_exit_detall,exit_tools_detall.id_tool,exit_tools_detall.quantity,exit_tools_detall.note_received,user.name_user,user.last_name_user,tools.name_tool,tools.mark,tools.total_quantity,tools.quantity_available FROM exit_tools_master 
 					INNER JOIN exit_tools_detall ON exit_tools_master.id_exit = exit_tools_detall.id_exit 
-					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user WHERE exit_tools_detall.state = ? AND id_user_receives LIKE ? AND name_tool LIKE ? AND exit_tools_master.date_create BETWEEN ? AND ? LIMIT $limit OFFSET $offset "); 
+					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user WHERE exit_tools_detall.state = ? AND id_user_receives LIKE ? AND name_tool LIKE ? AND exit_tools_master.date_create BETWEEN ? AND ? AND tools.zone = '$this->zone' LIMIT $limit OFFSET $offset "); 
 				$sql_consult->execute(array($estado,$cedula,$tool,$fecha_inicial,$fecha_final));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -186,7 +189,7 @@
 			try {
 				$sql_consult = $this->db->prepare("SELECT Count(exit_tools_detall.id_exit) AS count FROM exit_tools_master 
 					INNER JOIN exit_tools_detall ON exit_tools_master.id_exit = exit_tools_detall.id_exit 
-					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user WHERE exit_tools_detall.state = ? AND id_user_receives LIKE ? AND name_tool LIKE ? AND exit_tools_master.date_create BETWEEN ? AND ?");
+					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user WHERE exit_tools_detall.state = ? AND id_user_receives LIKE ? AND name_tool LIKE ? AND exit_tools_master.date_create BETWEEN ? AND ? AND tools.zone = '$this->zone'");
 				$sql_consult->execute(array($estado,$cedula,$tool,$fecha_inicial,$fecha_final));
 				$result = $sql_consult->fetch();
 				$this->db = null;
@@ -200,7 +203,7 @@
 			try {
 				$sql = "SELECT exit_tools_detall.delivered, exit_tools_detall.returned, exit_tools_detall.state, exit_tools_master.id_exit,exit_tools_master.id_user_receives,exit_tools_master.name_user_receive,exit_tools_master.id_user_delivery,exit_tools_master.date_create,exit_tools_detall.id_exit_detall,exit_tools_detall.id_tool,exit_tools_detall.quantity,exit_tools_detall.note_received,user.name_user,user.last_name_user,tools.name_tool,tools.mark,tools.total_quantity,tools.quantity_available FROM exit_tools_master 
 					INNER JOIN exit_tools_detall ON exit_tools_master.id_exit = exit_tools_detall.id_exit 
-					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user  WHERE exit_tools_detall.id_exit_detall LIKE ? AND exit_tools_master.id_exit LIKE ?  ";
+					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user  WHERE exit_tools_detall.id_exit_detall LIKE ? AND exit_tools_master.id_exit LIKE ? AND tools.zone = '$this->zone' ";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($id_exit_detall,$id_exit_master));
 				$result = $sql_consult->fetchAll();

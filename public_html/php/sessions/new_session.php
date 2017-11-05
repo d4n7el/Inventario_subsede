@@ -18,6 +18,7 @@ if (isset($retorno['id_user'])) {
 		$_SESSION["email_user_activo"] = $retorno['email_user'];
 		$_SESSION["name_user_activo"] = $retorno['name_user'];
 		$_SESSION["last_name_user_activo"] = $retorno['last_name_user'];
+		$_SESSION["user_zone"] = $retorno['zone'];
 		$respuesta = array('mensaje' => "Bienvenido ".$retorno['name_user'], 'status' => '1', "render" => "" );
 	}else{
 		$respuesta = array('mensaje' => "Contraseña incorrecta ", 'status' => '0' );
