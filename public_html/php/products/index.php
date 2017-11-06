@@ -14,7 +14,7 @@
 	$casa = isset($_REQUEST['casa']) && $_REQUEST['casa'] != "" ? $_REQUEST['casa'] : "%%";
 	$fecha_inicial = isset($_REQUEST['fecha_inicial'])? $_REQUEST['fecha_inicial'] : $Yesterday;
 	$fecha_final = isset($_REQUEST['fecha_final'])? $_REQUEST['fecha_final'] : $tomorrow;
-	$limit = 2;
+	$limit = 50;
 	$offset = $limit * $pagina;
 	$retorno_count_products = $count_products->count_products($producto,$bodega,$fecha_inicial,$fecha_final);
 	$count_rows = $retorno_count_products['count'];
@@ -22,6 +22,8 @@
 	// NECESARIO PARA LA PAGINACION
 	if (isset($_REQUEST['id_product'])) {
 		$retorno_productos = $productos->get_product_id($_REQUEST['id_product']);
+		$category = new Products();
+		$fondo = $category->category_color($retorno_productos['toxicological']);
 		include($_SERVER['DOCUMENT_ROOT'].'/php/products/_view_show_product.php');
 	}else{
 		$retorno_productos = $productos->get_products($producto,$bodega,$fecha_inicial,$fecha_final,$limit, $offset);

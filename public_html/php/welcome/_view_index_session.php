@@ -1,17 +1,20 @@
 <div class="row ">
 	<div class="col s3 menu">
-	    <div class="col s12 targeta_inicio">
-			<div class="card transparent ">
-				<div class="card-action fondo_negro" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/create_user.php" id="" class="link_page color_letra_primario" titulo="Crear usuario">Crear usuario<i class="material-icons right color_letra_primario">add</i></a>
+		<?php
+	    if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B' ) { ?>
+		    <div class="col s12 targeta_inicio">
+				<div class="card transparent ">
+					<div class="card-action fondo_negro" >
+						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/create_user.php" id="" class="link_page color_letra_primario" titulo="Crear usuario">Crear usuario<i class="material-icons right color_letra_primario">add</i></a>
+					</div>
+					<div class="card-action fondo_negro" >
+						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/index.php" id="" class="link_page color_letra_primario" titulo="Ver usuarios">Ver usuarios<i class="material-icons right color_letra_primario">visibility</i></a>
+					</div>
 				</div>
-				<div class="card-action fondo_negro" >
-					<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/index.php" id="" class="link_page color_letra_primario" titulo="Ver usuarios">Ver usuarios<i class="material-icons right color_letra_primario">visibility</i></a>
-				</div>
-			</div>
-	    </div>
-	    <?php
-	    if ($_SESSION["cellar_name_user_activo"] != 'Equipos' AND $_SESSION["cellar_name_user_activo"] != 'Herramientas') { ?>
+		    </div>
+	    	<?php
+		}
+	    if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B') { ?>
 		    <div class="col s12 targeta_inicio">
 				<div class="card transparent ">
 					<div class="card-action fondo_negro" >
@@ -24,19 +27,26 @@
 		    </div>
 		    <?php  
 	    }
-	    if ($_SESSION["id_user_activo_role"] == 'A_A-a_1' ) { ?>
+	    if ($_SESSION["user_zone"] == 'A') { ?>
 		    <div class="col s12 targeta_inicio">
 				<div class="card transparent ">
-					<div class="card-action fondo_negro" >
-						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/create_product.php" id="" class="link_page color_letra_primario" titulo="Crear productos">Crear productos<i class="material-icons right color_letra_primario">add</i></a>
-					</div>
+					<?php
+	    			if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B' ) { ?>
+						<div class="card-action fondo_negro" >
+							<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/create_product.php" id="" class="link_page color_letra_primario" titulo="Crear productos">Crear productos<i class="material-icons right color_letra_primario">add</i></a>
+						</div>
+						<?php  
+	    			}?>
 					<div class="card-action fondo_negro" >
 						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products" class="link_page color_letra_primario" titulo="Ver productos">Ver productos<i class="material-icons right color_letra_primario">visibility</i></a>
 					</div>
-					<div class="card-action fondo_negro" >
-						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/stock.php" class="link_page color_letra_primario" titulo="Insertar Stock" >Insertar Stock<i class="material-icons right color_letra_primario">add</i></a>
-					</div>
-
+					<?php
+	    			if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B' ) { ?>
+						<div class="card-action fondo_negro" >
+							<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/stock.php" class="link_page color_letra_primario" titulo="Insertar Stock" >Insertar Stock<i class="material-icons right color_letra_primario">add</i></a>
+						</div>
+						<?php  
+	    			}?>
 					<div class="card-action fondo_negro" >
 						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index.php" class="link_page color_letra_primario" titulo="Ver Stock">Ver Stock<i class="material-icons right color_letra_primario">visibility</i></a>
 					</div>
@@ -53,12 +63,16 @@
 		    </div>
 			<?php  
 	    }
-	    if ($_SESSION["id_user_activo_role"] == 'A_A-a_1' || $_SESSION["id_user_activo_role"] == 'a_A_2_a2') { ?>
+	    if ($_SESSION["user_zone"] == "A" || $_SESSION["user_zone"] == "B") { ?>
 		    <div class="col s12 targeta_inicio">
 				<div class="card transparent ">
-					<div class="card-action fondo_negro " >
-						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/create_equipment.php" id="" class="link_page color_letra_primario" titulo="Crear Equipo">Crear Equipo<i class="material-icons right color_letra_primario">add</i></a>
-					</div>
+					<?php
+	    			if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B' ) { ?>
+						<div class="card-action fondo_negro " >
+							<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/create_equipment.php" id="" class="link_page color_letra_primario" titulo="Crear Equipo">Crear Equipo<i class="material-icons right color_letra_primario">add</i></a>
+						</div>
+						<?php  
+	    			}?>
 					<div class="card-action fondo_negro" >
 						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments" class="link_page color_letra_primario" titulo="Ver Equipo">Ver Equipo<i class="material-icons right color_letra_primario">visibility</i></a>
 					</div>
@@ -73,12 +87,16 @@
 		    </div>
 		    <?php  
 	    }
-	    if ($_SESSION["id_user_activo_role"] == 'A_A-a_1' || $_SESSION["id_user_activo_role"] == 'a_A_2_a2') { ?>
+	    if ($_SESSION["user_zone"] == "A" || $_SESSION["user_zone"] == "B") { ?>
 		    <div class="col s12 targeta_inicio">
 				<div class="card transparent ">
-					<div class="card-action fondo_negro" >
-						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/create_tools.php" id="" class="link_page color_letra_primario" titulo="Ingresar Herramienta">Crear Herramienta <i class="material-icons right color_letra_primario">add</i></a>
-					</div>
+					<?php
+	    			if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B' ) { ?>
+						<div class="card-action fondo_negro" >
+							<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/create_tools.php" id="" class="link_page color_letra_primario" titulo="Ingresar Herramienta">Crear Herramienta <i class="material-icons right color_letra_primario">add</i></a>
+						</div>
+						<?php  
+	   				}?>
 					<div class="card-action fondo_negro" >
 						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools" class="link_page color_letra_primario" titulo="Ver Herramientas">Ver Herramientas<i class="material-icons right color_letra_primario">visibility</i></a>
 					</div>
@@ -92,18 +110,26 @@
 		    </div>
 			<?php  
 	    }
-	    if ($_SESSION["id_user_activo_role"] == 'a_A_2_a2' ) { ?>
+	    if ($_SESSION["user_zone"] == "B" ) { ?>
 		    <div class="col s12 targeta_inicio">
 				<div class="card transparent ">
-					<div class="card-action fondo_negro" >
-						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/create_product.php" id="" class="link_page color_letra_primario" titulo="Crear productos">Crear productos<i class="material-icons right color_letra_primario">add</i></a>
-					</div>
+					<?php
+	    			if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B' ) { ?>
+						<div class="card-action fondo_negro" >
+							<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/create_product.php" id="" class="link_page color_letra_primario" titulo="Crear productos">Crear productos<i class="material-icons right color_letra_primario">add</i></a>
+						</div>
+						<?php  
+	   				}?>
 					<div class="card-action fondo_negro" >
 						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products" class="link_page color_letra_primario" titulo="Ver productos">Ver productos<i class="material-icons right color_letra_primario">visibility</i></a>
 					</div>
-					<div class="card-action fondo_negro" >
-						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/stock.php" class="link_page color_letra_primario" titulo="Insertar Stock" >Insertar Stock<i class="material-icons right color_letra_primario">add</i></a>
-					</div>
+					<?php
+	    			if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B' ) { ?>
+						<div class="card-action fondo_negro" >
+							<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/stock.php" class="link_page color_letra_primario" titulo="Insertar Stock" >Insertar Stock<i class="material-icons right color_letra_primario">add</i></a>
+						</div>
+						<?php  
+	   				}?>
 					<div class="card-action fondo_negro" >
 						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/" id="" class="link_page color_letra_primario" titulo="Ver stock planta">Stock planta<i class="material-icons right color_letra_primario">add</i></a>
 					</div>

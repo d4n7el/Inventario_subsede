@@ -8,7 +8,7 @@
 		public function __construct(){
 			session_start();
 			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
-			$this->zone = ($_SESSION["id_user_activo_role"] == "A_A-a_1") ? "A" : "B";
+			$this->zone = $_SESSION["user_zone"];
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
 		}
@@ -84,6 +84,18 @@
 				
 			} catch (PDOException $e) {
             	echo $e->getMessage();
+        	}
+		}
+		public function index_exit_equipments($equipo){
+			try {
+				$sql_consult = $this->db->prepare("SELECT * FROM equipments  WHERE name_equipment LIKE ? AND zone = '$this->zone' AND quantity_available > 0 LIMIT 20" );
+				$sql_consult->execute(array("%".$equipo."%"));
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
         	}
 		}
 

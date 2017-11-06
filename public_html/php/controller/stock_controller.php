@@ -9,7 +9,7 @@
 			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
-			$this->zone = ($_SESSION["id_user_activo_role"] == "A_A-a_1") ? "A" : "B";
+			$this->zone = $_SESSION["user_zone"];
 		}
 		public function insert_stock($id_product,$nom_lot,$amount,$expiration,$comercializadora,$unidad_medida,$id_user){
 			try {

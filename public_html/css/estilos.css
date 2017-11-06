@@ -1,5 +1,8 @@
-body{
-	background-color:  rgba(3,124,136,.1) !important;
+body,.modal-content,#modal_right,.modal-footer{
+	background-color:  rgba(213,227,222,1) !important;
+}
+div#modal_mensajes .modal-content{
+	background-color:  transparent !important;
 }
 .color_letra_primario{
 	color: white !important;
@@ -33,6 +36,9 @@ a.pulse{
 }
 .paddin1{
 	padding: 1em !important;
+}
+.paddin2{
+	padding: 2em !important;
 }
 .sombra_blanca{
 	box-shadow: 0 2px 2px 0 rgba(255,255,255,.2), 0 1px 5px 0 rgba(255,255,255,.2), 0 2px 1px 2px rgba(255,255,255,.2);
@@ -155,11 +161,15 @@ label.search{
 }
 input[type=text]:not(.search),input[type=number]:not(.search),input[type=password]:not(.search){
 	color: black !important;
-	border-radius: 20px !important;
+	border-radius: 0px 5px 0px 0px !important;
 }
 input.search{
 	color: white !important;
 }
+.list_stock_exit input.search{
+	color:  rgb(33,49,62)!important;
+}
+
 input[type=text]:not(.search):focus,input[type=number]:not(.search):focus,input[type=password]:not(.search):focus{
 	color: black !important;
 	box-shadow: 0px 0px 0px transparent !important;
@@ -221,7 +231,9 @@ h6.titulo{
 	margin-bottom: 2em;
 }
 div.contenedor_session{
-	height: 70vh
+	height: 80vh;
+	margin-top: 5em;
+	flex-wrap: wrap;
 }
 .btn{
 	margin-top: 2em;
@@ -231,11 +243,30 @@ div.contenedor_session{
 	background-color: white;
 	color: rgb(33,49,62);
 }
+.category2,.category2:hover,.category2:focus{
+	background-color: rgb(41,88,31) !important;
+}
+.category3,.category3:hover,.category3:focus{
+	background-color: rgb(254,150,53) !important;
+}
+.category4,.category4:hover,.category4:focus{
+	background-color: rgb(47,47,47) !important;
+}
 [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after{
 	background-color: rgb(242,83,85);
+	border: 7px solid rgb(242,83,85);
 }
-[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after{
-	border: 2px solid rgb(242,83,85);
+input#tox2:checked+label:after, input#tox2.with-gap:checked+label:after{
+	background-color: rgb(41,88,31);
+	border: 7px solid rgb(41,88,31);
+}
+input#tox3:checked+label:after, input#tox3.with-gap:checked+label:after{
+	background-color: rgb(254,150,53);
+	border: 7px solid rgb(254,150,53);
+}
+input#tox4:checked+label:after, input#tox4.with-gap:checked+label:after{
+	background-color: rgb(47,47,47) !important;
+	border: 7px solid  rgb(47,47,47) !important;
 }
 .btn-primary:hover{
 	background-color: white;
@@ -363,6 +394,7 @@ div.action{
 #head_table div a{
 	padding: 1em;
 }
+
 .modal.bottom-sheet, #modal_full{
 	top: 0;
     margin-left: 40%;

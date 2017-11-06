@@ -8,13 +8,13 @@
 			session_start();
 			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
 			$this->db = Conexion::conect();
-			$this->zone = ($_SESSION["id_user_activo_role"] == "A_A-a_1") ? "A" : "B";
+			$this->zone = $_SESSION["user_zone"];
 			$this->retorno = Array();
 		}
-		public function insert_product($producto,$descripcion,$id_user,$bodega){
+		public function insert_product($producto,$descripcion,$id_user,$bodega,$categoria_tox,$code){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO products (name_product,description_product,id_user_create,id_cellar,zone) VALUES (?,?,?,?,?)'  );
-				$sql_consult->execute(array($producto,$descripcion,$id_user,$bodega,$this->zone));
+				$sql_consult = $this->db->prepare('INSERT INTO products (name_product,description_product,id_user_create,id_cellar,zone,toxicological_category,code) VALUES (?,?,?,?,?,?,?)');
+				$sql_consult->execute(array($producto,$descripcion,$id_user,$bodega,$this->zone,$categoria_tox,$code));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
 				return $result;
@@ -22,6 +22,22 @@
 			} catch (PDOException $e) {
             	$e->getMessage();
         	}
+		}
+		public function category_color($category){
+			switch ($category) {
+			    case "II":
+			        $fondo =  "category2 color_letra_primario";
+			        break;
+			    case "III":
+			        $fondo =  "category3 color_letra_primario";
+			        break;
+			    case "IV":
+			        $fondo =  "category4 color_letra_primario";
+			        break;
+			    default:
+	       			$fondo =  "btn-primary color_letra_secundario";
+			}
+			return $fondo;
 		}
 		public function get_products_cellar($id_cellar){
 			try {

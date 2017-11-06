@@ -8,7 +8,7 @@
 		public function __construct(){
 			session_start();
 			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
-			$this->zone = ($_SESSION["id_user_activo_role"] == "A_A-a_1") ? "A" : "B";
+			$this->zone = $_SESSION["user_zone"];
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
 		}

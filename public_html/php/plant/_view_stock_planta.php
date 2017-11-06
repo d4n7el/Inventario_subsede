@@ -64,7 +64,10 @@
 	</div>
 </div>
 <?php 
-	foreach ($retorno_planta as $key => $value) { ?>
+	foreach ($retorno_planta as $key => $value) { 
+		$category = new Products();
+		$fondo = $category->category_color($value['toxicological']);?>
+
 		<div class="row tabla" id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >
 			<div class="col s3 primary_cell producto">
 				<h6 class="col s12 centrar <?php echo ($_SESSION["user_zone"] == "A") ? "color_letra_secundario" : 'color_letra_terceario' ?>" >
@@ -84,7 +87,7 @@
 				</h6>
 			</div>
 			<div class="col s1 second_cell">
-				<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/show_stock_plant.php" class="col s12 btn btn-primary material-icons <?php echo ($_SESSION["user_zone"] == "A") ? "color_letra_secundario" : 'color_letra_terceario' ?> modal-trigger view_entry_inform" data-target="modal_right" procceso="<?php echo $value['proceso']  ?>" id_process="<?php echo $value['id_proceso'] ?>">visibility</button>
+				<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/show_stock_plant.php" class="col s12 btn btn-primary material-icons modal-trigger view_entry_inform <?php echo $fondo ?>" data-target="modal_right" procceso="<?php echo $value['proceso']  ?>" id_process="<?php echo $value['id_proceso'] ?>">visibility</button>
 			</div>
 			<?php  
 				if ($value['state'] == 1) { ?>

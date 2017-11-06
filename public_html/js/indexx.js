@@ -70,9 +70,19 @@ function eliminar_eventos(){
 	$('button#view_list_exit').off('click');
 	$('button.view_entry_inform').off('click');
 	$('button.edit_entry_cant_inform').off('click');
+	$('button.link_page_session').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	$('button.link_page_session').on('click', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('ruta');
+		$('button.link_page_session').removeClass('btn-success');
+		$(this).addClass('btn-success');
+		$("div.contenedor_session").load(ruta,function() {
+			recargar_eventos();
+		});
+	});
 	$('button#view_list_exit').on('click', function(event) {
 		event.preventDefault();
 		var html = $('div.list_add_exit_plant').html();
@@ -150,6 +160,7 @@ var recargar_eventos = function(){
 	});
 	$('form.search_exit_plant').on('submit', function(event) {
 		event.preventDefault();
+
 		var ruta = $(this).attr('action');
 		var search = $('input#search').val();
 		$("div.formulario").load(ruta,{search: search},function() {
@@ -643,6 +654,7 @@ function clean_input(){
 	$('input#receive_user').val("");
 	$('div#view_add_elements').html("");
 	$('.create_info input').removeClass('valid');
+	$("a.delete_exit_plant").click();
 }
 function parse_fecha_numeric(fecha){
 	var fecha = new Date(fecha);

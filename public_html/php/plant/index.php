@@ -1,5 +1,6 @@
 <?php  
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/planta_controller.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/products_controller.php');
 	$planta = new Planta();
 	$count_planta = new Planta();
 	date_default_timezone_set('America/Bogota');
@@ -19,7 +20,7 @@
 
 	// NECESARIO PARA LA PAGINACION
 	(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
-	$limit = 1;
+	$limit = 50;
 	$offset = $limit * $pagina;
 	$retorno_count = $count_planta->index_stock_planta_count($group,$product,$cellar,$nameReceive,$prefix,$fecha_inicial,$fecha_final);
 	$count_rows = $retorno_count['count'];

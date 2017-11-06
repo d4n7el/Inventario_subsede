@@ -6,7 +6,9 @@
 	$producto 			= $_REQUEST["producto"];
 	$descripcion 		= $_REQUEST["descripcion"];
 	$bodega 			= $_REQUEST["cellar"];
-	$retorno_product 	= $product->insert_product($producto,$descripcion,$id_user,$bodega);
+	$categoria_tox 			= $_REQUEST["tox"];
+	$code 			= $_REQUEST["code"];
+	$retorno_product 	= $product->insert_product($producto,$descripcion,$id_user,$bodega,$categoria_tox,$code);
 	if ($retorno_product > 0) {
 		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create','graphics' => 'php/products/graphics_pie.php' );
 	}else{

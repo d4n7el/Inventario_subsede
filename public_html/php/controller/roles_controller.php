@@ -7,14 +7,14 @@
 		public function __construct(){
 			session_start();
 			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
-			$this->zone = ($_SESSION["id_user_activo_role"] == "A_A-a_1") ? "A" : "B";
+			$this->zone = $_SESSION["user_zone"];
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
 		}
-		public function get_roles($id_rol){
+		public function get_roles(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM roles WHERE id_role LIKE ? AND zone = '$this->zone' " );
-				$sql_consult->execute(array($id_rol));
+				$sql_consult = $this->db->prepare("SELECT * FROM roles WHERE zone = '$this->zone' " );
+				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;

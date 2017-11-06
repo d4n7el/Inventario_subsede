@@ -64,7 +64,7 @@
 				<div class="col s2 i5">
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo ($view['delivered'] == 0 ? "No" : "Si" ); ?></h6>
 				</div>
-				<div class="col s2 i5 <?php echo ($view['returned'] == 1 AND $_SESSION["id_user_activo_role"] != "A_A-a_1")  || $view['state'] == 0 ? "" : "hide" ?>">
+				<div class="col s2 i5 <?php echo ($view['returned'] == 1 AND $_SESSION["id_user_activo_role"] != "A_A-a_1" AND  $_SESSION["id_user_activo_role"] != "B_1-b_1")  || $view['state'] == 0 ? "" : "hide" ?>">
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>" id="<?php echo $view['id_exit_detall'].$view['id_exit'] ?>"><?php echo ($view['returned'] == 0 ? "No" : "Si" ); ?></h6>
 				</div>
 				<?php 

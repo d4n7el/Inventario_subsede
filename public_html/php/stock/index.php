@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/stock_controller.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/products_controller.php');
 	date_default_timezone_set('America/Bogota');
 	$fecha = date('Y-m-d');
 	$tomorrow = date( "Y-m-d", strtotime( "+2 day", strtotime($fecha)));  
@@ -29,6 +30,8 @@
 		require($_SERVER['DOCUMENT_ROOT'].'/php/stock/_view_list_stock.php');
 	}else{
 		$retorno_stock = $stock->get_search_stock_id($id_stock);
+		$category = new Products();
+		$fondo = $category->category_color($retorno_stock[0]['toxicological']);
 		require($_SERVER['DOCUMENT_ROOT'].'/php/stock/_view_info_stock.php');
 	}
 	

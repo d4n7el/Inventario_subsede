@@ -15,7 +15,7 @@
 				$sum = ($group == "%%") ?  '' : ',SUM(quantity) as acumulado';
 				$limit = ($limit == "%%") ?  '' : "LIMIT $limit";
 				$offset = ($offset == "%%") ?  '' : 'OFFSET '.$offset;
-				$sql =  "SELECT proceso,state, quantity, id_proceso, name_receive,prefix_measure, date_create, name_product,expiration_date, name_cellar,nom_lot, prefix_measure $sum, id_stock FROM index_stock_plant WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND name_receive LIKE '%$nameReceive%' AND prefix_measure LIKE '$prefix' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' ".$groupBy." $orderBy ".$limit." ".$offset ;
+				$sql =  "SELECT proceso,state, quantity, id_proceso, name_receive,prefix_measure, date_create, name_product,expiration_date, name_cellar,nom_lot, prefix_measure,toxicological,code $sum, id_stock FROM index_stock_plant WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND name_receive LIKE '%$nameReceive%' AND prefix_measure LIKE '$prefix' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' ".$groupBy." $orderBy ".$limit." ".$offset ;
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();

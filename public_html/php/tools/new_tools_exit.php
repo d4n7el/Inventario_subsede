@@ -8,7 +8,7 @@
 	$id_user_receive = $_REQUEST["receive_user"];
 	$name_user_receive = $_REQUEST["name_receive_user"];
 	$elements = $_REQUEST["id_element"];
-	$quantity = $_REQUEST["cantidaddes"];
+	$quantity = $_REQUEST["cantidad"];
 	$note_received = $_REQUEST["nota"];
 	$insert_values = "";
 	$inspecion = array();

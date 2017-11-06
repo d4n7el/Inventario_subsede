@@ -1,5 +1,6 @@
 <div class="row">
-    <div class="col s12 contenedor_session centrar">
+	<?php $code = 1 ?>
+    <div class="col s12 ">
     	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/sessions/new_session_code.php" class="create_info">
 	        <div class="input-field col s12 m12">
 	            <i class="material-icons prefix">credit_card</i>
@@ -12,10 +13,11 @@
 	            <label for="cod_user" class="">Ingrese el codigo</label>
 	        </div>		
 	        <div class="action col s6 offset-s3 centrar">
-	        	<button class="waves-effect waves-light btn btn-primary">
+	        	<button class="waves-effect waves-light btn btn-success">
 	        		<i class="material-icons left">near_me</i>Iniciar
 	        	</button>
 	        </div>
 		</form>
+		<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/password/_view_actions_password.php');?>
     </div>
 </div>

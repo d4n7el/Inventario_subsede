@@ -15,12 +15,39 @@
 			            <label for="nombre_producto" class="">Nombre del Producto</label>
 			        </div>
 			        <div class="input-field col s12 m12">
+			            <i class="material-icons prefix">fingerprint</i>
+			            <input id="code" type="text" class="validate" name="code" autocomplete="off" required>
+			            <label for="code" class="">Codigo Ica</label>
+			        </div>
+			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">subject</i>
 			            <input id="nombre_descripcion" type="text" class="validate" name="descripcion" autocomplete="off" required>
 			            <label for="nombre_descripcion" class="">Descripción</label>
-			        </div>	
+			        </div>
+			        	
   					<div class="input-field col s12 m12">
 			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
+			        </div>
+			        <div class="col s12 m12 center">
+			        	<h6 class="titulo centrar color_letra_secundario">	
+							Categoria toxicologica
+			        	</h6>
+			        	<p class="col s4">
+					      <input name="tox" type="radio" id="tox2" value="II" />
+					      <label for="tox2">II</label>
+					    </p>
+					    <p class="col s4">
+					      <input name="tox" type="radio" id="tox3" value="III" />
+					      <label for="tox3">III</label>
+					    </p>
+					    <p class="col s4">
+					      <input class="with-gap" name="tox" value="IV" type="radio" id="tox4"  />
+					      <label for="tox4">IV</label>
+					    </p>
+					    <p class="col s12">
+					      <input name="tox" type="radio" value="NULL" id="toxn" checked="" />
+					      <label for="toxn">Ninguna</label>
+					    </p>	
 			        </div>
 			        <div class="action col m12 centrar">
 			        	<button class="waves-effect waves-light btn btn-primary">

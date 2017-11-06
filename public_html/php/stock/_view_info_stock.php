@@ -2,7 +2,7 @@
 if (count($retorno_stock) > 0) {
 	foreach ($retorno_stock as $key => $value) { ?>
 		<div class="row" id="">
-			<h6 class="titulo fondo_negro paddin1 color_letra_primario center">
+			<h6 class="titulo paddin1 <?php echo $fondo ?> center">
 				Actualizar Informacion de <?php echo $value['name_product'] ?>
 			</h6>
 			<section>
@@ -68,7 +68,7 @@ if (count($retorno_stock) > 0) {
 			</section>	    
 		</div>
 		<div class="col s6" id="view_graphics">
-			<h6 class="titulo fondo_negro paddin1 color_letra_primario center">
+			<h6 class="titulo paddin1 <?php echo $fondo ?> center">
 				Grafica
 			</h6>
     		<?php

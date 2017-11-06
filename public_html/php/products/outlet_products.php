@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="formulario col s12 alternos" id="">
+    <div class="col s12 alternos" id="">
         <button type="" class="waves-effect flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center">Crea un producto
             <i class="material-icons left">add</i>
         </button>

@@ -3,6 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<html lang="es">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Inventario Subsede </title>
@@ -21,7 +22,7 @@
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
 					<li>
 						<a class=" btn-nav btn view_user" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" id_user="<?php echo $_SESSION["id_user_activo"] ?>">
-							<?php echo $_SESSION["name_user_activo"] ?>
+							<?php echo $_SESSION["name_user_activo"]." - ".$_SESSION["id_user_activo_role"]." - ".$_SESSION["user_zone"] ?>
 							<i class="material-icons color_letra_secundario left">account_circle</i>
 						</a>
 					</li>
@@ -38,16 +39,15 @@
 	    </div>
 	  </nav>
 	</header>
-	<div class="principal col s12">
+	<div class="principal col s12" >
 		<div class="row">
-			<div class="col m12">
+			<div class="col m12" >
 				<?php  
 					if (isset($_SESSION["id_user_activo"])) {
 						require_once($_SERVER['DOCUMENT_ROOT'].'/php/welcome/_view_index_session.php');
 
 					}else{
-						require_once($_SERVER['DOCUMENT_ROOT'].'/php/sessions/create_session.php'); 
-						require_once($_SERVER['DOCUMENT_ROOT'].'/php/password/_view_actions_password.php'); 
+						require_once($_SERVER['DOCUMENT_ROOT'].'/php/sessions/create_session.php');
 					}
 				?>
 			</div>
