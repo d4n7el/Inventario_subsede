@@ -26,7 +26,7 @@
 		}
 		public function graphics_pie(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT name_equipment, total_quantity AS count FROM equipments WHERE zone = '$this->zone' ORDER BY total_quantity DESC LIMIT 12 ");
+				$sql_consult = $this->db->prepare("SELECT name_equipment, total_quantity AS count FROM equipments WHERE zone = '$this->zone' ORDER BY total_quantity DESC LIMIT 13 ");
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -50,7 +50,7 @@
 		}
 		public function outside($id_equipment){
 			try {
-				$sql_consult = $this->db->prepare("SELECT COUNT(id_exit_detall) AS count FROM exit_teams_detall INNER JOIN exit_equipment_master ON exit_teams_detall.id_exit = exit_equipment_master.id_exit WHERE id_equipment = ? AND exit_teams_detall.returned = 0" );
+				$sql_consult = $this->db->prepare("SELECT SUM(quantity) AS count FROM exit_teams_detall INNER JOIN exit_equipment_master ON exit_teams_detall.id_exit = exit_equipment_master.id_exit WHERE id_equipment = ? AND exit_teams_detall.returned = 0" );
 				$sql_consult->execute(array($id_equipment));
 				$result = $sql_consult->fetch();
 				$this->db = null;
@@ -207,7 +207,7 @@
 		}
 		public function view_equipment_detall($id_equipment_master, $id_detall = '%%', $id_equipment = '%%' ){
 			try {
-				$sql = "SELECT exit_equipment_master.date_create, equipments.quantity_available,exit_teams_detall.id_exit,exit_teams_detall.state, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment, exit_equipment_master.name_user_receives,exit_teams_detall.delivered, exit_teams_detall.returned FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE  exit_teams_detall.id_exit = ? AND  exit_teams_detall.id_exit_detall LIKE ?";
+				$sql = "SELECT exit_equipment_master.date_create, equipments.quantity_available,exit_teams_detall.id_exit,exit_teams_detall.state, user.name_user, user.last_name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment, exit_equipment_master.name_user_receives,exit_teams_detall.delivered, exit_teams_detall.returned FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE  exit_teams_detall.id_exit = ? AND  exit_teams_detall.id_exit_detall LIKE ?";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($id_equipment_master,$id_detall));
 				$result = $sql_consult->fetchAll();

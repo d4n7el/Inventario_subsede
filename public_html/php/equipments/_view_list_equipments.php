@@ -34,7 +34,7 @@
 	</div>
 	<div class="col s2 centrar head_cell">
 		<a href="#" class="tabla color_letra_primario" order="name_cellar ASC">
-			<strong>Bodega</strong>
+			<strong>Marca</strong>
 		</a>
 	</div>
 	<div class="col s2 centrar head_cell">

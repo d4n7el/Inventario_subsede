@@ -87,7 +87,7 @@
 				</h6>
 			</div>
 			<div class="col s1 second_cell">
-				<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/show_stock_plant.php" class="col s12 btn btn-primary material-icons modal-trigger view_entry_inform <?php echo $fondo ?>" data-target="modal_right" procceso="<?php echo $value['proceso']  ?>" id_process="<?php echo $value['id_proceso'] ?>">visibility</button>
+				<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/show_stock_plant.php" class="col s12 btn btn-primary material-icons modal-trigger  view_entry_inform <?php echo $fondo ?>" data-target="modal_right" procceso="<?php echo $value['proceso']  ?>" id_process="<?php echo $value['id_proceso'] ?>" fecha="<?php echo $value['date_create'] ?>">visibility</button>
 			</div>
 			<?php  
 				if ($value['state'] == 1) { ?>

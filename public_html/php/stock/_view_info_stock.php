@@ -50,8 +50,8 @@ if (count($retorno_stock) > 0) {
 				        <label for="nombre_producto" class="active">Comercializadora</label>
 				    </div>
 				    <?php 
-				    	if ($_SESSION["id_user_activo_role"] == "A_A-a_1") { ?>
-				    		<div class="action col s4 centrar">
+				    	if ( $_SESSION["id_user_activo_role"] != "E_1_S1" || $_SESSION["id_user_activo_role"] != "A1-_1B") { ?>
+				    		<div class="action col s12 centrar">
 						       <button class="waves-effect waves-light btn btn-success hide actualizar_info">
 						        <i class="material-icons left">near_me</i>Guardar
 						       </button>

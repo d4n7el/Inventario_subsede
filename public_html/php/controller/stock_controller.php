@@ -35,6 +35,18 @@
             	$e->getMessage();
         	}
 		}
+		public function index_exit_stock($search){
+			try {
+				$sql = "SELECT * FROM get_stock WHERE nom_lot LIKE ? || name_cellar LIKE ? ||  name_product LIKE ? AND state LIKE 1 AND zone = '$this->zone' AND amount > 0 ORDER BY id_stock DESC LIMIT 20" ;
+				$sql_consult = $this->db->prepare($sql);
+				$sql_consult->execute(array("%".$search."%","%".$search."%","%".$search."%"));
+				$result = $sql_consult->fetchAll();
+				$this->db = null;
+				return $result;
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function get_search_stock_id($id_stock){
 			try {
 				$sql = "SELECT * FROM get_stock WHERE id_stock = '$id_stock'" ;
@@ -49,7 +61,7 @@
 		}
 		public function graphics_pie($id_producto){
 			try {
-				$sql_consult = $this->db->prepare("SELECT products.name_product, COUNT(id_stock) as count FROM products INNER JOIN stock ON products.id_product = stock.id_product WHERE products.zone = '$this->zone' GROUP BY products.id_product UNION SELECT products.name_product, COUNT(id_stock) as count FROM products INNER JOIN planta_stock ON products.id_product = planta_stock.id_product GROUP BY products.id_product");
+				$sql_consult = $this->db->prepare("SELECT products.name_product, SUM(amount) as count, measure.prefix_measure FROM products INNER JOIN stock ON products.id_product = stock.id_product INNER JOIN measure ON stock.unit_measure  = measure.id_measure WHERE products.zone = '$this->zone' GROUP BY products.id_product UNION SELECT planta_stock.prefix_measure, products.name_product, COUNT(id_stock) as count FROM products INNER JOIN planta_stock ON products.id_product = planta_stock.id_product GROUP BY products.id_product");
 				$sql_consult->execute(array($id_producto));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;

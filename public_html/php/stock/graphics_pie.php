@@ -6,7 +6,7 @@
 	$data 	= [];
 	$label 	= [];
 	foreach ($stock_pie as $key => $value) {
-		array_push($label, $value['name_product']);
+		array_push($label, $value['name_product']." ".$value['prefix_measure']);
 		array_push($data, $value['count']);
 	}
 	$text = "Grafica Productos / Stock";

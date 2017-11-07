@@ -50,9 +50,9 @@
 					$retorno_planta = $planta->insert_stock_planta($valores_insert_planta);
 				}
 				if (isset($retorno_planta) && $retorno_planta > 0) {
-					$respuesta = array('mensaje' => "registro correcto, Se añadio a stock planta", 'status' => 1, 'process' => 'exit_product' );
+					$respuesta = array('mensaje' => "registro correcto, Se añadio a stock planta", 'status' => 1, 'process' => 'exit_product', 'closeModal' => 1 );
 				}else{
-					$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'exit_product' );
+					$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'exit_product', 'closeModal' => 1 );
 				}
 				
 			}else{

@@ -6,7 +6,7 @@
 	date_default_timezone_set('America/Bogota');
 	$fecha = date('Y-m-d');
 	$tomorrow = date( "Y-m-d", strtotime( "+1 day", strtotime($fecha)));  
-	$Yesterday = date( "Y-m-d", strtotime( "-2 day", strtotime($fecha)));  
+	$Yesterday = date( "Y-m-d", strtotime( "-30 day", strtotime($fecha)));  
 	(isset($_REQUEST['product']) && $_REQUEST['product'] != "") ? $product = $_REQUEST['product'] : $product = "%%" ;
 	(isset($_REQUEST['group'])? $group = $_REQUEST['group'] : $group = "%%" );
 	(isset($_REQUEST['cellar']) && $_REQUEST['cellar'] != "")  ? $cellar = $_REQUEST['cellar'] : $cellar = "%%" ;

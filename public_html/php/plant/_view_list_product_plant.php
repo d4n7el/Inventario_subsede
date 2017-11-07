@@ -22,7 +22,8 @@
 		        	</div>
 	           		<div class="card-content white-text">
 	           				<h5 class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo ($fecha < $vencimiento) ? "" : "Vencido" ?></h5>
-	              			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo $exit['name_product']." - ".$exit['name_cellar'] ?></p>
+	              			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo "Producto: ".$exit['name_product'] ?></p>
+	              			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo "Bodega: ".$exit['name_cellar'] ?></p>
 	              			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center">Lote : <?php echo $exit['nom_lot']; ?></p>
 	              			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center">Cantidad : <?php echo $exit['quantity']; ?></p>
 	              			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center">Vencimiento : <?php echo $vencimiento; ?></p>
@@ -35,7 +36,7 @@
 	              						Añadir a salida
 	              					</a>
 	              					<a class="btn centrar btn-success  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $exit['id_stock']."_".$exit['id_exit_product']."_".$exit['id_exit_product'] ?>">
-	              						Elimiinar de salida
+	              						Borrar
 	              					</a>
 	              					<?php 
 	              				}

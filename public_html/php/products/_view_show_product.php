@@ -37,7 +37,7 @@
 			      <label for="tox4">IV</label>
 			    </p>
 			    <p class="col s12">
-			      <input name="tox" type="radio" value="NULL" id="toxn" <?php echo ($retorno_productos['toxicological'] == "") ? "checked" : "" ?>  />
+			      <input name="tox" type="radio" value="NULL" id="toxn" <?php echo ($retorno_productos['toxicological'] == "No") ? "checked" : "" ?>  />
 			      <label for="toxn">Ninguna</label>
 			    </p>	
 	        </div>

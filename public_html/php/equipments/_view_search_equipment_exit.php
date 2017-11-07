@@ -20,7 +20,7 @@
 	<?php  
 	if (count($retorno_equipment) > 0) {  
 		foreach ($retorno_equipment as $key => $equipo) {  ?>
-			<div class="col s12 m12 l4" id="<?php echo $equipo['id_equipment']."_".$equipo['quantity_available']."_".$equipo['name_equipment'] ?>" style="padding: 0px;">
+			<div class="col s12 m12 l4" id="<?php echo $equipo['id_equipment']."_".$equipo['quantity_available'] ?>" style="padding: 0px;">
 	          	<div class="card">
 	          		<div class="input-field col s12 m12 hide cantidad">
 			            <input id="cantidad" type="number" class="validate search" name="cantidad[]" autocomplete="off" min="0" max="<?php echo $equipo['quantity_available'] ?>" required>
@@ -35,10 +35,10 @@
               			<p class="color_letra_secundario center">Total : <?php echo $equipo['total_quantity']; ?></p>
               			<p class="color_letra_secundario center">Disponible : <?php echo $equipo['quantity_available']; ?></p>
               			<input type="hidden" name="id_element[]" value="<?php echo $equipo['id_equipment'] ?>" readonly>
-      					<a class="btn centrar btn-success halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $equipo['id_equipment']."_".$equipo['quantity_available']."_".$equipo['name_equipment'] ?>">
+      					<a class="btn centrar btn-success halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $equipo['id_equipment']."_".$equipo['quantity_available']?>">
       						Añadir a salida
       					</a>
-      					<a class="btn centrar btn-success  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $equipo['id_equipment']."_".$equipo['quantity_available']."_".$equipo['name_equipment'] ?>">
+      					<a class="btn centrar btn-success  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $equipo['id_equipment']."_".$equipo['quantity_available'] ?>">
       						Elimiinar de salida
       					</a>
 	            	</div>

@@ -87,6 +87,14 @@
 	      	<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat close_modal"><i class="material-icons">clear</i></a>
 	    </div>
 	</div>
+	<div id="modal_center_two" class="modal">
+	    <div class="modal-content">
+	      	
+	    </div>
+	    <div class="modal-footer">
+	      	<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat close_modal"><i class="material-icons">clear</i></a>
+	    </div>
+	</div>
 	<div id="modal_full" class="modal">
 	    <div class="modal-content">
 	      	<form action="" class="update_info">

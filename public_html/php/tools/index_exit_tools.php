@@ -3,7 +3,7 @@
 	date_default_timezone_set('America/Bogota');
 	$fecha = date('Y-m-d');
 	$tomorrow = date( "Y-m-d", strtotime( "+1 day", strtotime($fecha)));  
-	$yesterday = date( "Y-m-d", strtotime( "-2 day", strtotime($fecha))); 
+	$yesterday = date( "Y-m-d", strtotime( "-30 day", strtotime($fecha))); 
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/tools_controller.php');
 	$exits = new Tools();
 	$count_exits = new Tools();
@@ -17,7 +17,7 @@
 		$id_exit_tool = (isset($_REQUEST['id_exit_tool']) && $_REQUEST['id_exit_tool'] != "" ? $_REQUEST['id_exit_tool'] : 	 1);
 		// NECESARIO PARA LA PAGINACION
 		(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
-		$limit = 1;
+		$limit = 40;
 		$offset = $limit * $pagina;
 		$retorno_count_exit = $count_exits->count_tools_exit($tools,$cedula,$fecha_inicial,$fecha_final,$estado);
 		$count_rows = $retorno_count_exit['count'];

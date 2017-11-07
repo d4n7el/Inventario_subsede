@@ -53,7 +53,7 @@
 		}
 		public function graphics_bar_total(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT num_orders, name_product FROM products");
+				$sql_consult = $this->db->prepare("SELECT num_orders, name_product FROM products ORDER BY num_orders DESC LIMIT 20 ");
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -113,10 +113,10 @@
             	$e->getMessage();
         	}
 		}
-		public function update_product($producto,$descripcion,$bodega,$id_user,$id_producto){
+		public function update_product($producto,$descripcion,$bodega,$id_user,$categoria_tox,$code,$id_producto){
 			try {
-				$sql_consult = $this->db->prepare('UPDATE products SET name_product = ?, description_product = ?, id_cellar = ?, id_user_create = ? WHERE id_product = ? ');
-	            if ($sql_consult->execute(array($producto,$descripcion,$bodega,$id_user,$id_producto))) {
+				$sql_consult = $this->db->prepare('UPDATE products SET name_product = ?, description_product = ?, id_cellar = ?, id_user_create = ?, toxicological_category = ?, code = ? WHERE id_product = ? ');
+	            if ($sql_consult->execute(array($producto,$descripcion,$bodega,$id_user,$categoria_tox,$code,$id_producto))) {
 	            	return 1;
 	            }else{
 	            	return 0;

@@ -16,7 +16,7 @@
 			        </div>
 			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">fingerprint</i>
-			            <input id="code" type="text" class="validate" name="code" autocomplete="off" required>
+			            <input id="code" type="text" class="validate" value="" name="code" autocomplete="off">
 			            <label for="code" class="">Codigo Ica</label>
 			        </div>
 			        <div class="input-field col s12 m12">
@@ -45,7 +45,7 @@
 					      <label for="tox4">IV</label>
 					    </p>
 					    <p class="col s12">
-					      <input name="tox" type="radio" value="NULL" id="toxn" checked="" />
+					      <input name="tox" type="radio" value="No" id="toxn" checked="" />
 					      <label for="toxn">Ninguna</label>
 					    </p>	
 			        </div>

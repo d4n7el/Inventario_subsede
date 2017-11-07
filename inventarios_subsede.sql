@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 06-11-2017 a las 01:36:16
+-- Tiempo de generación: 07-11-2017 a las 16:49:31
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -108,24 +108,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_quantity_available` (IN `equ
   DECLARE v_total INT;
     DECLARE v_prestamos INT;
     DECLARE v_available INT;
-    SELECT COUNT(id_exit_detall) INTO v_prestamos FROM exit_teams_detall INNER JOIN exit_equipment_master ON exit_teams_detall.id_exit = exit_equipment_master.id_exit WHERE id_equipment = equipo AND exit_teams_detall.returned = 0;
+    SELECT SUM(quantity) INTO v_prestamos FROM exit_teams_detall INNER JOIN exit_equipment_master ON exit_teams_detall.id_exit = exit_equipment_master.id_exit WHERE id_equipment = equipo AND exit_teams_detall.returned = 0;
     SELECT total_quantity INTO v_total FROM equipments WHERE id_equipment = equipo;
     SELECT quantity_available INTO v_available FROM equipments WHERE id_equipment = equipo;
+    
     IF proceso LIKE 1 THEN
-        IF v_total >= disponible + v_prestamos + v_available THEN
-          IF disponible >= v_prestamos THEN
-              UPDATE equipments SET quantity_available = quantity_available + disponible WHERE id_equipment = equipo;
-                SET retorno = 1;
-            ELSE
-              SET retorno = -1;
-            END IF;
+        IF v_total >= (v_available + v_prestamos) + disponible THEN
+            UPDATE equipments SET quantity_available = quantity_available + disponible WHERE id_equipment = equipo;
+            SET retorno = 1; 
         ELSE
-          SET retorno = 0;
-        END IF;
+             SET retorno = -2; 
+        END IF;    
     ELSE
-        IF v_available - disponible >= v_prestamos THEN
-            UPDATE equipments SET quantity_available = quantity_available - disponible WHERE id_equipment = equipo;
-            SET retorno = 1;
+        IF v_available > 0  AND (v_available - disponible) >= 0  THEN 
+            UPDATE equipments SET quantity_available = (quantity_available - disponible) WHERE id_equipment = equipo;
+            SET retorno = 1; 
         ELSE
             SET retorno = -1;
         END IF;
@@ -137,22 +134,18 @@ BEGIN
     DECLARE v_total INT;
     DECLARE v_prestamos INT;
     DECLARE v_available INT;
-    SELECT COUNT(id_exit_detall) INTO v_prestamos FROM exit_tools_detall INNER JOIN exit_tools_master ON exit_tools_detall.id_exit = exit_tools_master.id_exit WHERE id_tool = herramienta AND exit_tools_detall.returned = 0;
+    SELECT SUM(quantity) INTO v_prestamos FROM exit_tools_detall INNER JOIN exit_tools_master ON exit_tools_detall.id_exit = exit_tools_master.id_exit WHERE id_tool = herramienta AND exit_tools_detall.returned = 0;
     SELECT total_quantity INTO v_total FROM tools WHERE id_tool = herramienta;
     SELECT quantity_available INTO v_available FROM tools WHERE id_tool = herramienta;
     IF proceso LIKE 1 THEN
         IF v_total >= disponible + v_prestamos + v_available THEN
-            IF disponible >= v_prestamos THEN
                 UPDATE tools SET quantity_available = quantity_available + disponible WHERE id_tool = herramienta;
-                SET retorno = 1;
-            ELSE
-                SET retorno = -1;
-            END IF;
+           SET retorno = 1;
         ELSE
             SET retorno = 0;
         END IF;
     ELSE
-        IF v_available - disponible >= v_prestamos THEN
+        IF  v_available > 0  AND (v_available - disponible) >= 0 THEN
             UPDATE tools SET quantity_available = quantity_available - disponible WHERE id_tool = herramienta;
             SET retorno = 1;
         ELSE
@@ -227,7 +220,6 @@ INSERT INTO `cellar` (`id_cellar`, `name_cellar`, `description_cellar`, `date_cr
 (6, 'Herramientas', 'Bodega Herramientas', '2017-08-06 18:47:46'),
 (7, 'Agroinsumos', 'Agroinsumos', '2017-11-05 19:59:59'),
 (8, 'Pecuario', 'Pecuario', '2017-11-05 20:00:05'),
-(9, 'Laboratorio', 'Bodega aguacate', '2017-11-05 19:59:41'),
 (10, 'Quimicos', 'quinicos', '2017-11-05 20:00:39');
 
 -- --------------------------------------------------------
@@ -239,7 +231,7 @@ INSERT INTO `cellar` (`id_cellar`, `name_cellar`, `description_cellar`, `date_cr
 CREATE TABLE `equipments` (
   `id_equipment` int(11) NOT NULL,
   `name_equipment` varchar(100) NOT NULL,
-  `mark` varchar(50) NOT NULL,
+  `mark` varchar(50) DEFAULT NULL,
   `total_quantity` int(15) NOT NULL,
   `quantity_available` int(15) NOT NULL,
   `id_cellar` int(11) NOT NULL,
@@ -253,11 +245,33 @@ CREATE TABLE `equipments` (
 --
 
 INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `zone`, `create_date`) VALUES
-(1, 'pulidora', 'jonk', 10, 7, 5, 7, 'A', '2017-11-01 19:18:08'),
-(2, 'Tv', 'acme', 12, 10, 5, 7, 'A', '2017-11-02 01:43:57'),
-(3, 'refrigerador', 'dual', 20, 8, 5, 29, 'B', '2017-11-04 20:13:23'),
-(4, 'biker', 'acme', 20, 0, 5, 29, 'B', '2017-11-05 00:51:07'),
-(5, 'Probeta', 'acme', 10, 10, 5, 29, 'B', '2017-11-05 03:26:56');
+(6, 'Beaker 100 Ml', 'Beaker', 5, 4, 5, 29, 'B', '2017-11-06 16:32:12'),
+(7, 'Erlenmeyer 250 ML', 'Erlenmeyer', 20, 18, 5, 29, 'B', '2017-11-06 16:32:44'),
+(8, 'Frasco tapa azul 250 Ml', 'Frasco', 20, 18, 5, 29, 'B', '2017-11-06 16:33:12'),
+(9, 'Beaker plastico 100 ML', 'Beaker plastico', 5, 5, 5, 29, 'B', '2017-11-06 16:33:39'),
+(10, 'Beaker plastico 600 Ml', 'Beaker plastico', 2, 1, 5, 29, 'B', '2017-11-06 16:34:03'),
+(11, 'Beaker plastico 1000 Ml', 'Beaker plastico', 1, 1, 5, 29, 'B', '2017-11-06 16:34:42'),
+(12, 'Beaker plastico 2000 ML', 'Beaker plastico', 1, 1, 5, 29, 'B', '2017-11-06 16:35:01'),
+(13, 'Envudo en V plastico', 'Envudo', 10, 10, 5, 29, 'B', '2017-11-06 16:35:45'),
+(14, 'Probeta plastica 100 ML', 'Probeta plastica', 1, 1, 5, 29, 'B', '2017-11-06 16:36:30'),
+(15, 'Probeta plastica 500 ML', 'Probeta plastica', 2, 2, 5, 29, 'B', '2017-11-06 16:36:46'),
+(16, 'Probeta plastica 1000 ML', 'Probeta plastica', 1, 1, 5, 29, 'B', '2017-11-06 16:37:05'),
+(17, 'Pantallas', 'Pantallas', 8, 8, 5, 7, 'A', '2017-11-06 17:19:28'),
+(18, 'Decametro', 'Decametro', 2, 2, 5, 7, 'A', '2017-11-06 17:26:33'),
+(19, 'cosechadora de frutos', 'cosechadora de frutos', 3, 3, 5, 7, 'A', '2017-11-06 17:26:54'),
+(20, 'Tronzadora', 'Tronzadora', 1, 1, 5, 7, 'A', '2017-11-06 17:27:17'),
+(21, 'Seguetas', 'Seguetas', 3, 3, 5, 7, 'A', '2017-11-06 17:27:39'),
+(22, 'Nivel', 'Nivel', 2, 2, 5, 7, 'A', '2017-11-06 17:27:54'),
+(23, 'Martillos', 'Martillos', 6, 6, 5, 7, 'A', '2017-11-06 17:28:19'),
+(24, 'LLaves boca fija', 'LLaves boca fija', 23, 23, 5, 7, 'A', '2017-11-06 17:29:15'),
+(25, 'Cepillo', '', 1, 1, 5, 7, 'A', '2017-11-06 17:31:24'),
+(26, 'destornilladores', '', 17, 17, 5, 7, 'A', '2017-11-06 17:31:33'),
+(27, 'Moto sierra', '', 2, 2, 5, 7, 'A', '2017-11-06 17:31:49'),
+(28, 'taladro mano', '', 2, 2, 5, 7, 'A', '2017-11-06 17:32:02'),
+(29, 'Pulidora', '', 1, 1, 5, 7, 'A', '2017-11-06 17:32:33'),
+(30, 'taladro Inalambrico', '', 1, 1, 5, 7, 'A', '2017-11-06 17:32:56'),
+(31, 'Hidrolavadora', '', 1, 1, 5, 7, 'A', '2017-11-06 17:33:35'),
+(32, 'trajes apicultura', '', 33, 33, 5, 7, 'A', '2017-11-06 17:33:51');
 
 -- --------------------------------------------------------
 
@@ -278,35 +292,8 @@ CREATE TABLE `exit_equipment_master` (
 --
 
 INSERT INTO `exit_equipment_master` (`id_exit`, `id_user_receives`, `name_user_receives`, `id_user_delivery`, `date_create`) VALUES
-(1, 12, 'carlos diaz Soto', 7, '2017-11-02 01:48:59'),
-(2, 12, 'carlos diaz Soto', 7, '2017-11-02 01:49:56'),
-(3, 12, 'carlos diaz Soto', 7, '2017-11-02 01:52:17'),
-(4, 12, 'carlos diaz Soto', 7, '2017-11-02 01:53:50'),
-(5, 12, 'carlos diaz Soto', 7, '2017-11-02 02:28:30'),
-(6, 12, 'carlos diaz Soto', 29, '2017-11-05 00:38:39'),
-(7, 12, 'carlos diaz Soto', 29, '2017-11-05 00:44:29'),
-(8, 12, 'carlos diaz Soto', 29, '2017-11-05 00:50:18'),
-(9, 12, 'carlos diaz Soto', 29, '2017-11-05 00:51:18'),
-(10, 12, 'carlos diaz Soto', 29, '2017-11-05 00:52:40'),
-(11, 12, 'carlos diaz Soto', 29, '2017-11-05 00:53:23'),
-(12, 12, 'carlos diaz Soto', 29, '2017-11-05 00:54:11'),
-(13, 12, 'carlos diaz Soto', 29, '2017-11-05 00:57:39'),
-(14, 12, 'carlos diaz Soto', 29, '2017-11-05 02:37:32'),
-(15, 12, 'carlos diaz Soto', 29, '2017-11-05 02:38:33'),
-(16, 12, 'carlos diaz Soto', 29, '2017-11-05 02:40:45'),
-(17, 12, 'carlos diaz Soto', 29, '2017-11-05 02:41:22'),
-(18, 12, 'carlos diaz Soto', 29, '2017-11-05 02:41:47'),
-(19, 12, 'carlos diaz Soto', 29, '2017-11-05 02:42:18'),
-(20, 12, 'carlos diaz Soto', 29, '2017-11-05 02:43:10'),
-(21, 12, 'carlos diaz Soto', 29, '2017-11-05 02:44:25'),
-(22, 12, 'carlos diaz Soto', 29, '2017-11-05 02:45:26'),
-(23, 12, 'carlos diaz Soto', 29, '2017-11-05 02:49:36'),
-(24, 12, 'carlos diaz Soto', 29, '2017-11-05 02:52:54'),
-(25, 12, 'carlos diaz Soto', 29, '2017-11-05 02:53:32'),
-(26, 12, 'carlos diaz Soto', 29, '2017-11-05 02:54:49'),
-(27, 12, 'carlos diaz Soto', 29, '2017-11-05 14:39:21'),
-(28, 12, 'carlos diaz Soto', 7, '2017-11-05 14:44:24'),
-(29, 12, 'carlos diaz Soto', 30, '2017-11-05 16:31:02');
+(38, 12, 'carlos diaz Soto', 29, '2017-11-06 16:44:53'),
+(39, 15, 'oto Herrera Soto', 29, '2017-11-07 02:13:26');
 
 -- --------------------------------------------------------
 
@@ -328,8 +315,13 @@ CREATE TABLE `exit_product_detalle` (
 --
 
 INSERT INTO `exit_product_detalle` (`id_exit_product_detalle`, `id_exit_product_master`, `id_stock`, `quantity`, `note`, `state`) VALUES
-(6, 4, 7, 10, '', 1),
-(7, 5, 8, 5, '', 1);
+(1, 1, 19, 14, '', 1),
+(2, 3, 23, 1, 'a', 1),
+(3, 3, 24, 1, 'a', 1),
+(4, 4, 24, 16, 'internas', 1),
+(5, 5, 22, 1, '1', 1),
+(6, 6, 12, 1, 'bien', 1),
+(7, 7, 12, 1, 'bien', 1);
 
 --
 -- Disparadores `exit_product_detalle`
@@ -388,8 +380,14 @@ CREATE TABLE `exit_product_master` (
 --
 
 INSERT INTO `exit_product_master` (`id_exit_product`, `user_delivery`, `user_receives`, `name_receive`, `destination`, `delivery`, `date_create`) VALUES
-(4, 7, 12, 'carlos diaz Soto', 'Interno', 1, '2017-11-04 04:30:59'),
-(5, 7, 12, 'carlos diaz Soto', 'Interno', 1, '2017-11-04 04:44:08');
+(1, 7, 15, 'oto Herrera Soto', 'Interno', 1, '2017-11-07 02:17:45'),
+(2, 7, 12, 'carlos diaz Soto', 'Interno', 1, '2017-11-07 02:27:33'),
+(3, 7, 12, 'carlos diaz Soto', 'Manizales', 1, '2017-11-07 15:07:59'),
+(4, 7, 12, 'carlos diaz Soto', 'Interno', 1, '2017-11-07 15:11:17'),
+(5, 7, 12, 'carlos diaz Soto', 'Interno', 1, '2017-11-07 15:37:50'),
+(6, 7, 12, 'carlos diaz Soto', 'Manizales', 1, '2017-11-07 15:41:23'),
+(7, 7, 12, 'carlos diaz Soto', 'Manizales', 1, '2017-11-07 15:42:18'),
+(8, 7, 12, 'carlos diaz Soto', 'Interno', 1, '2017-11-07 15:47:09');
 
 -- --------------------------------------------------------
 
@@ -413,26 +411,11 @@ CREATE TABLE `exit_teams_detall` (
 --
 
 INSERT INTO `exit_teams_detall` (`id_exit_detall`, `id_exit`, `id_equipment`, `quantity`, `note`, `state`, `delivered`, `returned`) VALUES
-(1, 2, 1, 1, '', 1, 1, 0),
-(2, 3, 2, 0, '', 0, 1, 1),
-(3, 4, 2, 0, '', 0, 1, 1),
-(4, 5, 1, 1, 'grande', 1, 1, 1),
-(5, 7, 3, 1, '', 1, 1, 0),
-(6, 8, 3, 1, '', 1, 1, 0),
-(7, 9, 4, 1, '', 1, 1, 0),
-(8, 10, 4, 1, '', 1, 1, 0),
-(9, 11, 4, 1, '', 1, 1, 0),
-(10, 12, 4, 1, '', 1, 1, 0),
-(11, 13, 4, 1, '', 1, 1, 0),
-(12, 21, 4, 1, '1', 1, 1, 0),
-(13, 22, 4, 1, '1', 1, 1, 0),
-(14, 23, 4, 1, '1', 1, 1, 0),
-(15, 24, 4, 1, '1', 1, 1, 0),
-(16, 25, 4, 1, '1', 1, 1, 0),
-(17, 26, 3, 1, '1', 1, 1, 0),
-(18, 27, 3, 1, '1', 1, 1, 0),
-(19, 28, 1, 0, '1', 0, 1, 1),
-(20, 29, 2, 1, 'pruebas', 1, 1, 1);
+(1, 38, 10, 1, 'pruebas', 1, 1, 0),
+(2, 38, 7, 2, 'pruebas', 1, 1, 0),
+(3, 38, 8, 2, 'pruebas', 1, 1, 0),
+(4, 38, 6, 1, 'pruebas', 1, 1, 0),
+(5, 39, 7, 0, 'oto', 0, 1, 1);
 
 --
 -- Disparadores `exit_teams_detall`
@@ -441,13 +424,13 @@ DELIMITER $$
 CREATE TRIGGER `returned_equipment` AFTER UPDATE ON `exit_teams_detall` FOR EACH ROW BEGIN
 DECLARE v_disponible INT;
 SELECT quantity_available INTO v_disponible FROM equipments WHERE id_equipment = NEW.id_equipment;
-IF v_disponible > 0 AND v_disponible >= NEW.quantity THEN
+IF NEW.returned != OLD.returned THEN
   IF NEW.returned = 0 THEN
       UPDATE equipments SET quantity_available =    quantity_available -      NEW.quantity WHERE id_equipment = NEW.id_equipment;
     ELSE
       UPDATE equipments SET quantity_available =    quantity_available +      NEW.quantity WHERE id_equipment = NEW.id_equipment;
     END IF;
-END IF;
+ END IF;
 END
 $$
 DELIMITER ;
@@ -484,9 +467,7 @@ CREATE TABLE `exit_tools_detall` (
 --
 
 INSERT INTO `exit_tools_detall` (`id_exit_detall`, `id_exit`, `id_tool`, `quantity`, `note_received`, `state`, `delivered`, `returned`) VALUES
-(1, 1, 1, 2, 'prieba', 1, 1, 1),
-(2, 2, 2, 1, '', 1, 1, 0),
-(3, 3, 2, 1, '1', 1, 1, 0);
+(1, 1, 10, 1, 'bueno', 1, 1, 0);
 
 --
 -- Disparadores `exit_tools_detall`
@@ -495,7 +476,7 @@ DELIMITER $$
 CREATE TRIGGER `returned_tool` AFTER UPDATE ON `exit_tools_detall` FOR EACH ROW BEGIN
 DECLARE v_disponible INT;
 SELECT quantity_available INTO v_disponible FROM tools WHERE id_tool = NEW.id_tool;
-IF v_disponible > 0 AND v_disponible >= NEW.quantity THEN
+IF NEW.returned != OLD.returned THEN
   IF NEW.returned = 0 THEN
       UPDATE tools SET quantity_available =    quantity_available -       NEW.quantity WHERE id_tool = NEW.id_tool;
     ELSE
@@ -536,9 +517,7 @@ CREATE TABLE `exit_tools_master` (
 --
 
 INSERT INTO `exit_tools_master` (`id_exit`, `id_user_receives`, `name_user_receive`, `id_user_delivery`, `date_create`) VALUES
-(1, 12, 'carlos diaz Soto', 7, '2017-11-04 20:24:04'),
-(2, 12, 'carlos diaz Soto', 29, '2017-11-05 01:00:08'),
-(3, 12, 'carlos diaz Soto', 29, '2017-11-05 14:19:32');
+(1, 12, 'carlos diaz Soto', 29, '2017-11-06 23:25:38');
 
 -- --------------------------------------------------------
 
@@ -658,15 +637,6 @@ CREATE TABLE `integridad_stock_plant` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `integridad_stock_plant`
---
-
-INSERT INTO `integridad_stock_plant` (`id_integridad`, `id_stock_plant`, `quantity`, `old_quantity`, `id_user`, `note`, `date_create`) VALUES
-(1, 7, 10, 5, 29, 'aaaa', '2017-11-04 17:42:11'),
-(2, 7, 4, 10, 29, 'as', '2017-11-04 17:42:27'),
-(3, 7, 5, 4, 29, 'aaa', '2017-11-04 18:26:29');
-
 -- --------------------------------------------------------
 
 --
@@ -684,6 +654,13 @@ CREATE TABLE `intergridad_exit_product_detalle` (
   `process` varchar(20) NOT NULL,
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `intergridad_exit_product_detalle`
+--
+
+INSERT INTO `intergridad_exit_product_detalle` (`id_integridad`, `exit_product_detalle`, `quantity`, `old_quantity`, `id_user`, `note`, `state`, `process`, `date_create`) VALUES
+(1, 1, 14, 12, 7, 'bien', 1, 'Update', '2017-11-07 02:31:36');
 
 -- --------------------------------------------------------
 
@@ -764,18 +741,20 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `toxicological_category`, `code`, `id_user_create`, `id_cellar`, `num_orders`, `zone`, `creation_date`) VALUES
-(1, 'Fresas', 'rojas', NULL, NULL, 7, 1, 1, 'A', '2017-11-04 04:30:59'),
-(2, 'Aguacate', 'Tolima', NULL, NULL, 7, 9, 0, 'B', '2017-11-04 00:19:36'),
-(3, 'Cafe', 'Fresco', NULL, NULL, 7, 7, 1, 'A', '2017-11-01 23:34:21'),
-(6, 'Mangos', 'mangos', NULL, NULL, 7, 1, 4, 'A', '2017-11-04 04:44:08'),
-(7, 'Libersol fertilizante', 'fertilizante', NULL, NULL, 7, 4, 1, 'A', '2017-11-04 00:19:29'),
-(8, 'fertilizante', 'fertilizante', NULL, NULL, 7, 4, 0, 'A', '2017-11-04 00:37:57'),
-(9, 'Pimentones', 'Pimentones', NULL, NULL, 29, 1, 0, 'B', '2017-11-04 00:38:30'),
-(11, 'Fertilizante cafe', 'Fertilizante', 'III', NULL, 29, 4, 0, 'B', '2017-11-05 21:41:35'),
-(12, 'Insecticida', 'Insecticida', 'IV', '584', 29, 4, 0, 'B', '2017-11-05 21:41:39'),
-(13, 'Fetilizante generico', 'Fetilizante generico', 'III', '430p', 29, 4, 0, 'B', '2017-11-05 21:42:56'),
-(14, 'Fungicidas', 'componetnes Fungicidas1 Fungicidas2', 'II', '6482', 29, 4, 0, 'B', '2017-11-05 21:54:45'),
-(15, 'Fetilizante CC', 'Fetilizante CC', 'III', '7382', 7, 4, 0, 'A', '2017-11-05 23:19:48');
+(20, 'Cocoa alcalina', 'Cocoa alcalina', 'No', '', 29, 2, 2, 'B', '2017-11-07 15:42:18'),
+(21, 'Escencia de vainilla', 'Escencia de vainilla', 'No', '', 29, 2, 0, 'B', '2017-11-06 17:01:56'),
+(22, 'Esencia de mora', 'Esencia de mora', 'No', '', 29, 2, 0, 'B', '2017-11-06 17:02:23'),
+(23, 'Bicarbonato de sodio', 'Bicarbonato de sodio', 'No', '', 29, 2, 0, 'B', '2017-11-06 17:03:41'),
+(24, 'Color Mora', 'Color Mora', 'No', '', 29, 2, 0, 'B', '2017-11-06 17:04:04'),
+(25, 'Esencia de fresa', 'Esencia de fresa', 'No', '', 29, 2, 0, 'B', '2017-11-06 17:04:31'),
+(26, 'Bolsas plasticas', 'bolsas', 'No', '', 29, 7, 0, 'B', '2017-11-06 17:50:47'),
+(27, 'Trichotropico', 'alisin * 1 litro', 'IV', '4356', 7, 4, 0, 'A', '2017-11-06 22:26:57'),
+(28, 'Ridamil', 'metalixil fungisida', 'III', '3704', 7, 4, 1, 'A', '2017-11-07 02:17:45'),
+(29, 'Rutinol', 'ruda', 'III', '4357', 7, 4, 0, 'A', '2017-11-06 22:30:26'),
+(30, 'Movento', 'espirotetramat', 'III', '522', 7, 4, 0, 'A', '2017-11-06 22:31:53'),
+(31, 'Libersol', 'fertlizante', 'II', '9619', 7, 4, 1, 'A', '2017-11-07 15:37:50'),
+(32, 'banano', 'banano', 'No', '', 7, 1, 1, 'A', '2017-11-07 15:07:59'),
+(33, 'Savila', 'Savila', 'No', '', 7, 1, 2, 'A', '2017-11-07 15:11:17');
 
 -- --------------------------------------------------------
 
@@ -869,12 +848,19 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `amount_income`, `expiration_date`, `expiration_create`, `comercializadora`, `unit_measure`, `id_user_create`, `state`) VALUES
-(6, 2, '783iwqkde', 220, 230, '2017-11-30', '2017-11-04 04:28:22', 'Internal', 2, 29, 1),
-(7, 1, 'rioeksksa', 10, 20, '2017-11-12', '2017-11-04 04:29:00', 'fresh', 1, 7, 1),
-(8, 6, '783iuejw', 50, 55, '2017-11-29', '2017-11-04 04:35:23', 'magas', 2, 7, 1),
-(9, 9, 'iuwkdnas', 10, 10, '2017-11-13', '2017-11-04 23:25:07', 'suiak', 6, 29, 1),
-(10, 14, '49oewek', 200, 200, '2017-11-27', '2017-11-05 22:08:08', 'lask', 7, 29, 1),
-(11, 15, '46782e', 230, 230, '2017-11-14', '2017-11-05 23:22:28', 'vermas', 6, 7, 1);
+(12, 20, '12/24', 498, 500, '2017-11-30', '2017-11-06 17:07:50', 'Interno', 7, 29, 1),
+(13, 21, '445ie', 100, 100, '2017-11-30', '2017-11-06 17:08:33', 'Interno', 6, 29, 1),
+(14, 22, '76-89', 80, 80, '2017-11-29', '2017-11-06 17:09:46', 'Interno', 6, 29, 1),
+(15, 23, '34iow,we', 100, 100, '2017-11-22', '2017-11-06 17:10:30', 'Inerterno', 6, 29, 1),
+(16, 25, '9owñk', 5, 5, '2017-11-30', '2017-11-06 17:11:09', 'Interno', 6, 29, 1),
+(17, 26, '12/56', 24, 24, '2019-01-31', '2017-11-06 17:52:01', 'past', 5, 29, 1),
+(18, 27, '40/15', 200, 200, '2017-11-28', '2017-11-06 22:35:07', 'Kmit', 0, 7, 1),
+(19, 28, '83uiwk-3', 20, 34, '2017-11-21', '2017-11-06 22:36:00', 'hlsio', 6, 7, 1),
+(20, 29, '783ikd', 67, 67, '2017-11-21', '2017-11-06 22:37:01', 'hols', 3, 7, 1),
+(21, 30, '45/09', 890, 890, '2017-11-26', '2017-11-06 22:47:47', 'last', 6, 7, 1),
+(22, 31, '38iek', 31, 32, '2017-12-22', '2017-11-06 22:48:46', 'ast', 5, 7, 1),
+(23, 32, 'jks, qsq', 19, 20, '2017-11-27', '2017-11-07 02:21:59', 'Interno', 2, 7, 1),
+(24, 33, 'u4ridkwl', 3, 20, '2017-11-30', '2017-11-07 02:25:39', 'onzas', 1, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -896,8 +882,9 @@ CREATE TABLE `stock_plant` (
 --
 
 INSERT INTO `stock_plant` (`id_stock_plant`, `id_stock`, `quantity`, `id_exit_product`, `state`, `date_create`) VALUES
-(6, 7, 10, 4, 1, '2017-11-04 04:30:59'),
-(7, 8, 5, 5, 1, '2017-11-04 04:44:08');
+(1, 19, 12, 1, 1, '2017-11-07 02:17:45'),
+(2, 24, 16, 4, 1, '2017-11-07 15:11:17'),
+(3, 22, 1, 5, 1, '2017-11-07 15:37:50');
 
 -- --------------------------------------------------------
 
@@ -922,8 +909,7 @@ CREATE TABLE `tools` (
 --
 
 INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `zone`, `create_date`) VALUES
-(1, 'pala', 'acme', 10, 7, 6, 7, 'A', '2017-11-02 01:57:20'),
-(2, 'Cuchillos', 'acme', 23, 20, 6, 29, 'B', '2017-11-04 19:54:22');
+(10, 'Machetes', 'Machetes', 23, 22, 6, 29, 'B', '2017-11-06 23:25:20');
 
 -- --------------------------------------------------------
 
@@ -1169,12 +1155,12 @@ ALTER TABLE `cellar`
 -- AUTO_INCREMENT de la tabla `equipments`
 --
 ALTER TABLE `equipments`
-  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT de la tabla `exit_equipment_master`
 --
 ALTER TABLE `exit_equipment_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_detalle`
 --
@@ -1184,22 +1170,22 @@ ALTER TABLE `exit_product_detalle`
 -- AUTO_INCREMENT de la tabla `exit_product_master`
 --
 ALTER TABLE `exit_product_master`
-  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
 ALTER TABLE `exit_teams_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_detall`
 --
 ALTER TABLE `exit_tools_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_master`
 --
 ALTER TABLE `exit_tools_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `expiration_stock`
 --
@@ -1209,12 +1195,12 @@ ALTER TABLE `expiration_stock`
 -- AUTO_INCREMENT de la tabla `integridad_stock_plant`
 --
 ALTER TABLE `integridad_stock_plant`
-  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `intergridad_exit_product_detalle`
 --
 ALTER TABLE `intergridad_exit_product_detalle`
-  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `measure`
 --
@@ -1224,7 +1210,7 @@ ALTER TABLE `measure`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
@@ -1239,17 +1225,17 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT de la tabla `stock_plant`
 --
 ALTER TABLE `stock_plant`
-  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tools`
 --
 ALTER TABLE `tools`
-  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --

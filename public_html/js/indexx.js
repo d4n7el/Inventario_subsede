@@ -1,6 +1,6 @@
 $(document).on('ready',function(){
 	cantidad = ""; 	nombre = "";	id = "";	disponible = "";
-	div_id	 = "";
+	div_id	 = ""; destino = "";  id_user = ""; name_user = "";
 	recargar_eventos();
 	$('a.link_page').on('click', function(event) {
 		event.preventDefault();
@@ -8,15 +8,6 @@ $(document).on('ready',function(){
 		$(this).closest('div.card-action').addClass('fondo_claro').removeClass('fondo_negro');
 		var ruta = $(this).attr('href');
 		$("div#vista_ventana").load(ruta,function() {
-			recargar_eventos();
-		});
-	});
-	$('button.link_page_session').on('click', function(event) {
-		event.preventDefault();
-		var ruta = $(this).attr('ruta');
-		$('button.link_page_session').removeClass('btn-success');
-		$(this).addClass('btn-success');
-		$("div.contenedor_session").load(ruta,function() {
 			recargar_eventos();
 		});
 	});
@@ -71,9 +62,30 @@ function eliminar_eventos(){
 	$('button.view_entry_inform').off('click');
 	$('button.edit_entry_cant_inform').off('click');
 	$('button.link_page_session').off('click');
+	$('form.create_info_exit_stock').off('submit');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	$('form.create_info_exit_stock').on('submit', function(event) {
+		event.preventDefault();
+		var formData = new FormData(this);
+		formData.append("destino", destino);
+		formData.append("receive_user", id_user);
+		formData.append("name_receive_user", name_user);
+		var ruta =  $(this).attr('action');
+		ajax_set_form_data(ruta,formData);
+	});
+	$('button#create_destino').on('click', function(event) {
+		event.preventDefault();
+		if ($('input#desc_destino').val() != "" && $('input#name_receive_user') != "" ) {
+			destino = $('input#desc_destino').val();
+			id_user = $('input#receive_user').val();
+			name_user = $('input#name_receive_user').val();
+			$('#modal_center_two').modal('close');
+		}else{
+			mensaje_alert('error',"Ingresa todos los campos",4000);
+		}
+	});
 	$('button.link_page_session').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('ruta');
@@ -110,7 +122,7 @@ var recargar_eventos = function(){
 		event.preventDefault();
 		var ruta = $(this).attr('ruta');
 		var alterno = 1;
-		$("div#modal_center div.modal-content").load(ruta,{alterno : alterno},function() {
+		$("div#modal_center_two div.modal-content").load(ruta,{alterno : alterno},function() {
 			recargar_eventos();
 		});
 	});
@@ -152,7 +164,7 @@ var recargar_eventos = function(){
 				.animate({ opacity: 1 },1000);
 			$('div.list_add_exit_plant div.card').first().attr('id',divs+"add");
 			$('div.list_add_exit_plant div.card div.cantidad').removeClass('hide');
-			$('div.list_add_exit_plant div.card').removeClass('s12').addClass('col s6');
+			$('div.list_add_exit_plant div.card').removeClass('s12').addClass('col s12 m4 l4');
 			$('div.list_add_exit_plant a.add_exit_plant').addClass('hide');
 			$('div.list_add_exit_plant a.delete_exit_plant').removeClass('hide');
 			recargar_eventos();
@@ -268,7 +280,13 @@ var recargar_eventos = function(){
 		var ruta = $(this).attr('ruta');
 		var id_process = $(this).attr('id_process');
 		var proccess = $(this).attr('procceso');
-		$("div#modal_right div.modal-content").load(ruta,{id_process: id_process,proccess: proccess},function() {
+		var fecha = $(this).attr('fecha');
+		formData = {
+			'id_process': id_process,
+			'proccess': proccess,
+			'fecha': fecha,
+		}
+		$("div#modal_right div.modal-content").load(ruta,formData,function() {
 			recargar_eventos();
 		});
 	});
@@ -363,8 +381,8 @@ var recargar_eventos = function(){
 		event.preventDefault();
 		if (cantidad != "" &&  nombre != "") {
 			ruta = $('div#view_add_elements').attr('ruta');
-			if ($('div#'+id+nombre+cantidad).length == 0) {
-				var html =  '<div class="col s4" style="margin-bottom: 1em" id="'+id+nombre+cantidad+'">\
+			if ($('div#'+id+cantidad).length == 0) {
+				var html =  '<div class="col s4" style="margin-bottom: 1em" id="'+id+cantidad+'">\
 								<input type="hidden" name="id_element[]" value="'+id+'">\
 								<input type="hidden" name="" value="'+id+'">\
 								<a class="btn-floating delete_exit waves-effect waves-light btn-success right" style="position: absolute; margin-top: -.9em; margin-left: -1.5em"><i class="material-icons">clear</i></a>\
@@ -514,7 +532,7 @@ var recargar_eventos = function(){
 	});
 	$('.datepicker').pickadate({
 	    selectMonths: true, // Creates a dropdown to control month
-	    selectYears: 2, // Creates a dropdown of 15 years to control year,
+	    selectYears: 10, // Creates a dropdown of 15 years to control year,
 	    selectMonths: true, // Creates a dropdown to control month 
 	    format: 'yyyy-mm-dd',
   	});
@@ -522,7 +540,7 @@ var recargar_eventos = function(){
 function ajax_set_form_data(ruta,formData){
 	$.ajax({
 		beforeSend:function() { 
-         	mensaje_cargando('process','Se está realizando el proceso');
+         	mensaje_alert('process','Se está realizando el proceso');
      	},
      	complete: function(){
    		},
@@ -556,7 +574,7 @@ function ajax_set_form_data(ruta,formData){
 				});
  	    	}
  	    	if (response['status']==1 && response['closeModal'] != undefined && response['closeModal'] == 1 ) {
- 	    		$('#modal_right,#modal_center').modal('close');
+ 	    		$('#modal_right,#modal_center,#modal_center_two').modal('close');
  	    	} 	
 	    },
 	    error: function(jqXHR,error,estado){
@@ -575,7 +593,7 @@ function request_user(ruta,formData){
 	var datos = ""; 	var status = "";
 	$.ajax({
 		beforeSend:function() { 
-         	mensaje_cargando('process','Se está realizando el proceso');
+         	mensaje_alert('process','Se está realizando el proceso');
      	},
 		url: ruta,
 	    type: "POST",
@@ -689,7 +707,7 @@ function ver_info_user(datos,status){
 }
 function mensaje_alert(tipo,mensaje,duracion){
 	duracion || (duracion = 2000);
-	if (tipo == "success") {
+	if (tipo == "success" || tipo == "process") {
 		var img = "../image/sena.svg";
 	}else{
 		var img = "../image/errormessage.png";
@@ -725,7 +743,7 @@ function mensaje_cargando(tipo,mensaje){
 			<div class="row">\
 				<div class="col s12 m6 offset-m3">\
 					<div class="card">\
-						<div class="card-image centrar">\
+						<div class="card-image centrar fondo_negro">\
 							<img src="'+img+'" class="cargando">\
 						</div>\
 						<div class="card-action fondo_negro">\

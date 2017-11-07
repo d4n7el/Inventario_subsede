@@ -17,7 +17,7 @@
 		</div>
 		<div class="col s4 i3">
 			<h5 class=" col s12 centrar color_letra_secundario">Destino</h5>
-			<h5 class="titulo col s12 centrar color_letra_secundario">Interno</h5>
+			<h5 class="titulo col s12 centrar color_letra_secundario"><?php echo $proccess ?></h5>
 		</div>
 	</div>
 	<div class="row" id="head_table">
@@ -51,19 +51,19 @@
 	<?php 
 	foreach ($retorno_planta as $key => $value) { ?>
 		<div class="row tabla" id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >
-			<div class="col s3 second_cell producto i5">
+			<div class="col s3 second_cell center producto i5">
 				<h6 class="col s12 centrar <?php echo ($value['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>" >
 				 <?php echo $value['name_product']; ?></h6>
 			</div>
-			<div class="col s2 second_cell bodega i5">
+			<div class="col s2 second_cell center bodega i5">
 				<h6 class="col s12 centrar <?php echo ($value['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>">
 				 <?php echo $value['name_cellar']; ?></h6>
 			</div>
-			<div class="col s3 second_cell lote i5">
+			<div class="col s3 second_cell center lote i5">
 				<h6 class="col s12 center <?php echo ($value['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>">
 				<?php echo $value['name_receive']; ?></h6>
 			</div>
-			<div class="col s2 second_cell cantidad_disponible i5">
+			<div class="col s2 second_cell center cantidad_disponible i5">
 				<h6 class="col s12 centrar <?php echo ($value['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>" id="cantidad_<?php echo $value['id_exit_product'].$value['id_stock'] ?>">
 					<?php echo (isset($value['quantity'])) ? $value['quantity']." ".$value['prefix_measure'] : $value['amount']." ".$value['prefix_measure']; ?>
 				</h6>

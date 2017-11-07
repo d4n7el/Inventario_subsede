@@ -3,7 +3,7 @@
 	date_default_timezone_set('America/Bogota');
 	$fecha = date('Y-m-d');
 	$tomorrow = date( "Y-m-d", strtotime( "+1 day", strtotime($fecha)));  
-	$yesterday = date( "Y-m-d", strtotime( "-2 day", strtotime($fecha))); 
+	$yesterday = date( "Y-m-d", strtotime( "-30 day", strtotime($fecha))); 
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/exit_stock_controller.php');
 	$exits = new ExitProduct();
 	$count_exits = new ExitProduct();
@@ -18,7 +18,7 @@
 		(isset($_REQUEST['id_exit_product']) ? $id_exit_product = $_REQUEST['id_exit_product'] : $id_exit_product = "%%");
 		// NECESARIO PARA LA PAGINACION
 		(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
-		$limit = 1;
+		$limit = 30;
 		$offset = $limit * $pagina;
 		$retorno_count_exit = $count_exits->get_exit_stock_count($id_exit_product,$destino,$product,$cellar,$lote,$fecha_inicial,$fecha_final);
 		$count_rows = $retorno_count_exit['count'];

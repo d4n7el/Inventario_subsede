@@ -12,7 +12,7 @@
 		if ($cantidad >= $cantidad_disponible) {
 			$retorno_tools 	= $tools->insert_tools($nombre_herramienta,$nombre_marca,$cantidad,$cantidad_disponible,$bodega, $id_user);
 			if ($retorno_tools > 0) {
-				$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create' );
+				$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create','create','graphics' => 'php/tools/graphics_pie.php' );
 			}else{
 				$respuesta = array('mensaje' => "error", 'status' => 0 );
 			}

@@ -22,7 +22,7 @@
 	<?php  
 	if (count($retorno_tools) > 0) {  
 		foreach ($retorno_tools as $key => $tool) {  ?>
-			<div class="col s12 m12 l4" id="<?php echo $tool['id_tool']."_".$tool['quantity_available']."_".$tool['name_tool'] ?>" style="padding: 0px;">
+			<div class="col s12 m12 l4" id="<?php echo $tool['id_tool']."_".$tool['quantity_available'] ?>" style="padding: 0px;">
 	          	<div class="card">
 	          		<div class="input-field col s12 m12 hide cantidad">
 			            <input id="cantidad" type="number" class="validate search" name="cantidad[]" autocomplete="off" min="0" max="<?php echo $equipo['quantity_available'] ?>" required>
@@ -37,10 +37,10 @@
               			<p class="color_letra_secundario center">Total : <?php echo $tool['total_quantity']; ?></p>
               			<p class="color_letra_secundario center">Disponible : <?php echo $tool['quantity_available']; ?></p>
               			<input type="hidden" name="id_element[]" value="<?php echo $tool['id_tool'] ?>" readonly>
-      					<a class="btn centrar btn-success halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $tool['id_tool']."_".$tool['quantity_available']."_".$tool['name_tool'] ?>">
+      					<a class="btn centrar btn-success halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $tool['id_tool']."_".$tool['quantity_available'] ?>">
       						Añadir a salida
       					</a>
-      					<a class="btn centrar btn-success  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $tool['id_tool']."_".$equipo['quantity_available']."_".$tool['name_tool'] ?>">
+      					<a class="btn centrar btn-success  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $tool['id_tool']."_".$equipo['quantity_available'] ?>">
       						Elimiinar de salida
       					</a>
 	            	</div>

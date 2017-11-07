@@ -25,7 +25,7 @@
 			$respuesta = array('mensaje' => "Actualizacion exitosa" , 'status' => 1, 'closeModal' => 1 );
 		}elseif ($retorno_equipment['retorno'] == -1){
 			$respuesta = array('mensaje' => "La cantidad disponible debe ser mayor a la cantidad prestada actual" , 'status' => 0 );
-		}elseif ($retorno_equipment['retorno'] == 0) {
+		}elseif ($retorno_equipment['retorno'] == -2) {
 			$respuesta = array('mensaje' => "La cantidad deisponible no puede superar el total" , 'status' => 0 );
 		}
 	}

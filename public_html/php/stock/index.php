@@ -5,7 +5,7 @@
 	date_default_timezone_set('America/Bogota');
 	$fecha = date('Y-m-d');
 	$tomorrow = date( "Y-m-d", strtotime( "+2 day", strtotime($fecha)));  
-	$Yesterday = date( "Y-m-d", strtotime( "-5 day", strtotime($fecha)));  
+	$Yesterday = date( "Y-m-d", strtotime( "-30 day", strtotime($fecha)));  
 	$stock = new Stock();
 	$count_stock = new Stock();
 	$id_stock = isset($_REQUEST['id_stock']) && $_REQUEST['id_stock'] != "" ? $_REQUEST['id_stock'] : "%%";
@@ -19,7 +19,7 @@
 	$estado = (isset($_REQUEST['estado']) && $_REQUEST['estado'] != "" ? $_REQUEST['estado'] : "1" );
 	// NECESARIO PARA LA PAGINACION
 	(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
-	$limit = 2;
+	$limit = 50;
 	$offset = $limit * $pagina;
 	$retorno_count_user = $count_stock->count_stock($id_stock,$lote,$bodega,$producto,$casa,$vencimiento,$fecha_inicial,$fecha_final,$estado);
 	$count_rows = $retorno_count_user['count'];

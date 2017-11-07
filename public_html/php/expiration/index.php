@@ -12,7 +12,7 @@
 	$expiration_date = isset($_REQUEST['expiration_date']) && $_REQUEST['expiration_date'] != "" ? $_REQUEST['expiration_date'] : "%%";
 	$fecha_inicial = isset($_REQUEST['fecha_inicial'])? $_REQUEST['fecha_inicial'] : $Yesterday;
 	$fecha_final = isset($_REQUEST['fecha_final'])? $_REQUEST['fecha_final'] : $tomorrow;
-	$limit = 1;
+	$limit = 40;
 	$offset = $limit * $pagina;
 	$retorno_expiration_count = $expiration_count->count_expiration_pag($filter,$fecha_inicial,$fecha_final,$expiration_date);
     $count_rows = $retorno_expiration_count['count'];

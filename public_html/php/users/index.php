@@ -14,7 +14,7 @@
 		// NECESARIO PARA LA PAGINACION
 		$count_user = new Users();
 		(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
-		$limit = 4;
+		$limit = 20;
 		$offset = $limit * $pagina;
 		$retorno_count_user = $count_user->count_user($name,$cedula,$correo,$apellido,$id_user,$estado);
 		$count_rows = $retorno_count_user['count'];

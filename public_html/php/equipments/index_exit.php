@@ -3,7 +3,7 @@
 	date_default_timezone_set('America/Bogota');
 	$fecha = date('Y-m-d');
 	$tomorrow = date( "Y-m-d", strtotime( "+3 day", strtotime($fecha)));  
-	$yesterday = date( "Y-m-d", strtotime( "-3 day", strtotime($fecha))); 
+	$yesterday = date( "Y-m-d", strtotime( "-30 day", strtotime($fecha))); 
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/equipments_controller.php');
 	$exits = new Equipments();
 	$count_exits = new Equipments();
@@ -15,7 +15,7 @@
 		(isset($_REQUEST['id_exit_product']) ? $id_exit_product = $_REQUEST['id_exit_product'] : $id_exit_product = "%%");
 		// NECESARIO PARA LA PAGINACION
 		(isset($_REQUEST['pagina']) ? $pagina = $_REQUEST['pagina'] : $pagina = 0);
-		$limit = 2;
+		$limit = 40;
 		$offset = $limit * $pagina;
 		$retorno_count_exit = $count_exits->get_exit_equipments_count($team,$cedula,$fecha_inicial,$fecha_final);
 		$count_rows = $retorno_count_exit['count'];

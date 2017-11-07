@@ -7,7 +7,9 @@
 	$producto 			= $_REQUEST["producto"];
 	$descripcion 		= $_REQUEST["descripcion"];
 	$bodega 			= $_REQUEST["cellar"];
-	$retorno_product 	= $product->update_product($producto,$descripcion,$bodega,$id_user,$id_producto);
+	$categoria_tox 		= $_REQUEST["tox"];
+	$code 				= $_REQUEST["code"];
+	$retorno_product 	= $product->update_product($producto,$descripcion,$bodega,$id_user,$categoria_tox,$code,$id_producto);
 	if (count($retorno_product) > 0) {
 		$respuesta = array('mensaje' => "Actualización correcta", 'status' => 1 );
 	}else{

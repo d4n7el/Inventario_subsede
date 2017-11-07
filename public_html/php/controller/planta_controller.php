@@ -2,11 +2,13 @@
 	class Planta{
 		private $bd;
 		private $retorno;
+		private $zone;
 
 		public function __construct(){
 			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
 			$this->db = Conexion::conect();
 			$this->retorno = Array();
+			$this->zone = $_SESSION["user_zone"];
 		}
 		public function index_stock_planta($group,$product,$cellar,$nameReceive, $prefix,$fecha_inicial,$fecha_final,$order, $limit, $offset){
 			try {
@@ -15,7 +17,7 @@
 				$sum = ($group == "%%") ?  '' : ',SUM(quantity) as acumulado';
 				$limit = ($limit == "%%") ?  '' : "LIMIT $limit";
 				$offset = ($offset == "%%") ?  '' : 'OFFSET '.$offset;
-				$sql =  "SELECT proceso,state, quantity, id_proceso, name_receive,prefix_measure, date_create, name_product,expiration_date, name_cellar,nom_lot, prefix_measure,toxicological,code $sum, id_stock FROM index_stock_plant WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND name_receive LIKE '%$nameReceive%' AND prefix_measure LIKE '$prefix' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' ".$groupBy." $orderBy ".$limit." ".$offset ;
+				$sql =  "SELECT proceso,state, quantity, id_proceso, name_receive,prefix_measure, DATE(date_create) as date_create, name_product,expiration_date, name_cellar,nom_lot, prefix_measure,toxicological,code $sum, id_stock FROM index_stock_plant WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND name_receive LIKE '%$nameReceive%' AND prefix_measure LIKE '$prefix' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' ".$groupBy." $orderBy ".$limit." ".$offset ;
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
@@ -54,11 +56,11 @@
             	$e->getMessage();
         	}
 		}
-		public function show_stock_planta_externo($id_stock){
+		public function show_stock_planta_externo($fecha){
 			try {
-				$sql =  "SELECT * FROM get_stock WHERE id_stock = ?";
+				$sql =  "SELECT * FROM get_stock WHERE DATE(expiration_create) = ? AND zone = '$this->zone'";
 				$sql_consult = $this->db->prepare($sql);
-				$sql_consult->execute(array($id_stock));
+				$sql_consult->execute(array($fecha));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;

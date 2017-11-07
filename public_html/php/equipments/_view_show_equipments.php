@@ -35,7 +35,7 @@ foreach ($retorno_equipos as $key => $value) { ?>
 	    </section>
 	</div>
 
-	<?php if ($_SESSION["id_user_activo_role"] == 'A_A-a_1'  || $_SESSION["id_user_activo_role"] == 'B_1-b_1') { ?>
+	<?php if ($_SESSION["id_user_activo_role"] != 'A1-_1B'  || $_SESSION["id_user_activo_role"] != 'E_1_S1') { ?>
 	<div class="row" id="update_<?php echo $value['id_user'] ?>">
 		<h6 class="titulo col s12 fondo_negro color_letra_primario center paddin1">		
 			Sumar Cantidad disponible al Equipo.

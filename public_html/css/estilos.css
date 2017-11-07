@@ -10,6 +10,9 @@ div#modal_mensajes .modal-content{
 .color_letra_secundario{
 	color: rgb(33,49,62) !important;
 }
+#modal_mensajes{
+	z-index: 9999999999;
+}
 .color_letra_danger{
 	color: rgb(242,83,85) !important;
 }
@@ -25,6 +28,12 @@ a.pulse{
 	margin-top: 2.5em !important;
 	color: red;
 	margin-left: -2em;
+}
+.list_stock_exit .card-content{
+	padding: 0px;
+}
+.list_stock_exit a{
+	border-radius: 0px;
 }
 .list_stock_exit div.card{
 	padding: 1em 0em 1em;
@@ -227,7 +236,7 @@ h5.titulo{
 }
 h6.titulo{
 	color: rgb(33,49,62);
-	font-size: 1.1em;
+	font-size: 1em;
 	margin-bottom: 2em;
 }
 div.contenedor_session{
@@ -253,8 +262,8 @@ div.contenedor_session{
 	background-color: rgb(47,47,47) !important;
 }
 [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after{
-	background-color: rgb(242,83,85);
-	border: 7px solid rgb(242,83,85);
+	background-color: rgb(242,83,85) !important;
+	border: 7px solid rgb(242,83,85) !important;
 }
 input#tox2:checked+label:after, input#tox2.with-gap:checked+label:after{
 	background-color: rgb(41,88,31);
@@ -376,9 +385,8 @@ div.action{
 .tabla .btn{
 	margin-top: 0em !important;
 }
-.primary_cell{
-	border-left: 1px solid rgba(3,124,136,.2);
-	border-bottom: 1px solid rgba(3,124,136,.2);
+.tabla:hover h6{
+	color:  rgb(242,83,85) !important;
 }
 .second_cell{
 	border-right: 1px solid rgba(3,124,136,.2);
