@@ -411,6 +411,14 @@ div.action{
     border-radius: 0;
     will-change: bottom, opacity;
 } 
+#modal_left{
+	top: 0 !important;
+    margin-left: 0%;
+    width: 40%;
+    max-height: 100%;
+    border-radius: 0;
+    will-change: bottom, opacity;
+} 
 div.logo_sena img{
 	width: 30%;
 }

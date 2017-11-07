@@ -23,8 +23,10 @@
 </div>
 <div class="list_stock_exit col s12">
 	<?php  
-	if (count($retorno_stock) > 0) {  
-		foreach ($retorno_stock as $key => $stock_search) {  ?>
+	if (count($retorno_stock) > 0) {
+		$category = new Products();
+		foreach ($retorno_stock as $key => $stock_search) {  
+			$fondo = $category->category_color($stock_search['toxicological']);?>
 			<div class="col s12 m12 l4" id="<?php echo $stock_search['id_stock']."_".$stock_search['amount'] ?>" style="padding: 0px;">
 	          	<div class="card">
 	          		<div class="input-field col s12 m12 hide cantidad">
@@ -43,10 +45,10 @@
 
               			<input type="hidden" name="lote_id[]" value="<?php echo $stock_search['id_stock'] ?>" readonly>
               			<input type="hidden" name="producto_id[]" value="<?php echo $stock_search['id_product'] ?>" readonly>
-      					<a class="btn centrar btn-success halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $stock_search['id_stock']."_".$stock_search['amount'] ?>">
+      					<a class="btn centrar <?php echo ($stock_search['toxicological'] != "No")? $fondo: "btn-success" ?> halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $stock_search['id_stock']."_".$stock_search['amount'] ?>">
       						Añadir a salida
       					</a>
-      					<a class="btn centrar btn-success  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $stock_search['id_stock']."_".$stock_search['amount'] ?>">
+      					<a class="btn centrar <?php echo ($stock_search['toxicological'] != "No")? $fondo: "btn-success" ?>  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $stock_search['id_stock']."_".$stock_search['amount'] ?>">
       						Elimiinar de salida
       					</a>
 	            	</div>

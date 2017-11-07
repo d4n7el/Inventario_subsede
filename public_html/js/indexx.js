@@ -74,6 +74,7 @@ var recargar_eventos = function(){
 		formData.append("name_receive_user", name_user);
 		var ruta =  $(this).attr('action');
 		ajax_set_form_data(ruta,formData);
+		destino = "";  id_user = ""; name_user = "";
 	});
 	$('button#create_destino').on('click', function(event) {
 		event.preventDefault();
@@ -81,10 +82,18 @@ var recargar_eventos = function(){
 			destino = $('input#desc_destino').val();
 			id_user = $('input#receive_user').val();
 			name_user = $('input#name_receive_user').val();
-			$('#modal_center_two').modal('close');
+			$('#modal_left').modal('close');
 		}else{
 			mensaje_alert('error',"Ingresa todos los campos",4000);
 		}
+	});
+	$('button.modal_left').on('click', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('ruta');
+		var alterno = 1;
+		$("div#modal_left div.modal-content").load(ruta,function() {
+			recargar_eventos();
+		});
 	});
 	$('button.link_page_session').on('click', function(event) {
 		event.preventDefault();
