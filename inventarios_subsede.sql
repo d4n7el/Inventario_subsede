@@ -237,6 +237,7 @@ CREATE TABLE `equipments` (
   `id_cellar` int(11) NOT NULL,
   `id_user_create` int(11) NOT NULL,
   `zone` set('A','B') NOT NULL DEFAULT 'A',
+  `state` set('0','1') NOT NULL DEFAULT '1',
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -244,34 +245,34 @@ CREATE TABLE `equipments` (
 -- Volcado de datos para la tabla `equipments`
 --
 
-INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `zone`, `create_date`) VALUES
-(6, 'Beaker 100 Ml', 'Beaker', 5, 4, 5, 29, 'B', '2017-11-06 16:32:12'),
-(7, 'Erlenmeyer 250 ML', 'Erlenmeyer', 20, 18, 5, 29, 'B', '2017-11-06 16:32:44'),
-(8, 'Frasco tapa azul 250 Ml', 'Frasco', 20, 18, 5, 29, 'B', '2017-11-06 16:33:12'),
-(9, 'Beaker plastico 100 ML', 'Beaker plastico', 5, 5, 5, 29, 'B', '2017-11-06 16:33:39'),
-(10, 'Beaker plastico 600 Ml', 'Beaker plastico', 2, 1, 5, 29, 'B', '2017-11-06 16:34:03'),
-(11, 'Beaker plastico 1000 Ml', 'Beaker plastico', 1, 1, 5, 29, 'B', '2017-11-06 16:34:42'),
-(12, 'Beaker plastico 2000 ML', 'Beaker plastico', 1, 1, 5, 29, 'B', '2017-11-06 16:35:01'),
-(13, 'Envudo en V plastico', 'Envudo', 10, 10, 5, 29, 'B', '2017-11-06 16:35:45'),
-(14, 'Probeta plastica 100 ML', 'Probeta plastica', 1, 1, 5, 29, 'B', '2017-11-06 16:36:30'),
-(15, 'Probeta plastica 500 ML', 'Probeta plastica', 2, 2, 5, 29, 'B', '2017-11-06 16:36:46'),
-(16, 'Probeta plastica 1000 ML', 'Probeta plastica', 1, 1, 5, 29, 'B', '2017-11-06 16:37:05'),
-(17, 'Pantallas', 'Pantallas', 8, 8, 5, 7, 'A', '2017-11-06 17:19:28'),
-(18, 'Decametro', 'Decametro', 2, 2, 5, 7, 'A', '2017-11-06 17:26:33'),
-(19, 'cosechadora de frutos', 'cosechadora de frutos', 3, 3, 5, 7, 'A', '2017-11-06 17:26:54'),
-(20, 'Tronzadora', 'Tronzadora', 1, 1, 5, 7, 'A', '2017-11-06 17:27:17'),
-(21, 'Seguetas', 'Seguetas', 3, 3, 5, 7, 'A', '2017-11-06 17:27:39'),
-(22, 'Nivel', 'Nivel', 2, 2, 5, 7, 'A', '2017-11-06 17:27:54'),
-(23, 'Martillos', 'Martillos', 6, 6, 5, 7, 'A', '2017-11-06 17:28:19'),
-(24, 'LLaves boca fija', 'LLaves boca fija', 23, 23, 5, 7, 'A', '2017-11-06 17:29:15'),
-(25, 'Cepillo', '', 1, 1, 5, 7, 'A', '2017-11-06 17:31:24'),
-(26, 'destornilladores', '', 17, 17, 5, 7, 'A', '2017-11-06 17:31:33'),
-(27, 'Moto sierra', '', 2, 2, 5, 7, 'A', '2017-11-06 17:31:49'),
-(28, 'taladro mano', '', 2, 2, 5, 7, 'A', '2017-11-06 17:32:02'),
-(29, 'Pulidora', '', 1, 1, 5, 7, 'A', '2017-11-06 17:32:33'),
-(30, 'taladro Inalambrico', '', 1, 1, 5, 7, 'A', '2017-11-06 17:32:56'),
-(31, 'Hidrolavadora', '', 1, 1, 5, 7, 'A', '2017-11-06 17:33:35'),
-(32, 'trajes apicultura', '', 33, 33, 5, 7, 'A', '2017-11-06 17:33:51');
+INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `zone`, `state`, `create_date`) VALUES
+(6, 'Beaker 100 Ml', 'Beaker', 5, 4, 5, 29, 'B', '1', '2017-11-06 16:32:12'),
+(7, 'Erlenmeyer 250 ML', 'Erlenmeyer', 20, 18, 5, 29, 'B', '1', '2017-11-06 16:32:44'),
+(8, 'Frasco tapa azul 250 Ml', 'Frasco', 20, 18, 5, 29, 'B', '1', '2017-11-06 16:33:12'),
+(9, 'Beaker plastico 100 ML', 'Beaker plastico', 5, 5, 5, 29, 'B', '1', '2017-11-06 16:33:39'),
+(10, 'Beaker plastico 600 Ml', 'Beaker plastico', 2, 1, 5, 29, 'B', '1', '2017-11-06 16:34:03'),
+(11, 'Beaker plastico 1000 Ml', 'Beaker plastico', 1, 1, 5, 29, 'B', '1', '2017-11-06 16:34:42'),
+(12, 'Beaker plastico 2000 ML', 'Beaker plastico', 1, 1, 5, 29, 'B', '1', '2017-11-06 16:35:01'),
+(13, 'Envudo en V plastico', 'Envudo', 10, 10, 5, 29, 'B', '1', '2017-11-06 16:35:45'),
+(14, 'Probeta plastica 100 ML', 'Probeta plastica', 1, 1, 5, 29, 'B', '1', '2017-11-06 16:36:30'),
+(15, 'Probeta plastica 500 ML', 'Probeta plastica', 2, 2, 5, 29, 'B', '1', '2017-11-06 16:36:46'),
+(16, 'Probeta plastica 1000 ML', 'Probeta plastica', 1, 1, 5, 29, 'B', '1', '2017-11-06 16:37:05'),
+(17, 'Pantallas', 'Pantallas', 8, 8, 5, 7, 'A', '1', '2017-11-06 17:19:28'),
+(18, 'Decametro', 'Decametro', 2, 2, 5, 7, 'A', '1', '2017-11-06 17:26:33'),
+(19, 'cosechadora de frutos', 'cosechadora de frutos', 3, 3, 5, 7, 'A', '1', '2017-11-06 17:26:54'),
+(20, 'Tronzadora', 'Tronzadora', 1, 1, 5, 7, 'A', '1', '2017-11-06 17:27:17'),
+(21, 'Seguetas', 'Seguetas', 3, 3, 5, 7, 'A', '1', '2017-11-06 17:27:39'),
+(22, 'Nivel', 'Nivel', 2, 2, 5, 7, 'A', '1', '2017-11-06 17:27:54'),
+(23, 'Martillos', 'Martillos', 6, 6, 5, 7, 'A', '1', '2017-11-06 17:28:19'),
+(24, 'LLaves boca fija', 'LLaves boca fija', 23, 23, 5, 7, 'A', '1', '2017-11-06 17:29:15'),
+(25, 'Cepillo', '', 1, 1, 5, 7, 'A', '1', '2017-11-06 17:31:24'),
+(26, 'destornilladores', '', 17, 17, 5, 7, 'A', '1', '2017-11-06 17:31:33'),
+(27, 'Moto sierra', '', 2, 2, 5, 7, 'A', '1', '2017-11-06 17:31:49'),
+(28, 'taladro mano', '', 2, 2, 5, 7, 'A', '1', '2017-11-06 17:32:02'),
+(29, 'Pulidora', '', 1, 1, 5, 7, 'A', '1', '2017-11-06 17:32:33'),
+(30, 'taladro Inalambrico', '', 1, 1, 5, 7, 'A', '1', '2017-11-06 17:32:56'),
+(31, 'Hidrolavadora', '', 1, 1, 5, 7, 'A', '1', '2017-11-06 17:33:35'),
+(32, 'trajes apicultura', '', 33, 33, 5, 7, 'A', '1', '2017-11-06 17:33:51');
 
 -- --------------------------------------------------------
 
