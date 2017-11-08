@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="alternos col s12">
-		<button type="" class="waves-effect col s4 flujo_alterno waves-light btn btn-success" ruta="../php/equipments/create_equipment.php" data-target="modal_center">Crea un equipo
+		<button type="" class="waves-effect col s4 flujo_alterno waves-light btn btn-success" ruta="../php/tools/create_tools.php" data-target="modal_center_two">Crea una Herramienta
 		            <i class="material-icons left">add</i>
 		</button>
 		<button class="waves-effect waves-light btn btn-primary col s4 offset-s1" id="view_list_exit" data-target="modal_right" >
