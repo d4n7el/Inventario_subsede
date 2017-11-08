@@ -19,7 +19,7 @@ foreach ($retorno_equipos as $key => $value) { ?>
 		        </div>
 		        <div class="input-field col s4">
 		        	<i  class="material-icons prefix">business_center</i>
-		        	<input id="cantidad_total" type="text" class="validate editar_info" name="cantidad_total" autocomplete="off" value="<?php echo $value['total_quantity'] ?>">
+		        	<input id="cantidad_total" type="text" class="validate editar_info" name="cantidad_total" readonly="readonly" autocomplete="off" value="<?php echo $value['total_quantity'] ?>">
 		        	<label for="cantidad_total" class="active">Cantidad Total</label>
 		        </div>	
 		        
@@ -49,12 +49,12 @@ foreach ($retorno_equipos as $key => $value) { ?>
 				<input value="1" name="process" type="hidden" readonly="readonly">
 		        <div class="input-field col s5">
 		        	<i  class="material-icons prefix">business_center</i>
-		        	<input id="cantidad_disponible" type="number" class="validate editar_info" name="cantidad_disponible" autocomplete="off" min="0" value="" require>
+		        	<input id="cantidad_disponible" type="number" class="validate editar_info" name="cantidad_disponible" readonly="readonly" autocomplete="off" min="0" value="" require>
 		        	<label for="cantidad_disponible" class="active">Sumar a cantidad disponible</label>
 		        </div>
 		        <div class="input-field col s7">
 		        	<i  class="material-icons prefix">speaker_notes</i>
-		        	<input id="nota" type="text" class="validate editar_info" name="nota" autocomplete="off" require >
+		        	<input id="nota" type="text" readonly="readonly" class="validate editar_info" name="nota" autocomplete="off" require >
 		        	<label for="nota" class="active">Nota actuaización</label>
 		        </div>	
 		        
@@ -80,12 +80,12 @@ foreach ($retorno_equipos as $key => $value) { ?>
 				<input value="0" name="process" type="hidden" readonly="readonly">
 		        <div class="input-field col s5">
 		        	<i  class="material-icons prefix">business_center</i>
-		        	<input id="cantidad_disponible" type="number" class="validate editar_info" name="cantidad_disponible" autocomplete="off" min="0" value="" require>
+		        	<input id="cantidad_disponible" readonly="readonly" type="number" class="validate editar_info" name="cantidad_disponible" autocomplete="off" min="0" value="" require>
 		        	<label for="cantidad_disponible" class="active">Restar a cantidad disponible</label>
 		        </div>
 		        <div class="input-field col s7">
 		        	<i  class="material-icons prefix">speaker_notes</i>
-		        	<input id="nota" type="text" class="validate editar_info" name="nota" autocomplete="off" require >
+		        	<input id="nota" type="text" class="validate editar_info" name="nota" autocomplete="off" readonly="readonly" require >
 		        	<label for="nota" class="active">Nota actuaización</label>
 		        </div>	
 		        

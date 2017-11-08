@@ -3,8 +3,8 @@
 		<button type="" class="waves-effect col s4 flujo_alterno waves-light btn btn-success" ruta="../php/tools/create_tools.php" data-target="modal_center">Crea un equipo
 		            <i class="material-icons left">add</i>
 		</button>
-		<button class="waves-effect waves-light btn btn-success col s4 offset-s1" id="view_list_exit" data-target="modal_right" >
-				<i class="material-icons left color_letra_primario">visibility</i>Productos salida ()
+		<button class="waves-effect waves-light btn btn-primary col s4 offset-s1" id="view_list_exit" data-target="modal_right" >
+				<i class="material-icons left">visibility</i>Productos salida ()
 		</button>
 	</div>
 </div>

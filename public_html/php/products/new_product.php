@@ -10,7 +10,7 @@
 	$code 				= $_REQUEST["code"];
 	$retorno_product 	= $product->insert_product($producto,$descripcion,$id_user,$bodega,$categoria_tox,$code);
 	if ($retorno_product > 0) {
-		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create','graphics' => 'php/products/graphics_pie.php' );
+		$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create','graphics' => 'php/products/graphics_pie.php','closeModal' => 1 );
 	}else{
 		$respuesta = array('mensaje' => "error", 'status' => 0 );
 	}

@@ -12,7 +12,7 @@
 		if ($cantidad_total >= $cantidad ) {
 			$retorno_equipment 	= $equipment->insert_equipment($equipo,$marca,$cantidad_total,$cantidad,$bodega,$id_user);
 			if ($retorno_equipment > 0) {
-				$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create','graphics' => 'php/equipments/graphics_pie.php');
+				$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create','graphics' => 'php/equipments/graphics_pie.php','closeModal' => 1);
 			}else{
 				$respuesta = array('mensaje' => "error", 'status' => 0 );
 			}

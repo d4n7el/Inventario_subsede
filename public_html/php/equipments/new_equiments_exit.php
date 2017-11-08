@@ -36,7 +36,7 @@
 		$valores_insert = substr($valores_insert,0,-1);
 		$retorno_detall = $equipment_exit_detall->exit_equipment_detall($valores_insert);
 		if ($retorno_detall > 0 && $retorno > 0) {
-			$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create');
+			$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create','closeModal' => 1);
 		}else{
 			$respuesta = array('mensaje' => "Error", 'status' => 0);
 		}

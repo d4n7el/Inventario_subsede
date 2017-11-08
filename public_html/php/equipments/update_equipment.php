@@ -15,7 +15,7 @@
 		$cantidad_total		= $_REQUEST["cantidad_total"];
 		$retorno_equipment 	= $equipment->update_equipment($equipo,$marca,$cantidad_total,$bodega,$id_user,$id_equipo);
 		if ($retorno_equipment['retorno'] > 0) {
-			$respuesta = array('mensaje' => "Actualizacion Exitosa", 'status' => 1 );
+			$respuesta = array('mensaje' => "Actualizacion Exitosa", 'status' => 1,'closeModal' => 1 );
 		}else{
 			$respuesta = array('mensaje' => "No puedes realizar esta accion", 'status' => 0 );
 		}

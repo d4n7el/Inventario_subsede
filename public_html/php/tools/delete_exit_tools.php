@@ -10,7 +10,7 @@
 	$process 					= "delete";
 	$retorno_delete = $delete_exit->delete_tools_exit($id_user,$id_exit,$id_exit_detalle,$id_element,$nota,$process);
 	if ($retorno_delete['retorno'] == 1) {
-		$respuesta = array('mensaje' => "Eliminado correctamente", 'status' => 1, 'process' => 'exit_product' );
+		$respuesta = array('mensaje' => "Eliminado correctamente", 'status' => 1, 'process' => 'exit_product','reload' => 'search','closeModal' => 1 );
 	}else{
 		$respuesta = array('mensaje' => "Error a elminar", 'status' => 0 );
 	}

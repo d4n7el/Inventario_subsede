@@ -11,7 +11,7 @@
 	$proceso 			= $_REQUEST['proceso'];
 	$retorno_update 	= $planta->update_stock_plant($id_exit_product,$id_stock_plant,$stock,$cantidad,$id_user,$note,$proceso);
 	if ($retorno_update['retorno'] >= 1) {
-		$respuesta = array('mensaje' => "Actualización correcta", 'status' => 1, 'process' => 'update_cant_product', 'cantidad' => $cantidad);
+		$respuesta = array('mensaje' => "Actualización correcta", 'status' => 1, 'process' => 'update_cant_product', 'cantidad' => $cantidad, 'reload' => 'search','closeModal' => 1);
 	}else{
 		$respuesta = array('mensaje' => $retorno_update['retorno'], 'status' => 0 );
 	}

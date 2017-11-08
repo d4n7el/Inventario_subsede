@@ -32,7 +32,7 @@
 			$insert_values = substr($insert_values, 0, -1);
 			$retorno_detalle = $tools_exit_detall->exit_tools_detall($insert_values);
 			if ($retorno_detalle > 0){
-				$respuesta = array('mensaje' => "registro exitoso", 'status' => 1, "process" => 'exit_product' );
+				$respuesta = array('mensaje' => "registro exitoso", 'status' => 1, "process" => 'exit_product','closeModal' => 1 );
 			}else{
 				$respuesta = array('mensaje' => "error", 'status' => 0 );
 			}
