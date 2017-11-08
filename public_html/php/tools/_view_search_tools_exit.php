@@ -3,8 +3,8 @@
 		<button type="" class="waves-effect col s4 flujo_alterno waves-light btn btn-success" ruta="../php/equipments/create_equipment.php" data-target="modal_center">Crea un equipo
 		            <i class="material-icons left">add</i>
 		</button>
-		<button class="waves-effect waves-light btn btn-success col s4 offset-s1" id="view_list_exit" data-target="modal_right" >
-				<i class="material-icons left color_letra_primario">visibility</i>Productos salida ()
+		<button class="waves-effect waves-light btn btn-primary col s4 offset-s1" id="view_list_exit" data-target="modal_right" >
+				<i class="material-icons left color_letra_secundario">visibility</i>Productos salida ()
 		</button>
 	</div>
 </div>
@@ -37,12 +37,16 @@
               			<p class="color_letra_secundario center">Total : <?php echo $tool['total_quantity']; ?></p>
               			<p class="color_letra_secundario center">Disponible : <?php echo $tool['quantity_available']; ?></p>
               			<input type="hidden" name="id_element[]" value="<?php echo $tool['id_tool'] ?>" readonly>
-      					<a class="btn centrar btn-success halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $tool['id_tool']."_".$tool['quantity_available'] ?>">
-      						Añadir a salida
-      					</a>
-      					<a class="btn centrar btn-success  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $tool['id_tool']."_".$equipo['quantity_available'] ?>">
-      						Elimiinar de salida
-      					</a>
+              			<div class="row btn-fijo">
+	      					<a class="btn centrar btn-success halfway-fab waves-effect waves-light col s12 add_exit_plant" divs="<?php echo $tool['id_tool']."_".$tool['quantity_available'] ?>">
+	      						<i class="material-icons left color_letra_primario">add</i>
+	      					</a>
+      					</div>
+      					<div class="row btn-fijo">
+	      					<a class="btn centrar btn-success  halfway-fab waves-effect hide waves-light col s12 delete_exit_plant" divs="<?php echo $tool['id_tool']."_".$tool['quantity_available'] ?>">
+	      						<i class="material-icons left color_letra_primario">clear</i>
+	      					</a>
+      					</div>
 	            	</div>
 	          	</div>
 	        </div>

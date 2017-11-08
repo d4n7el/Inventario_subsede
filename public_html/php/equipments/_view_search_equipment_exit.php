@@ -35,12 +35,16 @@
               			<p class="color_letra_secundario center">Total : <?php echo $equipo['total_quantity']; ?></p>
               			<p class="color_letra_secundario center">Disponible : <?php echo $equipo['quantity_available']; ?></p>
               			<input type="hidden" name="id_element[]" value="<?php echo $equipo['id_equipment'] ?>" readonly>
-      					<a class="btn centrar btn-success halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $equipo['id_equipment']."_".$equipo['quantity_available']?>">
-      						Añadir a salida
-      					</a>
-      					<a class="btn centrar btn-success  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $equipo['id_equipment']."_".$equipo['quantity_available'] ?>">
-      						Elimiinar de salida
-      					</a>
+              			<div class="row btn-fijo">
+	      					<a class="btn centrar btn-success halfway-fab waves-effect waves-light col s12  add_exit_plant" divs="<?php echo $equipo['id_equipment']."_".$equipo['quantity_available']?>">
+	      						<i class="material-icons left color_letra_primario">add</i>
+	      					</a>
+	      				</div>
+      					<div class="row btn-fijo">
+	      					<a class="btn centrar btn-success  halfway-fab waves-effect hide waves-light col s12  delete_exit_plant" divs="<?php echo $equipo['id_equipment']."_".$equipo['quantity_available'] ?>">
+	      						<i class="material-icons left color_letra_primario">clear</i>
+	      					</a>
+      					</div>
 	            	</div>
 	          	</div>
 	        </div>

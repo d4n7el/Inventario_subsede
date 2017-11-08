@@ -45,12 +45,16 @@
 
               			<input type="hidden" name="lote_id[]" value="<?php echo $stock_search['id_stock'] ?>" readonly>
               			<input type="hidden" name="producto_id[]" value="<?php echo $stock_search['id_product'] ?>" readonly>
-      					<a class="btn centrar <?php echo ($stock_search['toxicological'] != "No")? $fondo: "btn-success" ?> halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $stock_search['id_stock']."_".$stock_search['amount'] ?>">
-      						Añadir a salida
-      					</a>
-      					<a class="btn centrar <?php echo ($stock_search['toxicological'] != "No")? $fondo: "btn-success" ?>  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $stock_search['id_stock']."_".$stock_search['amount'] ?>">
-      						Elimiinar de salida
-      					</a>
+              			<div class="row btn-fijo">
+	      					<a class="btn centrar <?php echo ($stock_search['toxicological'] != "No")? $fondo: "btn-success" ?> halfway-fab waves-effect waves-light  add_exit_plant col s12" divs="<?php echo $stock_search['id_stock']."_".$stock_search['amount'] ?>">
+	      						<i class="material-icons left color_letra_primario">add</i>
+	      					</a>
+      					</div>
+      					<div class="row btn-fijo">
+	      					<a class="btn centrar <?php echo ($stock_search['toxicological'] != "No")? $fondo: "btn-success" ?>  halfway-fab waves-effect hide waves-light  delete_exit_plant col s12" divs="<?php echo $stock_search['id_stock']."_".$stock_search['amount'] ?>">
+	      						<i class="material-icons left color_letra_primario">clear</i>
+	      					</a>
+	      				</div>
 	            	</div>
 	          	</div>
 	        </div>

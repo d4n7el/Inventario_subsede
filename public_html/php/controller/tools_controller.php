@@ -49,7 +49,7 @@
 		}
 		public function outside($id_tool){
 			try {
-				$sql_consult = $this->db->prepare("SELECT COUNT(id_exit_detall) AS count FROM exit_tools_detall INNER JOIN exit_tools_master ON exit_tools_detall.id_exit = exit_tools_master.id_exit WHERE id_tool = ? AND exit_tools_detall.returned = 0" );
+				$sql_consult = $this->db->prepare("SELECT SUM(quantity) AS count FROM exit_tools_detall INNER JOIN exit_tools_master ON exit_tools_detall.id_exit = exit_tools_master.id_exit WHERE id_tool = ? AND exit_tools_detall.returned = 0" );
 				$sql_consult->execute(array($id_tool));
 				$result = $sql_consult->fetch();
 				$this->db = null;

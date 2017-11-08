@@ -38,7 +38,7 @@
 						<?php  
 	    			}?>
 					<div class="card-action fondo_negro" >
-						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products" class="link_page color_letra_primario" titulo="Ver productos">Ver productos<i class="material-icons right color_letra_primario">visibility</i></a>
+						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/index.php" class="link_page color_letra_primario" titulo="Ver productos">Ver productos<i class="material-icons right color_letra_primario">visibility</i></a>
 					</div>
 					<?php
 	    			if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B' ) { ?>
@@ -74,7 +74,7 @@
 						<?php  
 	    			}?>
 					<div class="card-action fondo_negro" >
-						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments" class="link_page color_letra_primario" titulo="Ver Equipo">Ver Equipo<i class="material-icons right color_letra_primario">visibility</i></a>
+						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/index.php" class="link_page color_letra_primario" titulo="Ver Equipo">Ver Equipo<i class="material-icons right color_letra_primario">visibility</i></a>
 					</div>
 					<div class="card-action fondo_negro " >
 						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/equiment_exit.php" id="" class="link_page color_letra_primario" titulo="Nueva salida equipo">Salida Equipo<i class="material-icons right color_letra_primario">add</i></a>
@@ -98,7 +98,7 @@
 						<?php  
 	   				}?>
 					<div class="card-action fondo_negro" >
-						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools" class="link_page color_letra_primario" titulo="Ver Herramientas">Ver Herramientas<i class="material-icons right color_letra_primario">visibility</i></a>
+						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/index.php" class="link_page color_letra_primario" titulo="Ver Herramientas">Ver Herramientas<i class="material-icons right color_letra_primario">visibility</i></a>
 					</div>
 					<div class="card-action fondo_negro" >
 						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/outlet_tools.php" id="" class="link_page color_letra_primario" titulo="nueva salida herramientas">Salidas<i class="material-icons right color_letra_primario">add</i></a>
@@ -121,7 +121,7 @@
 						<?php  
 	   				}?>
 					<div class="card-action fondo_negro" >
-						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products" class="link_page color_letra_primario" titulo="Ver productos">Ver productos<i class="material-icons right color_letra_primario">visibility</i></a>
+						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/index.php" class="link_page color_letra_primario" titulo="Ver productos">Ver productos<i class="material-icons right color_letra_primario">visibility</i></a>
 					</div>
 					<?php
 	    			if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B' ) { ?>

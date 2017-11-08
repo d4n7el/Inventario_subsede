@@ -1,5 +1,5 @@
-<button class="waves-effect waves-light btn btn-success col s4 offset-s8" id="view_list_exit" data-target="modal_right" >
-		<i class="material-icons left color_letra_primario">visibility</i>Productos salida ()
+<button class="waves-effect waves-light btn btn-primary col s4 offset-s8" id="view_list_exit" data-target="modal_right" >
+		<i class="material-icons left color_letra_secundario">visibility</i>Productos salida ()
 	</button>
 <form action="<?php $_SERVER['DOCUMENT_ROOT']?>/php/plant/exit_plant.php" class="search_exit_plant">			
 	<div class="input-field col s12 m6">
