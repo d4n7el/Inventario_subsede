@@ -1,10 +1,15 @@
 <div class="row">
 	<div class="alternos col s12">
+	<?php
+	if (isset($_SESSION["id_user_activo"]) AND $_SESSION["id_user_activo_role"] != "A1-_1B" AND $_SESSION["id_user_activo_role"] != "E_1_S1") { ?>
 		<button type="" class="waves-effect col s4 flujo_alterno waves-light btn btn-success" ruta="../php/tools/create_tools.php" data-target="modal_center_two">Crea una Herramienta
 		            <i class="material-icons left">add</i>
 		</button>
+		<?php
+		}
+	?>
 		<button class="waves-effect waves-light btn btn-primary col s4 offset-s1" id="view_list_exit" data-target="modal_right" >
-				<i class="material-icons left color_letra_secundario">visibility</i>Productos salida ()
+				<i class="material-icons left color_letra_secundario">visibility</i>Salida Herramienta ()
 		</button>
 	</div>
 </div>

@@ -1,6 +1,6 @@
 <?php  
 	session_start();
-	if (isset($_SESSION["id_user_activo"])) {
+	if (isset($_SESSION["id_user_activo"]) AND $_SESSION["id_user_activo_role"] != "A1-_1B" AND $_SESSION["id_user_activo_role"] != "E_1_S1") {
 		$col = (isset($_REQUEST['alterno']) ? "s12" : "s6" );
 ?>
 		<div class="row">
