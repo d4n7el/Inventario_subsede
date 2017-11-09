@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 08-11-2017 a las 04:49:43
+-- Tiempo de generación: 09-11-2017 a las 04:05:11
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -575,7 +575,8 @@ CREATE TABLE `get_products` (
 -- (Véase abajo para la vista actual)
 --
 CREATE TABLE `get_stock` (
-`code` varchar(30)
+`id_measure` int(11)
+,`code` varchar(30)
 ,`toxicological` varchar(5)
 ,`name_receive` varchar(101)
 ,`zone` set('A','B')
@@ -624,7 +625,7 @@ CREATE TABLE `index_stock_plant` (
 ,`state` tinyint(4)
 ,`quantity` float
 ,`name_receive` varchar(101)
-,`prefix_measure` varchar(20)
+,`prefix_measure` varchar(6)
 ,`id_proceso` int(11)
 ,`date_create` timestamp
 ,`name_product` varchar(100)
@@ -792,6 +793,13 @@ CREATE TABLE `recover_password` (
   `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `recover_password`
+--
+
+INSERT INTO `recover_password` (`id_recover`, `code_recover`, `email_user`, `use_code`, `fecha_creacion`) VALUES
+(1, 'E211422X', 'd4n7elfelipe@gmail.com', 1, '2017-11-08 03:57:53');
+
 -- --------------------------------------------------------
 
 --
@@ -936,7 +944,7 @@ CREATE TABLE `tools` (
 INSERT INTO `tools` (`id_tool`, `name_tool`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `zone`, `state`, `create_date`) VALUES
 (10, 'Machetes', 'Machetes', 23, 23, 6, 29, 'B', '1', '2017-11-06 23:25:20'),
 (11, 'Pizon', 'pizon', 10, 10, 6, 29, 'B', '1', '2017-11-08 02:05:49'),
-(12, 'martillos', 'martilllos', 23, 1, 6, 29, 'B', '1', '2017-11-08 02:07:27');
+(12, 'martillos', 'martilllos', 23, 3, 6, 29, 'B', '1', '2017-11-08 02:07:27');
 
 -- --------------------------------------------------------
 
@@ -961,7 +969,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `name_user`, `last_name_user`, `email_user`, `cedula`, `pass`, `id_cellar`, `id_role`, `state`) VALUES
-(7, 'Daniel Felipe', 'Zamora', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$bPJBNXLV7UnbSfnEh5h/QuEudZgz3a19QpHJYSfI09ztxsCtDOGay', 2, 1, 1),
+(7, 'Daniel Felipe', 'Zamora', 'd4n7elfelipe@gmail.com', '123456789', '$2y$10$waYTdvWvtZhshGu/iyn4U.rVxSpy5TKB73JSOTNz8efxtP1DZ704K', 2, 1, 1),
 (29, 'Alejandro', 'rojas', 'alejandrojas@gmail.com', '1088354984', '$2y$10$iuWHXvTGKc5BOMjJcm3jUed7k.t0aZuY9TkrjKJnhkzqpXQ8moHw6', 2, 2, 1),
 (30, 'Julio', 'guapacha', 'jcguapacha2@misena.edu.co', '1088299682', '$2y$10$FlZdjPR7tYUAev.2SGAss.xcXXg99h0LQh7pCERrIkuFlPDrfo0RO', 7, 3, 1),
 (31, 'Stefania ', 'casas', 'ecasas05@misena.edu.co', '1093227968', '$2y$10$MnTN0MgdpvAK6uvS9uQ74.WzizVj5DWv8HBkoNTHNkxT4vomee7pG', 5, 4, 1),
@@ -984,7 +992,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `get_stock`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `get_stock`  AS  select `products`.`code` AS `code`,`products`.`toxicological_category` AS `toxicological`,concat(`user`.`name_user`,' ',`user`.`last_name_user`) AS `name_receive`,`products`.`zone` AS `zone`,`stock`.`id_stock` AS `id_stock`,`stock`.`state` AS `state`,`stock`.`nom_lot` AS `nom_lot`,`stock`.`amount` AS `amount`,`stock`.`expiration_date` AS `expiration_date`,`stock`.`expiration_create` AS `expiration_create`,`stock`.`comercializadora` AS `comercializadora`,`products`.`id_product` AS `id_product`,`products`.`name_product` AS `name_product`,`measure`.`prefix_measure` AS `prefix_measure`,`measure`.`name_measure` AS `name_measure`,`products`.`id_user_create` AS `id_user_create`,`products`.`id_cellar` AS `id_cellar`,`stock`.`expiration_create` AS `creation_date`,`cellar`.`name_cellar` AS `name_cellar` from ((((`stock` join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) join `user` on((`stock`.`id_user_create` = `user`.`id_user`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `get_stock`  AS  select `measure`.`id_measure` AS `id_measure`,`products`.`code` AS `code`,`products`.`toxicological_category` AS `toxicological`,concat(`user`.`name_user`,' ',`user`.`last_name_user`) AS `name_receive`,`products`.`zone` AS `zone`,`stock`.`id_stock` AS `id_stock`,`stock`.`state` AS `state`,`stock`.`nom_lot` AS `nom_lot`,`stock`.`amount` AS `amount`,`stock`.`expiration_date` AS `expiration_date`,`stock`.`expiration_create` AS `expiration_create`,`stock`.`comercializadora` AS `comercializadora`,`products`.`id_product` AS `id_product`,`products`.`name_product` AS `name_product`,`measure`.`prefix_measure` AS `prefix_measure`,`measure`.`name_measure` AS `name_measure`,`products`.`id_user_create` AS `id_user_create`,`products`.`id_cellar` AS `id_cellar`,`stock`.`expiration_create` AS `creation_date`,`cellar`.`name_cellar` AS `name_cellar` from ((((`stock` join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) join `user` on((`stock`.`id_user_create` = `user`.`id_user`))) ;
 
 -- --------------------------------------------------------
 
@@ -1002,7 +1010,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `index_stock_plant`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `index_stock_plant`  AS  select concat('Interno') AS `proceso`,`planta_stock`.`state` AS `state`,`planta_stock`.`quantity` AS `quantity`,`planta_stock`.`name_user` AS `name_receive`,`planta_stock`.`prefix_measure` AS `prefix_measure`,`planta_stock`.`id_stock_plant` AS `id_proceso`,`planta_stock`.`date_create` AS `date_create`,`planta_stock`.`name_product` AS `name_product`,`planta_stock`.`name_cellar` AS `name_cellar`,`planta_stock`.`nom_lot` AS `nom_lot`,`planta_stock`.`expiration_date` AS `expiration_date`,`planta_stock`.`id_stock` AS `id_stock`,`planta_stock`.`code` AS `code`,`planta_stock`.`toxicological` AS `toxicological` from `planta_stock` union select concat('Externo') AS `proccess`,`get_stock`.`state` AS `state`,`get_stock`.`amount` AS `amount`,`get_stock`.`name_receive` AS `name_receive`,`get_stock`.`name_measure` AS `name_measure`,`get_stock`.`id_stock` AS `id_stock`,`get_stock`.`creation_date` AS `creation_date`,`get_stock`.`name_product` AS `name_product`,`get_stock`.`name_cellar` AS `name_cellar`,`get_stock`.`nom_lot` AS `nom_lot`,`get_stock`.`expiration_date` AS `expiration_date`,`get_stock`.`id_stock` AS `id_stock`,`get_stock`.`code` AS `code`,`get_stock`.`toxicological` AS `toxicological` from `get_stock` where (`get_stock`.`zone` = 'B') ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `index_stock_plant`  AS  select concat('Interno') AS `proceso`,`planta_stock`.`state` AS `state`,`planta_stock`.`quantity` AS `quantity`,`planta_stock`.`name_user` AS `name_receive`,`planta_stock`.`prefix_measure` AS `prefix_measure`,`planta_stock`.`id_stock_plant` AS `id_proceso`,`planta_stock`.`date_create` AS `date_create`,`planta_stock`.`name_product` AS `name_product`,`planta_stock`.`name_cellar` AS `name_cellar`,`planta_stock`.`nom_lot` AS `nom_lot`,`planta_stock`.`expiration_date` AS `expiration_date`,`planta_stock`.`id_stock` AS `id_stock`,`planta_stock`.`code` AS `code`,`planta_stock`.`toxicological` AS `toxicological` from `planta_stock` union select concat('Externo') AS `proccess`,`get_stock`.`state` AS `state`,`get_stock`.`amount` AS `amount`,`get_stock`.`name_receive` AS `name_receive`,`get_stock`.`prefix_measure` AS `prefix_measure`,`get_stock`.`id_stock` AS `id_stock`,`get_stock`.`creation_date` AS `creation_date`,`get_stock`.`name_product` AS `name_product`,`get_stock`.`name_cellar` AS `name_cellar`,`get_stock`.`nom_lot` AS `nom_lot`,`get_stock`.`expiration_date` AS `expiration_date`,`get_stock`.`id_stock` AS `id_stock`,`get_stock`.`code` AS `code`,`get_stock`.`toxicological` AS `toxicological` from `get_stock` where (`get_stock`.`zone` = 'B') ;
 
 -- --------------------------------------------------------
 
@@ -1242,7 +1250,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
 ALTER TABLE `recover_password`
-  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
