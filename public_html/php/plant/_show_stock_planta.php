@@ -4,8 +4,8 @@
 			<img src="/image/logo_sena_min.png" alt="">
 		</div>
 		<div class="col s8 i1">
-			<h5 class=" col s12 centrar color_letra_secundario">Fecha de salida</h5>
-			<h5 class="titulo col s12 centrar color_letra_secundario"><?php echo $retorno_planta[0]['date_create']; ?></h5>
+			<h5 class=" col s12 centrar color_letra_secundario">Fecha de Ingreso</h5>
+			<h5 class="titulo col s12 centrar color_letra_secundario"><?php echo (isset($retorno_planta[0]['date_create'])) ? $retorno_planta[0]['date_create'] : $retorno_planta[0]['expiration_create'] ; ?></h5>
 		</div>
 		<div class="col s4 i3">
 			<h5 class=" col s12 centrar color_letra_secundario">Entregó</h5>

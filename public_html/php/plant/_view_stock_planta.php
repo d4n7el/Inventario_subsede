@@ -90,16 +90,18 @@
 				<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/show_stock_plant.php" class="col s12 btn btn-primary material-icons modal-trigger  view_entry_inform <?php echo $fondo ?>" data-target="modal_right" procceso="<?php echo $value['proceso']  ?>" id_process="<?php echo $value['id_proceso'] ?>" fecha="<?php echo $value['date_create'] ?>">visibility</button>
 			</div>
 			<?php  
-				if ($value['state'] == 1) { ?>
-					<div class="col s1 second_cell">
-						<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/edit_stock_plant.php" class="col s12 btn btn-primary material-icons <?php echo ($_SESSION["user_zone"] == "A") ? "color_letra_secundario" : 'color_letra_terceario' ?> modal-trigger edit_entry_cant_inform" procceso="<?php echo $value['proceso']  ?>" id_process="<?php echo $value['id_proceso'] ?>" data-target="modal_center" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" ruta_update="../php/plant/update_stock_plant.php" >create</button>
-					</div>
-					<?php
-				}
-			?>
-			<div class="col s1 second_cell">
-				<button type="" class="col s12 btn btn-primary material-icons <?php echo ($_SESSION["user_zone"] == "A") ? "color_letra_secundario" : 'color_letra_terceario' ?> modal-trigger view_info_stock" id_exit_product="<?php echo $value['id_exit_product'] ?>" data-target="modal_right" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" id_plant="<?php echo $value['id_stock_plant']?>">receipt</button>
-			</div>
+			if ($value['state'] == 1) { ?>
+				<div class="col s1 second_cell">
+					<button type="" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/edit_stock_plant.php" class="col s12 btn btn-primary material-icons <?php echo ($_SESSION["user_zone"] == "A") ? "color_letra_secundario" : 'color_letra_terceario' ?> modal-trigger edit_entry_cant_inform" procceso="<?php echo $value['proceso']  ?>" id_process="<?php echo $value['id_proceso'] ?>" data-target="modal_center" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" ruta_update="../php/plant/update_stock_plant.php" >create</button>
+				</div>
+				<?php
+			}
+			if ($value['proceso'] == "Externo") { ?>
+				<div class="col s1 second_cell">
+					<button type="" class="col s12 btn btn-primary material-icons <?php echo ($_SESSION["user_zone"] == "A") ? "color_letra_secundario" : 'color_letra_terceario' ?> modal-trigger view_info_stock" id_exit_product="<?php echo $value['id_exit_product'] ?>" data-target="modal_right" stock="<?php echo $value['id_stock'] ?>" cantidad="<?php echo $value['quantity'] ?>" cantidad_disponible="<?php echo $value['quantity'] ?>" id_plant="<?php echo $value['id_stock_plant']?>">receipt</button>
+				</div>
+				<?php
+			} ?>
 		</div>
 		<?php
 	}

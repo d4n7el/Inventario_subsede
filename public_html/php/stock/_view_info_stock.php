@@ -8,18 +8,14 @@ if (count($retorno_stock) > 0) {
 			<section>
 				<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/update_stock.php" class="update_info" accept-charset="utf-8">
 				         <input id="nombre_producto" type="hidden" class="validate editar_info" name="id_stock" autocomplete="off" value="<?php echo $value['id_stock'] ?>"  readonly="readonly">
+				         <input id="nombre_producto" type="hidden" class="validate editar_info" name="product" autocomplete="off" value="<?php echo $value['id_product'] ?>"  readonly="readonly">
 				    <h6 class="titulo">	
 						<?php echo $value['name_product']." - ". $value['name_cellar']; ?>
 				    </h6>
-
 					<div class="input-field col s4 m4">
-				           <?php require($_SERVER['DOCUMENT_ROOT'].'/php/products/view_selects_products.php'); ?>
-				    </div>
-
-					<div class="input-field col s4 m4">
-				           <i class="material-icons prefix">dashboard</i>
-				           <input id="lote" type="text" class="validate editar_info" name="nombre_lote" autocomplete="off" value="<?php echo $value['nom_lot'] ?>"  readonly="readonly">
-				           <label for="lote" class="active">Lote</label>
+			           <i class="material-icons prefix">dashboard</i>
+			           <input id="lote" type="text" class="validate editar_info" name="nombre_lote" autocomplete="off" value="<?php echo $value['nom_lot'] ?>"  readonly="readonly">
+			           <label for="lote" class="active">Lote</label>
 				    </div>
 					<div class="input-field col s4  m4">
 				        <i class="material-icons prefix">filter_9_plus</i>
