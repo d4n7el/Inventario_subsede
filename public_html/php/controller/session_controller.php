@@ -22,7 +22,7 @@
 		}
 		public function init_session_user_code($email_user,$cod_user){
 			try {
-				$sql_consult = $this->db->prepare("SELECT user.name_user, user.last_name_user, user.id_user, user.cedula, user.email_user,recover_password.id_recover, recover_password.code_recover FROM recover_password INNER JOIN user ON binary recover_password.email_user  = binary user.email_user WHERE recover_password.email_user  = ? AND recover_password.code_recover = ? AND use_code = 0 LIMIT 1");
+				$sql_consult = $this->db->prepare("SELECT * FROM recover_password INNER JOIN user ON binary recover_password.email_user  = binary user.email_user INNER JOIN roles ON user.id_role = roles.id_role INNER JOIN cellar ON user.id_cellar = cellar.id_cellar WHERE recover_password.email_user  = ? AND recover_password.code_recover = ? AND use_code = 0 LIMIT 1");
 				$sql_consult->execute(array($email_user,$cod_user));
 				$result = $sql_consult->fetch();
 				$this->db = null;

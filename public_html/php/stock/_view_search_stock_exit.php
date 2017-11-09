@@ -38,7 +38,7 @@
 			            <label for="nota" class="">Nota</label>
 		        	</div>
 	           		<div class="card-content white-text">
-              			<p class="color_letra_secundario center">Equipo : <?php echo $stock_search['name_product']; ?></p>
+              			<p class="color_letra_secundario center">Producto : <?php echo $stock_search['name_product']; ?></p>
               			<p class="color_letra_secundario center">Bodega : <?php echo $stock_search['name_cellar']; ?></p>
               			<p class="color_letra_secundario center">Lote : <?php echo $stock_search['nom_lot']; ?></p>
               			<p class="color_letra_secundario center">Disponible : <?php echo $stock_search['amount']; ?></p>

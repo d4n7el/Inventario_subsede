@@ -8,6 +8,7 @@ $(document).on('ready',function(){
 		$(this).closest('div.card-action').addClass('fondo_claro').removeClass('fondo_negro');
 		var ruta = $(this).attr('href');
 		$('div.list_add_exit_plant').html("");
+		$('div.list_add_exit_plant').html("");
 		$("div#vista_ventana").load(ruta,function() {
 			limpiar_variables();
 			recargar_eventos();
