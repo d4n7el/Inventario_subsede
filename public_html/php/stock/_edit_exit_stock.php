@@ -1,5 +1,4 @@
 <div class="row">
-	aaa
 	<h6 class="titulo fondo_negro paddin1 color_letra_primario center">
 		Actualización de salida de <?php echo $retorno_edit_exit[0]['name_product'] ?>
 	</h6>

@@ -19,7 +19,7 @@
 		}else{
 			$respuesta = array('mensaje' => "No puedes realizar esta accion", 'status' => 0 );
 		}
-	}elseif (isset($_REQUEST["cantidad_disponible"]) && isset($_REQUEST["nota"]) && isset($_REQUEST["process"])) {
+	}elseif (isset($_REQUEST["cantidad_disponible"]) && isset($_REQUEST["nota"]) && isset($_REQUEST["process"]) && $_REQUEST["cantidad_disponible"] > 0 && $_REQUEST["nota"] != "" ) {
 		$retorno_equipment 	= $equipment->update_equipment_available($id_equipo,$disponible,$nota,$proceso);
 		if ($retorno_equipment['retorno'] == 1) {
 			$respuesta = array('mensaje' => "Actualizacion exitosa" , 'status' => 1, 'closeModal' => 1 );
@@ -28,6 +28,8 @@
 		}elseif ($retorno_equipment['retorno'] == -2) {
 			$respuesta = array('mensaje' => "La cantidad deisponible no puede superar el total" , 'status' => 0 );
 		}
+	}else{
+		$respuesta = array('mensaje' => "Todos los campos son requeridos" , 'status' => 0 );
 	}
 	echo json_encode($respuesta);
 ?>

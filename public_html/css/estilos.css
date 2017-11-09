@@ -10,8 +10,35 @@ div#modal_mensajes .modal-content{
 .color_letra_secundario{
 	color: rgb(33,49,62) !important;
 }
+input#darAlta::-webkit-slider-thumb,input#darBaja::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	height: 1.5em;
+	width: 1.5em;
+	border-radius: 50%;
+	
+	cursor: pointer;
+	margin-top: -.7em;
+}
+input#darAlta::-webkit-slider-thumb{
+	background-color: rgb(33,49,62) !important;
+}
+input#darBaja::-webkit-slider-thumb {
+	background-color: rgb(242,83,85) !important;
+}
 #modal_mensajes{
 	z-index: 9999999999;
+}
+input#darAlta+.thumb{
+	background-color: rgb(33,49,62) !important;
+}
+input#darAlta{
+	background-color: rgb(33,49,62) !important;
+}
+input#darBaja+.thumb{
+	background-color: rgb(242,83,85) !important;
+}
+input#darBaja{
+	background-color: rgb(242,83,85) !important;
 }
 .color_letra_danger{
 	color: rgb(242,83,85) !important;
