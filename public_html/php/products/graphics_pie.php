@@ -5,7 +5,7 @@
 	$data 	= [];
 	$label 	= [];
 	foreach ($product_pie as $key => $value) {
-		array_push($label, $value['name_cellar']);
+		array_push($label, $value['name_product']);
 		array_push($data, $value['count']);
 	}
 	$text = "Grafica Productos / Bodega";

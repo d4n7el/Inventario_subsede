@@ -20,6 +20,9 @@
 			            <input id="cantidad" step="0.01" type="number" class="validate search" name="cantidad" autocomplete="off" min="0" max="<?php echo $exit['quantity'] ?>" required>
 			            <label for="cantidad" class="">disponible <?php echo $exit['quantity']." ".$exit['prefix_measure']; ?></label>
 		        	</div>
+              <figure class="icon-cellar col s12 centrar">
+                <img src="<?php echo $exit['icon_cellar'] ?>" alt="">
+              </figure>
 	           		<div class="card-content white-text">
            				<h5 class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo ($fecha < $vencimiento) ? "" : "Vencido" ?></h5>
               			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo "Producto: ".$exit['name_product'] ?></p>

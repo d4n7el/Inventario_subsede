@@ -37,6 +37,9 @@
 			            <input id="nota" type="text" class="validate search" name="nota[]" autocomplete="off"  required>
 			            <label for="nota" class="">Nota</label>
 		        	</div>
+		        	<figure class="icon-cellar col s12 centrar">
+		        		<img src="<?php echo $stock_search['icon_cellar'] ?>" alt="">
+		        	</figure>
 	           		<div class="card-content white-text">
               			<p class="color_letra_secundario center">Producto : <?php echo $stock_search['name_product']; ?></p>
               			<p class="color_letra_secundario center">Bodega : <?php echo $stock_search['name_cellar']; ?></p>

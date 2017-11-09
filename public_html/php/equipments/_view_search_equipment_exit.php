@@ -30,6 +30,9 @@
 			            <input id="nota" type="text" class="validate search" name="nota[]" autocomplete="off" required>
 			            <label for="nota" class="">Nota</label>
 		        	</div>
+		        	<figure class="icon-cellar col s12 centrar">
+		        		<img src="../image/equipos.svg" alt="">
+		        	</figure>
 	           		<div class="card-content white-text">
               			<p class="color_letra_secundario center">Equipo : <?php echo $equipo['name_equipment']; ?></p>
               			<p class="color_letra_secundario center">Total : <?php echo $equipo['total_quantity']; ?></p>

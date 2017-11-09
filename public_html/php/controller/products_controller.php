@@ -65,14 +65,14 @@
 		}
 		public function graphics_pie(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT cellar.name_cellar, COUNT(id_product) as count FROM products INNER JOIN cellar ON products.id_cellar = cellar.id_cellar WHERE products.zone = '$this->zone'  GROUP BY products.id_cellar");
+				$sql_consult = $this->db->prepare("SELECT products.name_product, SUM(stock.amount) as count FROM products INNER JOIN stock ON products.id_product = stock.id_product  GROUP BY products.id_product ORDER BY SUM(stock.amount) DESC LIMIT 13");
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;
 				
 			} catch (PDOException $e) {
-            	$e->getMessage();
+            	echo $e->getMessage();
         	}
 		}
 		public function get_products($producto,$bodega,$fecha_inicial,$fecha_final,$limit, $offset){

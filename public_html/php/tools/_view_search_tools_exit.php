@@ -13,7 +13,7 @@
 		<div class="input-field col s12 m6 paddin2">
 	        <i class="material-icons prefix">send</i>
 	        <input id="search" type="text" class="validate" name="search" value="<?php echo ($tool_search == "%%") ? "" : $tool_search  ?>" autocomplete="off" required>
-	        <label for="search" class="active">Nombre del equipo</label>
+	        <label for="search" class="active">Nombre de la herramienta</label>
 	    </div>
 	    <input type="submit" class="hide">
 	</form>
@@ -25,15 +25,18 @@
 			<div class="col s12 m12 l4" id="<?php echo $tool['id_tool']."_".$tool['quantity_available'] ?>" style="padding: 0px;">
 	          	<div class="card">
 	          		<div class="input-field col s12 m12 hide cantidad">
-			            <input id="cantidad" type="number" class="validate search" name="cantidad[]" autocomplete="off" min="0" max="<?php echo $equipo['quantity_available'] ?>" required>
+			            <input id="cantidad" type="number" class="validate search" name="cantidad[]" autocomplete="off" min="0" max="<?php echo $tool['quantity_available'] ?>" required>
 			            <label for="cantidad" class="">disponible <?php echo $tool['quantity_available']; ?></label>
 		        	</div>
 		        	<div class="input-field col s12 m12 hide cantidad">
 			            <input id="nota" type="text" class="validate search" name="nota[]" autocomplete="off"  required>
 			            <label for="nota" class="">Nota</label>
 		        	</div>
+		        	<figure class="icon-cellar col s12 centrar">
+		        		<img src="../image/herramientas.svg" alt="">
+		        	</figure>
 	           		<div class="card-content white-text">
-              			<p class="color_letra_secundario center">Equipo : <?php echo $tool['name_tool']; ?></p>
+              			<p class="color_letra_secundario center">Herramienta : <?php echo $tool['name_tool']; ?></p>
               			<p class="color_letra_secundario center">Total : <?php echo $tool['total_quantity']; ?></p>
               			<p class="color_letra_secundario center">Disponible : <?php echo $tool['quantity_available']; ?></p>
               			<input type="hidden" name="id_element[]" value="<?php echo $tool['id_tool'] ?>" readonly>
