@@ -14,12 +14,12 @@
 	<header>
   		<nav>
 	    <div class="nav-wrapper fondo_negro">
-	    	<a href="../index.php" class="brand-logo" style="margin-left: 1em">
+	    	<a href="../index.php" class="brand-logo hide-on-med-and-down" style="margin-left: 1em">
 	    		<img src="../image/sena.svg" alt="">
 	    	</a>
 	    	<?php 
 	      	if (isset($_SESSION["name_user_activo"])) { ?>
-				<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<ul id="nav-mobile" class="right ">
 					<li>
 						<a class=" btn-nav btn view_user" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" id_user="<?php echo $_SESSION["id_user_activo"] ?>">
 							<?php echo $_SESSION["name_user_activo"]." - ".$_SESSION["id_user_activo_role"]." - ".$_SESSION["user_zone"] ?>

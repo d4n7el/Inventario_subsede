@@ -24,6 +24,12 @@ figure.icon-cellar img{
 	max-height: 4em;
 	min-height: 4em;
 }
+i.mas:hover{
+	cursor: pointer;
+}
+i.menos:hover{
+	cursor: pointer;
+}
 input#darAlta::-webkit-slider-thumb{
 	background-color: rgb(33,49,62) !important;
 }

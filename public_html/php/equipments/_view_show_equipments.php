@@ -50,8 +50,8 @@ foreach ($retorno_equipos as $key => $value) { ?>
 					<input value="1" name="process" type="hidden" readonly="readonly">
 
 			        <div class="input-field col s12">
-			        	<i  class="material-icons left">remove</i>
-			        	<i  class="material-icons right">add</i>
+			        	<i  class="material-icons menos left">remove</i>
+			        	<i  class="material-icons mas right">add</i>
 						<p class="range-field">
 					      	<input type="range" value="0"  name="cantidad_disponible" id="darAlta" min="0" max="100" require class="validate" />
 					    </p>
@@ -81,8 +81,8 @@ foreach ($retorno_equipos as $key => $value) { ?>
 					<input value="<?php echo $value['id_equipment'] ?>" name="id_equipo" type="hidden" readonly="readonly">
 					<input value="0" name="process" type="hidden" readonly="readonly">
 			        <div class="input-field col s12">
-			        	<i  class="material-icons color_letra_danger left">remove</i>
-			        	<i  class="material-icons color_letra_danger right">add</i>
+			        	<i class="material-icons color_letra_danger menos left">remove</i>
+			        	<i class="material-icons color_letra_danger mas right">add</i>
 						<p class="range-field">
 					      	<input type="range" value="0"  name="cantidad_disponible" id="darBaja" min="0" max="100" required class="validate" />
 					    </p>

@@ -1,5 +1,5 @@
-<div class="row ">
-	<div class="col s3 menu">
+<div class="row">
+	<div class="col hide-on-small-and-down  m3 l3  menu">
 		<?php
 	    if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B' ) { ?>
 		    <div class="col s12 targeta_inicio">
@@ -141,7 +141,7 @@
 	    	<?php  
 	    }?>
     </div>
-    <div class="col s9 offset-s3" id="vista_ventana">
+    <div class="col s9 offset-s0 offset-m3" id="vista_ventana">
     	<?php if (isset($_SESSION["cod_user_activo"])) { ?>
     		<div class="col s12 centrar sombra" id="recordatorio">
 				<h4 class="<?php echo ($_SESSION["user_zone"] == "A") ? "color_letra_secundario" : 'color_letra_terceario' ?>">

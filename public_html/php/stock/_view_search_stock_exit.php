@@ -1,11 +1,16 @@
 <div class="row">
 	<div class="alternos col s12">
-		<button type="" class="waves-effect col s3 flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center_two">Crea un producto
-		            <i class="material-icons left">add</i>
-		</button>
-		<button type="" class="waves-effect col s3 flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center_two">Crea un Stock
-		            <i class="material-icons left">add</i>
-		</button>
+		<?php 
+		if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B') { ?>
+			<button type="" class="waves-effect col s3 flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center_two">Crea un producto
+			            <i class="material-icons left">add</i>
+			</button>
+			<button type="" class="waves-effect col s3 flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center_two">Crea un Stock
+			            <i class="material-icons left">add</i>
+			</button>
+			<?php  
+		}
+		?>
 		<button class="waves-effect waves-light btn btn-primary col s3 " id="view_list_exit" data-target="modal_right" >
 				<i class="material-icons left color_letra_secundario">visibility</i>Listado salida ()
 		</button>
@@ -64,9 +69,9 @@
 	        <?php
 		}
 	}else{ ?>
-		<h6 class="col s12 paddin1 center color_letra_secundario"> 
-			No se encontraron resultados
-		</h6>
+		<h4 class="col s12 fondo_claro color_letra_primario center">
+			<i class="material-icons  color_letra_primario">warning</i> No se encontraron resultados
+		</h4>
 		<?php
 	} ?>
 </div>

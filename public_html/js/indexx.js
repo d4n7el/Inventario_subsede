@@ -2,6 +2,7 @@ $(document).on('ready',function(){
 	cantidad = ""; 	nombre = "";	id = "";	disponible = "";
 	div_id	 = ""; destino = "";  id_user = ""; name_user = "";
 	recargar_eventos();
+
 	$('a.link_page').on('click', function(event) {
 		event.preventDefault();
 		$('a.link_page').closest('div.card-action').addClass('fondo_negro').removeClass('fondo_claro');
@@ -22,7 +23,6 @@ $(document).on('ready',function(){
 			recargar_eventos();
 		});
 	});
-	$('.modal').modal();
 });
 function limpiar_variables(){
 	cantidad = ""; 	nombre = "";	id = "";	disponible = "";
@@ -70,9 +70,38 @@ function eliminar_eventos(){
 	$('button.edit_entry_cant_inform').off('click');
 	$('button.link_page_session').off('click');
 	$('form.create_info_exit_stock').off('submit');
+	$('i.mas').off('click');
+	$('i.menos').off('click');
 }
 var recargar_eventos = function(){
+	count = 0;
 	eliminar_eventos();
+	$('i.mas').on('click', function(event) {
+		event.preventDefault();
+		$(this).siblings('p.range-field').find('span.thumb').addClass('active');
+		$(this).siblings('p.range-field').find('input[type=range]').val(parseInt($(this).siblings('p.range-field').find('input[type=range]').val()) + 1);
+		$(this).siblings('p.range-field').find('span.thumb').addClass('active');
+		dialogo($(this).siblings('p.range-field').find('input[type=range]').val(),status = 1 ,duracion = 4000);
+	});
+	$('i.menos').on('click', function(event) {
+		event.preventDefault();
+		$(this).siblings('p.range-field').find('span.thumb').addClass('active');
+		$(this).siblings('p.range-field').find('input[type=range]').val(parseInt($(this).siblings('p.range-field').find('input[type=range]').val()) - 1);
+		$(this).siblings('p.range-field').find('span.thumb').addClass('active');
+		dialogo($(this).siblings('p.range-field').find('input[type=range]').val(),status = 1 ,duracion = 4000);
+	});
+	$('.modal').modal({
+		dismissible: true, // Modal can be dismissed by clicking outside of the modal
+		opacity: .5, // Opacity of modal background
+		inDuration: 300, // Transition in duration
+		outDuration: 200, // Transition out duration
+		startingTop: '4%', // Starting top style attribute
+		endingTop: '10%', // Ending top style attribute
+		complete: function() { 
+			$('.modal .modal-content').html("");
+			$('#modal_center .modal-content').html("<form class='update_info'></form>");
+		} // Callback for Modal close
+	});
 	$('form.create_info_exit_stock').on('submit', function(event) {
 		event.preventDefault();
 		var formData = new FormData(this);
@@ -515,6 +544,7 @@ function ajax_set_form_data(ruta,formData){
 	    contentType: false,
 	    processData: false, 
 	    success: function(response){
+	    	$('#modal_mensajes').modal('close');
 	    	success(response);
 	    	if (response['status']==1 && response['process']=='create')  {
  	    		clean_input();
@@ -565,7 +595,7 @@ function request_user(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	//console.log(response);
+	    	$('#modal_mensajes').modal('close');
 	    	var response = jQuery.parseJSON(response);
 	    	$.each(response,function(index, value) {
 	    		if (index === "data") {
@@ -576,7 +606,7 @@ function request_user(ruta,formData){
 	    		}
 	    		(index === "status") ? status = jQuery.parseJSON(value) : "";
 	    	});
-	    	$('#modal_mensajes').modal('close');
+	    	
 	    	ver_info_user(datos,status);
 	    },
 	    error: function(jqXHR,error,estado){
@@ -604,7 +634,7 @@ function ajax_get_data(ruta,formData){
 }
 function success(response = "Exito"){
 	if (response['status'] > 0) {
-		mensaje_alert("success",response['mensaje'],response['duracion']);
+		dialogo(response['mensaje'],response['status'],4000);
 		if (response['render'] != undefined ) {
 			if (response['render'] != "") {
 	    		setTimeout(function(){
@@ -620,14 +650,14 @@ function success(response = "Exito"){
     		}
    		}
 	}else{
-		mensaje_alert("error",response['mensaje']);
+		dialogo(response['mensaje'],response['status'],4000);
 	}
 }
 function dialogo(mensaje,status = 1 ,duracion = 4000){
 	if (status == 1) {
 		$('div.toast').addClass('fondo_negro');
 	}
-	Materialize.toast(mensaje, duracion)
+	Materialize.toast(mensaje, duracion);
 }
 function clean_input(){
 	$('form.update_info input[type=password]').val("");

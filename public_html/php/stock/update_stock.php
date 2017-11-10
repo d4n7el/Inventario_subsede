@@ -4,7 +4,7 @@
 	$stock    			= new Stock();
 	$id_user 			= $_SESSION["id_user_activo"]; 
 	$id_stock           = $_REQUEST["id_stock"];
-	echo $id_product         = $_REQUEST["product"];
+	$id_product         = $_REQUEST["product"];
 	$nom_lot			= $_REQUEST["nombre_lote"];
 	$amount 			= $_REQUEST["amount"];
 	$expiration 		= $_REQUEST["expiration"];
