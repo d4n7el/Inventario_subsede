@@ -10,6 +10,7 @@
 	$elements = $_REQUEST["id_element"];
 	$quantity = $_REQUEST["cantidad"];
 	$note_received = $_REQUEST["nota"];
+	$destino = $_REQUEST["destino"];
 	$insert_values = "";
 	$inspecion = array();
 	$paso = 1;
@@ -24,7 +25,7 @@
 		$paso =  ($value['quantity_available'] >= $inspecion[$value['id_tool']] AND $paso == 1 )? 1: 0;
 	}
 	if ($paso == 1) {
-		$retorno_master = $tools_exit->exit_tools_master($id_user,$id_user_receive,$name_user_receive);
+		$retorno_master = $tools_exit->exit_tools_master($id_user,$id_user_receive,$name_user_receive,$destino);
 		if ($retorno_master > 0){
 			foreach ($quantity as $key => $value) {
 				$insert_values .="(".$retorno_master.",".$value.",'".$note_received[$key]."',".$elements[$key]."),";

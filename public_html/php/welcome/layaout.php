@@ -14,12 +14,12 @@
 	<header>
   		<nav>
 	    <div class="nav-wrapper fondo_negro">
-	    	<a href="../index.php" class="brand-logo hide-on-med-and-down" style="margin-left: 1em">
+	    	<a href="../index.php" class="brand-logo" style="margin-left: 3em">
 	    		<img src="../image/sena.svg" alt="">
 	    	</a>
 	    	<?php 
 	      	if (isset($_SESSION["name_user_activo"])) { ?>
-				<ul id="nav-mobile" class="right ">
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
 					<li>
 						<a class=" btn-nav btn view_user" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" id_user="<?php echo $_SESSION["id_user_activo"] ?>">
 							<?php echo $_SESSION["name_user_activo"]." - ".$_SESSION["id_user_activo_role"]." - ".$_SESSION["user_zone"] ?>
@@ -40,6 +40,11 @@
 	  </nav>
 	</header>
 	<div class="principal col s12" >
+		<?php 
+	    if (isset($_SESSION["name_user_activo"])) { ?>
+			<a href="#" data-activates="slide-out" class="button-collapse btn-primary btn-floating fixed"><i class="material-icons slide-outs">menu</i></a>
+			<?php  
+		}?>
 		<div class="row">
 			<div class="col m12" >
 				<?php  
@@ -113,6 +118,9 @@
 	      	<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat close_modal"><i class="material-icons">clear</i></a>
 	    </div>
 	</div>
+	<ul id="slide-out" class="side-nav">
+		<?php require_once('nav.php') ?>
+	</ul>
     <script src="<?php $_SERVER['DOCUMENT_ROOT'] ?>/js/jQuery.js"></script>
     <script src="<?php $_SERVER['DOCUMENT_ROOT'] ?>/js/jspdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.js"></script>

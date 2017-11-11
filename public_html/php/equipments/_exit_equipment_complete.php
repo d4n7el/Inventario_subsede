@@ -21,28 +21,28 @@
 			
 			<div class="col s4 i3">
 				<h5 class=" col s12 center color_letra_secundario">Destino</h5>
-				<h5 class="titulo col s12 center color_letra_secundario">Interno</h5>
+				<h5 class="titulo col s12 center color_letra_secundario"><?php echo $retorno_view[0]['destination'] ?></h5>
 			</div>
 		</div>
 		<div class="row" id="head_table">
 			<div class="col s3 centrar prymary_head_cell i3">
-				<a href="#" class="color_letra_primario">
+				<a href="#" class="fondo_blanco">
 					<strong>Equipo  </strong>
 				</a>
 			</div>
 			
 			<div class="col s2 centrar head_cell i6">
-				<a href="#" class="tabla color_letra_primario">
+				<a href="#" class="tabla fondo_blanco">
 					<strong>Cantidad  </strong>
 				</a>
 			</div>
 			<div class="col s2 centrar head_cell i6">
-				<a href="#" class="tabla color_letra_primario">
+				<a href="#" class="tabla fondo_blanco">
 					<strong>Retornado  </strong>
 				</a>
 			</div>
 			<div class="col s4 centrar head_cell i3">
-				<a href="#" class="tabla color_letra_primario">
+				<a href="#" class="tabla fondo_blanco">
 					<strong>Nota  </strong>
 				</a>
 			</div>

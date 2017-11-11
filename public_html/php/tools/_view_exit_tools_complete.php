@@ -19,34 +19,34 @@
 				<h5 class="titulo col s12 center color_letra_secundario"><?php echo $retorno_view_exit_tools[0]['name_user_receive']; ?></h5>
 			</div>
 			<div class="col s4 i3">
-				<h5 class=" col s12 center color_letra_secundario">Bodega</h5>
-				<h5 class="titulo col s12 center color_letra_secundario">Herramientas</h5>
+				<h5 class=" col s12 center color_letra_secundario">Destino</h5>
+				<h5 class="titulo col s12 center color_letra_secundario"><?php echo $retorno_view_exit_tools[0]['destination'] ?></h5>
 			</div>
 			
 		</div>
 		<div class="row" id="head_table">
 			<div class="col s3 centrar prymary_head_cell i5">
-				<a href="#" class="color_letra_primario">
+				<a href="#" class="fondo_blanco">
 					<strong>Herramienta  </strong>
 				</a>
 			</div>
 			<div class="col s2 centrar head_cell i5">
-				<a href="#" class="tabla color_letra_primario">
+				<a href="#" class="tabla fondo_blanco">
 					<strong>Cantidad  </strong>
 				</a>
 			</div>
 			<div class="col s2 centrar head_cell i5">
-				<a href="#" class="tabla color_letra_primario">
+				<a href="#" class="tabla fondo_blanco">
 					<strong>Entregado </strong>
 				</a>
 			</div>
 			<div class="col s2 centrar head_cell i5">
-				<a href="#" class="tabla color_letra_primario">
+				<a href="#" class="tabla fondo_blanco">
 					<strong>Recibido  </strong>
 				</a>
 			</div>
 			<div class="col s3 centrar head_cell i5">
-				<a href="#" class="tabla color_letra_primario">
+				<a href="#" class="tabla fondo_blanco">
 					<strong>Nota  </strong>
 				</a>
 			</div>

@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row" id="view_actions_table">
 	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/tools/index.php/" accept-charset="utf-8" class="search">
-		<div class="flitro col s12 centrar sombra_blanca">
+		<div class="flitro col s12 centrar">
 			<div class="input-field col s12 m2">
 	            <i class="material-icons prefix">search</i>
 	            <input id="tools" type="text" value="<?php echo ($tools == "%%") ? "" : $tools ?>" class="validate search" name="tools" autocomplete="off">
@@ -26,40 +26,42 @@
 	        </div>	
 		</div>
 	</form>
+	<div class="row" id="head_table">
+		<div class="col s2 centrar prymary_head_cell">
+			<a href="#" class="tabla fondo_blanco" order="name_product ASC">
+				<strong>Herramienta</strong>
+			</a>
+		</div>
+		<div class="col s2 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="name_cellar ASC">
+				<strong>Marca</strong>
+			</a>
+		</div>
+		<div class="col s2 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="nom_lot ASC">
+				<strong>cantidad  </strong>
+			</a>
+		</div>
+		<div class="col s2 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="nom_lot ASC">
+				<strong>Disponibles  </strong>
+			</a>
+		</div>
+		<div class="col s2 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="nom_lot ASC">
+				<strong>Creación  </strong>
+			</a>
+		</div>
+		<div class="col s2 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="quantity DESC">
+				<strong>Opciones</strong>
+			</a>
+		</div>
+	</div>
 </div>
-<div class="row" id="head_table">
-	<div class="col s2 centrar prymary_head_cell">
-		<a href="#" class="tabla color_letra_primario" order="name_product ASC">
-			<strong>Herramienta</strong>
-		</a>
-	</div>
-	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="name_cellar ASC">
-			<strong>Marca</strong>
-		</a>
-	</div>
-	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
-			<strong>cantidad  </strong>
-		</a>
-	</div>
-	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
-			<strong>Disponibles  </strong>
-		</a>
-	</div>
-	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
-			<strong>Creación  </strong>
-		</a>
-	</div>
-	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
-			<strong>Opciones</strong>
-		</a>
-	</div>
-</div>
-<?php
+
+<div id="view_actions_table_next">
+	<?php
 	foreach ($retorno_herramientas as $key => $value) {?>
 		<div class="row tabla " id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >
 			<div class="col s2 primary_cell producto">
@@ -90,8 +92,8 @@
 			</div>
 		</div>
 		<?php
-	}
-?>
+	}?>
+</div>
 <div class="paginacion col m12">
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/paginator/index.php'); ?>
 </div>

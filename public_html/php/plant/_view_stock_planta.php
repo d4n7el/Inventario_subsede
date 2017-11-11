@@ -1,4 +1,4 @@
-<div class="row ">
+<div class="row " id="view_actions_table">
 	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/" accept-charset="utf-8" class="search">
 		<div class="flitro col s12 centrar sombra_blanca">
 			<div class="input-field col s12 m3">
@@ -34,35 +34,38 @@
 	        </div>	
 		</div>
 	</form>
-</div>
-<div class="row" id="head_table">
-	<div class="col s3 centrar prymary_head_cell <?php echo ($_SESSION["user_zone"] == "A") ? "fondo_claro" : 'fondo_claro_secundario' ?>">
-		<a href="#" class="tabla color_letra_primario" order="name_product ASC">
-			<strong>Producto  </strong>
-		</a>
-	</div>
-	<div class="col s1 centrar head_cell <?php echo ($_SESSION["user_zone"] == "A") ? "fondo_claro" : 'fondo_claro_secundario' ?>">
-		<a href="#" class="tabla color_letra_primario" order="name_cellar ASC">
-			<strong>Bodega  </strong>
-		</a>
-	</div>
-	<div class="col s3 centrar head_cell <?php echo ($_SESSION["user_zone"] == "A") ? "fondo_claro" : 'fondo_claro_secundario' ?>">
-		<a href="#" class="tabla color_letra_primario" order="name_receive ASC">
-			<strong>Vencimiento  </strong>
-		</a>
-	</div>
-	<div class="col s2 centrar head_cell <?php echo ($_SESSION["user_zone"] == "A") ? "fondo_claro" : 'fondo_claro_secundario' ?>">
-		<a href="#" class="tabla color_letra_primario" order="quantity  DESC">
-			<strong>Cantidad  </strong>
-		</a>
-	</div>
+	<div class="row" id="head_table">
+		<div class="col s3 centrar prymary_head_cell ">
+			<a href="#" class="tabla fondo_blanco" order="name_product ASC">
+				<strong>Producto  </strong>
+			</a>
+		</div>
+		<div class="col s1 centrar head_cell ">
+			<a href="#" class="tabla fondo_blanco" order="name_cellar ASC">
+				<strong>Bodega  </strong>
+			</a>
+		</div>
+		<div class="col s3 centrar head_cell ">
+			<a href="#" class="tabla fondo_blanco" order="name_receive ASC">
+				<strong>Vencimiento  </strong>
+			</a>
+		</div>
+		<div class="col s2 centrar head_cell ">
+			<a href="#" class="tabla fondo_blanco" order="quantity  DESC">
+				<strong>Cantidad  </strong>
+			</a>
+		</div>
 
-	<div class="col s3 centrar head_cell <?php echo ($_SESSION["user_zone"] == "A") ? "fondo_claro" : 'fondo_claro_secundario' ?>">
-		<a href="#" class="color_letra_primario">
-			<strong>Opciones  </strong>
-		</a>
+		<div class="col s3 centrar head_cell ">
+			<a href="#" class="fondo_blanco">
+				<strong>Opciones  </strong>
+			</a>
+		</div>
 	</div>
 </div>
+
+
+<div id="view_actions_table_next">
 <?php 
 	foreach ($retorno_planta as $key => $value) { 
 		$category = new Products();
@@ -106,6 +109,7 @@
 		<?php
 	}
 ?>
+</div>
 <div class="paginacion <?php echo ($_SESSION["user_zone"] == "A") ? "fondo_negro" : 'fondo_negro_secundario' ?> col m12">
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/paginator/index.php'); ?>
 </div>

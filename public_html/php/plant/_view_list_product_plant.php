@@ -1,7 +1,7 @@
 <button class="waves-effect waves-light btn btn-primary col s4 offset-s8" id="view_list_exit" data-target="modal_right" >
 		<i class="material-icons left color_letra_secundario">visibility</i>Productos salida ()
 	</button>
-<form action="<?php $_SERVER['DOCUMENT_ROOT']?>/php/plant/exit_plant.php" class="search_exit_plant">			
+<form action="<?php $_SERVER['DOCUMENT_ROOT']?>/php/plant/exit_plant.php" class="search_exit_plant">
 	<div class="input-field col s12 m6">
         <i class="material-icons prefix">send</i>
         <input id="search" type="text" autofocus class="validate" name="search" value="<?php echo ($search == "%%") ? "" : $search  ?>" autocomplete="off" required>

@@ -2,9 +2,33 @@ $(document).on('ready',function(){
 	cantidad = ""; 	nombre = "";	id = "";	disponible = "";
 	div_id	 = ""; destino = "";  id_user = ""; name_user = "";
 	recargar_eventos();
-
+	$('.button-collapse').sideNav({
+		menuWidth: 300, 
+		edge: 'left', 
+		closeOnClick: true, 
+		draggable: true,
+		onOpen: function(el) {
+			$('i.slide-outs').css({
+				transform: 'rotate(360deg)',
+				transition: '1s'
+			});
+			$('i.slide-outs').text('clear');
+		}, 
+		onClose: function(el) {
+			$('i.slide-outs').css({
+				transform: 'rotate(-360deg)',
+				transition: '1s'
+			});
+			
+			$('i.slide-outs').text('menu');
+		}, 
+    });
 	$('a.link_page').on('click', function(event) {
 		event.preventDefault();
+		$("div#vista_ventana").css({
+			transition: '1s',
+			opacity: '0',
+		});
 		$('a.link_page').closest('div.card-action').addClass('fondo_negro').removeClass('fondo_claro');
 		$(this).closest('div.card-action').addClass('fondo_claro').removeClass('fondo_negro');
 		var ruta = $(this).attr('href');
@@ -13,6 +37,11 @@ $(document).on('ready',function(){
 		$("div#vista_ventana").load(ruta,function() {
 			limpiar_variables();
 			recargar_eventos();
+			$( "div#vista_ventana" ).fadeIn( 400 );
+			$("div#vista_ventana").css({
+			transition: '1s',
+			opacity: '1',
+		});
 		});
 	});
 	$('a.view_user').on('click', function(event) {
@@ -59,7 +88,7 @@ function eliminar_eventos(){
 	$('a.view_graphics').off('click');
 	$('button.view_info_user').off('click');
 	$('button.view_info_stock').off('click');
-	$('button.flujo_alterno').off('click');
+	$('button.flujo_alterno,a.flujo_alterno').off('click');
 	$('button.view_info_equipment').off('click');
 	$('button.view_info_product').off('click');
 	$('button.view_info_tool').off('click');
@@ -72,10 +101,15 @@ function eliminar_eventos(){
 	$('form.create_info_exit_stock').off('submit');
 	$('i.mas').off('click');
 	$('i.menos').off('click');
+	$('button.add_destinatario').off('click');
 }
 var recargar_eventos = function(){
-	count = 0;
 	eliminar_eventos();
+	$('.collapsible').collapsible();
+	
+	$('btn-cerrar').on('click', function(event) {
+		$('.button-collapse').sideNav('hide');
+	});
 	$('i.mas').on('click', function(event) {
 		event.preventDefault();
 		$(this).siblings('p.range-field').find('span.thumb').addClass('active');
@@ -118,16 +152,29 @@ var recargar_eventos = function(){
 			destino = $('input#desc_destino').val();
 			id_user = $('input#receive_user').val();
 			name_user = $('input#name_receive_user').val();
-			$('#modal_left').modal('close');
+			var html_user = 
+				'<h6 class="">\
+					Recibe: '+name_user+'\
+					<i class="material-icons col s2 right" >account_circle</i>\
+				</h6>';
+			var html_destino = 
+				'<h6 class="">\
+					Destino: '+destino+'\
+					<i class="material-icons col s2 right" >airport_shuttle</i>\
+				</h6>';
+			$('div.recibe').html(html_user);
+			$('div.destino_salida').html(html_destino);
+			$('#modal_center').modal('close');
 		}else{
 			mensaje_alert('error',"Ingresa todos los campos",4000);
 		}
 	});
-	$('button.modal_left').on('click', function(event) {
+
+	$('button.add_destinatario').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('ruta');
 		var alterno = 1;
-		$("div#modal_left div.modal-content").load(ruta,function() {
+		$("div#modal_center div.modal-content").load(ruta,function() {
 			recargar_eventos();
 		});
 	});
@@ -142,10 +189,15 @@ var recargar_eventos = function(){
 	});
 	$('button#view_list_exit').on('click', function(event) {
 		event.preventDefault();
-		var html = $('div.list_add_exit_plant').html();
-		$("div#modal_right div.modal-content").html('<div class="row list_stock_exit">'+html+"</div>");
-		$("div#modal_right div.modal-content div.list_add_exit_plant").removeClass('hide');
-		recargar_eventos();
+		if (destino != "" &&  id_user != "" && name_user != "") {
+			var html = $('div.list_add_exit_plant').html();
+			$("div#modal_right div.modal-content").html('<div class="row list_stock_exit">'+html+"</div>");
+			$("div#modal_right div.modal-content div.list_add_exit_plant").removeClass('hide');
+			recargar_eventos();
+			$('#modal_right').modal('open');
+		}else{
+			dialogo("Ingresa la informacion de destino");
+		}
 	});
 	$('input.state').on('change', function(event) {
 		($(this).val() == 1) ? $(this).val("0") : $(this).val("1");
@@ -163,7 +215,7 @@ var recargar_eventos = function(){
 		console.log(formData);
 		ajax_get_data(ruta,formData);
 	});
-	$('button.flujo_alterno').on('click', function(event) {
+	$('button.flujo_alterno,a.flujo_alterno').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('ruta');
 		var alterno = 1;
@@ -184,7 +236,7 @@ var recargar_eventos = function(){
 		var id_user = $(this).attr('id_user');
 		var estado = $(this).attr('state');
 		var ruta = $(this).attr('ruta');
-		$("div#modal_right div.modal-content").load(ruta,{id_user: id_user, estado: estado},function() {
+		$("div#modal_right div.modal-content").load(ruta,{id_user: id_user, estado: estado,modal: 1},function() {
 			recargar_eventos();
 		});
 	});
@@ -573,7 +625,6 @@ function ajax_set_form_data(ruta,formData){
 	
 	    },
 	    error: function(jqXHR,error,estado){
-	    	console.log(estado);
 	    }
 	})
 }
@@ -759,10 +810,20 @@ function limpiar_add_exit(){
 	$("input#cantidad").siblings('label').text("");
 }
 function limpiar_exit(){
-	var html = '<p class="col s12 center guia_abajo"><i class="material-icons col s12">expand_more</i><i class="material-icons col s12 second">expand_more</i></p>';
-	$('div#view_add_elements').html(html);
 	$('div#name_receive_user').html("");
 	$('input#receive_user').val("");
+	var html_user = 
+		'<h6 class="">\
+			Recibe:\
+			<i class="material-icons col s2 right" >account_circle</i>\
+		</h6>';
+	var html_destino = 
+		'<h6 class="">\
+			Destino:\
+			<i class="material-icons col s2 right" >airport_shuttle</i>\
+		</h6>';
+	$('div.recibe').html(html_user);
+	$('div.destino_salida').html(html_destino);
 }
 function view_btn_imprimir(response){
 	console.log(response);

@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row" id="view_actions_table">
 	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/index.php/" accept-charset="utf-8" class="search">
-		<div class="flitro col s12 centrar sombra_blanca">
+		<div class="flitro col s12 centrar ">
 			<div class="input-field col s4">
 	            <i class="material-icons prefix">search</i>
 	            <input id="name" type="text" value="<?php echo ($name == "%%") ? "" : $name ?>" class="validate search" name="name" autocomplete="off">
@@ -34,39 +34,40 @@
 	        </div>	
 		</div>
 	</form>
+	<div class="row" id="head_table">
+		<div class="col s2 centrar prymary_head_cell">
+			<a href="#" class="tabla fondo_blanco" order="name_product ASC">
+				<strong>Nombre</strong>
+			</a>
+		</div>
+		<div class="col s2 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="name_cellar ASC">
+				<strong>Apellido</strong>
+			</a>
+		</div>
+		<div class="col s3 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="nom_lot ASC">
+				<strong>Email  </strong>
+			</a>
+		</div>
+		<div class="col s2 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="quantity DESC">
+				<strong>Cedula  </strong>
+			</a>
+		</div>
+		<div class="col s2 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="quantity DESC">
+				<strong>Bodega  </strong>
+			</a>
+		</div>
+		<div class="col s1 centrar head_cell">
+			<a href="#" class="fondo_blanco">
+				<strong>Opciones  </strong>
+			</a>
+		</div>
+	</div>
 </div>
-<div class="row" id="head_table">
-	<div class="col s2 centrar prymary_head_cell">
-		<a href="#" class="tabla color_letra_primario" order="name_product ASC">
-			<strong>Nombre</strong>
-		</a>
-	</div>
-	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="name_cellar ASC">
-			<strong>Apellido</strong>
-		</a>
-	</div>
-	<div class="col s3 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
-			<strong>Email  </strong>
-		</a>
-	</div>
-	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
-			<strong>Cedula  </strong>
-		</a>
-	</div>
-	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
-			<strong>Bodega  </strong>
-		</a>
-	</div>
-	<div class="col s1 centrar head_cell">
-		<a href="#" class="color_letra_primario">
-			<strong>Opciones  </strong>
-		</a>
-	</div>
-</div>
+<div id="view_actions_table_next">
 <?php 
 	if (count($retorno_user) > 0) {
 		foreach ($retorno_user as $key => $value) { ?>
@@ -104,6 +105,7 @@
 	<?php 
 	}
 ?>
+</div>
 <div class="paginacion col m12">
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/paginator/index.php'); ?>
 </div>

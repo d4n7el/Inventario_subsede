@@ -22,28 +22,28 @@
 	</div>
 	<div class="row" id="head_table">
 		<div class="col s3 centrar prymary_head_cell i5">
-			<a href="#" class="color_letra_primario">
+			<a href="#" class="fondo_blanco">
 				<strong>Producto  </strong>
 			</a>
 		</div>
 		<div class="col s2 centrar head_cell i5">
-			<a href="#" class="tabla color_letra_primario">
+			<a href="#" class="tabla fondo_blanco">
 				<strong>Bodega  </strong>
 			</a>
 		</div>
 		<div class="col s3 centrar head_cell i5">
-			<a href="#" class="tabla color_letra_primario">
+			<a href="#" class="tabla fondo_blanco">
 				<strong>Recibio  </strong>
 			</a>
 		</div>
 		<div class="col s2 centrar head_cell i5">
-			<a href="#" class="tabla color_letra_primario">
+			<a href="#" class="tabla fondo_blanco">
 				<strong>Cantidad  </strong>
 			</a>
 		</div>
 
 		<div class="col s2 centrar head_cell i5">
-			<a href="#" class="tabla color_letra_primario">
+			<a href="#" class="tabla fondo_blanco">
 				<strong>Lote  </strong>
 			</a>
 		</div>
