@@ -165,13 +165,13 @@
 		public function get_exit_equipments_count($team,$cedula ,$fecha_inicial,$fecha_final,$estado){
 			try {
 				$sql_consult = $this->db->prepare("SELECT COUNT(id_exit_detall) as count FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE name_equipment LIKE ?  AND id_user_receives LIKE ? AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND equipments.zone = '$this->zone' " );
-				$sql_consult->execute(array($estado,$team,$cedula));
+				$sql_consult->execute(array($team,$cedula));
 				$result = $sql_consult->fetch();
 				$this->db = null;
 				return $result;
 				
 			} catch (PDOException $e) {
-            	$e->getMessage();
+            	echo $e->getMessage();
         	}
 		}
 		public function get_exit_equipments($team,$cedula,$fecha_inicial,$fecha_final,$estado,$limit,$offset){
@@ -185,7 +185,7 @@
 				return $result;
 						
 			} catch (PDOException $e) {
-		         echo $e->getMessage();
+		         $e->getMessage();
 		       }
 		}
 		public function returned_equipment($master,$detalle,$state){
