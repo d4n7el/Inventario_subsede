@@ -57,7 +57,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	$e->getMessage();
+            	echo $e->getMessage();
         	}
 		}
 		public function update_equipment_available($equipo,$disponible,$nota,$proceso){
@@ -178,15 +178,14 @@
 			try {
 
 				$sql = "SELECT exit_equipment_master.date_create, exit_teams_detall.id_exit, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment,exit_teams_detall.returned, exit_equipment_master.name_user_receives FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE name_equipment LIKE ?  AND id_user_receives LIKE ? AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND equipments.zone = '$this->zone' ORDER BY exit_equipment_master.id_exit DESC LIMIT $limit OFFSET $offset ";
-
 				$sql_consult = $this->db->prepare($sql);
-				$sql_consult->execute(array($estado,$team,$cedula));
+				$sql_consult->execute(array($team,$cedula));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
 				return $result;
 						
 			} catch (PDOException $e) {
-		         $e->getMessage();
+		         echo $e->getMessage();
 		       }
 		}
 		public function returned_equipment($master,$detalle,$state){

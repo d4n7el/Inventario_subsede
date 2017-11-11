@@ -41,7 +41,7 @@
 				<i class="material-icons color_letra_secundario left">account_circle</i>
 			</a>
 			<a class="collapse_two  btn-floating btn-primary btn-cerrar " href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/sessions/remove_session.php?cerrarSesion=true">
-				<i class="material-icons color_letra_danger left">power_settings_new</i>
+				<i class="material-icons color_letra_secundario left">power_settings_new</i>
 			</a>
 			<?php  
 		}?>
@@ -50,7 +50,6 @@
 				<?php  
 					if (isset($_SESSION["id_user_activo"])) {
 						require_once($_SERVER['DOCUMENT_ROOT'].'/php/welcome/_view_index_session.php');
-
 					}else{
 						require_once($_SERVER['DOCUMENT_ROOT'].'/php/sessions/create_session.php');
 					}
