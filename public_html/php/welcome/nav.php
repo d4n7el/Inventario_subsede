@@ -1,14 +1,5 @@
 <div class="row">
-	<div class="col s12  menu">
-		<div class="col s12 centrar slide-outs">
-			<a class=" btn-primary view_user " href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" id_user="<?php echo $_SESSION["id_user_activo"] ?>">
-				<i class="material-icons color_letra_secundario left">account_circle</i>
-			</a>
-			<a class="btn-primary btn-cerrar " href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/sessions/remove_session.php?cerrarSesion=true">
-				<i class="material-icons color_letra_danger left">power_settings_new</i>
-			</a>
-		</div>
-		
+	<div class="col s12  menu">		
 		<?php
 	    if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B' ) { ?>
 		    <div class="col s12 targeta_inicio">

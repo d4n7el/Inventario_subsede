@@ -423,16 +423,25 @@ input#tox4:checked+label:after, input#tox4.with-gap:checked+label:after{
 	font-size: 3em;
 }
 .targeta_inicio{
-	padding: 0px !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
 	margin-top: 0em;
 	overflow: hidden;
 	transition: ease all .5s;
+	background-color: white;
 }
-a.button-collapse{
+a.button-collapse,a.collapse_one,a.collapse_two{
 	position: fixed;
 	top: 1em ;
 	left: 2em;
 	z-index: 3000;
+}
+a.collapse_one{
+	left: 6em;
+	transition: 1s;
+}
+a.collapse_two{
+	left: 10em;
 }
 a.button-collapse:hover{
 	transition: 1s;
@@ -441,10 +450,10 @@ div.menu{
 	transition: ease all 1s;
 	height: auto;
 	overflow: hidden;
-	height: 90vh;
+	height: 100vh;
 	overflow: scroll;
 	overflow-x: hidden;
-	margin-top: 5em;
+	margin-top: 0em;
 	z-index: 100;
 }
 #modal1{
@@ -540,14 +549,25 @@ div.targeta_notificacion a{
 div.grafica img{
 	width: 100%;
 }
-div.slide-outs i{
-	font-size: 3em !important;
+ul#slide-out{
+	background-color: transparent;
+	box-shadow: 0px 0px 0px transparent;
+}
+div#ilse{
+	width: 7em;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	z-index: 9999999;
+}
+div#ilse img{
 	width: 100%;
 }
-div.slide-outs {
-	position: fixed;
-	top: 1em;
-}
 
-
-
+::-webkit-scrollbar              { opacity: 0; }
+::-webkit-scrollbar-button       { opacity: 0; }
+::-webkit-scrollbar-track        { opacity: 0; }
+::-webkit-scrollbar-track-piece  { opacity: 0; }
+::-webkit-scrollbar-thumb        { opacity: 0; }
+::-webkit-scrollbar-corner       { opacity: 0; }
+::-webkit-resizer                { opacity: 0; }

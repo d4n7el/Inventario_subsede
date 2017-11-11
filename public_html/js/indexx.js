@@ -3,21 +3,39 @@ $(document).on('ready',function(){
 	div_id	 = ""; destino = "";  id_user = ""; name_user = "";
 	recargar_eventos();
 	$('.button-collapse').sideNav({
-		menuWidth: 300, 
+		menuWidth: 330, 
 		edge: 'left', 
 		closeOnClick: true, 
 		draggable: true,
 		onOpen: function(el) {
+			$('a.collapse_one,a.collapse_two').css({
+				'transition': "1s",
+				'margin-left': "22em",
+			});
+			$('a.collapse_two').css({
+				'transition': "1s",
+				'margin-left': "14em",
+			});
+			$('.button-collapse').css('margin-left', '18em');
 			$('i.slide-outs').css({
 				transform: 'rotate(360deg)',
-				transition: '1s'
+				transition: '.5s'
 			});
 			$('i.slide-outs').text('clear');
 		}, 
 		onClose: function(el) {
+			$('a.collapse_one,a.collapse_two').css({
+				'transition': "1s",
+				'margin-left': ".5em",
+			});
+			$('a.collapse_two').css({
+				'transition': "1s",
+				'margin-left': "0em",
+			});
+			$('.button-collapse').css('margin-left', '1em');
 			$('i.slide-outs').css({
 				transform: 'rotate(-360deg)',
-				transition: '1s'
+				transition: '.5s'
 			});
 			
 			$('i.slide-outs').text('menu');
