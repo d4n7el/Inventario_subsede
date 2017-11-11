@@ -137,21 +137,18 @@
             	$e->getMessage();
         	}
 		}
-		public function exit_equipment_master($id_user_receives,$id_user_delivery,$nom_receive){
-
+		public function exit_equipment_master($id_user_receives,$id_user_delivery,$nom_receive,$estado){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO exit_equipment_master (id_user_receives,id_user_delivery,name_user_receives) VALUES (?,?,?)'  );
-				$sql_consult->execute(array($id_user_receives,$id_user_delivery,$nom_receive));
+				$sql_consult = $this->db->prepare('INSERT INTO exit_equipment_master (id_user_receives,id_user_delivery,name_user_receives,destination) VALUES (?,?,?,?)'  );
+				$sql_consult->execute(array($id_user_receives,$id_user_delivery,$nom_receive,$estado));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
 				return $result;
-				
 			} catch (PDOException $e) {
-            	 $e->getMessage();
+            	 return $e->getMessage();
         	}
 		}
 		public function exit_equipment_detall($valores_insert){
-
 			try {
 				$sql = "INSERT INTO exit_teams_detall (id_exit,id_equipment,quantity,note) VALUES $valores_insert";
 				$sql_consult = $this->db->prepare($sql);
@@ -207,7 +204,7 @@
 		}
 		public function view_equipment_detall($id_equipment_master, $id_detall = '%%', $id_equipment = '%%' ){
 			try {
-				$sql = "SELECT exit_equipment_master.date_create, equipments.quantity_available,exit_teams_detall.id_exit,exit_teams_detall.state, user.name_user, user.last_name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment, exit_equipment_master.name_user_receives,exit_teams_detall.delivered, exit_teams_detall.returned FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE  exit_teams_detall.id_exit = ? AND  exit_teams_detall.id_exit_detall LIKE ?";
+				$sql = "SELECT exit_equipment_master.destination,exit_equipment_master.date_create, equipments.quantity_available,exit_teams_detall.id_exit,exit_teams_detall.state, user.name_user, user.last_name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment, exit_equipment_master.name_user_receives,exit_teams_detall.delivered, exit_teams_detall.returned FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE  exit_teams_detall.id_exit = ? AND  exit_teams_detall.id_exit_detall LIKE ?";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($id_equipment_master,$id_detall));
 				$result = $sql_consult->fetchAll();
