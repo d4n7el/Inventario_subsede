@@ -5,6 +5,7 @@
 	$tomorrow = date( "Y-m-d", strtotime( "+1 day", strtotime($fecha)));  
 	$yesterday = date( "Y-m-d", strtotime( "-30 day", strtotime($fecha))); 
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/exit_stock_controller.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/products_controller.php');
 	$exits = new ExitProduct();
 	$count_exits = new ExitProduct();
 	if (isset($_SESSION["id_user_activo"])) {

@@ -157,10 +157,10 @@
             	$e->getMessage();
         	}
 		}
-		public function exit_tools_master($id_user,$id_user_receive,$name_user_receive){
+		public function exit_tools_master($id_user,$id_user_receive,$name_user_receive,$destino){
 			try {
-				$sql_consult = $this->db->prepare('INSERT INTO exit_tools_master(id_user_receives,name_user_receive,id_user_delivery) VALUES (?,?,?)');
-				$sql_consult->execute(array($id_user_receive,$name_user_receive,$id_user));
+				$sql_consult = $this->db->prepare('INSERT INTO exit_tools_master(id_user_receives,name_user_receive,id_user_delivery,destination) VALUES (?,?,?,?)');
+				$sql_consult->execute(array($id_user_receive,$name_user_receive,$id_user,$destino));
 				$result = $this->db->lastInsertId();
 				$this->db = null;
 				return $result;
@@ -212,7 +212,7 @@
 		}
 		public function show_exit_tools($id_exit_master, $id_exit_detall="%%"){
 			try {
-				$sql = "SELECT exit_tools_detall.delivered, exit_tools_detall.returned, exit_tools_detall.state, exit_tools_master.id_exit,exit_tools_master.id_user_receives,exit_tools_master.name_user_receive,exit_tools_master.id_user_delivery,exit_tools_master.date_create,exit_tools_detall.id_exit_detall,exit_tools_detall.id_tool,exit_tools_detall.quantity,exit_tools_detall.note_received,user.name_user,user.last_name_user,tools.name_tool,tools.mark,tools.total_quantity,tools.quantity_available FROM exit_tools_master 
+				$sql = "SELECT exit_tools_master.destination,exit_tools_detall.delivered, exit_tools_detall.returned, exit_tools_detall.state, exit_tools_master.id_exit,exit_tools_master.id_user_receives,exit_tools_master.name_user_receive,exit_tools_master.id_user_delivery,exit_tools_master.date_create,exit_tools_detall.id_exit_detall,exit_tools_detall.id_tool,exit_tools_detall.quantity,exit_tools_detall.note_received,user.name_user,user.last_name_user,tools.name_tool,tools.mark,tools.total_quantity,tools.quantity_available FROM exit_tools_master 
 					INNER JOIN exit_tools_detall ON exit_tools_master.id_exit = exit_tools_detall.id_exit 
 					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user  WHERE exit_tools_detall.id_exit_detall LIKE ? AND exit_tools_master.id_exit LIKE ? AND tools.zone = '$this->zone' ";
 				$sql_consult = $this->db->prepare($sql);

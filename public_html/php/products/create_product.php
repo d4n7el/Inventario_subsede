@@ -32,19 +32,19 @@
 			        	<h6 class="titulo centrar color_letra_secundario">	
 							Categoria toxicologica
 			        	</h6>
-			        	<p class="col s4">
+			        	<p class="col s3">
 					      <input name="tox" type="radio" id="tox2" value="II" />
 					      <label for="tox2">II</label>
 					    </p>
-					    <p class="col s4">
+					    <p class="col s3">
 					      <input name="tox" type="radio" id="tox3" value="III" />
 					      <label for="tox3">III</label>
 					    </p>
-					    <p class="col s4">
+					    <p class="col s3">
 					      <input class="with-gap" name="tox" value="IV" type="radio" id="tox4"  />
 					      <label for="tox4">IV</label>
 					    </p>
-					    <p class="col s12">
+					    <p class="col s3">
 					      <input name="tox" type="radio" value="No" id="toxn" checked="" />
 					      <label for="toxn">Ninguna</label>
 					    </p>	

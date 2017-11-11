@@ -37,7 +37,7 @@
 		}
 		public function index_exit_stock($search){
 			try {
-				$sql = "SELECT * FROM get_stock WHERE nom_lot LIKE ? || name_cellar LIKE ? ||  name_product LIKE ? AND state LIKE 1 AND zone = '$this->zone' AND amount > 0 ORDER BY id_stock DESC LIMIT 20" ;
+				$sql = "SELECT * FROM get_stock WHERE nom_lot LIKE ? || name_cellar LIKE ? ||  name_product LIKE ? AND state LIKE 1 AND zone = '$this->zone'  ORDER BY id_stock DESC LIMIT 20" ;
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array("%".$search."%","%".$search."%","%".$search."%"));
 				$result = $sql_consult->fetchAll();

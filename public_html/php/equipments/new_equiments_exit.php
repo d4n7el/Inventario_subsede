@@ -8,10 +8,9 @@
 	$id_user_receives = $_REQUEST['receive_user']; 
 	$element = $_REQUEST['id_element'];
 	$texto = $_REQUEST['nota'];
-	$id_recibe = $_REQUEST['receive_user'];
 	$cantidad = $_REQUEST['cantidad'];
+	$destino = $_REQUEST['destino'];
 	$nom_receive = $_REQUEST['name_receive_user'];
-	$retorno = $equipment_exit->exit_equipment_master($id_user_receives,$id_user_delivery,$nom_receive);
 	$valores_insert = "";
 	$inspecion = array();
 	$ids="";
@@ -30,15 +29,16 @@
 		}
 	}
 	if ($paso==true) {
+		$retorno = $equipment_exit->exit_equipment_master($id_user_receives,$id_user_delivery,$nom_receive,$destino);
 		foreach ($element as $key => $value) {
 			$valores_insert.=" (".$retorno.",".$value.",".$cantidad[$key].",'".$texto[$key]."'),";
 		}
 		$valores_insert = substr($valores_insert,0,-1);
 		$retorno_detall = $equipment_exit_detall->exit_equipment_detall($valores_insert);
 		if ($retorno_detall > 0 && $retorno > 0) {
-			$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'create','closeModal' => 1);
+			$respuesta = array('mensaje' => "registro correcto", 'status' => 1, 'process' => 'exit_product','closeModal' => 1);
 		}else{
-			$respuesta = array('mensaje' => "Error", 'status' => 0);
+			$respuesta = array('mensaje' => $retorno, 'status' => 0);
 		}
 	}else{
 		$respuesta = array('mensaje' => "La cantidad sobrepasa la disponible ", 'status' => 0);

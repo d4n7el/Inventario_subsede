@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row" id="view_actions_table">
 	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index.php/" accept-charset="utf-8" class="search">
-		<div class="flitro col s12 centrar sombra_blanca">
+		<div class="flitro col s12 centrar">
 			<div class="input-field col s12 m2">
 	            <input id="lote" type="text" value="<?php echo ($lote == "%%") ? "" : $lote ?>" class="validate search" name="lote" autocomplete="off">
 	            <label for="lote" class="<?php echo ($lote == "%%") ? "" : "active" ?> search">Lote</label>
@@ -45,78 +45,80 @@
 	        </div>	
 		</div>
 	</form>
-</div>
-<div class="row" id="head_table">
-	<div class="col s2 centrar prymary_head_cell">
-		<a href="#" class="tabla color_letra_primario" order="name_product ASC">
-			<strong>Producto</strong>
-		</a>
-	</div>
-	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="name_cellar ASC">
-			<strong>Bodega</strong>
-		</a>
-	</div>
-	<div class="col s3 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
-			<strong>Vencimiento  </strong>
-		</a>
-	</div>
-	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
-			<strong>Cantidad</strong>
-		</a>
-	</div>
-	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
-			<strong>Bodega  </strong>
-		</a>
-	</div>
-	<div class="col s1 centrar head_cell">
-		<a href="#" class="color_letra_primario">
-			<strong>Opciones  </strong>
-		</a>
-	</div>
-</div>
-<?php 
-if (count($retorno_stock) > 0) {
-	foreach ($retorno_stock as $key => $value) { 
-		$category = new Products();
-		$fondo = $category->category_color($value['toxicological']); ?>
-		<div class="row tabla " id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >
-			<div class="col s2 primary_cell producto">
-				<h6 class="col s12 center color_letra_secundario" >
-				 <?php echo $value['name_product']; ?></h6>
-			</div>
-			<div class="col s2 second_cell bodega">
-				<h6 class="col s12 center color_letra_secundario">
-				 <?php echo $value['name_cellar']; ?></h6>
-			</div>
-			<div class="col s3 second_cell lote">
-				<h6 class="col s12 center color_letra_secundario">
-				<?php echo $value['expiration_date']; ?></h6>
-			</div>
-			<div class="col s2 second_cell cantidad_disponible">
-				<h6 class="col s12 center color_letra_secundario">
-					<?php echo $value['amount']?>
-				</h6>
-			</div>
-			<div class="col s2 second_cell cantidad_disponible">
-				<h6 class="col s12 center color_letra_secundario">
-					<?php echo $value['name_cellar']?>
-				</h6>
-			</div>
-			<div class="col s1 second_cell">
-				<button type="" class="col s12 btn material-icons <?php echo $fondo ?> modal-trigger view_info_stock" stock="<?php echo $value['id_stock'] ?>" data-target="modal_right">visibility</button>
-			</div>
+	<div class="row" id="head_table">
+		<div class="col s2 centrar prymary_head_cell">
+			<a href="#" class="tabla fondo_blanco" order="name_product ASC">
+				<strong>Producto</strong>
+			</a>
 		</div>
+		<div class="col s2 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="name_cellar ASC">
+				<strong>Bodega</strong>
+			</a>
+		</div>
+		<div class="col s3 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="nom_lot ASC">
+				<strong>Vencimiento  </strong>
+			</a>
+		</div>
+		<div class="col s2 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="quantity DESC">
+				<strong>Cantidad</strong>
+			</a>
+		</div>
+		<div class="col s2 centrar head_cell">
+			<a href="#" class="tabla fondo_blanco" order="quantity DESC">
+				<strong>Bodega  </strong>
+			</a>
+		</div>
+		<div class="col s1 centrar head_cell">
+			<a href="#" class="fondo_blanco">
+				<strong>Opciones  </strong>
+			</a>
+		</div>
+	</div>
+</div>
+<div id="view_actions_table_next">
+	<?php 
+	if (count($retorno_stock) > 0) {
+		foreach ($retorno_stock as $key => $value) { 
+			$category = new Products();
+			$fondo = $category->category_color($value['toxicological']); ?>
+			<div class="row tabla " id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >
+				<div class="col s2 primary_cell producto">
+					<h6 class="col s12 center color_letra_secundario" >
+					 <?php echo $value['name_product']; ?></h6>
+				</div>
+				<div class="col s2 second_cell bodega">
+					<h6 class="col s12 center color_letra_secundario">
+					 <?php echo $value['name_cellar']; ?></h6>
+				</div>
+				<div class="col s3 second_cell lote">
+					<h6 class="col s12 center color_letra_secundario">
+					<?php echo $value['expiration_date']; ?></h6>
+				</div>
+				<div class="col s2 second_cell cantidad_disponible">
+					<h6 class="col s12 center color_letra_secundario">
+						<?php echo $value['amount']?>
+					</h6>
+				</div>
+				<div class="col s2 second_cell cantidad_disponible">
+					<h6 class="col s12 center color_letra_secundario">
+						<?php echo $value['name_cellar']?>
+					</h6>
+				</div>
+				<div class="col s1 second_cell">
+					<button type="" class="col s12 btn material-icons <?php echo $fondo ?> modal-trigger view_info_stock" stock="<?php echo $value['id_stock'] ?>" data-target="modal_right">visibility</button>
+				</div>
+			</div>
+			<?php  
+		}
+	}else{ ?>
+		<h5 class="col s12 centrar color_letra_secundario">No se obtuvieron resultados</h5>
 		<?php  
 	}
-}else{ ?>
-	<h5 class="col s12 centrar color_letra_secundario">No se obtuvieron resultados</h5>
-	<?php  
-}
-?>
+	?>
+</div>
 <div class="paginacion col m12">
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/paginator/index.php'); ?>
 </div>

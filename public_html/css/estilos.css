@@ -15,7 +15,6 @@ input#darAlta::-webkit-slider-thumb,input#darBaja::-webkit-slider-thumb {
 	height: 1.5em;
 	width: 1.5em;
 	border-radius: 50%;
-	
 	cursor: pointer;
 	margin-top: -.7em;
 }
@@ -23,6 +22,16 @@ figure.icon-cellar img{
 	width: 30%;
 	max-height: 4em;
 	min-height: 4em;
+}
+i.mas:hover{
+	cursor: pointer;
+}
+i.menos:hover{
+	cursor: pointer;
+}
+.fondo_blanco{
+	background-color: rgb(255,255,255);
+	color: rgb(33,49,62);
 }
 input#darAlta::-webkit-slider-thumb{
 	background-color: rgb(33,49,62) !important;
@@ -154,11 +163,28 @@ div#recordatorio{
 	margin-top: 1em;
 	margin-bottom: 3em;
 }
-div#recordatorio h4 i {
-	margin-right: 1em;
-	box-shadow: 1px 1px 1px rgba(255,255,255,2);
-	padding: 1em;
-	border-radius: 50%;
+div#recordatorio h5 i{
+	position: absolute;
+	top: 0;
+}
+div#view_actions,div#view_actions_table{
+	position: fixed;
+	top: 4.3em;
+	z-index: 100;
+	background-color: rgba(213,227,222,1);
+	box-shadow:5px 5px 5px rgba(33,49,62,.3);
+	padding-bottom: 2em;
+	width: 97%;
+}
+div#view_actions_table{
+	padding-bottom: 0em;
+	top: 63.5px;
+}
+div#view_actions_table_next{
+	margin-top: 9em;
+}
+div#next_view_actions{
+	margin-top: 15em;
 }
 i{
 	color: rgb(33,49,62) !important;
@@ -201,11 +227,9 @@ div.flitro{
 	background: rgb(33,49,62);
 }
 label{
-	color: color: rgba(0,0,0,.5) !important;
 	padding-left: 2em !important;
 }
 label.search{
-	color: color: rgba(0,0,0,.5) !important;
 	padding-left: 0em !important;
 }
 .toast{
@@ -310,12 +334,12 @@ div.contenedor_session{
 	border: 7px solid rgb(242,83,85) !important;
 }
 input#tox2:checked+label:after, input#tox2.with-gap:checked+label:after{
-	background-color: rgb(41,88,31);
-	border: 7px solid rgb(41,88,31);
+	background-color: rgb(41,88,31) !important;
+	border: 7px solid rgb(41,88,31) !important;
 }
 input#tox3:checked+label:after, input#tox3.with-gap:checked+label:after{
-	background-color: rgb(254,150,53);
-	border: 7px solid rgb(254,150,53);
+	background-color: rgb(254,150,53) !important;
+	border: 7px solid rgb(254,150,53) !important;
 }
 input#tox4:checked+label:after, input#tox4.with-gap:checked+label:after{
 	background-color: rgb(47,47,47) !important;
@@ -399,20 +423,38 @@ input#tox4:checked+label:after, input#tox4.with-gap:checked+label:after{
 	font-size: 3em;
 }
 .targeta_inicio{
+	padding-left: 10px !important;
+	padding-right: 10px !important;
 	margin-top: 0em;
 	overflow: hidden;
 	transition: ease all .5s;
+	background-color: white;
 }
-.targeta_inicio:hover .card{
-	box-shadow: 0 2px 2px 0 rgba(242,83,85,.1), 0 1px 5px 0 rgba(242,83,85,.3), 0 1px 1px 1px rgba(242,83,85,.3);
+a.button-collapse,a.collapse_one,a.collapse_two{
+	position: fixed;
+	top: 1em ;
+	left: 2em;
+	z-index: 3000;
+}
+a.collapse_one{
+	left: 6em;
+	transition: 1s;
+}
+a.collapse_two{
+	left: 10em;
+}
+a.button-collapse:hover{
+	transition: 1s;
 }
 div.menu{
-	position: fixed;
-	height: 80%;
+	transition: ease all 1s;
+	height: auto;
 	overflow: hidden;
+	height: 100vh;
 	overflow: scroll;
 	overflow-x: hidden;
-	margin-top: 6em !important;
+	margin-top: 0em;
+	z-index: 100;
 }
 #modal1{
 	background-color: rgba(40,61,73,1)!important;
@@ -429,24 +471,29 @@ div.action{
 .tabla .btn{
 	margin-top: 0em !important;
 }
+div.tabla{
+	margin-bottom: 1em !important;
+}
 .tabla:hover h6{
 	color:  rgb(242,83,85) !important;
 }
-.second_cell{
-	border-right: 1px solid rgba(3,124,136,.2);
+.second_cell,.primary_cell{
+	border-right: 1px solid rgba(3,124,136,.5);
 }
-.head_cell{
-	background-color: rgb(242,83,85);
-	border-right: 1px solid rgba(255,255,255,.2);
-}
-.prymary_head_cell{
-	background-color: rgb(242,83,85);
+.head_cell,.prymary_head_cell{
+	background-color: rgb(255,255,255);
+	color: rgb(33,49,62);
 	border-right: 1px solid rgba(255,255,255,.2);
 }
 #head_table div a{
 	padding: 1em;
 }
-
+#head_table{
+	margin-bottom: 0px !important;
+}
+.modal-content #head_table{
+	margin-bottom: 10px !important;
+}
 .modal.bottom-sheet, #modal_full{
 	top: 0;
     margin-left: 40%;
@@ -502,5 +549,25 @@ div.targeta_notificacion a{
 div.grafica img{
 	width: 100%;
 }
+ul#slide-out{
+	background-color: transparent;
+	box-shadow: 0px 0px 0px transparent;
+}
+div#ilse{
+	width: 7em;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	z-index: 9999999;
+}
+div#ilse img{
+	width: 100%;
+}
 
-
+::-webkit-scrollbar              { opacity: 0; }
+::-webkit-scrollbar-button       { opacity: 0; }
+::-webkit-scrollbar-track        { opacity: 0; }
+::-webkit-scrollbar-track-piece  { opacity: 0; }
+::-webkit-scrollbar-thumb        { opacity: 0; }
+::-webkit-scrollbar-corner       { opacity: 0; }
+::-webkit-resizer                { opacity: 0; }

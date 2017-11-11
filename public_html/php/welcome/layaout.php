@@ -14,7 +14,7 @@
 	<header>
   		<nav>
 	    <div class="nav-wrapper fondo_negro">
-	    	<a href="../index.php" class="brand-logo" style="margin-left: 1em">
+	    	<a href="../index.php" class="brand-logo" style="margin-left: 7em">
 	    		<img src="../image/sena.svg" alt="">
 	    	</a>
 	    	<?php 
@@ -26,12 +26,6 @@
 							<i class="material-icons color_letra_secundario left">account_circle</i>
 						</a>
 					</li>
-					
-					<li>
-						<a class=" btn-cerrar btn-nav btn" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/sessions/remove_session.php?cerrarSesion=true">
-						<i class="material-icons">power_settings_new</i>
-						</a>
-					</li>	
 				</ul>
 				<?php 
 	      	}
@@ -40,6 +34,17 @@
 	  </nav>
 	</header>
 	<div class="principal col s12" >
+		<?php 
+	    if (isset($_SESSION["name_user_activo"])) { ?>
+			<a href="#" data-activates="slide-out" class="button-collapse btn-primary btn-floating fixed"><i class="material-icons slide-outs">menu</i></a>
+			<a class=" collapse_one btn-floating  btn-primary view_user " href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" id_user="<?php echo $_SESSION["id_user_activo"] ?>">
+				<i class="material-icons color_letra_secundario left">account_circle</i>
+			</a>
+			<a class="collapse_two  btn-floating btn-primary btn-cerrar " href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/sessions/remove_session.php?cerrarSesion=true">
+				<i class="material-icons color_letra_danger left">power_settings_new</i>
+			</a>
+			<?php  
+		}?>
 		<div class="row">
 			<div class="col m12" >
 				<?php  
@@ -112,6 +117,12 @@
 	    <div class="modal-footer">
 	      	<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat close_modal"><i class="material-icons">clear</i></a>
 	    </div>
+	</div>
+	<ul id="slide-out" class="side-nav">
+		<?php require_once('nav.php') ?>
+	</ul>
+	<div id="ilse">
+		<img src="../image/isle.svg" alt="">
 	</div>
     <script src="<?php $_SERVER['DOCUMENT_ROOT'] ?>/js/jQuery.js"></script>
     <script src="<?php $_SERVER['DOCUMENT_ROOT'] ?>/js/jspdf.min.js"></script>
