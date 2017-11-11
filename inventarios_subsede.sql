@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 11-11-2017 a las 01:26:53
+-- Tiempo de generación: 12-11-2017 a las 00:16:01
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -272,8 +272,8 @@ INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quant
 (19, 'cosechadora de frutos', 'cosechadora de frutos', 3, 0, 5, 7, 'A', '1', '2017-11-06 17:26:54'),
 (20, 'Tronzadora', 'Tronzadora', 1, 0, 5, 7, 'A', '1', '2017-11-06 17:27:17'),
 (21, 'Seguetas', 'Seguetas', 3, 0, 5, 7, 'A', '1', '2017-11-06 17:27:39'),
-(22, 'Nivel', 'Nivel', 2, 2, 5, 7, 'A', '1', '2017-11-06 17:27:54'),
-(23, 'Martillos', 'Martillos', 6, 6, 5, 7, 'A', '1', '2017-11-06 17:28:19'),
+(22, 'Nivel', 'Nivel', 2, 0, 5, 7, 'A', '1', '2017-11-06 17:27:54'),
+(23, 'Martillos', 'Martillos', 6, 5, 5, 7, 'A', '1', '2017-11-06 17:28:19'),
 (24, 'LLaves boca fija', 'LLaves boca fija', 23, 23, 5, 7, 'A', '1', '2017-11-06 17:29:15'),
 (25, 'Cepillo', '', 1, 1, 5, 7, 'A', '1', '2017-11-06 17:31:24'),
 (26, 'destornilladores', '', 17, 17, 5, 7, 'A', '1', '2017-11-06 17:31:33'),
@@ -315,7 +315,9 @@ INSERT INTO `exit_equipment_master` (`id_exit`, `id_user_receives`, `name_user_r
 (44, 0, '', 7, '', '2017-11-10 23:08:55'),
 (45, 12, 'carlos diaz Soto', 7, 'Interno', '2017-11-10 23:09:47'),
 (46, 12, 'carlos diaz Soto', 7, 'Interno', '2017-11-10 23:11:13'),
-(47, 12, 'carlos diaz Soto', 7, 'Manizales', '2017-11-10 23:44:35');
+(47, 12, 'carlos diaz Soto', 7, 'Manizales', '2017-11-10 23:44:35'),
+(48, 12, 'carlos diaz Soto', 7, 'Interno', '2017-11-11 22:58:01'),
+(49, 12, 'carlos diaz Soto', 7, 'Interno', '2017-11-11 23:03:52');
 
 -- --------------------------------------------------------
 
@@ -467,7 +469,10 @@ INSERT INTO `exit_teams_detall` (`id_exit_detall`, `id_exit`, `id_equipment`, `q
 (15, 46, 20, 1, '1', 1, 1, 0),
 (16, 46, 19, 1, '1', 1, 1, 0),
 (17, 47, 21, 1, 'buenos', 1, 1, 0),
-(18, 47, 19, 1, 'buenos', 1, 1, 0);
+(18, 47, 19, 1, 'buenos', 1, 1, 0),
+(19, 48, 23, 1, 'aaa', 1, 1, 0),
+(20, 48, 22, 1, 'aaa', 1, 1, 0),
+(21, 49, 22, 1, 'jhgfd', 1, 1, 0);
 
 --
 -- Disparadores `exit_teams_detall`
@@ -859,7 +864,8 @@ CREATE TABLE `recover_password` (
 --
 
 INSERT INTO `recover_password` (`id_recover`, `code_recover`, `email_user`, `use_code`, `fecha_creacion`) VALUES
-(1, 'E211422X', 'd4n7elfelipe@gmail.com', 1, '2017-11-08 03:57:53');
+(1, 'E211422X', 'd4n7elfelipe@gmail.com', 1, '2017-11-08 03:57:53'),
+(2, 'U996410G', 'd4n7elfelipe@gmail.com', 1, '2017-11-11 16:21:50');
 
 -- --------------------------------------------------------
 
@@ -1266,7 +1272,7 @@ ALTER TABLE `equipments`
 -- AUTO_INCREMENT de la tabla `exit_equipment_master`
 --
 ALTER TABLE `exit_equipment_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_detalle`
 --
@@ -1281,7 +1287,7 @@ ALTER TABLE `exit_product_master`
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
 ALTER TABLE `exit_teams_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_detall`
 --
@@ -1321,7 +1327,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
 ALTER TABLE `recover_password`
-  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
