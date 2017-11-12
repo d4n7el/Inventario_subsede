@@ -38,8 +38,9 @@ foreach ($retorno_equipos as $key => $value) { ?>
 	<?php 
 	if ($_SESSION["id_user_activo_role"] != 'A1-_1B'  || $_SESSION["id_user_activo_role"] != 'E_1_S1') { ?>
 		<div class="row" id="update_<?php echo $value['id_user'] ?>">
-			<h5 class="titulo color_letra_danger center col s12">		
-				<?php echo 'El sistema registra una cantidad de equipos disponibles actualmente de '.$value['quantity_available']. " y una cantidad prestada de ".$retorno_outside['count'] ; ?>
+			<h5 class="titulo color_letra_danger center col s12">
+				<?php $prestamos = ($retorno_outside['count'] > 0) ? $retorno_outside['count'] : 0 ?>	
+				<?php echo 'El sistema registra una cantidad de equipos disponibles actualmente de '.$value['quantity_available']. " y una cantidad prestada de ". $prestamos ?>
 			</h5>
 			<section class="col s6">
 				<h6 class="titulo col s12 fondo_negro color_letra_primario center paddin1">		

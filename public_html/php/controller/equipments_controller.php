@@ -57,7 +57,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
 		public function update_equipment_available($equipo,$disponible,$nota,$proceso){
@@ -83,7 +83,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
 		public function index_exit_equipments($equipo){
@@ -145,7 +145,7 @@
 				$this->db = null;
 				return $result;
 			} catch (PDOException $e) {
-            	 return $e->getMessage();
+            	 $e->getMessage();
         	}
 		}
 		public function exit_equipment_detall($valores_insert){
@@ -171,7 +171,7 @@
 				return $result;
 				
 			} catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
 		public function get_exit_equipments($team,$cedula,$fecha_inicial,$fecha_final,$estado,$limit,$offset){
@@ -224,7 +224,7 @@
 	            $this->db = null;
 	            return $result;
             } catch (PDOException $e) {
-            	echo $e->getMessage();
+            	$e->getMessage();
         	}
 		}
 

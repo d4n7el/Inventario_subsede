@@ -10,6 +10,16 @@ div#modal_mensajes .modal-content{
 .color_letra_secundario{
 	color: rgb(33,49,62) !important;
 }
+i.destination {
+	font-size: 10em;
+	border-radius: 50%;
+}
+i.destination:hover {
+	animation-name: left_right;
+	animation-duration: .4s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
 input#darAlta::-webkit-slider-thumb,input#darBaja::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	height: 1.5em;
@@ -278,12 +288,12 @@ div.input-field i{
 	color: rgb(30,136,229);
 }
 img.cargando{
-	animation-name: opacity_change;
+	animation-name: left_right;
 	animation-duration: .4s;
 	animation-iteration-count: infinite;
 	animation-direction: alternate;
 }
-@-webkit-keyframes opacity_change {
+@-webkit-keyframes left_right {
 	from { 
 		opacity: .4;
 		-ms-transform: rotate(7deg); /* IE 9 */

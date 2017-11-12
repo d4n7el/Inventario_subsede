@@ -31,8 +31,9 @@
     	</form>
     </section>
     <div class="row">
-    	<h5 class="titulo col s12 color_letra_danger center">		
-			<?php echo 'El sistema registra una cantidad de equipos disponibles actualmente de '.$retorno_herramientas['quantity_available']. " y una cantidad prestada de ".$retorno_outside['count'] ; ?>
+    	<h5 class="titulo col s12 color_letra_danger center">	
+    		<?php $prestamos = ($retorno_outside['count'] > 0) ? $retorno_outside['count'] : 0 ?>	
+			<?php echo 'El sistema registra una cantidad de equipos disponibles actualmente de '.$retorno_herramientas['quantity_available']. " y una cantidad prestada de ".$prestamos ; ?>
 		</h5>
 		<section class="col s6">
 			<h6 class="titulo col s12 fondo_negro color_letra_primario center paddin1">

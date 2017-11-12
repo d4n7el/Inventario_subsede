@@ -124,7 +124,12 @@ function eliminar_eventos(){
 var recargar_eventos = function(){
 	eliminar_eventos();
 	$('.collapsible').collapsible();
-	
+	$('i.destination').on('click', function(event) {
+		event.preventDefault();
+		$('i.destination').removeClass('color_letra_danger').addClass('color_letra_secundario');
+		$(this).addClass('color_letra_danger');
+		$('input#'+$(this).attr('destino')).click();
+	});
 	$('btn-cerrar').on('click', function(event) {
 		$('.button-collapse').sideNav('hide');
 	});
