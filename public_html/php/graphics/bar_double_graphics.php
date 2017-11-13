@@ -20,11 +20,11 @@
       datasets: [{
         label: 'Ingresos',
         data: datosA,
-        backgroundColor: 'rgb(33,49,62)',
+        backgroundColor: 'rgb(0,112,137)',
       }, {
         label: 'Salidas',
         data: datosB,
-        backgroundColor: 'rgb(242,83,85)',
+        backgroundColor: 'rgb(56,21,63)',
       }]
     }
   });

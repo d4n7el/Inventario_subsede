@@ -8,7 +8,7 @@ div#modal_mensajes .modal-content{
 	color: white !important;
 }
 .color_letra_secundario{
-	color: rgb(33,49,62) !important;
+	color: rgb(0,112,137) !important;
 }
 i.destination {
 	font-size: 10em;
@@ -41,35 +41,35 @@ i.menos:hover{
 }
 .fondo_blanco{
 	background-color: rgb(255,255,255);
-	color: rgb(33,49,62);
+	color: rgb(0,112,137);
 }
 input#darAlta::-webkit-slider-thumb{
-	background-color: rgb(33,49,62) !important;
+	background-color: rgb(0,112,137) !important;
 }
 input#darBaja::-webkit-slider-thumb {
-	background-color: rgb(242,83,85) !important;
+	background-color: rgb(56,21,63) !important;
 }
 #modal_mensajes{
 	z-index: 9999999999;
 }
 input#darAlta+.thumb{
-	background-color: rgb(33,49,62) !important;
+	background-color: rgb(0,112,137) !important;
 }
 input#darAlta{
-	background-color: rgb(33,49,62) !important;
+	background-color: rgb(0,112,137) !important;
 }
 input#darBaja+.thumb{
-	background-color: rgb(242,83,85) !important;
+	background-color: rgb(56,21,63) !important;
 }
 input#darBaja{
-	background-color: rgb(242,83,85) !important;
+	background-color: rgb(56,21,63) !important;
 }
 .color_letra_danger{
-	color: rgb(242,83,85) !important;
+	color: rgb(56,21,63) !important;
 }
 .fondo_claro{
 	transition: 1s ease;
-	background-color: rgb(242,83,85) !important;
+	background-color: rgb(56,21,63) !important;
 }
 a.brand-logo img{
 	opacity: .1;
@@ -151,7 +151,7 @@ p.guia_abajo i.second{
 	top: 0;
 }
 nav{
-	background-color: rgb(33,49,62) !important;
+	background-color: rgb(0,112,137) !important;
 	position: fixed;
 	top: 0;
 	z-index: 100;
@@ -159,7 +159,7 @@ nav{
 	background-repeat: no-repeat;
 }
 div.paginacion{
-	background-color: rgb(33,49,62) !important;
+	background-color: rgb(0,112,137) !important;
 	position: fixed;
 	bottom: 0;
 	z-index: 300;
@@ -167,7 +167,7 @@ div.paginacion{
 	max-height: 4em;
 }
 ul.pagination li.active{
-	background-color: rgb(242,83,85);
+	background-color: rgb(56,21,63);
 }
 div#recordatorio{
 	margin-top: 1em;
@@ -197,7 +197,7 @@ div#next_view_actions{
 	margin-top: 15em;
 }
 i{
-	color: rgb(33,49,62) !important;
+	color: rgb(0,112,137) !important;
 }
 
 div.destino{
@@ -234,7 +234,7 @@ div.element_salida{
 }
 div.flitro{
 	z-index: 100;
-	background: rgb(33,49,62);
+	background: rgb(0,112,137);
 }
 label{
 	padding-left: 2em !important;
@@ -242,8 +242,11 @@ label{
 label.search{
 	padding-left: 0em !important;
 }
+label.active{
+	 color:  rgb(0,112,137)!important;
+}
 .toast{
-	background-color: rgb(242,83,85);
+	background-color: rgb(56,21,63);
 	color: white;
 }
 input[type=text]:not(.search),input[type=number]:not(.search),input[type=password]:not(.search){
@@ -254,9 +257,12 @@ input.search{
 	color: white !important;
 }
 .list_stock_exit input.search{
-	color:  rgb(33,49,62)!important;
+	color:  rgb(0,112,137)!important;
 }
-
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]){
+	border-bottom: 1px solid white;
+	box-shadow: 0 1px 0 0 white;
+}
 input[type=text]:not(.search):focus,input[type=number]:not(.search):focus,input[type=password]:not(.search):focus{
 	color: black !important;
 	box-shadow: 0px 0px 0px transparent !important;
@@ -308,12 +314,12 @@ img.cargando{
 	}
 }
 h5.titulo{
-	color: rgb(33,49,62);
+	color: rgb(0,112,137);
 	font-size: 1em;
 	margin-bottom: 2em;
 }
 h6.titulo{
-	color: rgb(33,49,62);
+	color: rgb(0,112,137);
 	font-size: 1em;
 	margin-bottom: 2em;
 }
@@ -328,7 +334,7 @@ div.contenedor_session{
 .btn-primary,.btn-nav{
 	margin-right: .3em;
 	background-color: white;
-	color: rgb(33,49,62);
+	color: rgb(0,112,137);
 }
 .category2,.category2:hover,.category2:focus{
 	background-color: rgb(41,88,31) !important;
@@ -340,8 +346,8 @@ div.contenedor_session{
 	background-color: rgb(47,47,47) !important;
 }
 [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after{
-	background-color: rgb(242,83,85) !important;
-	border: 7px solid rgb(242,83,85) !important;
+	background-color: rgb(56,21,63) !important;
+	border: 7px solid rgb(56,21,63) !important;
 }
 input#tox2:checked+label:after, input#tox2.with-gap:checked+label:after{
 	background-color: rgb(41,88,31) !important;
@@ -360,23 +366,23 @@ input#tox4:checked+label:after, input#tox4.with-gap:checked+label:after{
 }
 .btn-primary:focus{
 	background-color: white;
-	color: rgb(33,49,62) !important;
+	color: rgb(0,112,137) !important;
 
 }
 .btn-success{
-	background-color: rgb(242,83,85);
+	background-color: rgb(56,21,63);
 	color: white;
 }
 .btn-success:hover{
-	background-color: rgb(242,83,85);
+	background-color: rgb(56,21,63);
 	color: white;
 }
 .btn-success:focus{
-	background-color: rgb(242,83,85);
+	background-color: rgb(56,21,63);
 	color: white;
 }
 .btn i{
-	color: rgb(33,49,62);
+	color: rgb(0,112,137);
 }
 .btn-success i {
 	color: white;
@@ -473,7 +479,7 @@ div#vista_ventana{
 	margin-top: 7em !important;
 }
 .fondo_negro{
-	background-color: rgb(33,49,62) !important;
+	background-color: rgb(0,112,137) !important;
 }
 div.action{
 	margin-bottom: 1em;
@@ -485,14 +491,14 @@ div.tabla{
 	margin-bottom: 1em !important;
 }
 .tabla:hover h6{
-	color:  rgb(242,83,85) !important;
+	color:  rgb(56,21,63) !important;
 }
 .second_cell,.primary_cell{
 	border-right: 1px solid rgba(3,124,136,.5);
 }
 .head_cell,.prymary_head_cell{
 	background-color: rgb(255,255,255);
-	color: rgb(33,49,62);
+	color: rgb(0,112,137);
 	border-right: 1px solid rgba(255,255,255,.2);
 }
 #head_table div a{
@@ -540,7 +546,7 @@ div.calendar div.hora{
 	font-size: 3em;
 }
 div.taregta_notificacion{
-	background-color: rgba(230,71,64,1);
+	background-color: rgb(56,21,63);
 	color: white;
 	padding-top: 5em;
 	border-radius: 10px;
@@ -549,10 +555,10 @@ div.targeta_notificacion h6{
 	font-size: 1.5em;
 }
 div.targeta_notificacion i{
-	color: rgba(230,71,64,1) !important;
+	color: rgb(56,21,63) !important;
 }
 div.targeta_notificacion a{
-	color: rgba(230,71,64,1) !important;
+	color: rgb(56,21,63) !important;
 	margin-top: 1em;
 	background-color: white !important;
 }

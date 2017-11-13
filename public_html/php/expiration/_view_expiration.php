@@ -3,27 +3,27 @@
 		Stoks vencidos sin salida registrada
 	</h6>
 	<div class="col s3 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="name_cellar ASC">
+		<a href="#" class="tabla color_letra_secundario" order="name_cellar ASC">
 			<strong>Producto</strong>
 		</a>
 	</div>
 	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+		<a href="#" class="tabla color_letra_secundario" order="nom_lot ASC">
 			<strong>Lote  </strong>
 		</a>
 	</div>
 	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+		<a href="#" class="tabla color_letra_secundario" order="nom_lot ASC">
 			<strong>Cantidad  </strong>
 		</a>
 	</div>
 	<div class="col s3 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="nom_lot ASC">
+		<a href="#" class="tabla color_letra_secundario" order="nom_lot ASC">
 			<strong>Fecha  </strong>
 		</a>
 	</div>
 	<div class="col s2 centrar head_cell">
-		<a href="#" class="tabla color_letra_primario" order="quantity DESC">
+		<a href="#" class="tabla color_letra_secundario" order="quantity DESC">
 			<strong>Opciones</strong>
 		</a>
 	</div>
