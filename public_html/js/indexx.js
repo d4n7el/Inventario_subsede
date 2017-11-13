@@ -619,6 +619,7 @@ function ajax_set_form_data(ruta,formData){
 	    contentType: false,
 	    processData: false, 
 	    success: function(response){
+	    	console.log(response);
 	    	$('#modal_mensajes').modal('close');
 	    	success(response);
 	    	if (response['status']==1 && response['process']=='create')  {
@@ -833,6 +834,7 @@ function limpiar_add_exit(){
 	$("input#cantidad").siblings('label').text("");
 }
 function limpiar_exit(){
+	$("a.delete_exit_plant").click();
 	$('div#name_receive_user').html("");
 	$('input#receive_user').val("");
 	var html_user = 

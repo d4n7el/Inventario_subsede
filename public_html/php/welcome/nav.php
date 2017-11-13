@@ -136,6 +136,9 @@
 					<div class="card-action fondo_negro" >
 						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/_view_exit.php" class="link_page color_letra_primario" titulo="Nueva salidas planta">Salidas Planta<i class="material-icons right color_letra_primario">visibility</i></a>
 					</div>
+					<div class="card-action fondo_negro" >
+						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/plant/view_list_exit_plant.php" class="link_page color_letra_primario" titulo="Nueva salidas planta">Ver Salidas<i class="material-icons right color_letra_primario">visibility</i></a>
+					</div>
 				</div>
 		    </div>
 	    	<?php  
