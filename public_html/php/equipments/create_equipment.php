@@ -1,6 +1,6 @@
 <?php  
 	session_start();
-	if (isset($_SESSION["id_user_activo"])) {
+	if (isset($_SESSION["id_user_activo"]) AND $_SESSION["id_user_activo_role"] != "A1-_1B" AND $_SESSION["id_user_activo_role"] != "E_1_S1")  {
 		$col = (isset($_REQUEST['alterno']) ? "s12" : "s6" );	
 ?>
 		<div class="row">
@@ -44,6 +44,10 @@
 	    	}?>
 	    	
 		</div>
+		<?php 
+	}
+	else{?>
+		<h6 class="center color_letra_primario paddin1 fondo_negro">Usted no esta autorizado a realizar esta operacion</h6>
 		<?php 
 	}
 	?>
