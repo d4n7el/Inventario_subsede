@@ -2,10 +2,11 @@
 	class ExitProduct{
 		private $bd;
 		private $retorno;
-
+		private $zone;
 		public function __construct(){
 			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
 			$this->db = Conexion::conect();
+			$this->zone = $_SESSION["user_zone"];
 			$this->retorno = Array();
 		}
 		public function insert_exit_product($destino,$recive,$id_user,$name_recive){
@@ -85,7 +86,7 @@
 		}
 		public function graphics_bar_acum_exit_income($fecha_inicial, $fecha_final){
 			try {
-				$sql =  "SELECT SUM(stock.amount_income) AS ingreso, products.name_product, SUM(exit_product_detalle.quantity) as salida FROM stock INNER JOIN products ON stock.id_product = products.id_product LEFT JOIN exit_product_detalle ON stock.id_stock = exit_product_detalle.id_stock GROUP BY products.id_product";
+				$sql =  "SELECT SUM(stock.amount_income) AS ingreso, products.name_product, SUM(exit_product_detalle.quantity) as salida FROM stock INNER JOIN products ON stock.id_product = products.id_product LEFT JOIN exit_product_detalle ON stock.id_stock = exit_product_detalle.id_stock WHERE products.zone = '$this->zone' GROUP BY products.id_product";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
@@ -98,7 +99,7 @@
 		}
 		public function graphics_bar_acum_exit_date($fecha_inicial, $fecha_final){
 			try {
-				$sql =  "SELECT name_product, SUM(quantity) as count, prefix_measure FROM show_exit_stock WHERE date_create BETWEEN '$fecha_inicial' AND '$fecha_final' GROUP BY name_product ORDER BY SUM(quantity) DESC LIMIT 10  ";
+				$sql =  "SELECT name_product, SUM(quantity) as count, prefix_measure FROM show_exit_stock WHERE date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND zone = '$this->zone' GROUP BY name_product ORDER BY SUM(quantity) DESC LIMIT 10  ";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($fecha_inicial, $fecha_final));
 				$result = $sql_consult->fetchAll();

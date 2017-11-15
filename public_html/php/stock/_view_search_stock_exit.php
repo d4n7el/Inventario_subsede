@@ -1,21 +1,21 @@
 <div class="row" id="view_actions">
-	<div class="alternos col s12 m4 l3">
+	<div class="alternos col s12 m12 l3">
 		<?php 
 		if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B') { ?>
-			<button type="" class="waves-effect col s12 flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center_two">Crea un producto
+			<button type="" class="waves-effect col s6 m4 l12 flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center_two">Crea un producto
 			            <i class="material-icons color_letra_primario left">add</i>
 			</button>
-			<button type="" class="waves-effect col s12 flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center_two">Crea un Stock
+			<button type="" class="waves-effect col s6 m4 l12 flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center_two">Crea un Stock
 			            <i class="material-icons color_letra_primario left">add</i>
 			</button>
-			<button type="" class="waves-effect col s12 flujo_alterno waves-light btn btn-success" ruta="../php/measure/create_measure.php" data-target="modal_center_two">Crea Medida
+			<button type="" class="waves-effect col s12 m4 l12 flujo_alterno waves-light btn btn-success" ruta="../php/measure/create_measure.php" data-target="modal_center_two">Crea Medida
 			    <i class="material-icons color_letra_primario left">add</i>
 			</button>
 			<?php  
 		}
 		?>
 	</div>
-	<div class="col s12 m4 l5" id="" style="margin-top: 2em">
+	<div class="col s12 m6 l5" id="" style="margin-top: 2em">
 		<div class="col s12 fondo_negro">
 			<h6 class="color_letra_primario">
 				¡Información de salida! 
@@ -48,7 +48,7 @@
 			</button>
 		</div>
 	</div>
-	<div class="col s4" style="margin-top: 2em">
+	<div class="col s12  m6 l4" style="margin-top: 2em">
 	<form action="<?php $_SERVER['DOCUMENT_ROOT']?>/php/stock/search_stock_exit.php" class="search_exit_plant">			
 		<div class="input-field col s12">
 	        <i class="material-icons prefix">send</i>

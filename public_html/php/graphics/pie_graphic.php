@@ -1,4 +1,4 @@
-<canvas id="pie-chart" width="600" height="600"></canvas>
+<canvas id="pie-chart" width="500" height="500"></canvas>
 <script>
 var datos = <?= json_encode($data,
     JSON_NUMERIC_CHECK | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS

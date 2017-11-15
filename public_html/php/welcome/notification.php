@@ -13,14 +13,14 @@
 	 		<div class="dia col s12 centrar">
 	 			<?php echo $mes ?>
 	 		</div>
-	 		<div class="hora col s12 centrar">
+	 		<div class="hora col s12 centrar color_letra_secundario">
 	 			<?php echo $dia ?>
 	 		</div>
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
 
-	 			<a class="waves-effect col s12 waves-light btn-large view_expiration" href="#modal_right" ruta="../php/expiration/expiration.php" >
+	 			<a class="waves-effect color_letra_secundario col s12 waves-light btn-large view_expiration" href="#modal_right" ruta="../php/expiration/expiration.php" >
 	 			 	Vencimientos
 	 			 	<?php 
 	 			 	if ($count_expiration['count'] > 0) { ?>
@@ -32,62 +32,69 @@
 		</div>
 		<div class="col s12 m12">
 	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect  col s12 waves-light btn-large">
+	 			<a class="waves-effect color_letra_secundario  col s12 waves-light btn-large">
 	 				Mal estado
 	 			</a>
 	 		</div>
 		</div>
 	</div>
-	<div class="contenedor col s12 m4">
-		<div class="grafica col s12 m12">
-	 		<img src="../image/grafica.png" alt="">
+	<?php  
+	if ($_SESSION["user_zone"] == "A") { ?>	
+		<div class="contenedor col s12 m4">
+			<div class="grafica col s12 m12">
+		 		<img src="../image/grafica.png" alt="">
+			</div>
+			<div class="col s12 m12">
+		 		<div class="targeta_notificacion col s12 centrar">
+		 			<a class="waves-effect color_letra_secundario col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/products/graphics_bar_total_exit.php" >
+		 			 	Salidas
+		 			</a>
+		 		</div>
+			</div>
+			<div class="col s12 m12">
+		 		<div class="targeta_notificacion col s12 centrar">
+		 			<a class="waves-effect color_letra_secundario col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/stock/graphic_acum_exit_date.php" >
+		 			 	Acumulado / Salidas
+		 			</a>
+		 		</div>
+			</div>
+			<div class="col s12 m12">
+		 		<div class="targeta_notificacion col s12 centrar">
+		 			<a class="waves-effect color_letra_secundario col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/stock/graphics_bar_exit_income.php" >
+		 			 	Ingresos / Salidas
+		 			</a>
+		 		</div>
+			</div>
 		</div>
-		<div class="col s12 m12">
-	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/products/graphics_bar_total_exit.php" >
-	 			 	Salidas
-	 			</a>
-	 		</div>
+		<?php
+	}
+	if ($_SESSION["user_zone"] == "B") { ?>	
+		<div class="contenedor col s12 m4">
+			<div class="grafica col s12 m12">
+		 		<img src="../image/grafica-planta.png" alt="">
+			</div>
+			<div class="col s12 m12">
+		 		<div class="targeta_notificacion col s12 centrar">
+		 			<a class="waves-effect color_letra_secundario col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/products/graphics_bar_total_exit.php" >
+		 			 	Salidas
+		 			</a>
+		 		</div>
+			</div>
+			<div class="col s12 m12">
+		 		<div class="targeta_notificacion col s12 centrar">
+		 			<a class="waves-effect color_letra_secundario col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/stock/graphic_acum_exit_date.php" >
+		 			 	Acumulado / Salidas
+		 			</a>
+		 		</div>
+			</div>
+			<div class="col s12 m12">
+		 		<div class="targeta_notificacion col s12 centrar">
+		 			<a class="waves-effect color_letra_secundario col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/stock/graphics_bar_exit_income.php" >
+		 			 	Ingresos / Salidas
+		 			</a>
+		 		</div>
+			</div>
 		</div>
-		<div class="col s12 m12">
-	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/stock/graphic_acum_exit_date.php" >
-	 			 	Acumulado
-	 			</a>
-	 		</div>
-		</div>
-		<div class="col s12 m12">
-	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect col s12 waves-light btn-large view_graphics" href="#modal_right" ruta="../php/stock/graphics_bar_exit_income.php" >
-	 			 	Salidas
-	 			</a>
-	 		</div>
-		</div>
-	</div>
-	<div class="contenedor col s12 m4">
-		<div class="grafica col s12 m12">
-	 		<img src="../image/grafica-planta.png" alt="">
-		</div>
-		<div class="col s12 m12">
-	 		<div class="targeta_notificacion col s12 centrar">
-	 			 <a class="waves-effect col s12 waves-light btn-large">
-	 			 	Salidas planta
-	 			</a>
-	 		</div>
-		</div>
-		<div class="col s12 m12">
-	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect  col s12 waves-light btn-large">
-	 				Destino Externo
-	 			</a>
-	 		</div>
-		</div>
-		<div class="col s12 m12">
-	 		<div class="targeta_notificacion col s12 centrar">
-	 			<a class="waves-effect  col s12 waves-light btn-large">
-	 				Acumulado salidas
-	 			</a>
-	 		</div>
-		</div>
-	</div>
+		<?php
+	}?>
 </div>

@@ -2,9 +2,16 @@
  Destino y destinatario.
  </h6>
 <div class="row">
-    <div class="col s6 centrar">
+
+    <div class="col s6">
+        <div class="col s12 centrar">
+            <h5 class="col s6 center color_letra_secundario paddin1"> Interno </h5>
+            <h5 class="col s6 center color_letra_secundario paddin1"> Externo </h5>
+        </div>
+        <div class="col s12 centrar">
             <i class="material-icons destination color_letra_secundario sombra" destino="interno">place</i>
             <i class="material-icons destination color_letra_secundario sombra" destino="Externo">edit_location</i>
+        </div>      
     </div>
    
     <div class="destino col s12 m6 hide" style="margin-top: 1em">
@@ -27,7 +34,7 @@
         <input id="receive_user" type="text" class="validate" name="receive_user" autocomplete="off" ruta="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/request/get_user.php" required>
         <label for="receive_user" class="">Cedula de quien recibe</label>
     </div>
-    <div class="input-field col s6" id="name_receive_user">
+    <div class="input-field col s12 m6 offset-m6" id="name_receive_user">
     </div> 
 </div>
 

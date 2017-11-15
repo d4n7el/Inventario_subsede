@@ -53,7 +53,7 @@
 		}
 		public function graphics_bar_total(){
 			try {
-				$sql_consult = $this->db->prepare("SELECT num_orders, name_product FROM products ORDER BY num_orders DESC LIMIT 20 ");
+				$sql_consult = $this->db->prepare("SELECT num_orders, name_product FROM products ORDER BY num_orders DESC LIMIT 13 ");
 				$sql_consult->execute();
 				$result = $sql_consult->fetchAll();
 				$this->db = null;

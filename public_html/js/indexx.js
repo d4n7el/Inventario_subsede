@@ -3,25 +3,26 @@ $(document).on('ready',function(){
 	div_id	 = ""; destino = "";  id_user = ""; name_user = "";
 	recargar_eventos();
 	$('.button-collapse').sideNav({
-		menuWidth: 330, 
+		menuWidth: 430, 
 		edge: 'left', 
 		closeOnClick: true, 
 		draggable: true,
 		onOpen: function(el) {
 			$('a.collapse_one,a.collapse_two').css({
 				'transition': "1s",
-				'margin-left': "22em",
+				'margin-left': "28em",
 			});
 			$('a.collapse_two').css({
 				'transition': "1s",
-				'margin-left': "14em",
+				'margin-left': "28em",
 			});
-			$('.button-collapse').css('margin-left', '18em');
+			$('.button-collapse').css('margin-left', '28em');
 			$('i.slide-outs').css({
 				transform: 'rotate(360deg)',
 				transition: '.5s'
 			});
 			$('i.slide-outs').text('clear');
+			$('#modal_right,#modal_center,#modal_center_two').modal('close');
 		}, 
 		onClose: function(el) {
 			$('a.collapse_one,a.collapse_two').css({
@@ -123,6 +124,8 @@ function eliminar_eventos(){
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
+	next_view_actions_height = $('div#view_actions').height();
+	$('div#next_view_actions').css('margin-top', next_view_actions_height+"px");
 	$('.collapsible').collapsible();
 	$('i.destination').on('click', function(event) {
 		event.preventDefault();
@@ -155,7 +158,7 @@ var recargar_eventos = function(){
 		startingTop: '4%', // Starting top style attribute
 		endingTop: '10%', // Ending top style attribute
 		complete: function() { 
-			$('.modal .modal-content').html("");
+			$(this).find('div.modal-content').html("");
 			$('#modal_center .modal-content').html("<form class='update_info'></form>");
 		} // Callback for Modal close
 	});
@@ -167,14 +170,14 @@ var recargar_eventos = function(){
 		formData.append("name_receive_user", name_user);
 		var ruta =  $(this).attr('action');
 		ajax_set_form_data(ruta,formData);
-		destino = "";  id_user = ""; name_user = "";
 	});
 	$('button#create_destino').on('click', function(event) {
 		event.preventDefault();
-		if ($('input#desc_destino').val() != "" && $('input#name_receive_user') != "" ) {
-			destino = $('input#desc_destino').val();
-			id_user = $('input#receive_user').val();
-			name_user = $('input#name_receive_user').val();
+		destino = $('input#desc_destino').val();
+		id_user = $('input#receive_user').val();
+		name_user = $('input#name_receive_user').val();
+		if ($('input#desc_destino').val() != "" && $('input#name_receive_user') != "" && name_user != undefined ) {
+			
 			var html_user = 
 				'<h6 class="">\
 					Recibe: '+name_user+'\
@@ -189,10 +192,9 @@ var recargar_eventos = function(){
 			$('div.destino_salida').html(html_destino);
 			$('#modal_center').modal('close');
 		}else{
-			mensaje_alert('error',"Ingresa todos los campos",4000);
+			dialogo('Ingresa todos los campos');
 		}
 	});
-
 	$('button.add_destinatario').on('click', function(event) {
 		event.preventDefault();
 		var ruta = $(this).attr('ruta');
@@ -284,7 +286,7 @@ var recargar_eventos = function(){
 				.animate({ opacity: 1 },1000);
 			$('div.list_add_exit_plant div.card').first().attr('id',divs+"add");
 			$('div.list_add_exit_plant div.card div.cantidad').removeClass('hide');
-			$('div.list_add_exit_plant div.card').removeClass('s12').addClass('col s12 m4 l4');
+			$('div.list_add_exit_plant div.card').removeClass('s12').addClass('col s12 m6 l3');
 			$('div.list_add_exit_plant a.add_exit_plant').addClass('hide');
 			$('div.list_add_exit_plant a.delete_exit_plant').removeClass('hide');
 			recargar_eventos();
@@ -768,8 +770,8 @@ function ver_info_user(datos,status){
 	}else{
 		var html = 
 			'<div class="col s12 centrar sombra" id="">\
-				<h5 class="color_letra_primario">\
-					<i class="material-icons color_letra_secundario">warning</i> ¡No hay registros! \
+				<h5 class="color_letra_secundario titulo">\
+					<i class="material-icons color_letra_secundario">warning</i> ¡Usuario no encontrado! \
 				</h5>\
     		</div> '
 	}
@@ -834,6 +836,7 @@ function limpiar_add_exit(){
 	$("input#cantidad").siblings('label').text("");
 }
 function limpiar_exit(){
+	destino = "";  id_user = ""; name_user = "";
 	$("a.delete_exit_plant").click();
 	$('div#name_receive_user').html("");
 	$('input#receive_user').val("");
