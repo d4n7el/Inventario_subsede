@@ -67,12 +67,13 @@
 		
 	</div>
 	<div id="modal_right" class="modal bottom-sheet col s12">
+		 <div class="modal-footer col s1">
+	      	<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat close_modal"><i class="material-icons">clear</i></a>
+	    </div>
 	    <div class="modal-content">
 	      	
 	    </div>
-	    <div class="modal-footer">
-	      	<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat close_modal"><i class="material-icons">clear</i></a>
-	    </div>
+	   
   	</div>
   	<div id="modal_center" class="modal">
 	    <div class="modal-content">

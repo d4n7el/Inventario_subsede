@@ -211,10 +211,6 @@ div.destino{
 #modal_mensajes .modal-content .card-image img{
 	width: 60%;
 }
-a.close_modal{
-	position: fixed;
-	top: 10em;
-}
 div#view_add_elements{
 	padding-top: 2em;
 	height: 50vh;
@@ -597,5 +593,17 @@ div#ilse img{
 	}
 	div.destino{
 		margin-top: 2em;
+	}
+	.modal.bottom-sheet{
+		margin-left: 0%;
+		width: 100%;
+	}
+	.modal-footer{
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.modal-content{
+		margin-top: 3em;
 	}
 }

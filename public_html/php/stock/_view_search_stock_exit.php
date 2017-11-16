@@ -39,11 +39,11 @@
 				<i class="material-icons col s2 right" >account_circle</i> 
 			</h6>
 		</div>
-		<div class="alternos col s12 m12 l12 centrar">
-			<button type="" class="waves-effect col s6 add_destinatario waves-light btn btn-primary" ruta="../php/_partials/add_destino.php" data-target="modal_center">Añadir destino
+		<div class="alternos col s12 m12 l12">
+			<button type="" class="waves-effect col s12 m6 add_destinatario waves-light btn btn-primary" ruta="../php/_partials/add_destino.php" data-target="modal_center">Añadir destino
 				<i class="material-icons color_letra_secundario left">airport_shuttle</i>
 			</button>
-			<button class="waves-effect waves-light btn btn-primary col s6 " id="view_list_exit" >
+			<button class="waves-effect waves-light btn btn-primary col s12 m6 " id="view_list_exit" >
 				<i class="material-icons left color_letra_secundario">visibility</i>Listado salida ()
 			</button>
 		</div>
