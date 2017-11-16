@@ -22,6 +22,16 @@ foreach ($retorno_equipos as $key => $value) { ?>
 		        	<input id="cantidad_total" type="text" class="validate editar_info" name="cantidad_total" readonly="readonly" autocomplete="off" value="<?php echo $value['total_quantity'] ?>">
 		        	<label for="cantidad_total" class="active">Cantidad Total</label>
 		        </div>	
+
+		        <div class="input-field col s4">
+		        	<i  class="material-icons prefix">business_center</i>
+		        	<select name="estado" id="estado">
+		        		<option value="0">Inactivo</option>
+		        		<option value="1">Activo</option>
+		        	</select>
+		        	<label for="estado" class="active">Estado</label>
+		        </div>	
+
 		        
 		        <div class="action col s12 centrar">
 		        	<button class="waves-effect waves-light btn btn-success hide actualizar_info">

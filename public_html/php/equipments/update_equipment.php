@@ -8,16 +8,17 @@
 	$nota 				= $_REQUEST["nota"];
 	$proceso 			= $_REQUEST["process"];
 	$bodega 			= 5;
+	$estado             = $_REQUEST["estado"];
 	//B_1-b_1
 	if (!isset($_REQUEST["cantidad_disponible"]) && !isset($_REQUEST["nota"] )) {
 		$equipo 			= $_REQUEST["equipo"];
 		$marca 		        = $_REQUEST["marca"];
 		$cantidad_total		= $_REQUEST["cantidad_total"];
-		$retorno_equipment 	= $equipment->update_equipment($equipo,$marca,$cantidad_total,$bodega,$id_user,$id_equipo);
+		$retorno_equipment 	= $equipment->update_equipment($equipo,$marca,$cantidad_total,$bodega,$id_user,$id_equipo,$estado);
 		if ($retorno_equipment['retorno'] > 0) {
-			$respuesta = array('mensaje' => "Actualizacion Exitosa", 'status' => 1,'closeModal' => 1 );
+			$respuesta = array('mensaje' => $retorno_equipment['retorno'], 'status' => 1,'closeModal' => 1 );
 		}else{
-			$respuesta = array('mensaje' => "No puedes realizar esta accion", 'status' => 0 );
+			$respuesta = array('mensaje' => $retorno_equipment['retorno'], 'status' => 0 );
 		}
 	}elseif (isset($_REQUEST["cantidad_disponible"]) && isset($_REQUEST["nota"]) && isset($_REQUEST["process"]) && $_REQUEST["cantidad_disponible"] > 0 && $_REQUEST["nota"] != "" ) {
 		$retorno_equipment 	= $equipment->update_equipment_available($id_equipo,$disponible,$nota,$proceso);

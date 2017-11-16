@@ -18,14 +18,6 @@
 	            <input id="fecha_final" type="text" class="validate search datepicker" value="<?php echo ($fecha_final == "%%") ? "" : $fecha_final ?>" name="fecha_final" autocomplete="off">
 	            <label for="fecha_final" class="<?php echo ($fecha_final == "%%") ? "" : "active" ?> search">Final</label>
 	        </div>
-	        <p>
-      			<input name="group1" value="1" type="radio" id="test1"  <?php echo ($estado == "1") ? "checked"  : "" ?> />
-      			<label for="test1">Activo</label>
-    		</p>
-		    <p>
-		      	<input name="group1" value="0" type="radio" id="test2" <?php echo ($estado == "0") ? "checked"  : "" ?> />
-		      	<label for="test2">Inactivo</label>
-		    </p>
 	        <div class=" input-field action col m1 centrar">
 	        	<button class="waves-effect waves-light btn-floating btn-primary">
 	        		<i class="material-icons left">near_me</i>

@@ -14,13 +14,14 @@
 	$marca = isset($_REQUEST['marca']) && $_REQUEST['marca'] != "" ? $_REQUEST['marca'] : "%%";
 	$fecha_inicial = isset($_REQUEST['fecha_inicial'])? $_REQUEST['fecha_inicial'] : $Yesterday;
 	$fecha_final = isset($_REQUEST['fecha_final'])? $_REQUEST['fecha_final'] : $tomorrow;
+	$estado = (isset($_REQUEST['estado']) && $_REQUEST['estado'] != "" ? $_REQUEST['estado'] : 	 1);
 	$limit = 30;
 	$offset = $limit * $pagina;
-	$retorno_count_equipments = $count_equipments->count_equipments($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final);
+	$retorno_count_equipments = $count_equipments->count_equipments($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final,$estado);
 	$count_rows = $retorno_count_equipments['count'];
 	$href = '/php/equipments/index.php';
 	// NECESARIO PARA LA PAGINACION
-	$retorno_equipos = $equipos->get_equipments_pag($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final,$limit,$offset);
+	$retorno_equipos = $equipos->get_equipments_pag($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final,$estado,$limit,$offset);
 	if ($id_equipment == "%%") {
 		require_once($_SERVER['DOCUMENT_ROOT'].'/php/equipments/_view_list_equipments.php');
 	}else{
