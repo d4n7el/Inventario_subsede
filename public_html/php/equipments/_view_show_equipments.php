@@ -7,27 +7,27 @@ foreach ($retorno_equipos as $key => $value) { ?>
 		<section>
 			<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/equipments/update_equipment.php" class="update_info" accept-charset="utf-8">
 				<input value="<?php echo $value['id_equipment'] ?>" name="id_equipo" type="hidden" readonly="readonly">
-				<div class="input-field col s4">
+				<div class="input-field col s12 m4">
 		            <i class="material-icons prefix">account_circle</i>
 		            <input id="nombre_equipo" type="text" class="validate editar_info" name="equipo" autocomplete="off" value="<?php echo $value['name_equipment'] ?>"  readonly="readonly">
 		            <label for="nombre_producto" class="active">Nombre equipo</label>
 		        </div>
-		        <div class="input-field col s4">
+		        <div class="input-field col s12 m4">
 		            <i class="material-icons prefix">subject</i>
 		            <input id="marca" type="text" class="validate editar_info" name="marca" autocomplete="off" value="<?php echo $value['mark'] ?>"  readonly="readonly">
 		            <label for="marca" class="active">Marca Equipo</label>
 		        </div>
-		        <div class="input-field col s4">
+		        <div class="input-field col s12 m4">
 		        	<i  class="material-icons prefix">business_center</i>
 		        	<input id="cantidad_total" type="text" class="validate editar_info" name="cantidad_total" readonly="readonly" autocomplete="off" value="<?php echo $value['total_quantity'] ?>">
 		        	<label for="cantidad_total" class="active">Cantidad Total</label>
 		        </div>	
 
-		        <div class="input-field col s4">
+		        <div class="input-field col s12 m4">
 		        	<i  class="material-icons prefix">business_center</i>
 		        	<select name="estado" id="estado">
-		        		<option value="0">Inactivo</option>
-		        		<option value="1">Activo</option>
+		        		<option value="0" <?php echo ($value['state'] == 1) ? 'selected': "" ?>>Inactivo</option>
+		        		<option value="1" <?php echo ($value['state'] == 1) ? 'selected': "" ?>>Activo</option>
 		        	</select>
 		        	<label for="estado" class="active">Estado</label>
 		        </div>	
@@ -52,7 +52,7 @@ foreach ($retorno_equipos as $key => $value) { ?>
 				<?php $prestamos = ($retorno_outside['count'] > 0) ? $retorno_outside['count'] : 0 ?>	
 				<?php echo 'El sistema registra una cantidad de equipos disponibles actualmente de '.$value['quantity_available']. " y una cantidad prestada de ". $prestamos ?>
 			</h5>
-			<section class="col s6">
+			<section class="col m6 s12">
 				<h6 class="titulo col s12 fondo_negro color_letra_primario center paddin1">		
 					Sumar Cantidad disponible al Equipo.
 				</h6>
@@ -84,7 +84,7 @@ foreach ($retorno_equipos as $key => $value) { ?>
 			        </div>
 		    	</form>
 		    </section>
-		    <section class="col s6">
+		    <section class="col m6 s12">
 				<h6 class="titulo col s12 fondo_claro color_letra_primario center paddin1">		
 					Restar Cantidad disponible al Equipo.
 				</h6>

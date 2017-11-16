@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 16-11-2017 a las 20:34:47
+-- Tiempo de generación: 16-11-2017 a las 22:22:50
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.6
 
@@ -77,8 +77,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_cant_tools_detalle` (IN `p_c
     END IF;  
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_equipments` (IN `p_equipo` VARCHAR(50), IN `p_marca` VARCHAR(50), IN `p_cantidad_total` INT, IN `p_bodega` INT, IN `p_id_user` INT, IN `p_id_equipo` INT, IN `v_estado` BOOLEAN, OUT `retorno` INT)  BEGIN
-UPDATE equipments SET name_equipment = p_equipo, mark = p_marca, total_quantity = p_cantidad_total, id_cellar = p_bodega, id_user_create = p_id_user, state = v_estado WHERE id_equipment = p_id_equipo;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_equipments` (IN `p_equipo` VARCHAR(50), IN `p_marca` VARCHAR(50), IN `p_cantidad_total` INT, IN `p_bodega` INT, IN `p_id_user` INT, IN `p_id_equipo` INT, IN `p_estado` VARCHAR(5), OUT `retorno` INT)  BEGIN
+UPDATE equipments SET name_equipment = p_equipo, mark = p_marca, total_quantity = p_cantidad_total, id_cellar = p_bodega, id_user_create = p_id_user, state = p_estado WHERE id_equipment = p_id_equipo;
     SET retorno = 1;
 END$$
 
@@ -290,10 +290,10 @@ INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quant
 (14, 'Probeta plastica 100 ML', 'Probeta plastica', 1, 1, 5, 29, 'B', '1', '2017-11-06 16:36:30'),
 (15, 'Probeta plastica 500 ML', 'Probeta plastica', 2, 2, 5, 29, 'B', '1', '2017-11-06 16:36:46'),
 (16, 'Probeta plastica 1000 ML', 'Probeta plastica', 1, 1, 5, 29, 'B', '1', '2017-11-06 16:37:05'),
-(17, 'Pantallas', 'Pantallas', 8, 5, 5, 7, 'A', '1', '2017-11-06 17:19:28'),
-(18, 'Decametro', 'Decametro', 2, 0, 5, 7, 'A', '1', '2017-11-06 17:26:33'),
-(19, 'cosechadora de frutos', 'cosechadora de frutos', 3, 0, 5, 7, 'A', '1', '2017-11-06 17:26:54'),
-(20, 'Tronzadora', 'Tronzadora', 1, 0, 5, 7, 'A', '1', '2017-11-06 17:27:17'),
+(17, 'Pantallas', 'Pantallas', 8, 5, 5, 7, 'A', '0', '2017-11-06 17:19:28'),
+(18, 'Decametro', 'Decametro', 2, 0, 5, 7, 'A', '0', '2017-11-06 17:26:33'),
+(19, 'cosechadora de frutos', 'cosechadora de frutos', 3, 0, 5, 7, 'A', '0', '2017-11-06 17:26:54'),
+(20, 'Tronzadora', 'Tronzadora', 1, 0, 5, 7, 'A', '0', '2017-11-06 17:27:17'),
 (21, 'Seguetas', 'Seguetas', 3, 0, 5, 7, 'A', '1', '2017-11-06 17:27:39'),
 (22, 'Nivel', 'Nivel', 2, 1, 5, 7, 'A', '1', '2017-11-06 17:27:54'),
 (23, 'Martillos', 'Martillos', 6, 5, 5, 7, 'A', '1', '2017-11-06 17:28:19'),

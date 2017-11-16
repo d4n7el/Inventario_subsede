@@ -96,7 +96,7 @@
 				</h6>
 			</div>
 			<div class="col s1 second_cell">
-				<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_equipment" equipment="<?php echo $value['id_equipment'] ?>" ruta="../php/equipments/index.php" data-target="modal_right">visibility</button>
+				<button type="" class="col s12 btn btn-primary material-icons color_letra_secundario modal-trigger view_info_equipment" equipment="<?php echo $value['id_equipment'] ?>" estado="<?php echo $value['state'] ?>" ruta="../php/equipments/index.php" data-target="modal_right">visibility</button>
 			</div>
 		</div>
 		<?php 

@@ -370,7 +370,8 @@ var recargar_eventos = function(){
 		event.preventDefault();
 		var ruta = "../php/equipments/index.php";
 		var id_equipment = $(this).attr('equipment');
-		$("div#modal_right div.modal-content").load(ruta,{id_equipment: id_equipment},function() {
+		var estado = $(this).attr('estado');
+		$("div#modal_right div.modal-content").load(ruta,{estado: estado,id_equipment: id_equipment},function() {
 			recargar_eventos();
 		});
 	});
