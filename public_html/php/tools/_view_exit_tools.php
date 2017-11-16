@@ -6,16 +6,16 @@
 	            <input id="tools" type="text" value="<?php echo ($tools == "%%") ? "" : $tools ?>" class="validate search" name="tools" autocomplete="off">
 	            <label for="tools" class="<?php echo ($tools == "%%") ? "" : "active" ?> search">Herramientas</label>
 	        </div>
-	        <div class="input-field col s12 m2">
+	        <div class="input-field col s12 m2 hide-on-small-only">
 	            <input id="cedula" type="text" class="validate search" value="<?php echo ($cedula == "%%") ? "" : $cedula  ?>" name="cedula" autocomplete="off">
 	            <label for="cedula" class="<?php echo ($cedula == "%%") ? "" : "active" ?> search">quien recibe ?</label>
 	        </div>
 	           
-	        <div class="input-field col s12 m2">
+	        <div class="input-field col s12 m2 hide-on-small-only">
 	            <input id="fecha_inicial" type="text" class="validate search datepicker" value="<?php echo ($fecha_inicial == "%%") ? "" : $fecha_inicial ?>" name="fecha_inicial" autocomplete="off">
 	            <label for="destino" class="<?php echo ($fecha_inicial == "%%") ? "" : "active" ?> search">Inicial</label>
 	        </div>
-	        <div class="input-field col s12 m2">
+	        <div class="input-field col s12 m2 hide-on-small-only">
 	            <input id="fecha_final" type="text" class="validate search datepicker" value="<?php echo ($fecha_final == "%%") ? "" : $fecha_final ?>" name="fecha_final" autocomplete="off">
 	            <label for="fecha_final" class="<?php echo ($fecha_final == "%%") ? "" : "active" ?> search">Final</label>
 	        </div>
@@ -51,7 +51,7 @@
 				<strong>Nombre </strong>
 			</a>
 		</div>
-		<div class="col s2 centrar head_cell">
+		<div class="col s2 centrar head_cell hide-on-small-only">
 			<a href="#" class="tabla fondo_blanco">
 				<strong>Fecha</strong>
 			</a>
@@ -82,7 +82,7 @@
 						<?php echo $value['name_user_receive']; ?>
 					</h6>
 				</div>
-				<div class="col s2 second_cell cantidad_disponible">
+				<div class="col s2 second_cell  hide-on-small-only cantidad_disponible">
 					<h6 class="col s12 centrar color_letra_secundario">
 						<?php echo $value['date_create']; ?>
 					</h6>
