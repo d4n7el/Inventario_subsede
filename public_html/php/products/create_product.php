@@ -1,7 +1,7 @@
 <?php  
 	session_start();
 	if (isset($_SESSION["id_user_activo"])) {
-	$col = (isset($_REQUEST['alterno']) ? "s12" : "s6" );
+	$col = (isset($_REQUEST['alterno']) ? "s12" : "s12 m6" );
 ?>
 		<div class="row">
 		    <div class="formulario col <?php echo $col ?>">
@@ -58,7 +58,7 @@
 		    </div>
 		    <?php 
 		    if (!isset($_REQUEST['alterno'])) { ?>
-		    	<div class="col <?php echo $col ?>" id="view_graphics">
+		    	<div class="col <?php echo $col ?> hide-on-small-only" id="view_graphics">
 	    			<?php require_once($_SERVER['DOCUMENT_ROOT']."/php/products/graphics_pie.php") ?>
 	    		</div>
 		    	<?php

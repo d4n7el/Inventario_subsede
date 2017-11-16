@@ -10,16 +10,18 @@ $(document).on('ready',function(){
 		onOpen: function(el) {
 			$('a.collapse_one,a.collapse_two').css({
 				'transition': "1s",
-				'margin-left': "28em",
+				'margin-left': "22em",
+				'margin-top': "4em",
 			});
 			$('a.collapse_two').css({
 				'transition': "1s",
-				'margin-left': "28em",
+				'margin-left': "18em",
+				'margin-top': "8em",
 			});
-			$('.button-collapse').css('margin-left', '28em');
+			$('.button-collapse').css('margin-left', '26em');
 			$('i.slide-outs').css({
 				transform: 'rotate(360deg)',
-				transition: '.5s'
+				transition: '.5s',
 			});
 			$('i.slide-outs').text('clear');
 			$('#modal_right,#modal_center,#modal_center_two').modal('close');
@@ -28,10 +30,12 @@ $(document).on('ready',function(){
 			$('a.collapse_one,a.collapse_two').css({
 				'transition': "1s",
 				'margin-left': ".5em",
+				'margin-top': "0em",
 			});
 			$('a.collapse_two').css({
 				'transition': "1s",
 				'margin-left': "0em",
+				'margin-top': "0em",
 			});
 			$('.button-collapse').css('margin-left', '1em');
 			$('i.slide-outs').css({

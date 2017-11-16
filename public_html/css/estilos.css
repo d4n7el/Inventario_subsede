@@ -10,6 +10,9 @@ div#modal_mensajes .modal-content{
 .color_letra_secundario{
 	color: rgb(0,112,137) !important;
 }
+div.icono i{
+	font-size: 8em;
+}
 i.destination {
 	font-size: 10em;
 	border-radius: 50%;
@@ -515,7 +518,7 @@ div.tabla{
     max-height: 100%;
     border-radius: 0;
     will-change: bottom, opacity;
-} 
+}
 #modal_left{
 	top: 0 !important;
     margin-left: 0%;
@@ -529,11 +532,8 @@ div.logo_sena img{
 }
 div.calendar div.dia{
 	color: white;
-	background-image: url('../image/header-calendar.png');
-	background-repeat: no-repeat;
-	background-size: cover;
-	padding-top: 2em;
 	font-size: 2em; 
+	padding: .5em;
 }
 div.calendar div.hora{ 
 	color: black;
@@ -557,7 +557,6 @@ div.targeta_notificacion i{
 }
 div.targeta_notificacion a{
 	margin-top: 1em;
-	background-color: white !important;
 }
 div.grafica img{
 	width: 100%;
@@ -584,3 +583,19 @@ div#ilse img{
 ::-webkit-scrollbar-thumb        { opacity: 0; }
 ::-webkit-scrollbar-corner       { opacity: 0; }
 ::-webkit-resizer                { opacity: 0; }
+@media screen and (max-width: 768px) {
+	div#view_actions{
+		position: relative;
+		z-index: 0;
+	}
+	div#next_view_actions{
+		margin-top: 0px !important;
+	}
+	i.destination{
+		font-size: 6em;
+		margin-left: 20px;
+	}
+	div.destino{
+		margin-top: 2em;
+	}
+}

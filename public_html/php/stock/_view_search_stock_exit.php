@@ -2,10 +2,10 @@
 	<div class="alternos col s12 m12 l3">
 		<?php 
 		if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B') { ?>
-			<button type="" class="waves-effect col s6 m4 l12 flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center_two">Crea un producto
+			<button type="" class="waves-effect col s12 m4 l12 flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center_two">Crea un producto
 			            <i class="material-icons color_letra_primario left">add</i>
 			</button>
-			<button type="" class="waves-effect col s6 m4 l12 flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center_two">Crea un Stock
+			<button type="" class="waves-effect col s12 m4 l12 flujo_alterno waves-light btn btn-success" ruta="../php/products/create_product.php" data-target="modal_center_two">Crea un Stock
 			            <i class="material-icons color_letra_primario left">add</i>
 			</button>
 			<button type="" class="waves-effect col s12 m4 l12 flujo_alterno waves-light btn btn-success" ruta="../php/measure/create_measure.php" data-target="modal_center_two">Crea Medida

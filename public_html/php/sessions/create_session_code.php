@@ -12,7 +12,7 @@
 	            <input id="cod_user" type="password" class="validate align-center " name="cod_user" autocomplete="off"  required>
 	            <label for="cod_user" class="">Ingrese el codigo</label>
 	        </div>		
-	        <div class="action col s6 offset-s3 centrar">
+	        <div class="action col s12 m6 offset-m3 centrar">
 	        	<button class="waves-effect waves-light btn btn-success">
 	        		<i class="material-icons left">near_me</i>Iniciar
 	        	</button>

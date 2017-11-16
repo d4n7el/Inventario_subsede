@@ -5,12 +5,12 @@
 	<section>
 		<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/products/update_product.php" class="update_info" accept-charset="utf-8">
 			<input value="<?php echo $retorno_productos['id_product'] ?>" name="id_producto" type="hidden" readonly="readonly">
-			<div class="input-field col s6">
+			<div class="input-field col s12 m6">
 	            <i class="material-icons prefix">account_circle</i>
 	            <input id="nombre_producto" type="text" class="validate editar_info" name="producto" autocomplete="off" value="<?php echo $retorno_productos['name_product'] ?>"  readonly="readonly">
 	            <label for="nombre_producto" class="active">Nombre producto</label>
 	        </div>
-	        <div class="input-field col s6 ">
+	        <div class="input-field col s12 m6 ">
 	        	<?php $value['id_cellar'] = $retorno_productos['id_cellar']; ?>
 	        	<?php require($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); 
 	        	?>

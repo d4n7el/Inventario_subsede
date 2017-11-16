@@ -9,27 +9,20 @@
 	<title>Inventario Subsede </title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/css/estilos.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 	<header>
   		<nav>
 	    <div class="nav-wrapper fondo_negro">
-	    	<a href="../index.php" class="brand-logo" style="margin-left: 7em">
+	    	<a href="../index.php" class="brand-logo right" style="margin-left: 7em">
 	    		<img src="../image/sena.svg" alt="">
 	    	</a>
 	    	<?php 
 	      	if (isset($_SESSION["name_user_activo"])) { ?>
-				<ul id="nav-mobile" class="right hide-on-med-and-down">
-					<li>
-						<a class=" btn-nav btn view_user" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/users/index.php" id_user="<?php echo $_SESSION["id_user_activo"] ?>">
-							<?php echo $_SESSION["name_user_activo"]." - ".$_SESSION["id_user_activo_role"]." - ".$_SESSION["user_zone"] ?>
-							<i class="material-icons color_letra_secundario left">account_circle</i>
-						</a>
-					</li>
-				</ul>
+				
 				<?php 
-	      	}
-	      	?>
+	      	} ?>
 	    </div>
 	  </nav>
 	</header>
