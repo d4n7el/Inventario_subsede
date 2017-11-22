@@ -2,23 +2,33 @@ $(document).on('ready',function(){
 	cantidad = ""; 	nombre = "";	id = "";	disponible = "";
 	div_id	 = ""; destino = "";  id_user = ""; name_user = "";
 	recargar_eventos();
+	if ($(window).width() < 447) {
+		widthNav = 350;
+		marginButtons = ['21em','17em']
+		leftButtons = ['17em','13em','21em'];
+		topButtons = ['4em','8em']
+	}else{
+		widthNav = 430;
+		leftButtons = ['22em','18em','26em'];
+		topButtons = ['4em','8em']
+	}
 	$('.button-collapse').sideNav({
-		menuWidth: 430, 
+		menuWidth: widthNav, 
 		edge: 'left', 
 		closeOnClick: true, 
 		draggable: true,
 		onOpen: function(el) {
 			$('a.collapse_one,a.collapse_two').css({
 				'transition': "1s",
-				'margin-left': "22em",
-				'margin-top': "4em",
+				'margin-left': leftButtons[0],
+				'margin-top': topButtons[0],
 			});
 			$('a.collapse_two').css({
 				'transition': "1s",
-				'margin-left': "18em",
-				'margin-top': "8em",
+				'margin-left': leftButtons[1],
+				'margin-top': topButtons[1],
 			});
-			$('.button-collapse').css('margin-left', '26em');
+			$('.button-collapse').css('margin-left', leftButtons[2]);
 			$('i.slide-outs').css({
 				transform: 'rotate(360deg)',
 				transition: '.5s',
@@ -438,11 +448,17 @@ var recargar_eventos = function(){
 		datos['id_exit_detalle'] = id_exit_detalle;
 		datos['id_element'] = id_element;
 		var x = 0;
-		console.log(datos);
-		$(this).closest('div').siblings('div').find('h6').each(function() {
-			datos["a_"+x] =  $.trim($(this).text());
-			x++;	
-		});
+		if ($(this).closest('div').siblings('div').find('h6').length > 0) {
+			$(this).closest('div').siblings('div').find('h6').each(function() {
+				datos["a_"+x] =  $.trim($(this).text());
+				x++;	
+			});
+		}else{
+			$(this).closest('div.info').siblings('div').find('h6').each(function() {
+				datos["a_"+x] =  $.trim($(this).text());
+				x++;	
+			});
+		}
 		$("div#modal_center div.modal-content").load(ruta,datos,function() {
 			recargar_eventos();
 		});

@@ -606,4 +606,8 @@ div#ilse img{
 	.modal-content{
 		margin-top: 3em;
 	}
+	div#view_actions_table{
+		top: 4em;
+		left: 1.5%;
+	}
 }

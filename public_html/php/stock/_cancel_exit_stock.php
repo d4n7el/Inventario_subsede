@@ -18,7 +18,7 @@
 		<div class="input-field col s12 m10 offset-m1">
 	        <i class="material-icons prefix">receipt</i>
 	        <input id="nota" type="text" class="validate" name="nota" autocomplete="off" required>
-	        <label for="nota" class="">Nota de cancelación de salida</label>
+	        <label for="nota" class="">Nota de cancelación</label>
 	    </div>
 	    <div class="action col m12 centrar">
 	    	<button class="waves-effect waves-light btn btn-primary">

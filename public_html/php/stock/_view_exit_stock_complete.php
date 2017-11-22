@@ -24,27 +24,27 @@
 			</div>
 		</div>
 		<div class="row" id="head_table">
-			<div class="col s3 centrar prymary_head_cell i5">
+			<div class="col s3 m3 centrar prymary_head_cell i5">
 				<a href="#" class="fondo_blanco">
 					<strong>Producto  </strong>
 				</a>
 			</div>
-			<div class="col s2 centrar head_cell i5">
+			<div class="col s3 m2 centrar head_cell i5 hide-on-small-only">
 				<a href="#" class="tabla fondo_blanco">
 					<strong>Bodega  </strong>
 				</a>
 			</div>
-			<div class="col s3 centrar head_cell i5">
+			<div class="col s3 m3 centrar head_cell i5">
 				<a href="#" class="tabla fondo_blanco">
 					<strong>Lote  </strong>
 				</a>
 			</div>
-			<div class="col s2 centrar head_cell i5">
+			<div class="col s3 m2 centrar head_cell i5">
 				<a href="#" class="tabla fondo_blanco">
 					<strong>Cantidad  </strong>
 				</a>
 			</div>
-			<div class="col s2 centrar head_cell i5">
+			<div class="col s3 m2 centrar head_cell i5">
 				<a href="#" class="tabla fondo_blanco">
 					<strong>Nota  </strong>
 				</a>
@@ -53,19 +53,19 @@
 		<?php
 		foreach ($retorno_view_exit_stock as $key => $view) { ?>
 			<div class="row content_impresion" >
-				<div class="col s3 i5">
+				<div class="col s3 m3 i5">
 					<h6 class="titulo  center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['name_product']; ?></h6>
 				</div>
-				<div class="col s2 i5">
+				<div class="col s3 m2 i5 hide-on-small-only">
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['name_cellar']; ?></h6>
 				</div>
-				<div class="col s3 i5">
+				<div class="col s3 m3 i5">
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['nom_lot']; ?></h6>
 				</div>
-				<div class="col s2 i5">
+				<div class="col s3 m2 i5">
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['quantity']." ". $view['prefix_measure']; ?></h6>
 				</div>
-				<div class="col s2 i5">
+				<div class="col s3 m2 i5">
 					<h6 class="titulo second_cell center col s12 <?php echo ($view['state'] == 1)? "color_letra_secundario" : "color_letra_danger" ?>"><?php echo $view['note']; ?></h6>
 				</div>
 			</div>

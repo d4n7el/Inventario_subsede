@@ -26,13 +26,13 @@
 		public function category_color($category){
 			switch ($category) {
 			    case "II":
-			        $fondo =  "category2 color_letra_primario";
+			        $fondo =  " btn-primary category2 color_letra_primario";
 			        break;
 			    case "III":
-			        $fondo =  "category3 color_letra_primario";
+			        $fondo =  " btn-primary category3 color_letra_primario";
 			        break;
 			    case "IV":
-			        $fondo =  "category4 color_letra_primario";
+			        $fondo =  " btn-primary category4 color_letra_primario";
 			        break;
 			    default:
 	       			$fondo =  "btn-primary color_letra_secundario";

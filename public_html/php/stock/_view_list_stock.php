@@ -1,7 +1,7 @@
 <div class="row" id="view_actions_table">
 	<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/stock/index.php/" accept-charset="utf-8" class="search">
 		<div class="flitro col s12 centrar">
-			<div class="input-field col s12 m2">
+			<div class="input-field col s12 m2 hide-on-small-only">
 	            <input id="lote" type="text" value="<?php echo ($lote == "%%") ? "" : $lote ?>" class="validate search" name="lote" autocomplete="off">
 	            <label for="lote" class="<?php echo ($lote == "%%") ? "" : "active" ?> search">Lote</label>
 	        </div>
