@@ -135,6 +135,7 @@ function eliminar_eventos(){
 	$('i.mas').off('click');
 	$('i.menos').off('click');
 	$('button.add_destinatario').off('click');
+	$('button.expired_output').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
@@ -265,8 +266,16 @@ var recargar_eventos = function(){
 	$('button.expired_output').on('click', function(event) {
 		event.preventDefault();
 		var ruta = "../php/expiration/_expired_output.php";
+		var datos = [];
+		$(this).closest('div').siblings('div').find('h6').each(function() {
+  			datos.push($(this).text());
+		});
 		id_stock = $(this).attr('stock');
-		$("div#modal_center div.modal-content").load(ruta,{id_stock: id_stock},function() {
+		formData = {
+			'datos' : datos,
+			'id_stock' : id_stock
+		}	
+		$("div#modal_center div.modal-content").load(ruta,formData,function() {
 			recargar_eventos();
 		});
 	});

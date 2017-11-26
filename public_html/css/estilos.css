@@ -534,9 +534,7 @@ div.calendar div.dia{
 div.calendar div.hora{ 
 	color: black;
 	padding: 1em;
-	background-image: url('../image/footer-calendar.png');
-	background-repeat: no-repeat;
-	background-size: cover;
+	background-color: white;
 	font-size: 3em;
 }
 div.taregta_notificacion{
@@ -609,5 +607,10 @@ div#ilse img{
 	div#view_actions_table{
 		top: 4em;
 		left: 1.5%;
+	}
+	a.brand-logo img{
+		width: 100%;
+		margin-top: .3em;
+		opacity: 1;
 	}
 }

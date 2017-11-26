@@ -42,7 +42,7 @@
 			</button>
 		</div>
 	</div>
-	<div class="col s4" style="margin-top: 2em">
+	<div class="col s12 m4" style="margin-top: 2em">
 		<form action="<?php $_SERVER['DOCUMENT_ROOT']?>/php/tools/search_tool_exit.php" class="search_exit_plant">			
 			<div class="input-field col s12">
 		        <i class="material-icons prefix">send</i>
