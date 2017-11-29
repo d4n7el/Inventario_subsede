@@ -66,8 +66,9 @@
 		foreach ($retorno_exit_planta as $key => $exit) { 
 			$vencimiento = date('Y-m-d', strtotime($exit['expiration_date']));
             $category = new Products();
-            $fondo = $category->category_color($exit['toxicological'])?>
-			<div class="col s12 m4 l3" id="<?php echo $exit['id_stock']."_".$exit['id_proceso']."_".$exit['quantity'] ?>" style="padding: 0px;">
+            $fondo = $category->category_color($exit['toxicological']);
+      if ($fecha < $vencimiento) { ?>
+			<div class="col s12 m4 l3" id="<?php echo $exit['id_stock']."_".$exit['id_proceso']."_".ceil($exit['quantity']) ?>" style="padding: 0px;">
           	<div class="card">
           		<div class="input-field col s12 m12 hide cantidad">
                     <input id="cantidad" step="0.01" type="number" class="validate search" name="cantidad[]" autocomplete="off" min="0" max="<?php echo $exit['quantity'] ?>" required>
@@ -81,8 +82,8 @@
                     <img src="<?php echo $exit['icon_cellar'] ?>" alt="">
                 </figure>
            		<div class="card-content white-text">
-     				<h5 class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo ($fecha < $vencimiento) ? "" : "Vencido" ?></h5>
-        			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo "Producto: ".$exit['name_product'] ?></p>
+                <h5 class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo ($fecha < $vencimiento) ? "" : "Vencido" ?></h5>
+      			 <p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo "Producto: ".$exit['name_product'] ?></p>
         			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo "Bodega: ".$exit['name_cellar'] ?></p>
         			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center">Lote : <?php echo $exit['nom_lot']; ?></p>
         			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center">Cantidad : <?php echo $exit['quantity']; ?></p>
@@ -92,12 +93,12 @@
         			<?php 
         			if ($fecha < $vencimiento) { ?>
                         <div class="row btn-fijo">
-          					<a class="btn centrar col s12 <?php echo ($exit['toxicological'] == "No") ? "btn-success" : $fondo ?> halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $exit['id_stock']."_".$exit['id_proceso']."_".$exit['quantity'] ?>">
+          					<a class="btn centrar col s12 <?php echo ($exit['toxicological'] == "No") ? "btn-success" : $fondo ?> halfway-fab waves-effect waves-light  add_exit_plant" divs="<?php echo $exit['id_stock']."_".$exit['id_proceso']."_".ceil($exit['quantity']) ?>">
           						<i class="material-icons left color_letra_primario">add</i>
           					</a>
                         </div>
                         <div class="row btn-fijo">
-          					<a class="btn centrar col s12 <?php echo ($exit['toxicological'] == "No") ? "btn-success" : $fondo ?>  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $exit['id_stock']."_".$exit['id_proceso']."_".$exit['quantity'] ?>">
+          					<a class="btn centrar col s12 <?php echo ($exit['toxicological'] == "No") ? "btn-success" : $fondo ?>  halfway-fab waves-effect hide waves-light  delete_exit_plant" divs="<?php echo $exit['id_stock']."_".$exit['id_proceso']."_".ceil($exit['quantity']) ?>">
           						<i class="material-icons left color_letra_primario ">clear</i>
           					</a>
                         </div>
@@ -107,6 +108,7 @@
           	</div>
          </div>
         <?php
+        }
 	   }
 	}else{ ?>
         <h5 class="titulo col s12 center">no se encontraron resultados </h5>

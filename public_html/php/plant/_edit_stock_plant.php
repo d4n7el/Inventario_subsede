@@ -1,8 +1,8 @@
 <div class="row">
-	<input type="hidden" name="id_detalle" value="<?php echo $retorno_planta[0]['id_detalle'] ?>">
-    <input type="hidden" name="proceso" value="<?php echo  $retorno_planta[0]['proceso'] ?>">
-	<input type="hidden" name="stock" value="<?php echo $retorno_planta[0]['id_stock'] ?>">
-	<input type="hidden" name="id_proceso" value="<?php echo $retorno_planta[0]['id_proceso'] ?>">
+	<input type="" name="id_detalle" value="<?php echo $retorno_planta[0]['id_detalle'] ?>">
+    <input type="" name="proceso" value="<?php echo  ($retorno_planta[0]['proceso']) ? $retorno_planta[0]['proceso'] : $procceso ?>">
+	<input type="" name="stock" value="<?php echo ($retorno_planta[0]['id_stock']) ? $retorno_planta[0]['id_stock'] :  $id_stock ?>">
+	<input type="" name="id_proceso" value="<?php echo ($retorno_planta[0]['id_proceso']) ? $retorno_planta[0]['id_proceso'] :  $id_process ?>">
     <div class="col s12 >">
     	<h6 class="color_letra_primario fondo_negro paddin1 center col s12 center">Producto: <?php echo $retorno_planta[0]['name_product'] ?> </h6>
     </div>
