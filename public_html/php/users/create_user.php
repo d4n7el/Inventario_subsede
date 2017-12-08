@@ -45,7 +45,7 @@
 			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
 			        </div>
 			        		
-			        <div class="action col m12">
+			        <div class="action col m12 centrar">
 			        	<button class="waves-effect waves-light btn btn-primary">
 			        		<i class="material-icons left">near_me</i>Guardar
 			        	</button>

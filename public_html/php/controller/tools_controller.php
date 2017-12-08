@@ -25,7 +25,7 @@
 		}
 		public function index_exit_tools($tools){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM tools  WHERE name_tool LIKE ? AND zone = '$this->zone' AND quantity_available > 0 LIMIT 20" );
+				$sql_consult = $this->db->prepare("SELECT * FROM tools INNER JOIN cellar ON tools.id_cellar = cellar.id_cellar  WHERE name_tool LIKE ? AND zone = '$this->zone' AND quantity_available > 0 LIMIT 20" );
 				$sql_consult->execute(array("%".$tools."%"));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -73,7 +73,7 @@
 		}
 		public function get_tools($herramientas,$marca,$fecha_inicial,$fecha_final,$limit,$offset){
 			try {
-				$sql = "SELECT * FROM tools WHERE name_tool LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? AND zone = '$this->zone' ORDER BY create_date DESC  LIMIT $limit OFFSET $offset";
+				$sql = "SELECT * FROM tools INNER JOIN cellar ON tools.id_cellar = cellar.id_cellar WHERE name_tool LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? AND zone = '$this->zone' ORDER BY create_date DESC  LIMIT $limit OFFSET $offset";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($herramientas,$marca,$fecha_inicial,$fecha_final));
 				$result = $sql_consult->fetchAll();

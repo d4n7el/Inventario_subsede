@@ -7,7 +7,7 @@
 	$marca 				= trim($_REQUEST["marca"]);
 	$cantidad_total		= trim($_REQUEST["cantidad_total"]);
 	$cantidad 			= trim($_REQUEST["cantidad"]);
-	$bodega 			=  5;
+	$bodega  = ($_REQUEST["cellar"]) ?  trim($_REQUEST["cellar"]) : 5;
 	if (isset($equipo) AND isset($marca) AND isset($cantidad_total) AND isset($cantidad) AND $cantidad > 0 AND $cantidad_total > 0 ) {
 		if ($cantidad_total >= $cantidad ) {
 			$retorno_equipment 	= $equipment->insert_equipment($equipo,$marca,$cantidad_total,$cantidad,$bodega,$id_user);
@@ -22,7 +22,5 @@
 	}else{
 		$respuesta = array('mensaje' => "Todos los campos son requeridos", 'status' => 0);
 	}
-	
-	
 	echo json_encode($respuesta);
 ?>

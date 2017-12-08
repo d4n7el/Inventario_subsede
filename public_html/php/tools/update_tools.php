@@ -8,7 +8,7 @@
 	$disponible 			= $_REQUEST["cantidad_disponible"];
 	$nota 					= $_REQUEST["nota"];
 	$proceso 				= $_REQUEST["process"];
-	$bodega 			    = 6;
+	$bodega  				= ($_REQUEST["cellar"]) ?  trim($_REQUEST["cellar"]) : 5;
 	if (!isset($_REQUEST["cantidad_disponible"]) AND !isset($_REQUEST["nota"]) AND !isset($_REQUEST["process"]) AND isset($_REQUEST["id_herramientas"]) ) {
 		$herramienta 			= $_REQUEST["herramienta"];
 		$marca 		    		= $_REQUEST["marca"];

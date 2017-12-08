@@ -49,7 +49,7 @@
 		</div>
 		<div class="col s2 m2 centrar head_cell hide-on-small-only">
 			<a href="#" class="tabla fondo_blanco" order="nom_lot ASC">
-				<strong>Creación  </strong>
+				<strong>Bodega  </strong>
 			</a>
 		</div>
 		<div class="col s3 m2 centrar head_cell">
@@ -84,7 +84,7 @@
 			</div>
 			<div class="col s2 m2 second_cell hide-on-small-only cantidad_disponible">
 				<h6 class="col s12 center color_letra_secundario">
-					<?php echo $value['create_date']?>
+					<?php echo $value['name_cellar']?>
 				</h6>
 			</div>
 			<div class="col s3 m1 second_cell">

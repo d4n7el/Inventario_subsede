@@ -6,7 +6,9 @@
 	<html lang="es">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
 	<title>Inventario Subsede </title>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/css/estilos.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">

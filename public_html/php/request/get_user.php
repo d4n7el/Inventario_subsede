@@ -21,10 +21,11 @@
 		// Se cierra el recurso CURL y se liberan los recursos del sistema
 		curl_close($request);
 		if(!$response) {
-			echo json_encode($response);
+			echo "Error al conectar";
 		}else{
 			echo json_encode($response);
 		}
 	}else{
+		echo "Campo de cedula solicitados";
 	}
 ?>

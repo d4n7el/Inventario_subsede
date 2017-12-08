@@ -12,6 +12,16 @@
 					</div>
 				</div>
 		    </div>
+		    <div class="col s12 targeta_inicio">
+				<div class="card transparent ">
+					<div class="card-action fondo_negro" >
+						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/cellars/create_cellar.php" id="" class="link_page color_letra_primario" titulo="Crear Bodega">Crear Bodega<i class="material-icons right color_letra_primario">add</i></a>
+					</div>
+					<div class="card-action fondo_negro" >
+						<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/php/users/index.php" id="" class="link_page color_letra_primario" titulo="Ver usuarios">Ver Bodegas<i class="material-icons right color_letra_primario">visibility</i></a>
+					</div>
+				</div>
+		    </div>
 	    	<?php
 		}
 	    if ($_SESSION["id_user_activo_role"] != 'E_1_S1' AND $_SESSION["id_user_activo_role"] != 'A1-_1B') { ?>

@@ -10,6 +10,28 @@ div#modal_mensajes .modal-content{
 .color_letra_secundario{
 	color: rgb(0,112,137) !important;
 }
+.color_letra_terciario{
+	color: rgb(40,59,68) !important;
+}
+.icons_select, .icons_select i{
+	font-size: 4em;
+	color: rgb(40,59,68) !important;
+	border: 1px solid rgba(0,112,137,.3);
+	border-radius: 5%;
+}
+.icons_select:hover, .svg-inline--fa:hover{
+	font-size: 4em;
+	background-color: rgb(0,112,137);
+	color: white !important;
+	transition: ease all .8s;
+	border: 1px solid rgba(0,112,137,.3);
+	border-radius: 5%;
+	cursor: pointer;
+}
+.iconActive{
+	background-color: rgb(0,112,137);
+	color: white !important;
+}
 div.icono i{
 	font-size: 8em;
 }
@@ -613,4 +635,7 @@ div#ilse img{
 		margin-top: .3em;
 		opacity: 1;
 	}
+}
+.color_letra_terciario{
+	color: rgb(40,59,68) !important;
 }

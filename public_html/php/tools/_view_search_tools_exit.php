@@ -72,8 +72,10 @@
 		        	</figure>
 	           		<div class="card-content white-text">
               			<p class="color_letra_secundario center">Herramienta : <?php echo $tool['name_tool']; ?></p>
+              			<p class="color_letra_secundario center">Bodega : <?php echo $tool['name_cellar']; ?></p>
               			<p class="color_letra_secundario center">Total : <?php echo $tool['total_quantity']; ?></p>
               			<p class="color_letra_secundario center">Disponible : <?php echo $tool['quantity_available']; ?></p>
+
               			<input type="hidden" name="id_element[]" value="<?php echo $tool['id_tool'] ?>" readonly>
               			<div class="row btn-fijo">
 	      					<a class="btn centrar btn-success halfway-fab waves-effect waves-light col s12 add_exit_plant" divs="<?php echo $tool['id_tool']."_".$tool['quantity_available'] ?>">

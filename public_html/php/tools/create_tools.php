@@ -20,6 +20,10 @@
 			            <label for="nombre_marca" class="">Marca</label>
 			        </div>
 			        <div class="input-field col s12 m12">
+			        	<?php $cellar_optional = true ?>
+			        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
+			        </div>
+			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">filter_9_plus</i>
 			            <input id="nombre_cantidad" type="number" class="validate" name="cantidad" autocomplete="off" required>
 			            <label for="nombre_cantidad" class="">Cantidad</label>

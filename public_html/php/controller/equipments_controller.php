@@ -75,7 +75,7 @@
 		}
 		public function get_equipments_pag($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final,$estado,$limit,$offset){
 			try {
-				$sql = "SELECT * FROM equipments  WHERE state LIKE ? AND  id_equipment LIKE ?  AND name_equipment LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? AND zone = '$this->zone' ORDER BY id_equipment LIMIT $limit OFFSET $offset";
+				$sql = "SELECT * FROM equipments INNER JOIN cellar ON equipments.id_cellar = cellar.id_cellar  WHERE state LIKE ? AND  id_equipment LIKE ?  AND name_equipment LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? AND zone = '$this->zone' ORDER BY id_equipment DESC LIMIT $limit OFFSET $offset";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($estado,$id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final));
 				$result = $sql_consult->fetchAll();
@@ -88,7 +88,7 @@
 		}
 		public function index_exit_equipments($equipo){
 			try {
-				$sql_consult = $this->db->prepare("SELECT * FROM equipments  WHERE name_equipment LIKE ? AND zone = '$this->zone' AND quantity_available > 0 LIMIT 20" );
+				$sql_consult = $this->db->prepare("SELECT * FROM equipments INNER JOIN cellar ON equipments.id_cellar = cellar.id_cellar WHERE name_equipment LIKE ? AND zone = '$this->zone' AND quantity_available > 0 LIMIT 20" );
 				$sql_consult->execute(array("%".$equipo."%"));
 				$result = $sql_consult->fetchAll();
 				$this->db = null;
@@ -162,16 +162,16 @@
         	}
 		}
 
-		public function get_exit_equipments_count($team,$cedula ,$fecha_inicial,$fecha_final){
+		public function get_exit_equipments_count($team,$cedula,$fecha_inicial,$fecha_final){
 			try {
 				$sql_consult = $this->db->prepare("SELECT COUNT(id_exit_detall) as count FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE name_equipment LIKE ?  AND id_user_receives LIKE ? AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND equipments.zone = '$this->zone' " );
-				$sql_consult->execute(array($team,$cedula,$fecha_inicial,$fecha_final));
+				$sql_consult->execute(array($team,$cedula));
 				$result = $sql_consult->fetch();
 				$this->db = null;
 				return $result;
 				
 			} catch (PDOException $e) {
-            	$e->getMessage();
+            	echo $e->getMessage();
         	}
 		}
 		public function get_exit_equipments($team,$cedula,$fecha_inicial,$fecha_final,$limit,$offset){

@@ -142,6 +142,12 @@ var recargar_eventos = function(){
 	next_view_actions_height = $('div#view_actions').height();
 	$('div#next_view_actions').css('margin-top', next_view_actions_height+"px");
 	$('.collapsible').collapsible();
+	$('.icons_select').on('click', function(event) {
+		var name_icon = $(this).attr('name_icon');
+		$('input#icon_cellar').val(name_icon);
+		$('.icons_select').removeClass('iconActive');
+		$(this).addClass('iconActive');
+	});
 	$('i.destination').on('click', function(event) {
 		event.preventDefault();
 		$('i.destination').removeClass('color_letra_danger').addClass('color_letra_secundario');
@@ -309,7 +315,7 @@ var recargar_eventos = function(){
 				.animate({ opacity: 1 },1000);
 			$('div.list_add_exit_plant div.card').first().attr('id',divs+"add");
 			$('div.list_add_exit_plant div.card div.cantidad').removeClass('hide');
-			$('div.list_add_exit_plant div.card').removeClass('s12').addClass('col s12 m6 l3');
+			$('div.list_add_exit_plant div.card').removeClass('s12').addClass('col s12 m6 l4');
 			$('div.list_add_exit_plant a.add_exit_plant').addClass('hide');
 			$('div.list_add_exit_plant a.delete_exit_plant').removeClass('hide');
 			recargar_eventos();
@@ -702,6 +708,9 @@ function request_user(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
+	    	console.log(ruta);
+	    	console.log(response);
+	    	console.log("aaaa");
 	    	$('#modal_mensajes').modal('close');
 	    	var response = jQuery.parseJSON(response);
 	    	$.each(response,function(index, value) {
@@ -717,7 +726,7 @@ function request_user(ruta,formData){
 	    	ver_info_user(datos,status);
 	    },
 	    error: function(jqXHR,error,estado){
-	    	console.log(estado);
+	    	console.log(error);
 	    	console.log(jqXHR);
 	    }
 	})

@@ -66,26 +66,32 @@
 		$category = new Products();
 		foreach ($retorno_stock as $key => $stock_search) {  
 			$fondo = $category->category_color($stock_search['toxicological']);
-			if ($stock_search['amount'] > 0 AND $stock_search['state'] == 1) { ?>
+			if ($stock_search['amount'] > 0 AND $stock_search['state'] == 1) { 
+				$tipoImage = explode(" ",$stock_search['icon_cellar']); ?>
 				<div class="col s12 m4 l3" id="<?php echo $stock_search['id_stock']."_".$stock_search['amount'] ?>" style="padding: 0px;">
 		          	<div class="card">
 		          		<div class="input-field col s12 m12 hide cantidad">
-				            <input id="cantidad" type="number" class="validate search" name="cantidad[]" autocomplete="off" min="0" max="<?php echo $stock_search['amount'] ?>" required>
-				            <label for="cantidad" class="">disponible <?php echo $stock_search['amount']; ?></label>
+				            <input id="cantidad" type="number" class="validate search" name="cantidad[]" autocomplete="off" min="0" max="<?php echo $stock_search['amount']?>" required>
+				            <label for="cantidad" class="">disponible <?php echo $stock_search['amount']." ".$stock_search['prefix_measure'] ; ?></label>
 			        	</div>
 			        	<div class="input-field col s12 m12 hide cantidad">
 				            <input id="nota" type="text" class="validate search" name="nota[]" autocomplete="off"  required>
 				            <label for="nota" class="">Nota</label>
 			        	</div>
 			        	<figure class="icon-cellar col s12 centrar">
-			        		<img src="<?php echo $stock_search['icon_cellar'] ?>" alt="">
+			        		<?php if ($tipoImage[0] == 'image') { ?>
+			        			<img src="<?php $_SERVER['DOCUMENT_ROOT']?>/image/<?php echo trim($tipoImage[1]) ?>" alt="" class="">
+			        			<?php 
+			        		}else{ ?>
+			        			<i class="material-icons color_letra_terciario" style="font-size: 4em" ><?php echo trim($tipoImage[1]) ?></i>
+			        			<?php 
+			        		} ?>
 			        	</figure>
 		           		<div class="card-content white-text">
 	              			<p class="color_letra_secundario center">Producto : <?php echo $stock_search['name_product']; ?></p>
 	              			<p class="color_letra_secundario center">Bodega : <?php echo $stock_search['name_cellar']; ?></p>
 	              			<p class="color_letra_secundario center">Lote : <?php echo $stock_search['nom_lot']; ?></p>
-	              			<p class="color_letra_secundario center">Disponible : <?php echo $stock_search['amount']; ?></p>
-
+	              			<p class="color_letra_secundario center">Disponible : <?php echo $stock_search['amount']. " ".  $stock_search['prefix_measure']; ?></p>
 	              			<input type="hidden" name="lote_id[]" value="<?php echo $stock_search['id_stock'] ?>" readonly>
 	              			<input type="hidden" name="producto_id[]" value="<?php echo $stock_search['id_product'] ?>" readonly>
 	              			<div class="row btn-fijo">

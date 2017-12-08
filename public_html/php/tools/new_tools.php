@@ -7,7 +7,7 @@
 	$nombre_marca 		    = trim($_REQUEST["marca"]);
 	$cantidad 				= trim($_REQUEST["cantidad"]);
 	$cantidad_disponible 	= trim($_REQUEST["cantidad_disponible"]);
-	$bodega 			    = 6;
+	$bodega  = ($_REQUEST["cellar"]) ?  trim($_REQUEST["cellar"]) : 6;
 	if (isset($_REQUEST["herramienta"]) AND isset($_REQUEST["marca"]) AND isset($_REQUEST["cantidad"]) AND isset($_REQUEST["cantidad_disponible"]) AND $cantidad > 0 AND $cantidad_disponible > 0) {
 		if ($cantidad >= $cantidad_disponible) {
 			$retorno_tools 	= $tools->insert_tools($nombre_herramienta,$nombre_marca,$cantidad,$cantidad_disponible,$bodega, $id_user);

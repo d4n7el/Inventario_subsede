@@ -72,6 +72,7 @@
 		        	</figure>
 	           		<div class="card-content white-text">
               			<p class="color_letra_secundario center">Equipo : <?php echo $equipo['name_equipment']; ?></p>
+              			<p class="color_letra_secundario center">Bodega : <?php echo $equipo['name_cellar']; ?></p>
               			<p class="color_letra_secundario center">Total : <?php echo $equipo['total_quantity']; ?></p>
               			<p class="color_letra_secundario center">Disponible : <?php echo $equipo['quantity_available']; ?></p>
               			<input type="hidden" name="id_element[]" value="<?php echo $equipo['id_equipment'] ?>" readonly>

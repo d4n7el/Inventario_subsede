@@ -13,6 +13,10 @@ foreach ($retorno_equipos as $key => $value) { ?>
 		            <label for="nombre_producto" class="active">Nombre equipo</label>
 		        </div>
 		        <div class="input-field col s12 m4">
+		        	<?php $cellar_optional = true ?>
+		        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
+		        </div>
+		        <div class="input-field col s12 m4">
 		            <i class="material-icons prefix">subject</i>
 		            <input id="marca" type="text" class="validate editar_info" name="marca" autocomplete="off" value="<?php echo $value['mark'] ?>"  readonly="readonly">
 		            <label for="marca" class="active">Marca Equipo</label>

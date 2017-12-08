@@ -10,6 +10,11 @@
 	            <input id="nombre_herramienta" type="text" class="validate" name="herramienta" autocomplete="off" value ="<?php echo $retorno_herramientas['name_tool'] ?>" readonly="readonly">
 	            <label for="nombre_herramienta" class="active">Herramienta</label>
 	        </div>
+	        <div class="input-field col s12 m4">
+	        	<?php $value['id_cellar'] = $retorno_herramientas['id_cellar'] ?>
+	        	<?php $cellar_optional = true ?>
+	        	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/php/cellars/_view_cellar_select.php'); ?>
+	        </div>
 	        <div class="input-field col s4">
 	            <i class="material-icons prefix">subject</i>
 	            <input id="nombre_marca" type="text" class="validate" name="marca" autocomplete="off" value="<?php echo $retorno_herramientas['mark'] ?>" readonly="readonly">
