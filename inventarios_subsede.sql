@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 06-12-2017 a las 23:15:31
+-- Tiempo de generación: 08-12-2017 a las 04:55:03
 -- Versión del servidor: 5.6.35
 -- Versión de PHP: 7.1.8
 
@@ -235,6 +235,7 @@ DELIMITER ;
 CREATE TABLE `cellar` (
   `id_cellar` int(11) NOT NULL,
   `name_cellar` varchar(50) NOT NULL,
+  `delegate` varchar(50) DEFAULT NULL,
   `description_cellar` varchar(100) NOT NULL,
   `icon_cellar` varchar(50) NOT NULL,
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -244,16 +245,18 @@ CREATE TABLE `cellar` (
 -- Volcado de datos para la tabla `cellar`
 --
 
-INSERT INTO `cellar` (`id_cellar`, `name_cellar`, `description_cellar`, `icon_cellar`, `date_create`) VALUES
-(1, 'Fruver', 'Bodega Frutas y verduras', '../image/fruver.svg', '2017-11-09 14:32:32'),
-(2, 'Lacteos', 'Bodega lacteos', '../image/lacteos.svg', '2017-11-09 14:21:44'),
-(3, 'Carnicos', 'Bodega carnicos', '../image/carnicos.svg', '2017-11-09 14:50:22'),
-(4, 'Agroinsumos', 'Bodega Insumos', '../image/agroInsumos.svg', '2017-11-09 16:51:56'),
-(5, 'Equipos', 'Bodega equipos', ' ../image/equipos.svg', '2017-11-09 15:02:52'),
-(6, 'Herramientas', 'Bodega Herramientas', '../image/herramientas.svg', '2017-11-09 14:32:20'),
-(7, 'AgroIndustria', 'AgroIndustria', '../image/agroIndustria.svg', '2017-11-09 16:52:01'),
-(8, 'Pecuario', 'Pecuario', '../image/pecuario.svg', '2017-11-09 14:57:42'),
-(10, 'Quimicos', 'quinicos', '../image/quimicos.svg', '2017-11-09 14:46:32');
+INSERT INTO `cellar` (`id_cellar`, `name_cellar`, `delegate`, `description_cellar`, `icon_cellar`, `date_create`) VALUES
+(1, 'Fruver', NULL, 'Bodega Frutas y verduras', 'icon extension', '2017-12-08 03:36:38'),
+(2, 'Lacteos', NULL, 'Bodega lacteos', 'image fruver.svg', '2017-12-08 03:17:30'),
+(3, 'Carnicos', NULL, 'Bodega carnicos', 'image fruver.svg', '2017-12-08 03:17:27'),
+(4, 'Agroinsumos', NULL, 'Bodega Insumos', 'image fruver.svg', '2017-12-08 03:17:24'),
+(5, 'Equipos', NULL, 'Bodega equipos', 'image fruver.svg', '2017-12-08 03:17:21'),
+(6, 'Herramientas', NULL, 'Bodega Herramientas', 'image fruver.svg', '2017-12-08 03:17:18'),
+(7, 'AgroIndustria', NULL, 'AgroIndustria', 'image fruver.svg', '2017-12-08 03:17:16'),
+(8, 'Pecuario', NULL, 'Pecuario', 'image fruver.svg', '2017-12-08 03:17:14'),
+(10, 'Quimicos', NULL, 'quinicos', 'image fruver.svg', '2017-12-08 03:17:11'),
+(12, 'aaa', 'vvv', 'aaa', 'icon extension', '2017-12-08 02:51:35'),
+(13, 'Frutas', 'Frutas verduras', 'Julian david', 'image fruver.svg', '2017-12-08 03:16:57');
 
 -- --------------------------------------------------------
 
@@ -278,7 +281,9 @@ CREATE TABLE `equipments` (
 -- Volcado de datos para la tabla `equipments`
 --
 
-
+INSERT INTO `equipments` (`id_equipment`, `name_equipment`, `mark`, `total_quantity`, `quantity_available`, `id_cellar`, `id_user_create`, `zone`, `state`, `create_date`) VALUES
+(1, 'Computador compumax', 'sr345678', 1, 1, 1, 7, 'A', '1', '2017-12-07 15:18:01'),
+(2, 'Video beam', 'sony', 1, 1, 5, 7, 'A', '1', '2017-12-07 15:27:12');
 
 -- --------------------------------------------------------
 
@@ -356,6 +361,8 @@ CREATE TABLE `exit_equipment_master` (
 -- Volcado de datos para la tabla `exit_equipment_master`
 --
 
+INSERT INTO `exit_equipment_master` (`id_exit`, `id_user_receives`, `name_user_receives`, `id_user_delivery`, `destination`, `date_create`) VALUES
+(1, 18595130, 'John Jairo Cuervo Rubio', 7, 'Interno', '2017-12-07 15:28:21');
 
 -- --------------------------------------------------------
 
@@ -390,6 +397,10 @@ CREATE TABLE `exit_product_detalle` (
 --
 -- Volcado de datos para la tabla `exit_product_detalle`
 --
+
+INSERT INTO `exit_product_detalle` (`id_exit_product_detalle`, `id_exit_product_master`, `id_stock`, `quantity`, `note`, `state`) VALUES
+(1, 1, 1, 0, 'salen bien', 0),
+(2, 1, 2, 1, 'salen bien', 1);
 
 --
 -- Disparadores `exit_product_detalle`
@@ -447,6 +458,9 @@ CREATE TABLE `exit_product_master` (
 -- Volcado de datos para la tabla `exit_product_master`
 --
 
+INSERT INTO `exit_product_master` (`id_exit_product`, `user_delivery`, `user_receives`, `name_receive`, `destination`, `delivery`, `date_create`) VALUES
+(1, 7, 18595130, 'John Jairo Cuervo Rubio', 'Interno', 1, '2017-12-07 15:20:26');
+
 -- --------------------------------------------------------
 
 --
@@ -467,6 +481,10 @@ CREATE TABLE `exit_teams_detall` (
 --
 -- Volcado de datos para la tabla `exit_teams_detall`
 --
+
+INSERT INTO `exit_teams_detall` (`id_exit_detall`, `id_exit`, `id_equipment`, `quantity`, `note`, `state`, `delivered`, `returned`) VALUES
+(1, 1, 1, 1, 'bien', 1, 1, 1),
+(2, 1, 2, 1, 'bien', 1, 1, 1);
 
 --
 -- Disparadores `exit_teams_detall`
@@ -514,10 +532,6 @@ CREATE TABLE `exit_tools_detall` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `exit_tools_detall`
---
-
---
 -- Disparadores `exit_tools_detall`
 --
 DELIMITER $$
@@ -561,10 +575,6 @@ CREATE TABLE `exit_tools_master` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `exit_tools_master`
---
-
 -- --------------------------------------------------------
 
 --
@@ -579,10 +589,6 @@ CREATE TABLE `expiration_stock` (
   `note` varchar(150) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `expiration_stock`
---
 
 -- --------------------------------------------------------
 
@@ -691,10 +697,6 @@ CREATE TABLE `integridad_stock_plant` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `integridad_stock_plant`
---
-
 -- --------------------------------------------------------
 
 --
@@ -717,6 +719,8 @@ CREATE TABLE `intergridad_exit_product_detalle` (
 -- Volcado de datos para la tabla `intergridad_exit_product_detalle`
 --
 
+INSERT INTO `intergridad_exit_product_detalle` (`id_integridad`, `exit_product_detalle`, `quantity`, `old_quantity`, `id_user`, `note`, `state`, `process`, `date_create`) VALUES
+(1, 1, 0, 1, 7, 'cancelado pedido', 0, 'delete', '2017-12-07 15:24:22');
 
 -- --------------------------------------------------------
 
@@ -735,6 +739,10 @@ CREATE TABLE `measure` (
 --
 -- Volcado de datos para la tabla `measure`
 --
+
+INSERT INTO `measure` (`id_measure`, `name_measure`, `prefix_measure`, `id_user_create`, `date_create`) VALUES
+(1, 'Kilogramo', 'Kg', 7, '2017-12-07 14:58:22');
+
 -- --------------------------------------------------------
 
 --
@@ -786,7 +794,9 @@ CREATE TABLE `products` (
 -- Volcado de datos para la tabla `products`
 --
 
-
+INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `toxicological_category`, `code`, `id_user_create`, `id_cellar`, `num_orders`, `zone`, `creation_date`) VALUES
+(1, 'Bicarbonato de sodio', 'Bicarbonato de sodio', 'No', '', 7, 1, 1, 'A', '2017-12-07 15:20:26'),
+(2, 'Bicarbonato de sodio', 'Bicarbonato de sodio a', 'No', '', 7, 2, 1, 'A', '2017-12-07 15:20:26');
 
 -- --------------------------------------------------------
 
@@ -801,10 +811,6 @@ CREATE TABLE `recover_password` (
   `use_code` tinyint(1) NOT NULL DEFAULT '0',
   `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `recover_password`
---
 
 -- --------------------------------------------------------
 
@@ -886,6 +892,10 @@ CREATE TABLE `stock` (
 -- Volcado de datos para la tabla `stock`
 --
 
+INSERT INTO `stock` (`id_stock`, `id_product`, `nom_lot`, `amount`, `amount_income`, `expiration_date`, `expiration_create`, `comercializadora`, `unit_measure`, `id_user_create`, `state`) VALUES
+(1, 1, '3erf67', 3, 3, '2018-12-14', '2017-12-07 15:01:16', 'La granja', 1, 7, 1),
+(2, 2, 'e45r56', 20, 1, '2018-01-12', '2017-12-07 15:02:16', 'La granja', 1, 7, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -904,6 +914,11 @@ CREATE TABLE `stock_plant` (
 --
 -- Volcado de datos para la tabla `stock_plant`
 --
+
+INSERT INTO `stock_plant` (`id_stock_plant`, `id_stock`, `quantity`, `id_exit_product`, `state`, `date_create`) VALUES
+(1, 1, 1, 1, 0, '2017-12-07 15:20:27'),
+(2, 2, 1, 1, 1, '2017-12-07 15:20:27');
+
 -- --------------------------------------------------------
 
 --
@@ -922,10 +937,6 @@ CREATE TABLE `tools` (
   `state` set('0','1') NOT NULL DEFAULT '1',
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tools`
---
 
 -- --------------------------------------------------------
 
@@ -1214,12 +1225,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `cellar`
 --
 ALTER TABLE `cellar`
-  MODIFY `id_cellar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_cellar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `equipments`
 --
 ALTER TABLE `equipments`
-  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_equipment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `exit_detalle_plant`
 --
@@ -1229,47 +1240,47 @@ ALTER TABLE `exit_detalle_plant`
 -- AUTO_INCREMENT de la tabla `exit_equipment_master`
 --
 ALTER TABLE `exit_equipment_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `exit_master_plant`
 --
 ALTER TABLE `exit_master_plant`
-  MODIFY `id_exit_master` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_exit_master` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_detalle`
 --
 ALTER TABLE `exit_product_detalle`
-  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_exit_product_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `exit_product_master`
 --
 ALTER TABLE `exit_product_master`
-  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_exit_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `exit_teams_detall`
 --
 ALTER TABLE `exit_teams_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_detall`
 --
 ALTER TABLE `exit_tools_detall`
-  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_exit_detall` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `exit_tools_master`
 --
 ALTER TABLE `exit_tools_master`
-  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_exit` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `expiration_stock`
 --
 ALTER TABLE `expiration_stock`
-  MODIFY `id_expiration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_expiration` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `integridad_stock_plant`
 --
 ALTER TABLE `integridad_stock_plant`
-  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_integridad` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `intergridad_exit_product_detalle`
 --
@@ -1279,17 +1290,17 @@ ALTER TABLE `intergridad_exit_product_detalle`
 -- AUTO_INCREMENT de la tabla `measure`
 --
 ALTER TABLE `measure`
-  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_measure` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `recover_password`
 --
 ALTER TABLE `recover_password`
-  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_recover` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
@@ -1299,22 +1310,22 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `stock_plant`
 --
 ALTER TABLE `stock_plant`
-  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_stock_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tools`
 --
 ALTER TABLE `tools`
-  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_tool` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- Restricciones para tablas volcadas
 --
