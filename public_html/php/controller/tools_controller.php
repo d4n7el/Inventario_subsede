@@ -73,6 +73,10 @@
 		}
 		public function get_tools($herramientas,$marca,$fecha_inicial,$fecha_final,$limit,$offset){
 			try {
+				$_SESSION["exporExcel"] = array(
+					'datos' => array('Herramienta','Bodega','Marca - Serial','Total','Disponible','Estado','Creación'),
+					'sql' => "SELECT tools.name_tool,cellar.name_cellar, tools.mark,tools.total_quantity, tools.quantity_available,tools.state, tools.create_date FROM tools INNER JOIN cellar ON tools.id_cellar = cellar.id_cellar WHERE name_tool LIKE '$herramientas' AND mark LIKE '$marca' AND DATE(create_date) BETWEEN '$fecha_inicial' AND '$fecha_final' AND zone = '$this->zone' "
+				);
 				$sql = "SELECT * FROM tools INNER JOIN cellar ON tools.id_cellar = cellar.id_cellar WHERE name_tool LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? AND zone = '$this->zone' ORDER BY create_date DESC  LIMIT $limit OFFSET $offset";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($herramientas,$marca,$fecha_inicial,$fecha_final));
@@ -182,8 +186,13 @@
         	}
 		}
 		public function get_exit_tools($tool,$cedula,$fecha_inicial,$fecha_final,$estado,$limit,$offset){
-
 			try {
+				$_SESSION["exporExcel"] = array(
+					'datos' => array('Herramienta','Marca -Serial','Cantidad','Nota','Quien recibe','Nombre quien entrega','Apellido quien entrega','Retornado','fecha'),
+					'sql' => "SELECT tools.name_tool, tools.mark, exit_tools_detall.quantity, exit_tools_detall.note_received, exit_tools_master.name_user_receive, user.name_user,user.last_name_user,exit_tools_detall.returned, exit_tools_master.date_create FROM exit_tools_master 
+						INNER JOIN exit_tools_detall ON exit_tools_master.id_exit = exit_tools_detall.id_exit 
+						INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user WHERE exit_tools_detall.state = '$estado' AND id_user_receives LIKE '$cedula' AND name_tool LIKE '$tool' AND exit_tools_master.date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND tools.zone = '$this->zone' "
+				);
 				$sql_consult = $this->db->prepare("SELECT exit_tools_master.id_exit,exit_tools_master.id_user_receives,exit_tools_detall.returned,exit_tools_master.name_user_receive,exit_tools_master.id_user_delivery,exit_tools_master.date_create,exit_tools_detall.id_exit_detall,exit_tools_detall.id_tool,exit_tools_detall.quantity,exit_tools_detall.note_received,user.name_user,user.last_name_user,tools.name_tool,tools.mark,tools.total_quantity,tools.quantity_available FROM exit_tools_master 
 					INNER JOIN exit_tools_detall ON exit_tools_master.id_exit = exit_tools_detall.id_exit 
 					INNER JOIN tools ON exit_tools_detall.id_tool = tools.id_tool INNER JOIN user ON exit_tools_master.id_user_delivery = user.id_user WHERE exit_tools_detall.state = ? AND id_user_receives LIKE ? AND name_tool LIKE ? AND exit_tools_master.date_create BETWEEN ? AND ? AND tools.zone = '$this->zone' LIMIT $limit OFFSET $offset "); 

@@ -25,6 +25,10 @@
 		}
 		public function get_search_stock($id_stock,$lote,$cellar,$product,$casa,$fecha_inicial,$fecha_final,$vencimiento,$estado,$limit,$offset){
 			try {
+				$_SESSION["exporExcel"] = array(
+					'datos' => array('Producto','Bodega','Vencimiento','Cantidad','Medida','Lote','Comercializadora'),
+					'sql' => "SELECT name_product, name_cellar, expiration_date,amount, name_measure , nom_lot, comercializadora FROM get_stock WHERE id_stock LIKE '$id_stock' AND nom_lot LIKE '$lote' AND name_cellar LIKE'$cellar' AND  name_product LIKE '$product' AND comercializadora LIKE '$casa' AND expiration_date LIKE '$vencimiento' AND expiration_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND state LIKE $estado AND zone = '$this->zone' ORDER BY id_stock"
+				);
 				$sql = "SELECT * FROM get_stock WHERE id_stock LIKE '$id_stock' AND nom_lot LIKE '$lote' AND name_cellar LIKE'$cellar' AND  name_product LIKE '$product' AND comercializadora LIKE '$casa' AND expiration_date LIKE '$vencimiento' AND expiration_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND state LIKE $estado AND zone = '$this->zone' ORDER BY id_stock DESC LIMIT $limit OFFSET $offset" ;
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();

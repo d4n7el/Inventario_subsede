@@ -32,6 +32,12 @@ div#modal_mensajes .modal-content{
 	background-color: rgb(0,112,137);
 	color: white !important;
 }
+a#exportExcel{
+	top: 1em;
+	left: 13.5em;
+	z-index: 300;
+	position: fixed;
+}
 div.icono i{
 	font-size: 8em;
 }
@@ -631,7 +637,8 @@ div#ilse img{
 		left: 1.5%;
 	}
 	a.brand-logo img{
-		width: 100%;
+		width: 90%;
+		margin-left: 1em;
 		margin-top: .3em;
 		opacity: 1;
 	}

@@ -136,12 +136,21 @@ function eliminar_eventos(){
 	$('i.menos').off('click');
 	$('button.add_destinatario').off('click');
 	$('button.expired_output').off('click');
+	$('button.view_info_cellar').off('click');
+	$('a#exportExcel').off('click');
 }
 var recargar_eventos = function(){
 	eliminar_eventos();
 	next_view_actions_height = $('div#view_actions').height();
 	$('div#next_view_actions').css('margin-top', next_view_actions_height+"px");
 	$('.collapsible').collapsible();
+	$('a#exportExcel').on('click', function(event) {
+		var ruta = $(this).attr('ruta');
+		formData = {
+			'imprimir': 1,
+		}
+		ajax_get_data(ruta,formData);
+	});
 	$('.icons_select').on('click', function(event) {
 		var name_icon = $(this).attr('name_icon');
 		$('input#icon_cellar').val(name_icon);
@@ -388,6 +397,14 @@ var recargar_eventos = function(){
 		var ruta = "../php/products/index.php";
 		var id_product = $(this).attr('product');
 		$("div#modal_center div.modal-content").load(ruta,{id_product: id_product},function() {
+			recargar_eventos();
+		});
+	});
+	$('button.view_info_cellar').on('click', function(event) {
+		event.preventDefault();
+		var ruta = $(this).attr('ruta');
+		var id_cellar = $(this).attr('cellar');
+		$("div#modal_right div.modal-content").load(ruta,{id_cellar: id_cellar},function() {
 			recargar_eventos();
 		});
 	});

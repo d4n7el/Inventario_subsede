@@ -77,6 +77,10 @@
 		}
 		public function get_products($producto,$bodega,$fecha_inicial,$fecha_final,$limit, $offset){
 			try {
+				$_SESSION["exporExcel"] = array(
+					'datos' => array('producto','bodega','Categoria toxicologica','Ica','Descripcion','Numero de ordenes','Creacion'),
+					'sql' => "SELECT name_product, name_cellar, toxicological,code, description_product, num_orders,creation_date FROM get_products WHERE name_product LIKE '%$producto%' AND name_cellar LIKE '$bodega' AND DATE(creation_date) BETWEEN '$fecha_inicial' AND '$fecha_final' AND zone = '$this->zone' ORDER BY id_product"
+				);
 				$sql = "SELECT * FROM get_products WHERE name_product LIKE '%$producto%' AND name_cellar LIKE '$bodega' AND DATE(creation_date) BETWEEN '$fecha_inicial' AND '$fecha_final' AND zone = '$this->zone' ORDER BY id_product DESC LIMIT $limit OFFSET $offset ";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();

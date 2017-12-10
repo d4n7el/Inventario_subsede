@@ -57,14 +57,14 @@
 	<div class="col s6">
 		<?php  
 		foreach ($icons as $key => $icon) { ?>
-			<i class="material-icons icons_select" name_icon="icon <?php echo $icon ?>" ><?php echo $icon ?></i>
+			<i class="material-icons icons_select <?php echo (isset($tipoImage) and trim($tipoImage[0]) == 'icon' and $icon == trim($tipoImage[1])) ? 'iconActive' : "" ?> " name_icon="icon <?php echo $icon ?>" ><?php echo $icon ?></i>
 			<?php
 		} ?>
 	</div>
 	<div class="col s6">
 	<?php  
 		foreach ($icons_two as $key => $icon) { ?>
-			<div class="col s6 icons_select centrar" name_icon="image <?php echo $icon ?>" style="max-height: 2em; min-height: 2em">
+			<div class="col s6 icons_select centrar <?php echo (isset($tipoImage) and trim($tipoImage[0]) == 'image' and $icon == trim($tipoImage[1])) ? 'iconActive' : "" ?>"  name_icon="image <?php echo $icon ?>" style="max-height: 2em; min-height: 2em">
 				<img src="<?php $_SERVER['DOCUMENT_ROOT'] ?> /image/<?php echo $icon ?>" style="width: 70%; ">
 			</div>
 			<?php

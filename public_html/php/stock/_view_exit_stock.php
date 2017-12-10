@@ -72,7 +72,10 @@
 	</div>
 </div>
 <div class="row" id="view_actions_table_next">
-<?php 
+	<a class="btn-floating btn-primary" id="exportExcel" target="_blank" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/export/">
+		<i class="material-icons color_letra_secundario left">file_download</i>
+	</a>
+	<?php 
 	if (count($retorno_exit) > 0) {
 		foreach ($retorno_exit as $key => $value) { 
 			$category = new Products();

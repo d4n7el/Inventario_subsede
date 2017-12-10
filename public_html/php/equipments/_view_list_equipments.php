@@ -69,6 +69,9 @@
 	</div>
 </div>
 <div class="row" id="view_actions_table_next">
+	<a class="btn-floating btn-primary" id="exportExcel" target="_blank" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/export/">
+		<i class="material-icons color_letra_secundario left">file_download</i>
+	</a>
 	<?php 
 	foreach ($retorno_equipos as $key => $value) { ?>
 		<div class=" tabla col s12 " id="celda_<?php echo $value['id_exit_product_master'].$value['id_exit_product_detalle'] ?>" >

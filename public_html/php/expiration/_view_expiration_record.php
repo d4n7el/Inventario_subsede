@@ -55,6 +55,9 @@
 	</div>
 </div>
 <div id="view_actions_table_next">
+	<a class="btn-floating btn-primary" id="exportExcel" target="_blank" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/export/">
+		<i class="material-icons color_letra_secundario left">file_download</i>
+	</a>
 	<?php
 	if (count($retorno_expitarion) > 0 ) { 
 		foreach ($retorno_expitarion as $key => $value) { ?>

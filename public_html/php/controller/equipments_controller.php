@@ -75,6 +75,10 @@
 		}
 		public function get_equipments_pag($id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final,$estado,$limit,$offset){
 			try {
+				$_SESSION["exporExcel"] = array(
+					'datos' => array('Equipo','Bodega','Marca -Serial','Cantidad Total','Cantidad disponible','Estado','creación'),
+					'sql' => "SELECT equipments.name_equipment, cellar.name_cellar, equipments.mark, equipments.total_quantity, equipments.quantity_available, equipments.state, equipments.create_date FROM equipments INNER JOIN cellar ON equipments.id_cellar = cellar.id_cellar  WHERE state LIKE '$estado' AND  id_equipment LIKE '$id_equipment'  AND name_equipment LIKE '$equipo' AND mark LIKE '$marca' AND DATE(create_date) BETWEEN '$fecha_inicial' AND '$fecha_final' AND zone = '$this->zone' "
+				);
 				$sql = "SELECT * FROM equipments INNER JOIN cellar ON equipments.id_cellar = cellar.id_cellar  WHERE state LIKE ? AND  id_equipment LIKE ?  AND name_equipment LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? AND zone = '$this->zone' ORDER BY id_equipment DESC LIMIT $limit OFFSET $offset";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($estado,$id_equipment,$equipo,$marca,$fecha_inicial,$fecha_final));
@@ -177,6 +181,10 @@
 		public function get_exit_equipments($team,$cedula,$fecha_inicial,$fecha_final,$limit,$offset){
 			try {
 
+				$_SESSION["exporExcel"] = array(
+					'datos' => array('Equipo','Cantidad','Quien entrega','Nota','Retornado','Quien recibe','Fecha'),
+					'sql' => "SELECT  equipments.name_equipment, exit_teams_detall.quantity, user.name_user, exit_teams_detall.note,exit_teams_detall.returned, exit_equipment_master.name_user_receives,exit_equipment_master.date_create FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE name_equipment LIKE '$team'  AND id_user_receives LIKE '$cedula' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND equipments.zone = '$this->zone' "
+				);
 				$sql = "SELECT exit_equipment_master.date_create, exit_teams_detall.id_exit, user.name_user, equipments.name_equipment, exit_teams_detall.quantity, exit_teams_detall.note, exit_teams_detall.id_exit_detall, exit_teams_detall.id_equipment,exit_teams_detall.returned, exit_equipment_master.name_user_receives FROM exit_equipment_master INNER JOIN exit_teams_detall ON exit_equipment_master.id_exit = exit_teams_detall.id_exit INNER JOIN equipments ON exit_teams_detall.id_equipment = equipments.id_equipment INNER JOIN user ON exit_equipment_master.id_user_delivery = user.id_user WHERE name_equipment LIKE ?  AND id_user_receives LIKE ? AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND equipments.zone = '$this->zone' ORDER BY exit_equipment_master.id_exit DESC LIMIT $limit OFFSET $offset ";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($team,$cedula));

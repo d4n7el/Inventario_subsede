@@ -38,6 +38,10 @@
 		}
 		public function index($filter,$fecha_inicial,$fecha_final,$expiration_date,$limit,$offset){
 			try {
+				$_SESSION["exporExcel"] = array(
+					'datos' => array('Producto','Lote','Cantidad','Vencimiento','Usuario registro','nota'),
+					'sql' => "SELECT name_product,nom_lot, amount_due, expiration_date, name_user, note FROM index_expiration_record WHERE creation BETWEEN '$fecha_inicial' AND '$fecha_final' AND name_product LIKE '%$filter%' "
+				);
 				$sql = "SELECT * FROM index_expiration_record WHERE creation BETWEEN '$fecha_inicial' AND '$fecha_final' AND name_product LIKE '%$filter%' LIMIT $limit OFFSET $offset " ;
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();

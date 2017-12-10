@@ -17,7 +17,7 @@
 			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">subject</i>
 			            <input id="nombre_marca" type="text" class="validate" name="marca" autocomplete="off">
-			            <label for="nombre_marca" class="">Marca</label>
+			            <label for="nombre_marca" class="">Marca - Serial</label>
 			        </div>
 			        <div class="input-field col s12 m12">
 			        	<?php $cellar_optional = true ?>

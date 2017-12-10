@@ -21,7 +21,7 @@
 			        <div class="input-field col s12 m12">
 			            <i class="material-icons prefix">subject</i>
 			            <input id="marca" type="text" class="validate" name="marca" autocomplete="off">
-			            <label for="marca" class="">Marca</label>
+			            <label for="marca" class="">Marca - Serial</label>
 			        </div>
 			        <div class="input-field col s12 m12">
 			        	<i class="material-icons prefix">business_center</i>

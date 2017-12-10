@@ -68,7 +68,7 @@
 		</div>
 		<div class="col s2 m2 centrar head_cell hide-on-small-only">
 			<a href="#" class="tabla fondo_blanco" order="quantity DESC">
-				<strong>Bodega  </strong>
+				<strong>Lote  </strong>
 			</a>
 		</div>
 		<div class="col s3 m1 centrar head_cell">
@@ -79,6 +79,9 @@
 	</div>
 </div>
 <div class="row" id="view_actions_table_next">
+	<a class="btn-floating btn-primary" id="exportExcel" target="_blank" href="<?php $_SERVER['DOCUMENT_ROOT']?>/php/export/">
+		<i class="material-icons color_letra_secundario left">file_download</i>
+	</a>
 	<?php 
 	if (count($retorno_stock) > 0) {
 		foreach ($retorno_stock as $key => $value) { 
@@ -104,7 +107,7 @@
 				</div>
 				<div class="col s2 m2 second_cell hide-on-small-only">
 					<h6 class="col s12 center color_letra_secundario">
-						<?php echo $value['name_cellar']?>
+						<?php echo $value['nom_lot']?>
 					</h6>
 				</div>
 				<div class="col s3 m1 second_cell">

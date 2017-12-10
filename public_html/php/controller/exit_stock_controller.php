@@ -4,6 +4,7 @@
 		private $retorno;
 		private $zone;
 		public function __construct(){
+			session_start();
 			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
 			$this->db = Conexion::conect();
 			$this->zone = $_SESSION["user_zone"];
@@ -73,6 +74,10 @@
 		public function get_exit_stock($id_exit_product,$destino,$product,$cellar,$lote,$fecha_inicial,$fecha_final,$estado,$order,$limit,$offset){
 			try {
 				$orderBy = ($order == "%%") ?  'ORDER BY id_exit_product_master DESC' : 'ORDER BY '.$order;
+				$_SESSION["exporExcel"] = array(
+					'datos' => array('Producto','Bodega','Lote','Categotia toxicologica','Cantidad de salida','Medida','Nota','CC recibe', 'Nombre', 'Nombre quien entrega', 'Apellido quien entrega','creacion'),
+					'sql' => "SELECT name_product,name_cellar,nom_lot,toxicological_category,quantity,prefix_measure,note,user_receives,name_receive, name_user, last_name_user, date_create FROM show_exit_stock WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND nom_lot LIKE '$lote' AND destination LIKE '$destino' AND id_exit_product_master LIKE '$id_exit_product' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND state = $estado "
+				);
 				$sql = "SELECT * FROM show_exit_stock WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND nom_lot LIKE '$lote' AND destination LIKE '$destino' AND id_exit_product_master LIKE '$id_exit_product' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' AND state = $estado $orderBy LIMIT $limit OFFSET $offset ";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute();
