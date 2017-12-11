@@ -88,6 +88,19 @@
             	$e->getMessage();
         	}
 		}
+		public function count_tools($herramientas,$marca,$fecha_inicial,$fecha_final){
+			try {
+				$sql = "SELECT COUNT(id_tool) as count FROM tools INNER JOIN cellar ON tools.id_cellar = cellar.id_cellar WHERE name_tool LIKE ? AND mark LIKE ? AND DATE(create_date) BETWEEN ? AND ? AND zone = '$this->zone'";
+				$sql_consult = $this->db->prepare($sql);
+				$sql_consult->execute(array($herramientas,$marca,$fecha_inicial,$fecha_final));
+				$result = $sql_consult->fetch();
+				$this->db = null;
+				return $result;
+				
+			} catch (PDOException $e) {
+            	$e->getMessage();
+        	}
+		}
 		public function get_cant_tools($select_cantidades){
 			try {
 				$sql_consult = $this->db->prepare("SELECT id_tool, quantity_available FROM tools WHERE $select_cantidades");
@@ -123,18 +136,7 @@
             	$e->getMessage();
         	}
 		}
-		public function count_tools(){
-			try {
-				$sql_consult = $this->db->prepare("SELECT COUNT(id_tool) AS count FROM tools WHERE id_cellar = 6" );
-				$sql_consult->execute();
-				$result = $sql_consult->fetch();
-				$this->db = null;
-				return $result;
-				
-			} catch (PDOException $e) {
-            	$e->getMessage();
-        	}
-		}
+
 		public function update_tools($nombre,$marca,$cantidad,$bodega,$id_herramienta,$id_user){
 			try {
 				$sql_consult = $this->db->prepare('UPDATE tools SET name_tool = ?, mark = ?,  total_quantity = ?, id_cellar = ?, id_user_create = ?  WHERE id_tool = ? ');

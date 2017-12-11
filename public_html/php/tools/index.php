@@ -14,7 +14,7 @@
 	$fecha_final = isset($_REQUEST['fecha_final'])? $_REQUEST['fecha_final'] : $tomorrow;
 	$limit = 40;
 	$offset = $limit * $pagina;
-	$retorno_count_tools = $count_tools->count_tools();
+	$retorno_count_tools = $count_tools->count_tools($tools,$marca,$fecha_inicial,$fecha_final);
     $count_rows = $retorno_count_tools['count'];
 	$href = '/php/tools/index.php';
 

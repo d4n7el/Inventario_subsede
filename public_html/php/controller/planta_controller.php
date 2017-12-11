@@ -7,11 +7,16 @@
 		public function __construct(){
 			require_once($_SERVER['DOCUMENT_ROOT'].'/php/conexion.php');
 			$this->db = Conexion::conect();
+			session_start();
 			$this->retorno = Array();
 			$this->zone = $_SESSION["user_zone"];
 		}
 		public function index_stock_planta($group,$product,$cellar,$nameReceive, $prefix,$fecha_inicial,$fecha_final,$order, $limit, $offset){
 			try {
+				$_SESSION["exporExcel"] = array(
+					'datos' => array('Producto','Bodega','Lote','Cantidad','Unidad de medida','Origen','quien recibe','fecha','Vencimiento','Cataegoria','Ica'),
+					'sql' =>  "SELECT name_product, name_cellar, nom_lot, quantity, prefix_measure , proceso, name_receive, DATE(date_create) as date_create,expiration_date,toxicological,code FROM index_stock_plant WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND name_receive LIKE '%$nameReceive%' AND prefix_measure LIKE '$prefix' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final'"
+				);
 				$orderBy = ($order == "%%") ?  'ORDER BY date_create DESC' : 'ORDER BY '.$order;
 				$groupBy = ($group == "%%") ?  '' : 'GROUP BY '.$group;
 				$sum = ($group == "%%") ?  '' : ',SUM(quantity) as acumulado';
@@ -124,6 +129,10 @@
 		}
 		public function exit_stock_planta($product,$cellar,$nameReceive,$fecha_inicial,$fecha_final,$limit,$offset){
 			try {
+				$_SESSION["exporExcel"] = array(
+					'datos' => array('Producto','Bodega','Lote','Cantidad','Unidad de medida','Categoria toxicologica','Ica','Destino', 'CC quien recibe', 'Nombre quien recibe','Nombre quien entrega','Apellido quien entrega','nota','creación'),
+					'sql' => "SELECT name_product, name_cellar, nom_lot, quantity, prefix_measure, toxicological, code, destination, id_user_receives, name_user_receives, name_user,last_name_user, note, date_create FROM view_exit_plant WHERE name_product LIKE '$product' AND name_cellar LIKE '$cellar' AND id_user_receives LIKE '$nameReceive' AND date_create BETWEEN '$fecha_inicial' AND '$fecha_final' "
+				);
 				$sql =  "SELECT *  FROM view_exit_plant WHERE name_product LIKE ? AND name_cellar LIKE ?  AND id_user_receives LIKE ? AND date_create BETWEEN ? AND ? ORDER BY id_exit_master DESC LIMIT $limit OFFSET $offset ";
 				$sql_consult = $this->db->prepare($sql);
 				$sql_consult->execute(array($product,$cellar,$nameReceive,$fecha_inicial,$fecha_final));

@@ -64,6 +64,7 @@
 	<?php  
 	if (count($retorno_exit_planta) > 0) {  
 		foreach ($retorno_exit_planta as $key => $exit) { 
+      $tipoImage = explode(" ",$exit['icon_cellar']);
 			$vencimiento = date('Y-m-d', strtotime($exit['expiration_date']));
             $category = new Products();
             $fondo = $category->category_color($exit['toxicological']);
@@ -79,11 +80,17 @@
                     <label for="nota" class="">Nota</label>
                 </div>
                 <figure class="icon-cellar col s12 centrar">
-                    <img src="<?php echo $exit['icon_cellar'] ?>" alt="">
+                  <?php if ($tipoImage[0] == 'image') { ?>
+                    <img src="<?php $_SERVER['DOCUMENT_ROOT']?>/image/<?php echo trim($tipoImage[1]) ?>" alt="" class="">
+                    <?php 
+                  }else{ ?>
+                    <i class="material-icons color_letra_terciario" style="font-size: 4em" ><?php echo trim($tipoImage[1]) ?></i>
+                    <?php 
+                  } ?>
                 </figure>
            		<div class="card-content white-text">
-                <h5 class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo ($fecha < $vencimiento) ? "" : "Vencido" ?></h5>
-      			 <p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo "Producto: ".$exit['name_product'] ?></p>
+                    <h5 class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo ($fecha < $vencimiento) ? "" : "Vencido" ?></h5>
+      			    <p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo "Producto: ".$exit['name_product'] ?></p>
         			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center"><?php echo "Bodega: ".$exit['name_cellar'] ?></p>
         			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center">Lote : <?php echo $exit['nom_lot']; ?></p>
         			<p class="<?php echo ($fecha < $vencimiento) ? "color_letra_secundario" : "color_letra_danger" ?> center">Cantidad : <?php echo $exit['quantity']; ?></p>
@@ -106,7 +113,7 @@
                     } ?>	
             	</div>
           	</div>
-         </div>
+        </div>
         <?php
         }
 	   }
