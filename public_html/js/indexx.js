@@ -267,7 +267,6 @@ var recargar_eventos = function(){
 			'state': state
 		};
 		$('h6#'+detalle+master).text(mensaje);
-		console.log(formData);
 		ajax_get_data(ruta,formData);
 	});
 	$('button.flujo_alterno,a.flujo_alterno').on('click', function(event) {
@@ -507,7 +506,6 @@ var recargar_eventos = function(){
 			'id_element': id_element
 		}
 		div_id = id_exit_master+id_exit_detalle+id_element;
-		console.log(div_id);
 		$('div#modal_center div.modal-content form').load(ruta,formData,function() {
 			$('div#modal_center div.modal-content form').attr('action',ruta_update);
 			recargar_eventos();
@@ -525,7 +523,6 @@ var recargar_eventos = function(){
 			'stock': stock
 		}
 		div_id = procceso+id_process+stock;
-		console.log(div_id);
 		$('div#modal_center div.modal-content form').load(ruta,formData,function() {
 			$('div#modal_center div.modal-content form').attr('action',ruta_update);
 			recargar_eventos();
@@ -674,7 +671,6 @@ function ajax_set_form_data(ruta,formData){
 	    contentType: false,
 	    processData: false, 
 	    success: function(response){
-	    	console.log(response);
 	    	$('#modal_mensajes').modal('close');
 	    	success(response);
 	    	if (response['status']==1 && response['process']=='create')  {
@@ -725,9 +721,6 @@ function request_user(ruta,formData){
 	    dataType: "json",
 	    data: formData,
 	    success: function(response){
-	    	console.log(ruta);
-	    	console.log(response);
-	    	console.log("aaaa");
 	    	$('#modal_mensajes').modal('close');
 	    	var response = jQuery.parseJSON(response);
 	    	$.each(response,function(index, value) {
@@ -910,7 +903,6 @@ function limpiar_exit(){
 	$('div.destino_salida').html(html_destino);
 }
 function view_btn_imprimir(response){
-	console.log(response);
 	if (response['process'] == "imprimir" && response['status'] == 1) {
 		$('a#new_impresion').removeClass('hide');
 		$('button#generar_pdf').addClass('hide');	
