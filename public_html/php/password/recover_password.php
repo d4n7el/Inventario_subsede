@@ -1,11 +1,12 @@
 <?php
+	global $secret; 
 	if (isset($_REQUEST['recover']) AND $_REQUEST['recover'] == true) {
 	//Librerías para el envío de mail
 	include_once($_SERVER['DOCUMENT_ROOT'].'/php/mailer/PHPMailer/class.phpmailer.php');
 	include_once($_SERVER['DOCUMENT_ROOT'].'/php/mailer/PHPMailer/class.smtp.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/password_controller.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/php/controller/users_controller.php');
-	require_once($_SERVER['DOCUMENT_ROOT'].'/php/secret.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/php/config.php');
 	$code = new Password();
 	$insert_code = new Password();
 	$user = new Users();

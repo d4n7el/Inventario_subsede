@@ -1,7 +1,8 @@
 <?php 
+	global $secret; 
 	if (isset($_REQUEST['cedula'])) {
 		$cedula = $_REQUEST['cedula'];
-		require_once($_SERVER['DOCUMENT_ROOT'].'/php/secret.php');
+		require_once($_SERVER['DOCUMENT_ROOT'].'/php/config.php');
 		$data = array(
 			'documento' => $_REQUEST['cedula'], 
 			'access_key' => $secret['user_request_users'],

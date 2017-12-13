@@ -19,7 +19,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_equipment_exit` (IN `id_user` INT, IN `id_exit` INT, IN `id_exit_detalle` INT, IN `id_element` INT, IN `nota` INT, IN `process` INT, OUT `retorno` INT)  BEGIN  
+CREATE PROCEDURE `delete_equipment_exit` (IN `id_user` INT, IN `id_exit` INT, IN `id_exit_detalle` INT, IN `id_element` INT, IN `nota` INT, IN `process` INT, OUT `retorno` INT)  BEGIN  
   DECLARE old_cantidad INT;
     SELECT quantity INTO old_cantidad FROM exit_teams_detall WHERE id_exit_detall = id_exit_detalle;
   UPDATE exit_teams_detall SET state = 0, quantity = 0, returned = 1 WHERE id_exit_detall = id_exit_detalle;
@@ -27,7 +27,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_equipment_exit` (IN `id_user
     SET retorno = 1;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_product_exit_stock` (IN `idUser` INT, IN `idExit_product` INT, IN `idExit_product_detalle` INT, IN `stocks` INT, IN `nota` VARCHAR(50), IN `proceso` VARCHAR(20), OUT `retorno` INT)  BEGIN
+ CREATE PROCEDURE `delete_product_exit_stock` (IN `idUser` INT, IN `idExit_product` INT, IN `idExit_product_detalle` INT, IN `stocks` INT, IN `nota` VARCHAR(50), IN `proceso` VARCHAR(20), OUT `retorno` INT)  BEGIN
   DECLARE cantidad INT;
     SELECT quantity INTO cantidad FROM exit_product_detalle WHERE id_exit_product_detalle = idExit_product_detalle  AND id_exit_product_master = idExit_product AND id_stock = stocks;
   UPDATE exit_product_detalle SET state = 0, quantity = 0  WHERE id_exit_product_detalle = idExit_product_detalle  AND id_exit_product_master = idExit_product AND id_stock = stocks;
@@ -36,7 +36,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_product_exit_stock` (IN `idU
    SET retorno = 1;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_tools_exit` (IN `id_user` INT, IN `id_exit` INT, IN `id_exit_detalle` INT, IN `id_element` INT, IN `nota` INT, IN `process` INT, OUT `retorno` INT)  BEGIN  
+ CREATE PROCEDURE `delete_tools_exit` (IN `id_user` INT, IN `id_exit` INT, IN `id_exit_detalle` INT, IN `id_element` INT, IN `nota` INT, IN `process` INT, OUT `retorno` INT)  BEGIN  
   DECLARE old_cantidad INT;
     SELECT quantity INTO old_cantidad FROM exit_tools_detall WHERE id_exit_detall = id_exit_detalle;
   UPDATE exit_tools_detall SET state = 0, quantity = 0 WHERE id_exit_detall = id_exit_detalle;
@@ -45,7 +45,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_tools_exit` (IN `id_user` IN
     SET retorno = 1;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `new_expiration` (IN `v_id_stock` INT, IN `v_nota` VARCHAR(140), IN `v_id_user` INT, OUT `retorno` INT)  BEGIN
+ CREATE PROCEDURE `new_expiration` (IN `v_id_stock` INT, IN `v_nota` VARCHAR(140), IN `v_id_user` INT, OUT `retorno` INT)  BEGIN
   DECLARE cantidad INT;
     SELECT amount INTO cantidad FROM stock WHERE id_stock = v_id_stock;
   UPDATE stock SET state = 0 WHERE id_stock = v_id_stock;
@@ -54,7 +54,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `new_expiration` (IN `v_id_stock` IN
     SET retorno = 1;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_cant_tools_detalle` (IN `p_cantidad` INT, IN `id_exit_master` INT, IN `p_id_exit_detalle` INT, IN `p_id_user` INT, OUT `retorno` INT)  BEGIN 
+ CREATE PROCEDURE `update_cant_tools_detalle` (IN `p_cantidad` INT, IN `id_exit_master` INT, IN `p_id_exit_detalle` INT, IN `p_id_user` INT, OUT `retorno` INT)  BEGIN 
   DECLARE v_oldcantidad INT;
     DECLARE v_cantidad_disponible INT;
     DECLARE v_tool INT;
@@ -77,12 +77,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_cant_tools_detalle` (IN `p_c
     END IF;  
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_equipments` (IN `p_equipo` VARCHAR(50), IN `p_marca` VARCHAR(50), IN `p_cantidad_total` INT, IN `p_bodega` INT, IN `p_id_user` INT, IN `p_id_equipo` INT, IN `p_estado` VARCHAR(5), OUT `retorno` INT)  BEGIN
+ CREATE PROCEDURE `update_equipments` (IN `p_equipo` VARCHAR(50), IN `p_marca` VARCHAR(50), IN `p_cantidad_total` INT, IN `p_bodega` INT, IN `p_id_user` INT, IN `p_id_equipo` INT, IN `p_estado` VARCHAR(5), OUT `retorno` INT)  BEGIN
 UPDATE equipments SET name_equipment = p_equipo, mark = p_marca, total_quantity = p_cantidad_total, id_cellar = p_bodega, id_user_create = p_id_user, state = p_estado WHERE id_equipment = p_id_equipo;
     SET retorno = 1;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_exit_stock` (IN `cantidad` FLOAT, IN `idMaster` INT(11), IN `IdDetalle` INT(11), IN `IdUser` INT(11), OUT `retorno` BOOLEAN)  BEGIN
+`update_exit_stock` (IN `cantidad` FLOAT, IN `idMaster` INT(11), IN `IdDetalle` INT(11), IN `IdUser` INT(11), OUT `retorno` BOOLEAN)  BEGIN
   DECLARE id_stocks INT(11);
   DECLARE cant_stock INT(11);
   DECLARE tipo varchar(50);
@@ -104,7 +104,7 @@ state) VALUES (IdDetalle,IdUser,"bien",old_cantidad, cantidad,"Update",1);
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_exit_stock_plant` (IN `v_detalle` INT, IN `v_proceso` VARCHAR(40), IN `v_stock` INT, IN `v_id_proceso` INT, IN `v_cantidad` INT, IN `v_nota` VARCHAR(50), OUT `retorno` INT)  NO SQL
+ CREATE PROCEDURE `update_exit_stock_plant` (IN `v_detalle` INT, IN `v_proceso` VARCHAR(40), IN `v_stock` INT, IN `v_id_proceso` INT, IN `v_cantidad` INT, IN `v_nota` VARCHAR(50), OUT `retorno` INT)  NO SQL
 BEGIN
   DECLARE old_quantity INT;
     IF v_proceso LIKE 'Interno' THEN
@@ -127,7 +127,7 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_quantity_available` (IN `equipo` INT, IN `disponible` INT, IN `nota` VARCHAR(50), IN `proceso` INT, OUT `retorno` INT)  BEGIN
+ CREATE PROCEDURE `update_quantity_available` (IN `equipo` INT, IN `disponible` INT, IN `nota` VARCHAR(50), IN `proceso` INT, OUT `retorno` INT)  BEGIN
   DECLARE v_total INT;
     DECLARE v_prestamos INT;
     DECLARE v_available INT;
@@ -156,7 +156,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_quantity_available` (IN `equ
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_quantity_available_tool` (IN `herramienta` INT, IN `disponible` INT, IN `nota` VARCHAR(50), IN `proceso` INT, OUT `retorno` INT)  NO SQL
+ CREATE PROCEDURE `update_quantity_available_tool` (IN `herramienta` INT, IN `disponible` INT, IN `nota` VARCHAR(50), IN `proceso` INT, OUT `retorno` INT)  NO SQL
 BEGIN
     DECLARE v_total INT;
     DECLARE v_prestamos INT;
@@ -186,7 +186,7 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_quantity_equipments` (IN `p_id_exit_detall` INT, IN `p_team` INT, IN `p_id_exit` INT, IN `p_quantity` INT, OUT `retorno` INT)  BEGIN
+CREATE PROCEDURE `update_quantity_equipments` (IN `p_id_exit_detall` INT, IN `p_team` INT, IN `p_id_exit` INT, IN `p_quantity` INT, OUT `retorno` INT)  BEGIN
   DECLARE v_old_quantity INT;
     DECLARE v_equipment INT;
     DECLARE v_quantity_available INT;
@@ -212,7 +212,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_quantity_equipments` (IN `p_
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_stock_plant` (IN `id_exit_product` INT, IN `id_stock_plants` INT, IN `stock` INT, IN `cantidad` FLOAT, IN `id_user` FLOAT, IN `note` CHAR(50), IN `proceso` VARCHAR(40), OUT `retorno` INT)  BEGIN
+ CREATE PROCEDURE `update_stock_plant` (IN `id_exit_product` INT, IN `id_stock_plants` INT, IN `stock` INT, IN `cantidad` FLOAT, IN `id_user` FLOAT, IN `note` CHAR(50), IN `proceso` VARCHAR(40), OUT `retorno` INT)  BEGIN
   DECLARE oldcantidad INT;
     IF proceso LIKE 'Interno' THEN      
         SELECT quantity INTO oldcantidad FROM stock_plant WHERE id_stock_plant = id_stock_plants LIMIT 1;
@@ -1002,7 +1002,7 @@ CREATE TABLE `view_exit_plant` (
 --
 DROP TABLE IF EXISTS `get_products`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `get_products`  AS  select `products`.`code` AS `code`,`products`.`toxicological_category` AS `toxicological`,`products`.`zone` AS `zone`,`products`.`id_product` AS `id_product`,`products`.`name_product` AS `name_product`,`products`.`description_product` AS `description_product`,`products`.`id_cellar` AS `id_cellar`,`products`.`num_orders` AS `num_orders`,`products`.`creation_date` AS `creation_date`,`cellar`.`name_cellar` AS `name_cellar`,`cellar`.`icon_cellar` AS `icon_cellar` from (`products` join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) ;
+CREATE VIEW `get_products`  AS  select `products`.`code` AS `code`,`products`.`toxicological_category` AS `toxicological`,`products`.`zone` AS `zone`,`products`.`id_product` AS `id_product`,`products`.`name_product` AS `name_product`,`products`.`description_product` AS `description_product`,`products`.`id_cellar` AS `id_cellar`,`products`.`num_orders` AS `num_orders`,`products`.`creation_date` AS `creation_date`,`cellar`.`name_cellar` AS `name_cellar`,`cellar`.`icon_cellar` AS `icon_cellar` from (`products` join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) ;
 
 -- --------------------------------------------------------
 
@@ -1011,7 +1011,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `get_stock`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `get_stock`  AS  select `cellar`.`icon_cellar` AS `icon_cellar`,`measure`.`id_measure` AS `id_measure`,`products`.`code` AS `code`,`products`.`toxicological_category` AS `toxicological`,concat(`user`.`name_user`,' ',`user`.`last_name_user`) AS `name_receive`,`products`.`zone` AS `zone`,`stock`.`id_stock` AS `id_stock`,`stock`.`state` AS `state`,`stock`.`nom_lot` AS `nom_lot`,`stock`.`amount` AS `amount`,`stock`.`expiration_date` AS `expiration_date`,`stock`.`expiration_create` AS `expiration_create`,`stock`.`comercializadora` AS `comercializadora`,`products`.`id_product` AS `id_product`,`products`.`name_product` AS `name_product`,`measure`.`prefix_measure` AS `prefix_measure`,`measure`.`name_measure` AS `name_measure`,`products`.`id_user_create` AS `id_user_create`,`products`.`id_cellar` AS `id_cellar`,`stock`.`expiration_create` AS `creation_date`,`cellar`.`name_cellar` AS `name_cellar` from ((((`stock` join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) join `user` on((`stock`.`id_user_create` = `user`.`id_user`))) ;
+CREATE VIEW `get_stock`  AS  select `cellar`.`icon_cellar` AS `icon_cellar`,`measure`.`id_measure` AS `id_measure`,`products`.`code` AS `code`,`products`.`toxicological_category` AS `toxicological`,concat(`user`.`name_user`,' ',`user`.`last_name_user`) AS `name_receive`,`products`.`zone` AS `zone`,`stock`.`id_stock` AS `id_stock`,`stock`.`state` AS `state`,`stock`.`nom_lot` AS `nom_lot`,`stock`.`amount` AS `amount`,`stock`.`expiration_date` AS `expiration_date`,`stock`.`expiration_create` AS `expiration_create`,`stock`.`comercializadora` AS `comercializadora`,`products`.`id_product` AS `id_product`,`products`.`name_product` AS `name_product`,`measure`.`prefix_measure` AS `prefix_measure`,`measure`.`name_measure` AS `name_measure`,`products`.`id_user_create` AS `id_user_create`,`products`.`id_cellar` AS `id_cellar`,`stock`.`expiration_create` AS `creation_date`,`cellar`.`name_cellar` AS `name_cellar` from ((((`stock` join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) join `user` on((`stock`.`id_user_create` = `user`.`id_user`))) ;
 
 -- --------------------------------------------------------
 
@@ -1020,7 +1020,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `index_expiration_record`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `index_expiration_record`  AS  select `products`.`zone` AS `zone`,`expiration_stock`.`note` AS `note`,`expiration_stock`.`amount_due` AS `amount_due`,cast(`expiration_stock`.`date_create` as date) AS `creation`,`stock`.`expiration_date` AS `expiration_date`,`user`.`name_user` AS `name_user`,`products`.`name_product` AS `name_product`,`stock`.`nom_lot` AS `nom_lot` from (((`expiration_stock` join `user` on((`expiration_stock`.`id_user` = `user`.`id_user`))) join `stock` on((`expiration_stock`.`id_stock` = `stock`.`id_stock`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) ;
+CREATE VIEW `index_expiration_record`  AS  select `products`.`zone` AS `zone`,`expiration_stock`.`note` AS `note`,`expiration_stock`.`amount_due` AS `amount_due`,cast(`expiration_stock`.`date_create` as date) AS `creation`,`stock`.`expiration_date` AS `expiration_date`,`user`.`name_user` AS `name_user`,`products`.`name_product` AS `name_product`,`stock`.`nom_lot` AS `nom_lot` from (((`expiration_stock` join `user` on((`expiration_stock`.`id_user` = `user`.`id_user`))) join `stock` on((`expiration_stock`.`id_stock` = `stock`.`id_stock`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) ;
 
 -- --------------------------------------------------------
 
@@ -1029,7 +1029,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `index_stock_plant`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `index_stock_plant`  AS  select concat('Interno') AS `proceso`,`planta_stock`.`icon_cellar` AS `icon_cellar`,`planta_stock`.`state` AS `state`,`planta_stock`.`quantity` AS `quantity`,`planta_stock`.`name_user` AS `name_receive`,`planta_stock`.`prefix_measure` AS `prefix_measure`,`planta_stock`.`id_stock_plant` AS `id_proceso`,`planta_stock`.`date_create` AS `date_create`,`planta_stock`.`name_product` AS `name_product`,`planta_stock`.`name_cellar` AS `name_cellar`,`planta_stock`.`nom_lot` AS `nom_lot`,`planta_stock`.`expiration_date` AS `expiration_date`,`planta_stock`.`id_stock` AS `id_stock`,`planta_stock`.`code` AS `code`,`planta_stock`.`toxicological` AS `toxicological` from `planta_stock` union select concat('Externo') AS `proccess`,`get_stock`.`icon_cellar` AS `icon_cellar`,`get_stock`.`state` AS `state`,`get_stock`.`amount` AS `amount`,`get_stock`.`name_receive` AS `name_receive`,`get_stock`.`prefix_measure` AS `prefix_measure`,`get_stock`.`id_stock` AS `id_stock`,`get_stock`.`creation_date` AS `creation_date`,`get_stock`.`name_product` AS `name_product`,`get_stock`.`name_cellar` AS `name_cellar`,`get_stock`.`nom_lot` AS `nom_lot`,`get_stock`.`expiration_date` AS `expiration_date`,`get_stock`.`id_stock` AS `id_stock`,`get_stock`.`code` AS `code`,`get_stock`.`toxicological` AS `toxicological` from `get_stock` where (`get_stock`.`zone` = 'B') ;
+CREATE VIEW `index_stock_plant`  AS  select concat('Interno') AS `proceso`,`planta_stock`.`icon_cellar` AS `icon_cellar`,`planta_stock`.`state` AS `state`,`planta_stock`.`quantity` AS `quantity`,`planta_stock`.`name_user` AS `name_receive`,`planta_stock`.`prefix_measure` AS `prefix_measure`,`planta_stock`.`id_stock_plant` AS `id_proceso`,`planta_stock`.`date_create` AS `date_create`,`planta_stock`.`name_product` AS `name_product`,`planta_stock`.`name_cellar` AS `name_cellar`,`planta_stock`.`nom_lot` AS `nom_lot`,`planta_stock`.`expiration_date` AS `expiration_date`,`planta_stock`.`id_stock` AS `id_stock`,`planta_stock`.`code` AS `code`,`planta_stock`.`toxicological` AS `toxicological` from `planta_stock` union select concat('Externo') AS `proccess`,`get_stock`.`icon_cellar` AS `icon_cellar`,`get_stock`.`state` AS `state`,`get_stock`.`amount` AS `amount`,`get_stock`.`name_receive` AS `name_receive`,`get_stock`.`prefix_measure` AS `prefix_measure`,`get_stock`.`id_stock` AS `id_stock`,`get_stock`.`creation_date` AS `creation_date`,`get_stock`.`name_product` AS `name_product`,`get_stock`.`name_cellar` AS `name_cellar`,`get_stock`.`nom_lot` AS `nom_lot`,`get_stock`.`expiration_date` AS `expiration_date`,`get_stock`.`id_stock` AS `id_stock`,`get_stock`.`code` AS `code`,`get_stock`.`toxicological` AS `toxicological` from `get_stock` where (`get_stock`.`zone` = 'B') ;
 
 -- --------------------------------------------------------
 
@@ -1038,7 +1038,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `planta_stock`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `planta_stock`  AS  select `cellar`.`icon_cellar` AS `icon_cellar`,`products`.`code` AS `code`,`products`.`toxicological_category` AS `toxicological`,`products`.`id_product` AS `id_product`,`products`.`zone` AS `zone`,`stock`.`expiration_date` AS `expiration_date`,`stock_plant`.`state` AS `state`,`stock_plant`.`id_stock_plant` AS `id_stock_plant`,`stock_plant`.`quantity` AS `quantity`,`stock_plant`.`id_stock` AS `id_stock`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user`,`exit_product_master`.`name_receive` AS `name_receive`,`stock_plant`.`id_exit_product` AS `id_exit_product`,`stock_plant`.`date_create` AS `date_create`,`products`.`name_product` AS `name_product`,`cellar`.`name_cellar` AS `name_cellar`,`measure`.`prefix_measure` AS `prefix_measure`,`stock`.`nom_lot` AS `nom_lot` from ((((((`stock_plant` join `exit_product_master` on((`stock_plant`.`id_exit_product` = `exit_product_master`.`id_exit_product`))) join `stock` on((`stock_plant`.`id_stock` = `stock`.`id_stock`))) join `user` on((`exit_product_master`.`user_delivery` = `user`.`id_user`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) ;
+CREATE VIEW `planta_stock`  AS  select `cellar`.`icon_cellar` AS `icon_cellar`,`products`.`code` AS `code`,`products`.`toxicological_category` AS `toxicological`,`products`.`id_product` AS `id_product`,`products`.`zone` AS `zone`,`stock`.`expiration_date` AS `expiration_date`,`stock_plant`.`state` AS `state`,`stock_plant`.`id_stock_plant` AS `id_stock_plant`,`stock_plant`.`quantity` AS `quantity`,`stock_plant`.`id_stock` AS `id_stock`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user`,`exit_product_master`.`name_receive` AS `name_receive`,`stock_plant`.`id_exit_product` AS `id_exit_product`,`stock_plant`.`date_create` AS `date_create`,`products`.`name_product` AS `name_product`,`cellar`.`name_cellar` AS `name_cellar`,`measure`.`prefix_measure` AS `prefix_measure`,`stock`.`nom_lot` AS `nom_lot` from ((((((`stock_plant` join `exit_product_master` on((`stock_plant`.`id_exit_product` = `exit_product_master`.`id_exit_product`))) join `stock` on((`stock_plant`.`id_stock` = `stock`.`id_stock`))) join `user` on((`exit_product_master`.`user_delivery` = `user`.`id_user`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) ;
 
 -- --------------------------------------------------------
 
@@ -1047,7 +1047,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `show_exit_stock`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `show_exit_stock`  AS  select `products`.`zone` AS `zone`,`products`.`toxicological_category` AS `toxicological_category`,`cellar`.`icon_cellar` AS `icon_cellar`,`products`.`name_product` AS `name_product`,`cellar`.`name_cellar` AS `name_cellar`,`stock`.`nom_lot` AS `nom_lot`,`exit_product_detalle`.`id_stock` AS `id_stock`,`exit_product_detalle`.`id_exit_product_master` AS `id_exit_product_master`,`exit_product_detalle`.`quantity` AS `quantity`,`exit_product_detalle`.`note` AS `note`,`stock`.`amount` AS `amount`,`exit_product_detalle`.`id_exit_product_detalle` AS `id_exit_product_detalle`,`exit_product_detalle`.`state` AS `state`,`exit_product_master`.`user_receives` AS `user_receives`,`exit_product_master`.`destination` AS `destination`,`exit_product_master`.`delivery` AS `delivery`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user`,`exit_product_master`.`name_receive` AS `name_receive`,`exit_product_master`.`date_create` AS `date_create`,`measure`.`prefix_measure` AS `prefix_measure` from ((((((`exit_product_master` join `exit_product_detalle` on((`exit_product_master`.`id_exit_product` = `exit_product_detalle`.`id_exit_product_master`))) join `stock` on((`exit_product_detalle`.`id_stock` = `stock`.`id_stock`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `user` on((`exit_product_master`.`user_delivery` = `user`.`id_user`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) order by `exit_product_master`.`id_exit_product` ;
+CREATE VIEW `show_exit_stock`  AS  select `products`.`zone` AS `zone`,`products`.`toxicological_category` AS `toxicological_category`,`cellar`.`icon_cellar` AS `icon_cellar`,`products`.`name_product` AS `name_product`,`cellar`.`name_cellar` AS `name_cellar`,`stock`.`nom_lot` AS `nom_lot`,`exit_product_detalle`.`id_stock` AS `id_stock`,`exit_product_detalle`.`id_exit_product_master` AS `id_exit_product_master`,`exit_product_detalle`.`quantity` AS `quantity`,`exit_product_detalle`.`note` AS `note`,`stock`.`amount` AS `amount`,`exit_product_detalle`.`id_exit_product_detalle` AS `id_exit_product_detalle`,`exit_product_detalle`.`state` AS `state`,`exit_product_master`.`user_receives` AS `user_receives`,`exit_product_master`.`destination` AS `destination`,`exit_product_master`.`delivery` AS `delivery`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user`,`exit_product_master`.`name_receive` AS `name_receive`,`exit_product_master`.`date_create` AS `date_create`,`measure`.`prefix_measure` AS `prefix_measure` from ((((((`exit_product_master` join `exit_product_detalle` on((`exit_product_master`.`id_exit_product` = `exit_product_detalle`.`id_exit_product_master`))) join `stock` on((`exit_product_detalle`.`id_stock` = `stock`.`id_stock`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `user` on((`exit_product_master`.`user_delivery` = `user`.`id_user`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) order by `exit_product_master`.`id_exit_product` ;
 
 -- --------------------------------------------------------
 
@@ -1056,7 +1056,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_exit_plant`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_exit_plant`  AS  select `exit_detalle_plant`.`id_detalle` AS `id_detalle`,`exit_master_plant`.`id_exit_master` AS `id_exit_master`,`measure`.`prefix_measure` AS `prefix_measure`,`exit_master_plant`.`id_user_receives` AS `id_user_receives`,`exit_master_plant`.`name_user_receives` AS `name_user_receives`,`exit_master_plant`.`id_user_delivery` AS `id_user_delivery`,`exit_master_plant`.`destination` AS `destination`,`exit_master_plant`.`date_create` AS `date_create`,`exit_detalle_plant`.`proceso` AS `proceso`,`exit_detalle_plant`.`id_proceso` AS `id_proceso`,`exit_detalle_plant`.`quantity` AS `quantity`,`exit_detalle_plant`.`note` AS `note`,`exit_detalle_plant`.`state` AS `state`,`stock`.`id_stock` AS `id_stock`,`stock`.`nom_lot` AS `nom_lot`,`stock`.`amount` AS `amount`,`products`.`name_product` AS `name_product`,`products`.`toxicological_category` AS `toxicological`,`products`.`code` AS `code`,`cellar`.`name_cellar` AS `name_cellar`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user` from ((((((`exit_master_plant` join `exit_detalle_plant` on((`exit_master_plant`.`id_exit_master` = `exit_detalle_plant`.`id_exit__master`))) join `stock` on((`exit_detalle_plant`.`id_proceso` = `stock`.`id_stock`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) join `user` on((`exit_master_plant`.`id_user_delivery` = `user`.`id_user`))) where (`exit_detalle_plant`.`proceso` = 'Externo') union select `exit_detalle_plant`.`id_detalle` AS `id_detalle`,`exit_master_plant`.`id_exit_master` AS `id_exit_master`,`measure`.`prefix_measure` AS `prefix_measure`,`exit_master_plant`.`id_user_receives` AS `id_user_receives`,`exit_master_plant`.`name_user_receives` AS `name_user_receives`,`exit_master_plant`.`id_user_delivery` AS `id_user_delivery`,`exit_master_plant`.`destination` AS `destination`,`exit_master_plant`.`date_create` AS `date_create`,`exit_detalle_plant`.`proceso` AS `proceso`,`exit_detalle_plant`.`id_proceso` AS `id_proceso`,`exit_detalle_plant`.`quantity` AS `quantity`,`exit_detalle_plant`.`note` AS `note`,`exit_detalle_plant`.`state` AS `state`,`stock_plant`.`id_stock` AS `id_stock`,`stock`.`nom_lot` AS `nom_lot`,`stock_plant`.`quantity` AS `quantity`,`products`.`name_product` AS `name_product`,`products`.`toxicological_category` AS `toxicological_category`,`products`.`code` AS `code`,`cellar`.`name_cellar` AS `name_cellar`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user` from (((((((`exit_master_plant` join `exit_detalle_plant` on((`exit_master_plant`.`id_exit_master` = `exit_detalle_plant`.`id_exit__master`))) join `stock_plant` on((`exit_detalle_plant`.`id_proceso` = `stock_plant`.`id_stock_plant`))) join `stock` on((`stock_plant`.`id_stock` = `stock`.`id_stock`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) join `user` on((`exit_master_plant`.`id_user_delivery` = `user`.`id_user`))) ;
+CREATE VIEW `view_exit_plant`  AS  select `exit_detalle_plant`.`id_detalle` AS `id_detalle`,`exit_master_plant`.`id_exit_master` AS `id_exit_master`,`measure`.`prefix_measure` AS `prefix_measure`,`exit_master_plant`.`id_user_receives` AS `id_user_receives`,`exit_master_plant`.`name_user_receives` AS `name_user_receives`,`exit_master_plant`.`id_user_delivery` AS `id_user_delivery`,`exit_master_plant`.`destination` AS `destination`,`exit_master_plant`.`date_create` AS `date_create`,`exit_detalle_plant`.`proceso` AS `proceso`,`exit_detalle_plant`.`id_proceso` AS `id_proceso`,`exit_detalle_plant`.`quantity` AS `quantity`,`exit_detalle_plant`.`note` AS `note`,`exit_detalle_plant`.`state` AS `state`,`stock`.`id_stock` AS `id_stock`,`stock`.`nom_lot` AS `nom_lot`,`stock`.`amount` AS `amount`,`products`.`name_product` AS `name_product`,`products`.`toxicological_category` AS `toxicological`,`products`.`code` AS `code`,`cellar`.`name_cellar` AS `name_cellar`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user` from ((((((`exit_master_plant` join `exit_detalle_plant` on((`exit_master_plant`.`id_exit_master` = `exit_detalle_plant`.`id_exit__master`))) join `stock` on((`exit_detalle_plant`.`id_proceso` = `stock`.`id_stock`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) join `user` on((`exit_master_plant`.`id_user_delivery` = `user`.`id_user`))) where (`exit_detalle_plant`.`proceso` = 'Externo') union select `exit_detalle_plant`.`id_detalle` AS `id_detalle`,`exit_master_plant`.`id_exit_master` AS `id_exit_master`,`measure`.`prefix_measure` AS `prefix_measure`,`exit_master_plant`.`id_user_receives` AS `id_user_receives`,`exit_master_plant`.`name_user_receives` AS `name_user_receives`,`exit_master_plant`.`id_user_delivery` AS `id_user_delivery`,`exit_master_plant`.`destination` AS `destination`,`exit_master_plant`.`date_create` AS `date_create`,`exit_detalle_plant`.`proceso` AS `proceso`,`exit_detalle_plant`.`id_proceso` AS `id_proceso`,`exit_detalle_plant`.`quantity` AS `quantity`,`exit_detalle_plant`.`note` AS `note`,`exit_detalle_plant`.`state` AS `state`,`stock_plant`.`id_stock` AS `id_stock`,`stock`.`nom_lot` AS `nom_lot`,`stock_plant`.`quantity` AS `quantity`,`products`.`name_product` AS `name_product`,`products`.`toxicological_category` AS `toxicological_category`,`products`.`code` AS `code`,`cellar`.`name_cellar` AS `name_cellar`,`user`.`name_user` AS `name_user`,`user`.`last_name_user` AS `last_name_user` from (((((((`exit_master_plant` join `exit_detalle_plant` on((`exit_master_plant`.`id_exit_master` = `exit_detalle_plant`.`id_exit__master`))) join `stock_plant` on((`exit_detalle_plant`.`id_proceso` = `stock_plant`.`id_stock_plant`))) join `stock` on((`stock_plant`.`id_stock` = `stock`.`id_stock`))) join `products` on((`stock`.`id_product` = `products`.`id_product`))) join `cellar` on((`products`.`id_cellar` = `cellar`.`id_cellar`))) join `measure` on((`stock`.`unit_measure` = `measure`.`id_measure`))) join `user` on((`exit_master_plant`.`id_user_delivery` = `user`.`id_user`))) ;
 
 --
 -- Índices para tablas volcadas
